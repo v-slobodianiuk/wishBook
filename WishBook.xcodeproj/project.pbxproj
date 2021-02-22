@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,7 @@
 		D552C8F925E409AB000E2196 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D552C8F725E409AB000E2196 /* LaunchScreen.storyboard */; };
 		D552C90425E409AB000E2196 /* WishBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C90325E409AB000E2196 /* WishBookTests.swift */; };
 		D552C90F25E409AB000E2196 /* WishBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C90E25E409AB000E2196 /* WishBookUITests.swift */; };
+		D552C95625E40ED1000E2196 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D552C95525E40ED1000E2196 /* GoogleService-Info.plist */; };
 		DCFE730EB2A51F210E55FB5F /* Pods_WishBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAD38865F543A739815B95A /* Pods_WishBook.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		D552C90A25E409AB000E2196 /* WishBookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WishBookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D552C90E25E409AB000E2196 /* WishBookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishBookUITests.swift; sourceTree = "<group>"; };
 		D552C91025E409AB000E2196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D552C95525E40ED1000E2196 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D5B8F6121E64981C11C87744 /* Pods-WishBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBook.release.xcconfig"; path = "Target Support Files/Pods-WishBook/Pods-WishBook.release.xcconfig"; sourceTree = "<group>"; };
 		D7B9BB26A10C93618E8FA8E5 /* Pods-WishBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBookTests.debug.xcconfig"; path = "Target Support Files/Pods-WishBookTests/Pods-WishBookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EB4353458B8916543E78114C /* Pods-WishBook-WishBookUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBook-WishBookUITests.debug.xcconfig"; path = "Target Support Files/Pods-WishBook-WishBookUITests/Pods-WishBook-WishBookUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -103,7 +105,6 @@
 				D7B9BB26A10C93618E8FA8E5 /* Pods-WishBookTests.debug.xcconfig */,
 				1E796FD2BF3B3284609EE64F /* Pods-WishBookTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -147,6 +148,7 @@
 				D552C8ED25E409A9000E2196 /* ContentView.swift */,
 				D552C8F225E409AB000E2196 /* Assets.xcassets */,
 				D552C8F725E409AB000E2196 /* LaunchScreen.storyboard */,
+				D552C95525E40ED1000E2196 /* GoogleService-Info.plist */,
 				D552C8FA25E409AB000E2196 /* Info.plist */,
 				D552C8EF25E409A9000E2196 /* WishBook.xcdatamodeld */,
 				D552C8F425E409AB000E2196 /* Preview Content */,
@@ -289,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D552C8F925E409AB000E2196 /* LaunchScreen.storyboard in Resources */,
+				D552C95625E40ED1000E2196 /* GoogleService-Info.plist in Resources */,
 				D552C8F625E409AB000E2196 /* Preview Assets.xcassets in Resources */,
 				D552C8F325E409AB000E2196 /* Assets.xcassets in Resources */,
 			);
