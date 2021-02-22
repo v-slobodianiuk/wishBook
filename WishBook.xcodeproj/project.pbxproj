@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81DCAE5E129B905667CC03F8 /* Pods_WishBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BB2CCA7F39E69FB901AA1F7 /* Pods_WishBookTests.framework */; };
+		C4E94FD5221A519A7F569E85 /* Pods_WishBook_WishBookUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4698BE7F61107C199E340F5F /* Pods_WishBook_WishBookUITests.framework */; };
 		D552C8EA25E409A9000E2196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C8E925E409A9000E2196 /* AppDelegate.swift */; };
 		D552C8EC25E409A9000E2196 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C8EB25E409A9000E2196 /* SceneDelegate.swift */; };
 		D552C8EE25E409A9000E2196 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C8ED25E409A9000E2196 /* ContentView.swift */; };
@@ -16,6 +18,7 @@
 		D552C8F925E409AB000E2196 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D552C8F725E409AB000E2196 /* LaunchScreen.storyboard */; };
 		D552C90425E409AB000E2196 /* WishBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C90325E409AB000E2196 /* WishBookTests.swift */; };
 		D552C90F25E409AB000E2196 /* WishBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C90E25E409AB000E2196 /* WishBookUITests.swift */; };
+		DCFE730EB2A51F210E55FB5F /* Pods_WishBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAD38865F543A739815B95A /* Pods_WishBook.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01FDA41CF790B6BA67C24974 /* Pods-WishBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBook.debug.xcconfig"; path = "Target Support Files/Pods-WishBook/Pods-WishBook.debug.xcconfig"; sourceTree = "<group>"; };
+		05A2CE488E6B738B54FC1869 /* Pods-WishBook-WishBookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBook-WishBookUITests.release.xcconfig"; path = "Target Support Files/Pods-WishBook-WishBookUITests/Pods-WishBook-WishBookUITests.release.xcconfig"; sourceTree = "<group>"; };
+		1BB2CCA7F39E69FB901AA1F7 /* Pods_WishBookTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WishBookTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E796FD2BF3B3284609EE64F /* Pods-WishBookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBookTests.release.xcconfig"; path = "Target Support Files/Pods-WishBookTests/Pods-WishBookTests.release.xcconfig"; sourceTree = "<group>"; };
+		2DAD38865F543A739815B95A /* Pods_WishBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WishBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4698BE7F61107C199E340F5F /* Pods_WishBook_WishBookUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WishBook_WishBookUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D552C8E625E409A9000E2196 /* WishBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WishBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D552C8E925E409A9000E2196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D552C8EB25E409A9000E2196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +60,9 @@
 		D552C90A25E409AB000E2196 /* WishBookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WishBookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D552C90E25E409AB000E2196 /* WishBookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishBookUITests.swift; sourceTree = "<group>"; };
 		D552C91025E409AB000E2196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5B8F6121E64981C11C87744 /* Pods-WishBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBook.release.xcconfig"; path = "Target Support Files/Pods-WishBook/Pods-WishBook.release.xcconfig"; sourceTree = "<group>"; };
+		D7B9BB26A10C93618E8FA8E5 /* Pods-WishBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBookTests.debug.xcconfig"; path = "Target Support Files/Pods-WishBookTests/Pods-WishBookTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EB4353458B8916543E78114C /* Pods-WishBook-WishBookUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBook-WishBookUITests.debug.xcconfig"; path = "Target Support Files/Pods-WishBook-WishBookUITests/Pods-WishBook-WishBookUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCFE730EB2A51F210E55FB5F /* Pods_WishBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81DCAE5E129B905667CC03F8 /* Pods_WishBookTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +86,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4E94FD5221A519A7F569E85 /* Pods_WishBook_WishBookUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0048F2AE86B3A2D54B80A596 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				01FDA41CF790B6BA67C24974 /* Pods-WishBook.debug.xcconfig */,
+				D5B8F6121E64981C11C87744 /* Pods-WishBook.release.xcconfig */,
+				EB4353458B8916543E78114C /* Pods-WishBook-WishBookUITests.debug.xcconfig */,
+				05A2CE488E6B738B54FC1869 /* Pods-WishBook-WishBookUITests.release.xcconfig */,
+				D7B9BB26A10C93618E8FA8E5 /* Pods-WishBookTests.debug.xcconfig */,
+				1E796FD2BF3B3284609EE64F /* Pods-WishBookTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		4C57EE62CFF462D3E83BCDDC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2DAD38865F543A739815B95A /* Pods_WishBook.framework */,
+				4698BE7F61107C199E340F5F /* Pods_WishBook_WishBookUITests.framework */,
+				1BB2CCA7F39E69FB901AA1F7 /* Pods_WishBookTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D552C8DD25E409A9000E2196 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +124,8 @@
 				D552C90225E409AB000E2196 /* WishBookTests */,
 				D552C90D25E409AB000E2196 /* WishBookUITests */,
 				D552C8E725E409A9000E2196 /* Products */,
+				0048F2AE86B3A2D54B80A596 /* Pods */,
+				4C57EE62CFF462D3E83BCDDC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -146,9 +187,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D552C91325E409AB000E2196 /* Build configuration list for PBXNativeTarget "WishBook" */;
 			buildPhases = (
+				B97F3E479E68D75384F6AD08 /* [CP] Check Pods Manifest.lock */,
 				D552C8E225E409A9000E2196 /* Sources */,
 				D552C8E325E409A9000E2196 /* Frameworks */,
 				D552C8E425E409A9000E2196 /* Resources */,
+				2C7ED6E1A63912065DFBE062 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -163,6 +206,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D552C91625E409AB000E2196 /* Build configuration list for PBXNativeTarget "WishBookTests" */;
 			buildPhases = (
+				06223B8153A751FF818661FB /* [CP] Check Pods Manifest.lock */,
 				D552C8FB25E409AB000E2196 /* Sources */,
 				D552C8FC25E409AB000E2196 /* Frameworks */,
 				D552C8FD25E409AB000E2196 /* Resources */,
@@ -181,9 +225,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D552C91925E409AB000E2196 /* Build configuration list for PBXNativeTarget "WishBookUITests" */;
 			buildPhases = (
+				C13A961AA26046B7D9F8E2A3 /* [CP] Check Pods Manifest.lock */,
 				D552C90625E409AB000E2196 /* Sources */,
 				D552C90725E409AB000E2196 /* Frameworks */,
 				D552C90825E409AB000E2196 /* Resources */,
+				EAF6D0B4B0859E3939197D33 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -263,6 +309,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		06223B8153A751FF818661FB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WishBookTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2C7ED6E1A63912065DFBE062 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WishBook/Pods-WishBook-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WishBook/Pods-WishBook-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WishBook/Pods-WishBook-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B97F3E479E68D75384F6AD08 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WishBook-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C13A961AA26046B7D9F8E2A3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WishBook-WishBookUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EAF6D0B4B0859E3939197D33 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WishBook-WishBookUITests/Pods-WishBook-WishBookUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WishBook-WishBookUITests/Pods-WishBook-WishBookUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WishBook-WishBookUITests/Pods-WishBook-WishBookUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D552C8E225E409A9000E2196 /* Sources */ = {
@@ -437,6 +586,7 @@
 		};
 		D552C91425E409AB000E2196 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01FDA41CF790B6BA67C24974 /* Pods-WishBook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -459,6 +609,7 @@
 		};
 		D552C91525E409AB000E2196 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5B8F6121E64981C11C87744 /* Pods-WishBook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -481,6 +632,7 @@
 		};
 		D552C91725E409AB000E2196 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7B9BB26A10C93618E8FA8E5 /* Pods-WishBookTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -503,6 +655,7 @@
 		};
 		D552C91825E409AB000E2196 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E796FD2BF3B3284609EE64F /* Pods-WishBookTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -525,6 +678,7 @@
 		};
 		D552C91A25E409AB000E2196 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB4353458B8916543E78114C /* Pods-WishBook-WishBookUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -545,6 +699,7 @@
 		};
 		D552C91B25E409AB000E2196 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05A2CE488E6B738B54FC1869 /* Pods-WishBook-WishBookUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
