@@ -31,9 +31,12 @@ final class RootCoordinator: RootCoordinatorProtocol {
     }
     
     func showManTabView() -> AnyView {
-        return AnyView(MainTabView())
+        let tabCoordinator = MainTabCoordinator()
+        let mainTabView = MainTabView(coordinator: tabCoordinator)
+        return AnyView(mainTabView)
     }
     func showLoginView() -> AnyView {
-        return AnyView(LoginView())
+        let loginView = LoginView()
+        return AnyView(loginView)
     }
 }
