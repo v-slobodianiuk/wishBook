@@ -12,7 +12,9 @@ target 'WishBook' do
   # Add the pods for any other Firebase products you want to use in your app
   # For example, to use Firebase Authentication and Cloud Firestore
   pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
   pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift', '~> 7.1.0-beta'
 
   target 'WishBookTests' do
     inherit! :search_paths
