@@ -14,6 +14,7 @@ target 'WishBook' do
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
   pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift', '~> 7.1.0-beta'
 
   target 'WishBookTests' do
     inherit! :search_paths

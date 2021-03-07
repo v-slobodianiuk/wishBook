@@ -9,16 +9,26 @@
 /* Begin PBXBuildFile section */
 		81DCAE5E129B905667CC03F8 /* Pods_WishBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BB2CCA7F39E69FB901AA1F7 /* Pods_WishBookTests.framework */; };
 		C4E94FD5221A519A7F569E85 /* Pods_WishBook_WishBookUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4698BE7F61107C199E340F5F /* Pods_WishBook_WishBookUITests.framework */; };
+		D51B49DE25F4E7E4008ABCBB /* GoogleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */; };
+		D51B4A0A25F4E9FE008ABCBB /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51B4A0925F4E9FE008ABCBB /* AppCoordinator.swift */; };
+		D51B4A0F25F4EA31008ABCBB /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51B4A0E25F4EA31008ABCBB /* RootCoordinator.swift */; };
+		D51B4A1925F4EB70008ABCBB /* RootModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51B4A1825F4EB70008ABCBB /* RootModuleBuilder.swift */; };
+		D53D0E0B25F2D1D800E5C2D7 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E0A25F2D1D800E5C2D7 /* Coordinator.swift */; };
+		D53D0E1525F3B64500E5C2D7 /* CompositeAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E1425F3B64500E5C2D7 /* CompositeAppDelegate.swift */; };
+		D53D0E1A25F3B74200E5C2D7 /* GoogleAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E1925F3B74200E5C2D7 /* GoogleAppDelegate.swift */; };
+		D53D0E2525F3B96500E5C2D7 /* AppDelegateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2425F3B96500E5C2D7 /* AppDelegateFactory.swift */; };
+		D53D0E2A25F4150B00E5C2D7 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2925F4150B00E5C2D7 /* UserStorage.swift */; };
+		D53D0E2F25F429C900E5C2D7 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2E25F429C900E5C2D7 /* MainTabView.swift */; };
 		D552C8EA25E409A9000E2196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C8E925E409A9000E2196 /* AppDelegate.swift */; };
 		D552C8EC25E409A9000E2196 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C8EB25E409A9000E2196 /* SceneDelegate.swift */; };
-		D552C8EE25E409A9000E2196 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C8ED25E409A9000E2196 /* ContentView.swift */; };
-		D552C8F125E409A9000E2196 /* WishBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D552C8EF25E409A9000E2196 /* WishBook.xcdatamodeld */; };
+		D552C8EE25E409A9000E2196 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C8ED25E409A9000E2196 /* LoginView.swift */; };
 		D552C8F325E409AB000E2196 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D552C8F225E409AB000E2196 /* Assets.xcassets */; };
 		D552C8F625E409AB000E2196 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D552C8F525E409AB000E2196 /* Preview Assets.xcassets */; };
 		D552C8F925E409AB000E2196 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D552C8F725E409AB000E2196 /* LaunchScreen.storyboard */; };
 		D552C90425E409AB000E2196 /* WishBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C90325E409AB000E2196 /* WishBookTests.swift */; };
 		D552C90F25E409AB000E2196 /* WishBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C90E25E409AB000E2196 /* WishBookUITests.swift */; };
 		D552C95625E40ED1000E2196 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D552C95525E40ED1000E2196 /* GoogleService-Info.plist */; };
+		D5C1E76D25EA604A00B96DE7 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C1E76C25EA604A00B96DE7 /* RootView.swift */; };
 		DCFE730EB2A51F210E55FB5F /* Pods_WishBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAD38865F543A739815B95A /* Pods_WishBook.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,11 +56,20 @@
 		1E796FD2BF3B3284609EE64F /* Pods-WishBookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBookTests.release.xcconfig"; path = "Target Support Files/Pods-WishBookTests/Pods-WishBookTests.release.xcconfig"; sourceTree = "<group>"; };
 		2DAD38865F543A739815B95A /* Pods_WishBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WishBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4698BE7F61107C199E340F5F /* Pods_WishBook_WishBookUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WishBook_WishBookUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleButton.swift; sourceTree = "<group>"; };
+		D51B4A0925F4E9FE008ABCBB /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		D51B4A0E25F4EA31008ABCBB /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
+		D51B4A1825F4EB70008ABCBB /* RootModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootModuleBuilder.swift; sourceTree = "<group>"; };
+		D53D0E0A25F2D1D800E5C2D7 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		D53D0E1425F3B64500E5C2D7 /* CompositeAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeAppDelegate.swift; sourceTree = "<group>"; };
+		D53D0E1925F3B74200E5C2D7 /* GoogleAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAppDelegate.swift; sourceTree = "<group>"; };
+		D53D0E2425F3B96500E5C2D7 /* AppDelegateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateFactory.swift; sourceTree = "<group>"; };
+		D53D0E2925F4150B00E5C2D7 /* UserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorage.swift; sourceTree = "<group>"; };
+		D53D0E2E25F429C900E5C2D7 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		D552C8E625E409A9000E2196 /* WishBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WishBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D552C8E925E409A9000E2196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D552C8EB25E409A9000E2196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D552C8ED25E409A9000E2196 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		D552C8F025E409A9000E2196 /* WishBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WishBook.xcdatamodel; sourceTree = "<group>"; };
+		D552C8ED25E409A9000E2196 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D552C8F225E409AB000E2196 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D552C8F525E409AB000E2196 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D552C8F825E409AB000E2196 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -63,6 +82,7 @@
 		D552C91025E409AB000E2196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D552C95525E40ED1000E2196 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D5B8F6121E64981C11C87744 /* Pods-WishBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBook.release.xcconfig"; path = "Target Support Files/Pods-WishBook/Pods-WishBook.release.xcconfig"; sourceTree = "<group>"; };
+		D5C1E76C25EA604A00B96DE7 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		D7B9BB26A10C93618E8FA8E5 /* Pods-WishBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBookTests.debug.xcconfig"; path = "Target Support Files/Pods-WishBookTests/Pods-WishBookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EB4353458B8916543E78114C /* Pods-WishBook-WishBookUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBook-WishBookUITests.debug.xcconfig"; path = "Target Support Files/Pods-WishBook-WishBookUITests/Pods-WishBook-WishBookUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,6 +138,83 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D51B4A0125F4E9A5008ABCBB /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D552C8E925E409A9000E2196 /* AppDelegate.swift */,
+				D53D0E1425F3B64500E5C2D7 /* CompositeAppDelegate.swift */,
+				D53D0E2425F3B96500E5C2D7 /* AppDelegateFactory.swift */,
+				D53D0E1925F3B74200E5C2D7 /* GoogleAppDelegate.swift */,
+				D552C8EB25E409A9000E2196 /* SceneDelegate.swift */,
+				D552C8F725E409AB000E2196 /* LaunchScreen.storyboard */,
+				D552C95525E40ED1000E2196 /* GoogleService-Info.plist */,
+				D552C8FA25E409AB000E2196 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D51B4A0525F4E9BC008ABCBB /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				D53D0E0A25F2D1D800E5C2D7 /* Coordinator.swift */,
+				D51B4A0925F4E9FE008ABCBB /* AppCoordinator.swift */,
+				D51B4A0E25F4EA31008ABCBB /* RootCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		D51B4A1325F4EAE5008ABCBB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D552C8F225E409AB000E2196 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D51B4A1425F4EB31008ABCBB /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				D5C1E76C25EA604A00B96DE7 /* RootView.swift */,
+				D51B4A1825F4EB70008ABCBB /* RootModuleBuilder.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		D51B4A1D25F4EC03008ABCBB /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				D51B4A1425F4EB31008ABCBB /* Root */,
+				D53D0E0625F2C44A00E5C2D7 /* Login */,
+				D51B4A2525F4ED54008ABCBB /* MainTab */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		D51B4A2125F4EC18008ABCBB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D53D0E2925F4150B00E5C2D7 /* UserStorage.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D51B4A2525F4ED54008ABCBB /* MainTab */ = {
+			isa = PBXGroup;
+			children = (
+				D53D0E2E25F429C900E5C2D7 /* MainTabView.swift */,
+			);
+			path = MainTab;
+			sourceTree = "<group>";
+		};
+		D53D0E0625F2C44A00E5C2D7 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D552C8ED25E409A9000E2196 /* LoginView.swift */,
+				D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		D552C8DD25E409A9000E2196 = {
 			isa = PBXGroup;
 			children = (
@@ -143,14 +240,12 @@
 		D552C8E825E409A9000E2196 /* WishBook */ = {
 			isa = PBXGroup;
 			children = (
-				D552C8E925E409A9000E2196 /* AppDelegate.swift */,
-				D552C8EB25E409A9000E2196 /* SceneDelegate.swift */,
-				D552C8ED25E409A9000E2196 /* ContentView.swift */,
-				D552C8F225E409AB000E2196 /* Assets.xcassets */,
-				D552C8F725E409AB000E2196 /* LaunchScreen.storyboard */,
-				D552C95525E40ED1000E2196 /* GoogleService-Info.plist */,
-				D552C8FA25E409AB000E2196 /* Info.plist */,
-				D552C8EF25E409A9000E2196 /* WishBook.xcdatamodeld */,
+				D51B4A0125F4E9A5008ABCBB /* App */,
+				D51B4A0525F4E9BC008ABCBB /* Coordinators */,
+				D51B4A2125F4EC18008ABCBB /* Services */,
+				D599141125F522C5005F2F23 /* Repositories */,
+				D51B4A1D25F4EC03008ABCBB /* Scenes */,
+				D51B4A1325F4EAE5008ABCBB /* Resources */,
 				D552C8F425E409AB000E2196 /* Preview Content */,
 			);
 			path = WishBook;
@@ -180,6 +275,13 @@
 				D552C91025E409AB000E2196 /* Info.plist */,
 			);
 			path = WishBookUITests;
+			sourceTree = "<group>";
+		};
+		D599141125F522C5005F2F23 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -457,10 +559,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D53D0E2F25F429C900E5C2D7 /* MainTabView.swift in Sources */,
+				D51B4A0A25F4E9FE008ABCBB /* AppCoordinator.swift in Sources */,
+				D53D0E0B25F2D1D800E5C2D7 /* Coordinator.swift in Sources */,
+				D53D0E2A25F4150B00E5C2D7 /* UserStorage.swift in Sources */,
 				D552C8EA25E409A9000E2196 /* AppDelegate.swift in Sources */,
 				D552C8EC25E409A9000E2196 /* SceneDelegate.swift in Sources */,
-				D552C8EE25E409A9000E2196 /* ContentView.swift in Sources */,
-				D552C8F125E409A9000E2196 /* WishBook.xcdatamodeld in Sources */,
+				D53D0E1A25F3B74200E5C2D7 /* GoogleAppDelegate.swift in Sources */,
+				D51B49DE25F4E7E4008ABCBB /* GoogleButton.swift in Sources */,
+				D51B4A1925F4EB70008ABCBB /* RootModuleBuilder.swift in Sources */,
+				D53D0E2525F3B96500E5C2D7 /* AppDelegateFactory.swift in Sources */,
+				D53D0E1525F3B64500E5C2D7 /* CompositeAppDelegate.swift in Sources */,
+				D552C8EE25E409A9000E2196 /* LoginView.swift in Sources */,
+				D51B4A0F25F4EA31008ABCBB /* RootCoordinator.swift in Sources */,
+				D5C1E76D25EA604A00B96DE7 /* RootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,7 +745,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WishBook/Preview Content\"";
 				DEVELOPMENT_TEAM = KVLZH7HMMQ;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = WishBook/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/WishBook/App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -642,7 +754,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = va.slobodianiuk.WishBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -656,7 +768,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WishBook/Preview Content\"";
 				DEVELOPMENT_TEAM = KVLZH7HMMQ;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = WishBook/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/WishBook/App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -665,7 +777,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = va.slobodianiuk.WishBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -797,19 +909,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		D552C8EF25E409A9000E2196 /* WishBook.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				D552C8F025E409A9000E2196 /* WishBook.xcdatamodel */,
-			);
-			currentVersion = D552C8F025E409A9000E2196 /* WishBook.xcdatamodel */;
-			path = WishBook.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = D552C8DE25E409A9000E2196 /* Project object */;
 }
