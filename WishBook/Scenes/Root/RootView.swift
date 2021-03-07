@@ -16,11 +16,7 @@ struct RootView: View {
     
     var body: some View {
         Group {
-            if isLoggedIn {
-                coordinator.showManTabView()
-            } else {
-                coordinator.showLoginView()
-            }
+            isLoggedIn ? coordinator.showManTabView() : coordinator.showLoginView()
         }
         .onAppear {
             Auth.auth().addStateDidChangeListener { (_, user) in

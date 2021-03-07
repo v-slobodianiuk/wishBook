@@ -7,11 +7,33 @@
 
 import SwiftUI
 
-struct MainTabView: View {
+struct MainTabView<C: MainTabCoordinatorProtocol>: View {
+    
+    let coordinator: C
+    @State private var tabItem = TabItems.wishListView
     
     var body: some View {
-        TabView {
-            EmptyView()
+        TabView(selection: $tabItem) {
+            coordinator.setupFriendsTabItem()
+                .tabItem {
+                    Image(systemName: "person.2.fill")
+                    Text("Friends")
+                }
+                .tag(TabItems.friendsView)
+            
+            coordinator.setupWishListTabItem()
+                .tabItem {
+                    Image(systemName: "list.triangle")
+                    Text("Wish List")
+                }
+                .tag(TabItems.wishListView)
+            
+            coordinator.setupProfileView()
+                .tabItem {
+                    Image(systemName: "person.crop.circle.fill")
+                    Text("Profile")
+                }
+                .tag(TabItems.profileView)
         }
         .accentColor(.black)
         .onAppear {
@@ -23,8 +45,14 @@ struct MainTabView: View {
     }
 }
 
+extension MainTabView {
+    enum TabItems: Hashable {
+        case friendsView, wishListView, profileView
+    }
+}
+
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
-        MainTabView()
+        MainTabView(coordinator: MainTabCoordinator())
     }
 }
