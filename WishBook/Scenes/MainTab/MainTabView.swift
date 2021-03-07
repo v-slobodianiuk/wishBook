@@ -35,7 +35,7 @@ struct MainTabView<C: MainTabCoordinatorProtocol>: View {
                 }
                 .tag(TabItems.profileView)
         }
-        .accentColor(.black)
+        .accentColor(.selectedTabItem)
         .onAppear {
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithTransparentBackground()
