@@ -13,7 +13,7 @@ struct WishListView<VM: WishListViewModelProtocol>: View {
     
     var body: some View {
         Text("WishList View")
-            .navigationBarTitle("Wish List")
+            .navigationBarTitle("WISH_LIST_NAV_TITLE".localized)
     }
 }
 

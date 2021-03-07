@@ -13,7 +13,7 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
     
     var body: some View {
         Text("Profile View")
-            .navigationBarTitle("Profile")
+            .navigationBarTitle("PROFILE_NAV_TITLE".localized)
     }
 }
 

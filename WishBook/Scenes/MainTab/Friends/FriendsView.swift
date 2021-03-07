@@ -13,7 +13,7 @@ struct FriendsView<VM: FriendsViewModelProtocol>: View {
     
     var body: some View {
         Text("Friends View")
-            .navigationBarTitle("Friends")
+            .navigationBarTitle("FRIENDS_NAV_TITLE".localized)
     }
 }
 

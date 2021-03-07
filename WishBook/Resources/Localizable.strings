@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  WishBook
+
+  Created by Vadym on 07.03.2021.
+  
+*/
+
+//MARK: Main Tab Items
+"FRIENDS_TAB_ITEM" = "Friends";
+"WISH_LIST_TAB_ITEM" = "Wish List";
+"PROFILE_TAB_ITEM" = "Profile";
+
+//MARK: Friends
+"FRIENDS_NAV_TITLE" = "Friends";
+
+//MARK: Wish List
+"WISH_LIST_NAV_TITLE" = "Wish List";
+
+//MARK: Profile
+"PROFILE_NAV_TITLE" = "Profile";

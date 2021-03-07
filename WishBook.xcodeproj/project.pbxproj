@@ -40,6 +40,8 @@
 		D599145B25F53913005F2F23 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599145A25F53913005F2F23 /* ProfileViewModel.swift */; };
 		D599146025F53C12005F2F23 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D599145F25F53C12005F2F23 /* Colors.xcassets */; };
 		D599146525F53DAD005F2F23 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599146425F53DAD005F2F23 /* Colors.swift */; };
+		D59914C925F53FD9005F2F23 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D59914C825F53FD9005F2F23 /* Localizable.strings */; };
+		D59914CE25F54062005F2F23 /* StringLocalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59914CD25F54062005F2F23 /* StringLocalized.swift */; };
 		D5C1E76D25EA604A00B96DE7 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C1E76C25EA604A00B96DE7 /* RootView.swift */; };
 		DCFE730EB2A51F210E55FB5F /* Pods_WishBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAD38865F543A739815B95A /* Pods_WishBook.framework */; };
 /* End PBXBuildFile section */
@@ -105,6 +107,8 @@
 		D599145A25F53913005F2F23 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		D599145F25F53C12005F2F23 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		D599146425F53DAD005F2F23 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		D59914C825F53FD9005F2F23 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		D59914CD25F54062005F2F23 /* StringLocalized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLocalized.swift; sourceTree = "<group>"; };
 		D5B8F6121E64981C11C87744 /* Pods-WishBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBook.release.xcconfig"; path = "Target Support Files/Pods-WishBook/Pods-WishBook.release.xcconfig"; sourceTree = "<group>"; };
 		D5C1E76C25EA604A00B96DE7 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		D7B9BB26A10C93618E8FA8E5 /* Pods-WishBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBookTests.debug.xcconfig"; path = "Target Support Files/Pods-WishBookTests/Pods-WishBookTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -193,6 +197,7 @@
 			children = (
 				D552C8F225E409AB000E2196 /* Assets.xcassets */,
 				D599145F25F53C12005F2F23 /* Colors.xcassets */,
+				D59914C825F53FD9005F2F23 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -220,7 +225,6 @@
 			isa = PBXGroup;
 			children = (
 				D53D0E2925F4150B00E5C2D7 /* UserStorage.swift */,
-				D599146425F53DAD005F2F23 /* Colors.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -273,6 +277,7 @@
 				D51B4A0125F4E9A5008ABCBB /* App */,
 				D51B4A0525F4E9BC008ABCBB /* Coordinators */,
 				D51B4A2125F4EC18008ABCBB /* Services */,
+				D59914D225F540B0005F2F23 /* Extensions */,
 				D599141125F522C5005F2F23 /* Repositories */,
 				D51B4A1D25F4EC03008ABCBB /* Scenes */,
 				D51B4A1325F4EAE5008ABCBB /* Resources */,
@@ -342,6 +347,15 @@
 				D599143525F52AEF005F2F23 /* FriendsModuleBuilder.swift */,
 			);
 			path = Friends;
+			sourceTree = "<group>";
+		};
+		D59914D225F540B0005F2F23 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D599146425F53DAD005F2F23 /* Colors.swift */,
+				D59914CD25F54062005F2F23 /* StringLocalized.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -455,6 +469,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D552C8F925E409AB000E2196 /* LaunchScreen.storyboard in Resources */,
+				D59914C925F53FD9005F2F23 /* Localizable.strings in Resources */,
 				D552C95625E40ED1000E2196 /* GoogleService-Info.plist in Resources */,
 				D599146025F53C12005F2F23 /* Colors.xcassets in Resources */,
 				D552C8F625E409AB000E2196 /* Preview Assets.xcassets in Resources */,
@@ -644,6 +659,7 @@
 				D51B4A0F25F4EA31008ABCBB /* RootCoordinator.swift in Sources */,
 				D599144025F52BFD005F2F23 /* ProfileModuleBuilder.swift in Sources */,
 				D599142225F526EE005F2F23 /* MainTabCoordinator.swift in Sources */,
+				D59914CE25F54062005F2F23 /* StringLocalized.swift in Sources */,
 				D5C1E76D25EA604A00B96DE7 /* RootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

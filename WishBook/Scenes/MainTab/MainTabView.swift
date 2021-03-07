@@ -31,7 +31,7 @@ struct MainTabView<C: MainTabCoordinatorProtocol>: View {
             coordinator.setupProfileView()
                 .tabItem {
                     Image(systemName: "person.crop.circle.fill")
-                    Text("Profile")
+                    Text("PROFILE_TAB_ITEM".localized)
                 }
                 .tag(TabItems.profileView)
         }
