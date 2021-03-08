@@ -45,7 +45,7 @@ struct WishListView<VM: WishListViewModelProtocol>: View {
             }, label: {
                 HStack {
                     Image(systemName: "plus.circle.fill")
-                        .foregroundColor(.black)
+                        .foregroundColor(.selectedTabItem)
                     Text("WISH_ITEM_ADD_BUTTON_TITLE".localized)
                 }
             })

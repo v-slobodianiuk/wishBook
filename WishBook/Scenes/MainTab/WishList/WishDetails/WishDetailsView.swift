@@ -26,8 +26,8 @@ struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
                     Text("EDIT_PROFILE_BUTTON_TITLE".localized)
                         .font(.title)
                         .frame(maxWidth: .infinity, maxHeight: 50)
-                        .background(Color.black)
-                        .foregroundColor(.white)
+                        .background(Color.selectedTabItem)
+                        .foregroundColor(.lightText)
                         .cornerRadius(10)
                 })
                 .padding()
@@ -50,7 +50,7 @@ struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("WISH_ITEM_CLOSE_BUTTON_TITLE".localized)
-                    .foregroundColor(.black)
+                    .foregroundColor(.selectedTabItem)
             })
         }
     }

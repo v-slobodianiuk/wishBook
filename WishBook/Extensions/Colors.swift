@@ -9,4 +9,5 @@ import SwiftUI
 
 extension Color {
     static let selectedTabItem = Color("selectedTabItem")
+    static let lightText = Color("lightText")
 }

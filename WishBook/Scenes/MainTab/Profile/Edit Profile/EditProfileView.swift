@@ -32,7 +32,7 @@ struct EditProfileView<VM: EditProfileViewModelProtocol>: View {
             }
                 .padding(.horizontal)
             DatePicker("PROFILE_BIRTHDATE".localized, selection: $birthDate, displayedComponents: .date)
-                .foregroundColor(.black)
+                .foregroundColor(.selectedTabItem)
                 .padding(.horizontal)
             Spacer()
             Button(action: {
@@ -41,8 +41,8 @@ struct EditProfileView<VM: EditProfileViewModelProtocol>: View {
                 Text("EDIT_PROFILE_BUTTON_TITLE".localized)
                     .font(.title)
                     .frame(maxWidth: .infinity, maxHeight: 50)
-                    .background(Color.black)
-                    .foregroundColor(.white)
+                    .background(Color.selectedTabItem)
+                    .foregroundColor(.lightText)
                     .cornerRadius(10)
                 
             })

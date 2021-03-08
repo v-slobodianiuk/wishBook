@@ -56,7 +56,7 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
             Image(systemName: "person.crop.circle.fill")
                 .resizable()
                 .frame(width: 150, height: 150)
-                .foregroundColor(.gray)
+                .foregroundColor(.selectedTabItem)
                 .padding(.top, 50)
             
             Text(vm.getFullName())
@@ -66,7 +66,7 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
                 .padding()
             HStack {
                 Text(vm.getBirthdate())
-                    .foregroundColor(.white)
+                    .foregroundColor(.lightText)
                     .padding()
             }
             .background(Color.selectedTabItem)
