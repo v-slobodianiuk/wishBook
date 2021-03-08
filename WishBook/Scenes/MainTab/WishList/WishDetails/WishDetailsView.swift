@@ -20,7 +20,6 @@ struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
                     .padding()
                 Spacer()
                 Button(action: {
-                    vm.saveData()
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
                     Text("EDIT_PROFILE_BUTTON_TITLE".localized)
