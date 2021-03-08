@@ -28,6 +28,14 @@
 		D552C90425E409AB000E2196 /* WishBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C90325E409AB000E2196 /* WishBookTests.swift */; };
 		D552C90F25E409AB000E2196 /* WishBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C90E25E409AB000E2196 /* WishBookUITests.swift */; };
 		D552C95625E40ED1000E2196 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D552C95525E40ED1000E2196 /* GoogleService-Info.plist */; };
+		D55CC74525F5458A00E5C04F /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC74425F5458A00E5C04F /* ProfileRepository.swift */; };
+		D55CC74A25F546FC00E5C04F /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC74925F546FC00E5C04F /* ProfileModel.swift */; };
+		D55CC74F25F54BE300E5C04F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC74E25F54BE300E5C04F /* EditProfileView.swift */; };
+		D55CC75825F5527500E5C04F /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC75725F5527500E5C04F /* ProfileRouter.swift */; };
+		D55CC75D25F5581E00E5C04F /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC75C25F5581E00E5C04F /* EditProfileViewModel.swift */; };
+		D55CC76525F6565200E5C04F /* EditProfileModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC76425F6565200E5C04F /* EditProfileModuleBuilder.swift */; };
+		D55CC76A25F6A15500E5C04F /* DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC76925F6A15400E5C04F /* DI.swift */; };
+		D55CC76F25F6A37100E5C04F /* FirestoreCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC76E25F6A37100E5C04F /* FirestoreCollection.swift */; };
 		D599142225F526EE005F2F23 /* MainTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142125F526EE005F2F23 /* MainTabCoordinator.swift */; };
 		D599142725F52879005F2F23 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142625F52879005F2F23 /* FriendsView.swift */; };
 		D599142C25F528C9005F2F23 /* WishListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142B25F528C9005F2F23 /* WishListView.swift */; };
@@ -95,6 +103,14 @@
 		D552C90E25E409AB000E2196 /* WishBookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishBookUITests.swift; sourceTree = "<group>"; };
 		D552C91025E409AB000E2196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D552C95525E40ED1000E2196 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D55CC74425F5458A00E5C04F /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
+		D55CC74925F546FC00E5C04F /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		D55CC74E25F54BE300E5C04F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		D55CC75725F5527500E5C04F /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		D55CC75C25F5581E00E5C04F /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		D55CC76425F6565200E5C04F /* EditProfileModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileModuleBuilder.swift; sourceTree = "<group>"; };
+		D55CC76925F6A15400E5C04F /* DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DI.swift; sourceTree = "<group>"; };
+		D55CC76E25F6A37100E5C04F /* FirestoreCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCollection.swift; sourceTree = "<group>"; };
 		D599142125F526EE005F2F23 /* MainTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabCoordinator.swift; sourceTree = "<group>"; };
 		D599142625F52879005F2F23 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		D599142B25F528C9005F2F23 /* WishListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListView.swift; sourceTree = "<group>"; };
@@ -174,6 +190,8 @@
 				D53D0E2425F3B96500E5C2D7 /* AppDelegateFactory.swift */,
 				D53D0E1925F3B74200E5C2D7 /* GoogleAppDelegate.swift */,
 				D552C8EB25E409A9000E2196 /* SceneDelegate.swift */,
+				D55CC76E25F6A37100E5C04F /* FirestoreCollection.swift */,
+				D55CC76925F6A15400E5C04F /* DI.swift */,
 				D552C8F725E409AB000E2196 /* LaunchScreen.storyboard */,
 				D552C95525E40ED1000E2196 /* GoogleService-Info.plist */,
 				D552C8FA25E409AB000E2196 /* Info.plist */,
@@ -276,6 +294,7 @@
 			children = (
 				D51B4A0125F4E9A5008ABCBB /* App */,
 				D51B4A0525F4E9BC008ABCBB /* Coordinators */,
+				D55CC77325F6B7E200E5C04F /* Models */,
 				D51B4A2125F4EC18008ABCBB /* Services */,
 				D59914D225F540B0005F2F23 /* Extensions */,
 				D599141125F522C5005F2F23 /* Repositories */,
@@ -312,9 +331,28 @@
 			path = WishBookUITests;
 			sourceTree = "<group>";
 		};
+		D55CC75325F54DD600E5C04F /* Edit Profile */ = {
+			isa = PBXGroup;
+			children = (
+				D55CC74E25F54BE300E5C04F /* EditProfileView.swift */,
+				D55CC75C25F5581E00E5C04F /* EditProfileViewModel.swift */,
+				D55CC76425F6565200E5C04F /* EditProfileModuleBuilder.swift */,
+			);
+			path = "Edit Profile";
+			sourceTree = "<group>";
+		};
+		D55CC77325F6B7E200E5C04F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D55CC74925F546FC00E5C04F /* ProfileModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		D599141125F522C5005F2F23 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				D55CC74425F5458A00E5C04F /* ProfileRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -323,8 +361,10 @@
 			isa = PBXGroup;
 			children = (
 				D599143025F528DC005F2F23 /* ProfileView.swift */,
-				D599143F25F52BFD005F2F23 /* ProfileModuleBuilder.swift */,
 				D599145A25F53913005F2F23 /* ProfileViewModel.swift */,
+				D55CC75725F5527500E5C04F /* ProfileRouter.swift */,
+				D599143F25F52BFD005F2F23 /* ProfileModuleBuilder.swift */,
+				D55CC75325F54DD600E5C04F /* Edit Profile */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -641,14 +681,18 @@
 				D599145125F53785005F2F23 /* FriendsViewModel.swift in Sources */,
 				D599142725F52879005F2F23 /* FriendsView.swift in Sources */,
 				D53D0E0B25F2D1D800E5C2D7 /* Coordinator.swift in Sources */,
+				D55CC74525F5458A00E5C04F /* ProfileRepository.swift in Sources */,
 				D599146525F53DAD005F2F23 /* Colors.swift in Sources */,
 				D599145B25F53913005F2F23 /* ProfileViewModel.swift in Sources */,
 				D53D0E2A25F4150B00E5C2D7 /* UserStorage.swift in Sources */,
 				D552C8EA25E409A9000E2196 /* AppDelegate.swift in Sources */,
 				D552C8EC25E409A9000E2196 /* SceneDelegate.swift in Sources */,
 				D53D0E1A25F3B74200E5C2D7 /* GoogleAppDelegate.swift in Sources */,
+				D55CC75D25F5581E00E5C04F /* EditProfileViewModel.swift in Sources */,
 				D51B49DE25F4E7E4008ABCBB /* GoogleButton.swift in Sources */,
+				D55CC74F25F54BE300E5C04F /* EditProfileView.swift in Sources */,
 				D51B4A1925F4EB70008ABCBB /* RootModuleBuilder.swift in Sources */,
+				D55CC74A25F546FC00E5C04F /* ProfileModel.swift in Sources */,
 				D599143B25F52BED005F2F23 /* WishListModuleBuilder.swift in Sources */,
 				D599143125F528DC005F2F23 /* ProfileView.swift in Sources */,
 				D53D0E2525F3B96500E5C2D7 /* AppDelegateFactory.swift in Sources */,
@@ -656,9 +700,13 @@
 				D552C8EE25E409A9000E2196 /* LoginView.swift in Sources */,
 				D599143625F52AEF005F2F23 /* FriendsModuleBuilder.swift in Sources */,
 				D599142C25F528C9005F2F23 /* WishListView.swift in Sources */,
+				D55CC75825F5527500E5C04F /* ProfileRouter.swift in Sources */,
+				D55CC76A25F6A15500E5C04F /* DI.swift in Sources */,
 				D51B4A0F25F4EA31008ABCBB /* RootCoordinator.swift in Sources */,
 				D599144025F52BFD005F2F23 /* ProfileModuleBuilder.swift in Sources */,
+				D55CC76F25F6A37100E5C04F /* FirestoreCollection.swift in Sources */,
 				D599142225F526EE005F2F23 /* MainTabCoordinator.swift in Sources */,
+				D55CC76525F6565200E5C04F /* EditProfileModuleBuilder.swift in Sources */,
 				D59914CE25F54062005F2F23 /* StringLocalized.swift in Sources */,
 				D5C1E76D25EA604A00B96DE7 /* RootView.swift in Sources */,
 			);

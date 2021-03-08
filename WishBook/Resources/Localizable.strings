@@ -19,3 +19,14 @@
 
 //MARK: Profile
 "PROFILE_NAV_TITLE" = "Profile";
+"PROFILE_BIRTHDATE" = "Birthdate:";
+"PROFILE_EDIT_BUTTON_TITLE" = "Edit";
+"PROFILE_SIGN_OUT_BUTTON_TITLE" = "Sign Out";
+"EMPTY_VIEW_TITLE" = "Please fill profile info";
+
+//MARK: Edit Profile
+"EDIT_PROFILE_TITLE" = "Edit Profile";
+"PROFILE_FIRST_NAME" = "First name";
+"PROFILE_LAST_NAME" = "Last Name";
+"PROFILE_BIRTHDATE" = "Birthdate";
+"EDIT_PROFILE_BUTTON_TITLE" = "Save";
