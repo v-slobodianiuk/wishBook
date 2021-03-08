@@ -11,14 +11,23 @@ struct DI {
     
     private init() {}
     
-    fileprivate static var profilePepository: ProfileRepositoryProtocol {
-        ProfileRepository()
+    fileprivate static var profileRepository: ProfileRepositoryProtocol {
+        return ProfileRepository()
+    }
+    
+    fileprivate static var wishListRepository: WishListRepositoryProtocol {
+        return WishListRepository()
     }
 }
 
 extension DI {
     // MARK: Profile Repository
-    static func getProfilePepository() -> ProfileRepositoryProtocol {
-        return profilePepository
+    static func getProfileRepository() -> ProfileRepositoryProtocol {
+        return profileRepository
+    }
+    
+    // MARK: Wish List Repository
+    static func getWishListRepository() -> WishListRepositoryProtocol {
+        return wishListRepository
     }
 }

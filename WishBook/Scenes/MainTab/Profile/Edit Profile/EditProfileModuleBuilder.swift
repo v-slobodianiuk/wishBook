@@ -9,7 +9,7 @@ import SwiftUI
 
 enum EditProfileModuleBuilder {
     static func create(profileData: ProfileModel?) -> some View {
-        let vm = EditProfileViewModel(repository: DI.getProfilePepository(), profileData: profileData)
+        let vm = EditProfileViewModel(repository: DI.getProfileRepository(), profileData: profileData)
         let profileView = EditProfileView(vm: vm)
         return profileView
     }

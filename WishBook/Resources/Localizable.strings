@@ -16,6 +16,9 @@
 
 //MARK: Wish List
 "WISH_LIST_NAV_TITLE" = "Wish List";
+"WISH_ITEM_ADD_BUTTON_TITLE" = "Add";
+"WISH_ITEM_CLOSE_BUTTON_TITLE" = "Close";
+"WISH_ITEM_TITLE_PLACEHOLER" = "What do you want?";
 
 //MARK: Profile
 "PROFILE_NAV_TITLE" = "Profile";

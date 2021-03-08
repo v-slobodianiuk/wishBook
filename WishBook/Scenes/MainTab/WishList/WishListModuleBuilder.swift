@@ -9,7 +9,9 @@ import SwiftUI
 
 enum WishListModuleBuilder {
     static func create() -> some View {
-        let vm = WishListViewModel()
+        let router = WishListRouter()
+        let repository = DI.getWishListRepository()
+        let vm = WishListViewModel(router: router, repository: repository)
         let wishListView = WishListView(vm: vm)
         return wishListView
     }
