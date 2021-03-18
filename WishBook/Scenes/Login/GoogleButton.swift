@@ -25,4 +25,9 @@ struct GoogleButton: UIViewRepresentable {
         return self
     }
     
+    func style(_ style: GIDSignInButtonStyle) -> Self {
+        googleButton.style = style
+        return self
+    }
+    
 }

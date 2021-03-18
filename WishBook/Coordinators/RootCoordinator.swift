@@ -36,7 +36,7 @@ final class RootCoordinator: RootCoordinatorProtocol {
         return AnyView(mainTabView)
     }
     func showLoginView() -> AnyView {
-        let loginView = LoginView()
+        let loginView = LoginModuleBuilder.create()
         return AnyView(loginView)
     }
 }

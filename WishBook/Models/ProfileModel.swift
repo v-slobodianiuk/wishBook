@@ -14,6 +14,7 @@ struct ProfileModel: Codable {
     var photoUrl: String?
     var firstName: String?
     var lastName: String?
+    var email: String?
     var birthdate: Date?
     var userId: String?
 }

@@ -39,6 +39,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     init(router: ProfileRouterProtocol, repository: ProfileRepositoryProtocol) {
         self.router = router
         self.repository = repository
+        getData()
     }
     
     func emptyViewIsHidden() -> Bool {
@@ -55,9 +56,12 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     
     func getData() {
         repository.loadData()
-        repository.profilePublisher.sink { [weak self] (profileData: ProfileModel) in
-            //print(profileData)
-            self?.profileData = profileData
+        
+        repository.profilePublisher.sink { [self] (profileData: ProfileModel) in
+//            print("-----------------------------")
+//            print(profileData)
+//            print("-----------------------------")
+            self.profileData = profileData
         }
         .store(in: &cancellables)
     }

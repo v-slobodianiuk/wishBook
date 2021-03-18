@@ -9,7 +9,7 @@ import Foundation
 
 protocol EditProfileViewModelProtocol: ObservableObject {
     var profileData: ProfileModel { get }
-    func updateProfile(firstName: String?, lastName: String?, birthdate: Date?)
+    func updateProfile(firstName: String?, lastName: String?, email: String?, birthdate: Date?)
 }
 
 final class EditProfileViewModel: EditProfileViewModelProtocol {
@@ -21,9 +21,10 @@ final class EditProfileViewModel: EditProfileViewModelProtocol {
         self.profileData = profileData ?? ProfileModel()
     }
     
-    func updateProfile(firstName: String?, lastName: String?, birthdate: Date?) {
+    func updateProfile(firstName: String?, lastName: String?, email: String?, birthdate: Date?) {
         profileData.firstName = firstName
         profileData.lastName = lastName
+        profileData.email = email
         profileData.birthdate = birthdate
         repository.updateData(profileData)
     }

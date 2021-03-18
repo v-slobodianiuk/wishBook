@@ -21,9 +21,6 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
         }
         .navigationBarTitle("PROFILE_NAV_TITLE".localized)
         .navigationBarItems(trailing: setupTrailingNavBarItems())
-        .onAppear {
-            vm.getData()
-        }
     }
     
     fileprivate func setupTrailingNavBarItems() -> some View {

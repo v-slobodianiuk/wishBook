@@ -12,6 +12,7 @@ struct EditProfileView<VM: EditProfileViewModelProtocol>: View {
     
     @State var firstName = ""
     @State var lastName = ""
+    @State var email = ""
     
     @State private var birthDate = Date()
     
@@ -31,12 +32,19 @@ struct EditProfileView<VM: EditProfileViewModelProtocol>: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
                 .padding(.horizontal)
+            HStack {
+                Text("\("PROFILE_EMAIL".localized): ")
+                    .frame(width: 100, alignment: .leading)
+                TextField("PROFILE_EMAIL".localized, text: $email)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
+                .padding(.horizontal)
             DatePicker("PROFILE_BIRTHDATE".localized, selection: $birthDate, displayedComponents: .date)
                 .foregroundColor(.selectedTabItem)
                 .padding(.horizontal)
             Spacer()
             Button(action: {
-                vm.updateProfile(firstName: firstName, lastName: lastName, birthdate: birthDate)
+                vm.updateProfile(firstName: firstName, lastName: lastName, email: email, birthdate: birthDate)
             }, label: {
                 Text("EDIT_PROFILE_BUTTON_TITLE".localized)
                     .font(.title)
@@ -52,6 +60,7 @@ struct EditProfileView<VM: EditProfileViewModelProtocol>: View {
         .onAppear {
             firstName = vm.profileData.firstName ?? ""
             lastName = vm.profileData.lastName ?? ""
+            email = vm.profileData.email ?? ""
             birthDate = vm.profileData.birthdate ?? Date()
         }
     }

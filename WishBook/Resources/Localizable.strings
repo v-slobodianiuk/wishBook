@@ -6,6 +6,13 @@
   
 */
 
+//MARK: Login
+"EMAIL_PLACEHOLDER" = "Email";
+"PASSWORD_PLACEHOLDER" = "Password";
+"LOGIN_BUTTON_TITLE" = "Log in";
+"ERROR_TITLE" = "Login Failed";
+"CLOSE_ERROR_TITLE" = "Ok";
+
 //MARK: Main Tab Items
 "FRIENDS_TAB_ITEM" = "Friends";
 "WISH_LIST_TAB_ITEM" = "Wish List";
@@ -31,5 +38,6 @@
 "EDIT_PROFILE_TITLE" = "Edit Profile";
 "PROFILE_FIRST_NAME" = "First name";
 "PROFILE_LAST_NAME" = "Last Name";
+"PROFILE_EMAIL" = "Email";
 "PROFILE_BIRTHDATE" = "Birthdate";
 "EDIT_PROFILE_BUTTON_TITLE" = "Save";

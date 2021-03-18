@@ -11,6 +11,10 @@ struct DI {
     
     private init() {}
     
+    fileprivate static var googleAuthService: GoogleAuthServiceProtocol {
+        return GoogleAuthService()
+    }
+    
     fileprivate static var profileRepository: ProfileRepositoryProtocol {
         return ProfileRepository()
     }
@@ -21,6 +25,12 @@ struct DI {
 }
 
 extension DI {
+    
+    // MARK: Google Auth Service
+    static func getGoogleAuthService() -> GoogleAuthServiceProtocol {
+        return googleAuthService
+    }
+    
     // MARK: Profile Repository
     static func getProfileRepository() -> ProfileRepositoryProtocol {
         return profileRepository
