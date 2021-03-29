@@ -39,7 +39,7 @@ struct MainTabView<C: MainTabCoordinatorProtocol>: View {
         .onAppear {
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithTransparentBackground()
-            //tabBarAppearance.backgroundColor = .black
+            tabBarAppearance.backgroundColor = .white
             UITabBar.appearance().standardAppearance = tabBarAppearance
         }
     }

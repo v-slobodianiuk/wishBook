@@ -22,6 +22,10 @@ struct DI {
     fileprivate static var wishListRepository: WishListRepositoryProtocol {
         return WishListRepository()
     }
+    
+    fileprivate static var usersRepository: UsersRepositoryProtocol {
+        return UsersRepository()
+    }
 }
 
 extension DI {
@@ -39,5 +43,10 @@ extension DI {
     // MARK: Wish List Repository
     static func getWishListRepository() -> WishListRepositoryProtocol {
         return wishListRepository
+    }
+    
+    // MARK: Users Repository
+    static func getUsersRepository() -> UsersRepositoryProtocol {
+        return usersRepository
     }
 }

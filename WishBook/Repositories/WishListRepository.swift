@@ -82,7 +82,6 @@ final class WishListRepository: WishListRepositoryProtocol, ObservableObject {
     
     func delete(id: String?) {
         guard let id = id else { return }
-        print(id)
         db.collection(FirestoreCollection[.wishList])
             .document(id)
             .delete() { error in

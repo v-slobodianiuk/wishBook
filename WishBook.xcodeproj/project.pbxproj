@@ -45,6 +45,8 @@
 		D56B19002602700000F7031C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56B18FF2602700000F7031C /* LoginViewModel.swift */; };
 		D56B190D2602785700F7031C /* GoogleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56B190C2602785700F7031C /* GoogleAuthService.swift */; };
 		D56B191526027E4E00F7031C /* LoginModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56B191426027E4E00F7031C /* LoginModuleBuilder.swift */; };
+		D573367B2611E47300C11EC0 /* GlobalSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573367A2611E47300C11EC0 /* GlobalSearchCell.swift */; };
+		D57336802611E4A700C11EC0 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573367F2611E4A700C11EC0 /* UIExtensions.swift */; };
 		D599142225F526EE005F2F23 /* MainTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142125F526EE005F2F23 /* MainTabCoordinator.swift */; };
 		D599142725F52879005F2F23 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142625F52879005F2F23 /* FriendsView.swift */; };
 		D599142C25F528C9005F2F23 /* WishListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142B25F528C9005F2F23 /* WishListView.swift */; };
@@ -59,6 +61,8 @@
 		D599146525F53DAD005F2F23 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599146425F53DAD005F2F23 /* Colors.swift */; };
 		D59914C925F53FD9005F2F23 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D59914C825F53FD9005F2F23 /* Localizable.strings */; };
 		D59914CE25F54062005F2F23 /* StringLocalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59914CD25F54062005F2F23 /* StringLocalized.swift */; };
+		D5BA4406260A2F51004D5B36 /* UsersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BA4405260A2F51004D5B36 /* UsersRepository.swift */; };
+		D5BA440B260A321A004D5B36 /* FriendsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BA440A260A321A004D5B36 /* FriendsRouter.swift */; };
 		D5C1E76D25EA604A00B96DE7 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C1E76C25EA604A00B96DE7 /* RootView.swift */; };
 		DCFE730EB2A51F210E55FB5F /* Pods_WishBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAD38865F543A739815B95A /* Pods_WishBook.framework */; };
 /* End PBXBuildFile section */
@@ -129,6 +133,8 @@
 		D56B18FF2602700000F7031C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		D56B190C2602785700F7031C /* GoogleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthService.swift; sourceTree = "<group>"; };
 		D56B191426027E4E00F7031C /* LoginModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModuleBuilder.swift; sourceTree = "<group>"; };
+		D573367A2611E47300C11EC0 /* GlobalSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchCell.swift; sourceTree = "<group>"; };
+		D573367F2611E4A700C11EC0 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		D599142125F526EE005F2F23 /* MainTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabCoordinator.swift; sourceTree = "<group>"; };
 		D599142625F52879005F2F23 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		D599142B25F528C9005F2F23 /* WishListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListView.swift; sourceTree = "<group>"; };
@@ -144,6 +150,8 @@
 		D59914C825F53FD9005F2F23 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		D59914CD25F54062005F2F23 /* StringLocalized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLocalized.swift; sourceTree = "<group>"; };
 		D5B8F6121E64981C11C87744 /* Pods-WishBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBook.release.xcconfig"; path = "Target Support Files/Pods-WishBook/Pods-WishBook.release.xcconfig"; sourceTree = "<group>"; };
+		D5BA4405260A2F51004D5B36 /* UsersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersRepository.swift; sourceTree = "<group>"; };
+		D5BA440A260A321A004D5B36 /* FriendsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRouter.swift; sourceTree = "<group>"; };
 		D5C1E76C25EA604A00B96DE7 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		D7B9BB26A10C93618E8FA8E5 /* Pods-WishBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBookTests.debug.xcconfig"; path = "Target Support Files/Pods-WishBookTests/Pods-WishBookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EB4353458B8916543E78114C /* Pods-WishBook-WishBookUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBook-WishBookUITests.debug.xcconfig"; path = "Target Support Files/Pods-WishBook-WishBookUITests/Pods-WishBook-WishBookUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -385,6 +393,7 @@
 			isa = PBXGroup;
 			children = (
 				D55CC74425F5458A00E5C04F /* ProfileRepository.swift */,
+				D5BA4405260A2F51004D5B36 /* UsersRepository.swift */,
 				D55CC77A25F6BE3500E5C04F /* WishListRepository.swift */,
 			);
 			path = Repositories;
@@ -418,8 +427,10 @@
 			isa = PBXGroup;
 			children = (
 				D599142625F52879005F2F23 /* FriendsView.swift */,
+				D573367A2611E47300C11EC0 /* GlobalSearchCell.swift */,
 				D599145025F53785005F2F23 /* FriendsViewModel.swift */,
 				D599143525F52AEF005F2F23 /* FriendsModuleBuilder.swift */,
+				D5BA440A260A321A004D5B36 /* FriendsRouter.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -429,6 +440,7 @@
 			children = (
 				D599146425F53DAD005F2F23 /* Colors.swift */,
 				D59914CD25F54062005F2F23 /* StringLocalized.swift */,
+				D573367F2611E4A700C11EC0 /* UIExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -722,6 +734,7 @@
 				D599146525F53DAD005F2F23 /* Colors.swift in Sources */,
 				D599145B25F53913005F2F23 /* ProfileViewModel.swift in Sources */,
 				D53D0E2A25F4150B00E5C2D7 /* UserStorage.swift in Sources */,
+				D573367B2611E47300C11EC0 /* GlobalSearchCell.swift in Sources */,
 				D55CC78D25F6C66300E5C04F /* WishDetailsViewModel.swift in Sources */,
 				D552C8EA25E409A9000E2196 /* AppDelegate.swift in Sources */,
 				D552C8EC25E409A9000E2196 /* SceneDelegate.swift in Sources */,
@@ -745,13 +758,16 @@
 				D55CC76A25F6A15500E5C04F /* DI.swift in Sources */,
 				D51B4A0F25F4EA31008ABCBB /* RootCoordinator.swift in Sources */,
 				D599144025F52BFD005F2F23 /* ProfileModuleBuilder.swift in Sources */,
+				D57336802611E4A700C11EC0 /* UIExtensions.swift in Sources */,
 				D55CC76F25F6A37100E5C04F /* FirestoreCollection.swift in Sources */,
 				D56B190D2602785700F7031C /* GoogleAuthService.swift in Sources */,
 				D599142225F526EE005F2F23 /* MainTabCoordinator.swift in Sources */,
+				D5BA440B260A321A004D5B36 /* FriendsRouter.swift in Sources */,
 				D55CC77B25F6BE3500E5C04F /* WishListRepository.swift in Sources */,
 				D55CC76525F6565200E5C04F /* EditProfileModuleBuilder.swift in Sources */,
 				D59914CE25F54062005F2F23 /* StringLocalized.swift in Sources */,
 				D5C1E76D25EA604A00B96DE7 /* RootView.swift in Sources */,
+				D5BA4406260A2F51004D5B36 /* UsersRepository.swift in Sources */,
 				D55CC7A125F6C77500E5C04F /* WishDetailsModuleBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

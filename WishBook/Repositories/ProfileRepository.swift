@@ -43,7 +43,7 @@ final class ProfileRepository: ProfileRepositoryProtocol, ObservableObject {
             }
             
             guard let document = document, !document.exists else { return }
-            let confiredData = ProfileModel(email: email, userId: userId)
+            let confiredData = ProfileModel(id: userId, email: email)
             do {
                 try userDoc.setData(from: confiredData)
             } catch {
@@ -87,7 +87,7 @@ final class ProfileRepository: ProfileRepositoryProtocol, ObservableObject {
     func updateData(_ data: ProfileModel) {
         guard let userId = user?.uid else { return }
         var confiredData = data
-        confiredData.userId = userId
+        confiredData.id = userId
         do {
             try db.collection(FirestoreCollection[.users])
                 .document(userId)

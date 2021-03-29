@@ -9,7 +9,8 @@ import SwiftUI
 
 enum FriendsModuleBuilder {
     static func create() -> some View {
-        let vm = FriendsViewModel()
+        let router = FriendsRouter()
+        let vm = FriendsViewModel(router: router, usersRepository: DI.getUsersRepository())
         let friendsView = FriendsView(vm: vm)
         return friendsView
     }
