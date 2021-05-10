@@ -43,6 +43,7 @@ final class WishListRepository: WishListRepositoryProtocol, ObservableObject {
                 }
                 
                 if let querySnapshot = querySnapshot {
+                    self?.updateWishesCount(querySnapshot.count)
                     self?.wishList = querySnapshot.documents.compactMap {
                         //try? $0.data(as: WishListModel.self)
                         do {
@@ -91,6 +92,20 @@ final class WishListRepository: WishListRepositoryProtocol, ObservableObject {
                 print("Document successfully removed!")
             }
         }
+    }
+    
+    private func updateWishesCount(_ wishesCount: Int) {
+        guard let userId = firebaseUserId else { return }
+        
+        db.collection(FirestoreCollection[.users])
+            .document(userId)
+            .updateData([
+                "wishes" : wishesCount
+            ]) { error in
+                if let error = error {
+                    print("updateWishesCount error: \(error.localizedDescription)")
+                }
+            }
     }
     
 }

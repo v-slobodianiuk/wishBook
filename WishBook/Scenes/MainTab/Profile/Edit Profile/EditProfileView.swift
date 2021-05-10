@@ -13,6 +13,7 @@ struct EditProfileView<VM: EditProfileViewModelProtocol>: View {
     @State var firstName = ""
     @State var lastName = ""
     @State var email = ""
+    @State var description = ""
     
     @State private var birthDate = Date()
     
@@ -39,12 +40,27 @@ struct EditProfileView<VM: EditProfileViewModelProtocol>: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
                 .padding(.horizontal)
+            HStack(alignment: .top) {
+                Text("\("PROFILE_ABOUT".localized): ")
+                    .frame(width: 100, alignment: .leading)
+                TextView(text: $description)
+                    .font(.systemFont(ofSize: 17))
+                    .setBorder(borderColor: .lightGray, borderWidth: 0.25, cornerRadius: 5)
+                    .frame(maxWidth: .infinity, maxHeight: 150)
+            }
+                .padding(.horizontal)
             DatePicker("PROFILE_BIRTHDATE".localized, selection: $birthDate, displayedComponents: .date)
                 .foregroundColor(.selectedTabItem)
                 .padding(.horizontal)
             Spacer()
             Button(action: {
-                vm.updateProfile(firstName: firstName, lastName: lastName, email: email, birthdate: birthDate)
+                vm.updateProfile(
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    description: description,
+                    birthdate: birthDate
+                )
             }, label: {
                 Text("EDIT_PROFILE_BUTTON_TITLE".localized)
                     .font(.title)
@@ -60,6 +76,7 @@ struct EditProfileView<VM: EditProfileViewModelProtocol>: View {
         .onAppear {
             firstName = vm.profileData.firstName ?? ""
             lastName = vm.profileData.lastName ?? ""
+            description = vm.profileData.description ?? ""
             email = vm.profileData.email ?? ""
             birthDate = vm.profileData.birthdate ?? Date()
         }
