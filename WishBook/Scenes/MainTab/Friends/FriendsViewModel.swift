@@ -9,15 +9,16 @@ import Foundation
 import Combine
 
 protocol FriendsViewModelProtocol: ObservableObject {
-    // Wrapped value
     var usersList: [ProfileModel] { get }
-    // (Published property wrapper)
     var usersListPublished: Published<[ProfileModel]> { get }
-    // Publisher
     var usersListPublisher: Published<[ProfileModel]>.Publisher { get }
     
+    var searchText: String { get set }
+    var searchTextPublished: Published<String> { get }
+    var searchTextPublisher: Published<String>.Publisher { get }
+    
     func getUsersData()
-    func getBirthdate(index: Int) -> String
+    func getBirthdate(date: Date?) -> String
 }
 
 final class FriendsViewModel: FriendsViewModelProtocol {
@@ -26,6 +27,11 @@ final class FriendsViewModel: FriendsViewModelProtocol {
     @Published var usersList = [ProfileModel]()
     var usersListPublished: Published<[ProfileModel]> { _usersList }
     var usersListPublisher: Published<[ProfileModel]>.Publisher { $usersList }
+    
+    @Published var searchText = ""
+    var searchTextPublished: Published<String> { _searchText }
+    var searchTextPublisher: Published<String>.Publisher { $searchText }
+    
     private var cancellables = Set<AnyCancellable>()
     
     let dateFormatter: DateFormatter = {
@@ -41,18 +47,35 @@ final class FriendsViewModel: FriendsViewModelProtocol {
         self.router = router
         self.usersRepository = usersRepository
         getUsersData()
+        setupSearch()
     }
     
     func getUsersData() {
-        usersRepository.loadData()
+        //usersRepository.loadData()
         usersRepository.usersPublisher
             .assign(to: \.usersList, on: self)
             .store(in: &cancellables)
     }
     
-    func getBirthdate(index: Int) -> String {
-        guard let birthdate = usersList[index].birthdate else { return "" }
-        let date = dateFormatter.string(from: birthdate)
-        return  "\("PROFILE_BIRTHDATE".localized): \(date)"
+    private func setupSearch() {
+        searchTextPublisher
+            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .filter { $0.count <= 3 }
+            .map { $0.lowercased() }
+            .sink { [self] (text) in
+                if text.isEmpty {
+                    usersRepository.loadData()
+                } else {
+                    usersRepository.searchData(text)
+                }
+                
+            }
+            .store(in: &cancellables)
+    }
+    
+    func getBirthdate(date: Date?) -> String {
+        guard let date = date else { return "" }
+        let formattedDate = dateFormatter.string(from: date)
+        return  "\("PROFILE_BIRTHDATE".localized): \(formattedDate)"
     }
 }

@@ -18,6 +18,7 @@ protocol UsersRepositoryProtocol {
     var usersPublisher: Published<[ProfileModel]>.Publisher { get }
     
     func loadData()
+    func searchData(_ key: String)
 }
 
 final class UsersRepository: UsersRepositoryProtocol, ObservableObject {
@@ -30,6 +31,26 @@ final class UsersRepository: UsersRepositoryProtocol, ObservableObject {
     
     func loadData() {
         db.collection(FirestoreCollection[.users])
+            .getDocuments { [weak self] (querySnapshot, error) in
+                if let error = error {
+                    print("LoadData error: \(error.localizedDescription)")
+                }
+                if let querySnapshot = querySnapshot {
+                    self?.users = querySnapshot.documents.compactMap {
+                        do {
+                            return try $0.data(as: ProfileModel.self)
+                        } catch {
+                            print("querySnapshot error: \(error.localizedDescription)")
+                            return nil
+                        }
+                    }
+                }
+            }
+    }
+    
+    func searchData(_ key: String) {
+        db.collection(FirestoreCollection[.users])
+            .whereField("searchKey", isEqualTo: key)
             .getDocuments { [weak self] (querySnapshot, error) in
                 if let error = error {
                     print("LoadData error: \(error.localizedDescription)")
