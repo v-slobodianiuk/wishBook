@@ -19,6 +19,8 @@ protocol UsersRepositoryProtocol {
     
     func loadData()
     func searchData(_ key: String)
+    func subscribeTo(id: String?)
+    func unsubscribeFrom(id: String?)
 }
 
 final class UsersRepository: UsersRepositoryProtocol, ObservableObject {
@@ -64,6 +66,32 @@ final class UsersRepository: UsersRepositoryProtocol, ObservableObject {
                             return nil
                         }
                     }
+                }
+            }
+    }
+    
+    func subscribeTo(id: String?) {
+        guard let userId = user?.uid, let subscriptionId = id else { return }
+        db.collection(FirestoreCollection[.users])
+            .document(userId)
+            .updateData([
+                "subscriptions" : FieldValue.arrayUnion([subscriptionId])
+            ]) { error in
+                if let error = error {
+                    print("subscribeTo error: \(error.localizedDescription)")
+                }
+            }
+    }
+    
+    func unsubscribeFrom(id: String?) {
+        guard let userId = user?.uid, let subscriptionId = id else { return }
+        db.collection(FirestoreCollection[.users])
+            .document(userId)
+            .updateData([
+                "subscriptions" : FieldValue.arrayRemove([subscriptionId])
+            ]) { error in
+                if let error = error {
+                    print("subscribeTo error: \(error.localizedDescription)")
                 }
             }
     }
