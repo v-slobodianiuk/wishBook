@@ -71,7 +71,8 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     func getBirthdate() -> String {
         guard let birthdate = profileData?.birthdate else { return "" }
         let date = dateFormatter.string(from: birthdate)
-        return  "\("PROFILE_BIRTHDATE".localized): \(date)"
+        //return  "\("PROFILE_BIRTHDATE".localized): \(date)"
+        return  "\(date)"
     }
     
     func getProfileData() -> ProfileModel? {

@@ -64,7 +64,7 @@ struct EditProfileView<VM: EditProfileViewModelProtocol>: View {
             }, label: {
                 Text("EDIT_PROFILE_BUTTON_TITLE".localized)
                     .font(.title)
-                    .frame(maxWidth: .infinity, maxHeight: 50)
+                    .frame(maxWidth: .infinity, minHeight: 50)
                     .background(Color.selectedTabItem)
                     .foregroundColor(.lightText)
                     .cornerRadius(10)

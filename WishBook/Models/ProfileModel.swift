@@ -30,6 +30,7 @@ struct ProfileModel: Codable, Identifiable {
         case lastName
         case searchKey
         case email
+        case description
         case birthdate
         case links
         case wishes

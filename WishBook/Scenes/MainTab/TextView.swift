@@ -13,11 +13,28 @@ struct TextView: UIViewRepresentable {
     @Binding var text: String
     
     func makeUIView(context: UIViewRepresentableContext<TextView>) -> UITextView {
+        textView.delegate = context.coordinator
         return textView
     }
     
     func updateUIView(_ uiView: UITextView, context: UIViewRepresentableContext<TextView>) {
         uiView.text = text
+    }
+    
+    func makeCoordinator() -> TextView.Coordinator {
+        return Coordinator(self)
+    }
+    
+    class Coordinator: NSObject, UITextViewDelegate {
+        private let textView: TextView
+
+        init(_ textView: TextView) {
+            self.textView = textView
+        }
+        
+        func textViewDidChange(_ textView: UITextView) {
+            self.textView.text = textView.text
+        }
     }
 }
 
