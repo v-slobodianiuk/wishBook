@@ -58,65 +58,56 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
             
             Text(vm.getFullName())
                 .font(.title)
-                .padding()
-            statisticView()
-            Divider()
-                .padding()
-            HStack {
-                Text(vm.getBirthdate())
-                    .foregroundColor(.lightText)
-                    .padding()
+                .padding(.top)
+                .padding(.horizontal)
+                .padding(.horizontal)
+            if let description = vm.getProfileData()?.description {
+                Text(description)
+                    .foregroundColor(.gray)
+                    .lineLimit(2)
+                    .padding(.horizontal)
+                    .padding(.bottom)
             }
-            .background(Color.selectedTabItem)
-            .cornerRadius(15)
+            statisticView()
+            HStack {
+                Text("🎂")
+                Text(vm.getBirthdate())
+                    .padding(.leading, 5)
+            }
+            .padding()
             Spacer()
         }
     }
     
     fileprivate func statisticView() -> some View {
-        HStack(spacing: 20) {
-            Circle()
-                .foregroundColor(.black)
-                .frame(width: 100, height: 100, alignment: .center)
-                .overlay(
-                    VStack {
-                        Text("\(vm.getProfileData()?.subscribers?.count ?? 0)")
-                            .fontWeight(.medium)
-                            .foregroundColor(.white)
-                        Text("PROFILE_SUBSCRIBERS_COUNT_TITLE".localized)
-                            .font(.system(size: 12))
-                            .foregroundColor(.white)
-                            .padding(.top, 1)
-                    }
-                )
-            Circle()
-                .foregroundColor(.black)
-                .frame(width: 100, height: 100, alignment: .center)
-                .overlay(
-                    VStack {
-                        Text("\(vm.getProfileData()?.subscriptions?.count ?? 0)")
-                            .fontWeight(.medium)
-                            .foregroundColor(.white)
-                        Text("PROFILE_SUBSCRIPTIONS_COUNT_TITLE".localized)
-                            .font(.system(size: 12))
-                            .foregroundColor(.white)
-                            .padding(.top, 1)
-                    }
-                )
-            Circle()
-                .foregroundColor(.black)
-                .frame(width: 100, height: 100, alignment: .center)
-                .overlay(
-                    VStack {
-                        Text("\(vm.getProfileData()?.wishes ?? 0)")
-                            .fontWeight(.medium)
-                            .foregroundColor(.white)
-                        Text("PROFILE_WISHES_COUNT_TITLE".localized)
-                            .font(.system(size: 12))
-                            .foregroundColor(.white)
-                            .padding(.top, 1)
-                    }
-                )
+        HStack() {
+            VStack {
+                Text("\(vm.getProfileData()?.subscribers?.count ?? 0)")
+                    .fontWeight(.medium)
+                Text("PROFILE_SUBSCRIBERS_COUNT_TITLE".localized)
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
+            }
+            Divider()
+                .frame(height: 25)
+                .padding(.horizontal, 8)
+            VStack {
+                Text("\(vm.getProfileData()?.subscriptions?.count ?? 0)")
+                    .fontWeight(.medium)
+                Text("PROFILE_SUBSCRIPTIONS_COUNT_TITLE".localized)
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
+            }
+            Divider()
+                .frame(height: 25)
+                .padding(.horizontal, 8)
+            VStack {
+                Text("\(vm.getProfileData()?.wishes ?? 0)")
+                    .fontWeight(.medium)
+                Text("PROFILE_WISHES_COUNT_TITLE".localized)
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
+            }
         }
     }
 }
