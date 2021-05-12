@@ -16,8 +16,10 @@ struct ProfileModel: Codable, Identifiable {
     var searchKey: String?
     var lastName: String?
     var email: String?
+    var description: String?
     var birthdate: Date?
     var links: SocialLinksData?
+    var wishes: Int?
     var subscribers: [String]?
     var subscriptions: [String]?
     
@@ -30,6 +32,7 @@ struct ProfileModel: Codable, Identifiable {
         case email
         case birthdate
         case links
+        case wishes
         case subscribers
         case subscriptions
     }

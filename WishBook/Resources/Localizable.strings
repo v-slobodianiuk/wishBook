@@ -35,11 +35,15 @@
 "PROFILE_EDIT_BUTTON_TITLE" = "Edit";
 "PROFILE_SIGN_OUT_BUTTON_TITLE" = "Sign Out";
 "EMPTY_VIEW_TITLE" = "Please fill profile info";
+"PROFILE_SUBSCRIBERS_COUNT_TITLE" = "Subscribers";
+"PROFILE_SUBSCRIPTIONS_COUNT_TITLE" = "Subscriptions";
+"PROFILE_WISHES_COUNT_TITLE" = "Wishes";
 
 //MARK: Edit Profile
 "EDIT_PROFILE_TITLE" = "Edit Profile";
 "PROFILE_FIRST_NAME" = "First name";
 "PROFILE_LAST_NAME" = "Last Name";
 "PROFILE_EMAIL" = "Email";
+"PROFILE_ABOUT" = "About";
 "PROFILE_BIRTHDATE" = "Birthdate";
 "EDIT_PROFILE_BUTTON_TITLE" = "Save";

@@ -23,6 +23,7 @@ struct GlobalSearchCell: View {
                 .padding(.leading)
             VStack(alignment: .leading) {
                 Text("\(firstName ?? "") \(lastName ?? "")")
+                    .lineLimit(2)
                     .font(.system(size: 20, weight: .medium))
                     .padding(.horizontal)
                 Text("\(birthDate ?? "")")

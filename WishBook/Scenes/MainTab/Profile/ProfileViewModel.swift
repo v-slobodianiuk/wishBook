@@ -58,9 +58,6 @@ final class ProfileViewModel: ProfileViewModelProtocol {
         repository.loadData()
         
         repository.profilePublisher.sink { [self] (profileData: ProfileModel) in
-//            print("-----------------------------")
-//            print(profileData)
-//            print("-----------------------------")
             self.profileData = profileData
         }
         .store(in: &cancellables)
