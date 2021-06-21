@@ -22,6 +22,7 @@
 		D53D0E2525F3B96500E5C2D7 /* AppDelegateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2425F3B96500E5C2D7 /* AppDelegateFactory.swift */; };
 		D53D0E2A25F4150B00E5C2D7 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2925F4150B00E5C2D7 /* UserStorage.swift */; };
 		D53D0E2F25F429C900E5C2D7 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2E25F429C900E5C2D7 /* MainTabView.swift */; };
+		D5442BA126809C1400BB1F5A /* LinkDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5442BA026809C1400BB1F5A /* LinkDataView.swift */; };
 		D552C8EA25E409A9000E2196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C8E925E409A9000E2196 /* AppDelegate.swift */; };
 		D552C8EC25E409A9000E2196 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C8EB25E409A9000E2196 /* SceneDelegate.swift */; };
 		D552C8EE25E409A9000E2196 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C8ED25E409A9000E2196 /* LoginView.swift */; };
@@ -64,6 +65,9 @@
 		D599146525F53DAD005F2F23 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599146425F53DAD005F2F23 /* Colors.swift */; };
 		D59914C925F53FD9005F2F23 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D59914C825F53FD9005F2F23 /* Localizable.strings */; };
 		D59914CE25F54062005F2F23 /* StringLocalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59914CD25F54062005F2F23 /* StringLocalized.swift */; };
+		D5B7F01726815B0900D578F1 /* MetaCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F01626815B0900D578F1 /* MetaCache.swift */; };
+		D5B7F01C26815BC800D578F1 /* LinkContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F01B26815BC800D578F1 /* LinkContainerView.swift */; };
+		D5B7F02126815C1900D578F1 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F02026815C1900D578F1 /* Optional.swift */; };
 		D5BA4406260A2F51004D5B36 /* UsersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BA4405260A2F51004D5B36 /* UsersRepository.swift */; };
 		D5BA440B260A321A004D5B36 /* FriendsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BA440A260A321A004D5B36 /* FriendsRouter.swift */; };
 		D5C1E76D25EA604A00B96DE7 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C1E76C25EA604A00B96DE7 /* RootView.swift */; };
@@ -109,6 +113,7 @@
 		D53D0E2425F3B96500E5C2D7 /* AppDelegateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateFactory.swift; sourceTree = "<group>"; };
 		D53D0E2925F4150B00E5C2D7 /* UserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorage.swift; sourceTree = "<group>"; };
 		D53D0E2E25F429C900E5C2D7 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		D5442BA026809C1400BB1F5A /* LinkDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkDataView.swift; sourceTree = "<group>"; };
 		D552C8E625E409A9000E2196 /* WishBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WishBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D552C8E925E409A9000E2196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D552C8EB25E409A9000E2196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -157,6 +162,9 @@
 		D599146425F53DAD005F2F23 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D59914C825F53FD9005F2F23 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		D59914CD25F54062005F2F23 /* StringLocalized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLocalized.swift; sourceTree = "<group>"; };
+		D5B7F01626815B0900D578F1 /* MetaCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaCache.swift; sourceTree = "<group>"; };
+		D5B7F01B26815BC800D578F1 /* LinkContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkContainerView.swift; sourceTree = "<group>"; };
+		D5B7F02026815C1900D578F1 /* Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
 		D5B8F6121E64981C11C87744 /* Pods-WishBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBook.release.xcconfig"; path = "Target Support Files/Pods-WishBook/Pods-WishBook.release.xcconfig"; sourceTree = "<group>"; };
 		D5BA4405260A2F51004D5B36 /* UsersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersRepository.swift; sourceTree = "<group>"; };
 		D5BA440A260A321A004D5B36 /* FriendsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRouter.swift; sourceTree = "<group>"; };
@@ -221,9 +229,9 @@
 		D50FE2A9264C3C120083197B /* UserPage */ = {
 			isa = PBXGroup;
 			children = (
-				D50FE2A3264C34FE0083197B /* UserPageModuleBuilder.swift */,
 				D50FE2A5264C35080083197B /* UserPageView.swift */,
 				D50FE2A7264C35130083197B /* UserPageViewModel.swift */,
+				D50FE2A3264C34FE0083197B /* UserPageModuleBuilder.swift */,
 			);
 			path = UserPage;
 			sourceTree = "<group>";
@@ -278,7 +286,7 @@
 		D51B4A1D25F4EC03008ABCBB /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				D5E7511526496F6200C2D20A /* TextView.swift */,
+				D5B7F02526815CD400D578F1 /* CustomView */,
 				D51B4A1425F4EB31008ABCBB /* Root */,
 				D53D0E0625F2C44A00E5C2D7 /* Login */,
 				D51B4A2525F4ED54008ABCBB /* MainTab */,
@@ -291,6 +299,7 @@
 			children = (
 				D53D0E2925F4150B00E5C2D7 /* UserStorage.swift */,
 				D56B190C2602785700F7031C /* GoogleAuthService.swift */,
+				D5B7F01626815B0900D578F1 /* MetaCache.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -312,7 +321,6 @@
 				D552C8ED25E409A9000E2196 /* LoginView.swift */,
 				D56B18FF2602700000F7031C /* LoginViewModel.swift */,
 				D56B191426027E4E00F7031C /* LoginModuleBuilder.swift */,
-				D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -425,8 +433,8 @@
 			children = (
 				D599143025F528DC005F2F23 /* ProfileView.swift */,
 				D599145A25F53913005F2F23 /* ProfileViewModel.swift */,
-				D55CC75725F5527500E5C04F /* ProfileRouter.swift */,
 				D599143F25F52BFD005F2F23 /* ProfileModuleBuilder.swift */,
+				D55CC75725F5527500E5C04F /* ProfileRouter.swift */,
 				D55CC75325F54DD600E5C04F /* Edit Profile */,
 			);
 			path = Profile;
@@ -437,8 +445,8 @@
 			children = (
 				D599142B25F528C9005F2F23 /* WishListView.swift */,
 				D599145525F5388C005F2F23 /* WishListViewModel.swift */,
-				D55CC78425F6C0C700E5C04F /* WishListRouter.swift */,
 				D599143A25F52BED005F2F23 /* WishListModuleBuilder.swift */,
+				D55CC78425F6C0C700E5C04F /* WishListRouter.swift */,
 				D55CC79125F6C66800E5C04F /* WishDetails */,
 			);
 			path = WishList;
@@ -448,9 +456,8 @@
 			isa = PBXGroup;
 			children = (
 				D50FE2A9264C3C120083197B /* UserPage */,
+				D5B7F02926815D0500D578F1 /* Cell */,
 				D599142625F52879005F2F23 /* FriendsView.swift */,
-				D5E62F2B2611E96C0094BAF9 /* SearchView.swift */,
-				D573367A2611E47300C11EC0 /* GlobalSearchCell.swift */,
 				D599145025F53785005F2F23 /* FriendsViewModel.swift */,
 				D599143525F52AEF005F2F23 /* FriendsModuleBuilder.swift */,
 				D5BA440A260A321A004D5B36 /* FriendsRouter.swift */,
@@ -464,8 +471,29 @@
 				D599146425F53DAD005F2F23 /* Colors.swift */,
 				D59914CD25F54062005F2F23 /* StringLocalized.swift */,
 				D573367F2611E4A700C11EC0 /* UIExtensions.swift */,
+				D5B7F02026815C1900D578F1 /* Optional.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D5B7F02526815CD400D578F1 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */,
+				D5E62F2B2611E96C0094BAF9 /* SearchView.swift */,
+				D5E7511526496F6200C2D20A /* TextView.swift */,
+				D5442BA026809C1400BB1F5A /* LinkDataView.swift */,
+				D5B7F01B26815BC800D578F1 /* LinkContainerView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		D5B7F02926815D0500D578F1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D573367A2611E47300C11EC0 /* GlobalSearchCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -756,7 +784,9 @@
 				D55CC78025F6BE7300E5C04F /* WishListModel.swift in Sources */,
 				D55CC74525F5458A00E5C04F /* ProfileRepository.swift in Sources */,
 				D599146525F53DAD005F2F23 /* Colors.swift in Sources */,
+				D5B7F01726815B0900D578F1 /* MetaCache.swift in Sources */,
 				D599145B25F53913005F2F23 /* ProfileViewModel.swift in Sources */,
+				D5442BA126809C1400BB1F5A /* LinkDataView.swift in Sources */,
 				D53D0E2A25F4150B00E5C2D7 /* UserStorage.swift in Sources */,
 				D573367B2611E47300C11EC0 /* GlobalSearchCell.swift in Sources */,
 				D50FE2A6264C35080083197B /* UserPageView.swift in Sources */,
@@ -774,6 +804,7 @@
 				D599143B25F52BED005F2F23 /* WishListModuleBuilder.swift in Sources */,
 				D55CC79C25F6C6A100E5C04F /* WishDetailsView.swift in Sources */,
 				D599143125F528DC005F2F23 /* ProfileView.swift in Sources */,
+				D5B7F02126815C1900D578F1 /* Optional.swift in Sources */,
 				D53D0E2525F3B96500E5C2D7 /* AppDelegateFactory.swift in Sources */,
 				D53D0E1525F3B64500E5C2D7 /* CompositeAppDelegate.swift in Sources */,
 				D5E62F2C2611E96C0094BAF9 /* SearchView.swift in Sources */,
@@ -790,6 +821,7 @@
 				D56B190D2602785700F7031C /* GoogleAuthService.swift in Sources */,
 				D599142225F526EE005F2F23 /* MainTabCoordinator.swift in Sources */,
 				D5BA440B260A321A004D5B36 /* FriendsRouter.swift in Sources */,
+				D5B7F01C26815BC800D578F1 /* LinkContainerView.swift in Sources */,
 				D55CC77B25F6BE3500E5C04F /* WishListRepository.swift in Sources */,
 				D55CC76525F6565200E5C04F /* EditProfileModuleBuilder.swift in Sources */,
 				D59914CE25F54062005F2F23 /* StringLocalized.swift in Sources */,
