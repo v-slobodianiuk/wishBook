@@ -13,6 +13,7 @@ protocol WishListViewModelProtocol: ObservableObject {
     var wishList: [WishListModel] { get }
     var wishListPublished: Published<[WishListModel]> { get }
     var wishListPublisher: Published<[WishListModel]>.Publisher { get }
+    var selectedItem: Int { get set }
     
     var router: WishListRouterProtocol { get }
     func getData()
@@ -25,6 +26,7 @@ final class WishListViewModel: WishListViewModelProtocol {
     @Published var wishList = [WishListModel]()
     var wishListPublished: Published<[WishListModel]> { _wishList }
     var wishListPublisher: Published<[WishListModel]>.Publisher { $wishList }
+    var selectedItem: Int = 0
     private var cancellables = Set<AnyCancellable>()
     
     init(router: WishListRouterProtocol, repository: WishListRepositoryProtocol) {

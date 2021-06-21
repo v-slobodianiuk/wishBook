@@ -8,12 +8,12 @@
 import SwiftUI
 
 protocol WishListRouterProtocol {
-    func showWishDetails() -> AnyView
+    func showWishDetails(wishItem: WishListModel?) -> AnyView
 }
 
 final class WishListRouter: WishListRouterProtocol {
-    func showWishDetails() -> AnyView {
-        let wishDetailsView = WishDetailsModuleBuilder.create()
+    func showWishDetails(wishItem: WishListModel?) -> AnyView {
+        let wishDetailsView = WishDetailsModuleBuilder.create(wishItem: wishItem)
         return AnyView(wishDetailsView)
     }
 }

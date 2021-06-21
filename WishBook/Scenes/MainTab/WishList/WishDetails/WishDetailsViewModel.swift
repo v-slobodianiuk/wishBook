@@ -21,13 +21,14 @@ protocol WishDetailsViewModelProtocol: ObservableObject {
 
 final class WishDetailsViewModel: WishDetailsViewModelProtocol {
     @Published private var repository: WishListRepositoryProtocol
-    @Published var wishItem = WishListModel(title: "")
+    @Published var wishItem: WishListModel
     var wishItemPublished: Published<WishListModel> { _wishItem }
     var wishItemPublisher: Published<WishListModel>.Publisher { $wishItem }
     private var cancellables = Set<AnyCancellable>()
     
-    init(repository: WishListRepositoryProtocol) {
+    init(repository: WishListRepositoryProtocol, wishItem: WishListModel? = nil) {
         self.repository = repository
+        self.wishItem = wishItem ?? WishListModel(title: "")
     }
     
     func loadWishItem() {

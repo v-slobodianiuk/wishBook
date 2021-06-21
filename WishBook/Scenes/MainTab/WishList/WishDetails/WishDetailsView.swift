@@ -14,10 +14,24 @@ struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
     
     var body: some View {
         NavigationView {
-            VStack(alignment: .center) {
-                TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: $vm.wishItem.title)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
+            VStack {
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: $vm.wishItem.title)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        TextField("WISH_ITEM_TITLE_LINK_PLACEHOLER".localized, text: $vm.wishItem.url.safeValue)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        Text("WISH_ITEM_TITLE_DESCRIPTION_PLACEHOLER".localized)
+                        TextView(text: $vm.wishItem.description.safeValue)
+                            .font(.systemFont(ofSize: 17))
+                            .setBorder(borderColor: .lightGray, borderWidth: 0.25, cornerRadius: 5)
+                            .frame(width: UIScreen.main.bounds.width - 32, height: 150, alignment: .leading)
+                        LinkDataView(urlString: $vm.wishItem.url.safeValue)
+                            .frame(height: 150)
+                    }
+                    .padding(.horizontal)
+                }
+                .padding(.top)
                 Spacer()
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
@@ -58,5 +72,7 @@ struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
 struct WishDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         WishDetailsView(vm: WishDetailsViewModel(repository: DI.getWishListRepository()))
+            .previewDevice(PreviewDevice(rawValue: "iPhone SE (1st generation)"))
+            .previewDisplayName("iPhone SE (1st generation)")
     }
 }

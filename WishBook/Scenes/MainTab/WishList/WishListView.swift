@@ -10,7 +10,8 @@ import SwiftUI
 struct WishListView<VM: WishListViewModelProtocol>: View {
     
     @ObservedObject var vm: VM
-    @State private var wishDetailsIsPresented = false
+    @State private var wishDetailsIsPresented: Bool = false
+    @State private var createNewWishIsPresented: Bool = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -21,27 +22,32 @@ struct WishListView<VM: WishListViewModelProtocol>: View {
         }
         .navigationBarTitle("WISH_LIST_NAV_TITLE".localized)
         .navigationBarItems(trailing: setupTrailingNavBarItems())
-        .sheet(isPresented: $wishDetailsIsPresented, content: {
-            vm.router.showWishDetails()
-        })
     }
     
     fileprivate func listView() -> some View {
         List {
-            ForEach(vm.wishList) { item in
-                Text(item.title)
+            ForEach(vm.wishList.indices, id: \.self) { index in
+                Text(vm.wishList[index].title)
+                    .onTapGesture {
+                        //itemIndex = index
+                        vm.selectedItem = index
+                        wishDetailsIsPresented.toggle()
+                    }
             }
             .onDelete(perform: { indexSet in
                 guard let index = indexSet.first else { return }
                 vm.deleteItem(id: vm.wishList[index].id)
             })
         }
+        .sheet(isPresented: $wishDetailsIsPresented) {
+            vm.router.showWishDetails(wishItem: vm.wishList[vm.selectedItem])
+        }
     }
     
     fileprivate func setupTrailingNavBarItems() -> some View {
         HStack {
             Button(action: {
-                wishDetailsIsPresented.toggle()
+                createNewWishIsPresented.toggle()
             }, label: {
                 HStack {
                     Image(systemName: "plus.circle.fill")
@@ -49,6 +55,9 @@ struct WishListView<VM: WishListViewModelProtocol>: View {
                     Text("WISH_ITEM_ADD_BUTTON_TITLE".localized)
                 }
             })
+        }
+        .sheet(isPresented: $createNewWishIsPresented) {
+            vm.router.showWishDetails(wishItem: nil)
         }
     }
 }
