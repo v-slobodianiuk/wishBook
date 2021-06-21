@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		81DCAE5E129B905667CC03F8 /* Pods_WishBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BB2CCA7F39E69FB901AA1F7 /* Pods_WishBookTests.framework */; };
 		C4E94FD5221A519A7F569E85 /* Pods_WishBook_WishBookUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4698BE7F61107C199E340F5F /* Pods_WishBook_WishBookUITests.framework */; };
+		D50FE2A4264C34FE0083197B /* UserPageModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FE2A3264C34FE0083197B /* UserPageModuleBuilder.swift */; };
+		D50FE2A6264C35080083197B /* UserPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FE2A5264C35080083197B /* UserPageView.swift */; };
+		D50FE2A8264C35130083197B /* UserPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FE2A7264C35130083197B /* UserPageViewModel.swift */; };
 		D51B49DE25F4E7E4008ABCBB /* GoogleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */; };
 		D51B4A0A25F4E9FE008ABCBB /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51B4A0925F4E9FE008ABCBB /* AppCoordinator.swift */; };
 		D51B4A0F25F4EA31008ABCBB /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51B4A0E25F4EA31008ABCBB /* RootCoordinator.swift */; };
@@ -93,6 +96,9 @@
 		1E796FD2BF3B3284609EE64F /* Pods-WishBookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishBookTests.release.xcconfig"; path = "Target Support Files/Pods-WishBookTests/Pods-WishBookTests.release.xcconfig"; sourceTree = "<group>"; };
 		2DAD38865F543A739815B95A /* Pods_WishBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WishBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4698BE7F61107C199E340F5F /* Pods_WishBook_WishBookUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WishBook_WishBookUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D50FE2A3264C34FE0083197B /* UserPageModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageModuleBuilder.swift; sourceTree = "<group>"; };
+		D50FE2A5264C35080083197B /* UserPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageView.swift; sourceTree = "<group>"; };
+		D50FE2A7264C35130083197B /* UserPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageViewModel.swift; sourceTree = "<group>"; };
 		D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleButton.swift; sourceTree = "<group>"; };
 		D51B4A0925F4E9FE008ABCBB /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D51B4A0E25F4EA31008ABCBB /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
@@ -212,6 +218,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D50FE2A9264C3C120083197B /* UserPage */ = {
+			isa = PBXGroup;
+			children = (
+				D50FE2A3264C34FE0083197B /* UserPageModuleBuilder.swift */,
+				D50FE2A5264C35080083197B /* UserPageView.swift */,
+				D50FE2A7264C35130083197B /* UserPageViewModel.swift */,
+			);
+			path = UserPage;
+			sourceTree = "<group>";
+		};
 		D51B4A0125F4E9A5008ABCBB /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +278,7 @@
 		D51B4A1D25F4EC03008ABCBB /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				D5E7511526496F6200C2D20A /* TextView.swift */,
 				D51B4A1425F4EB31008ABCBB /* Root */,
 				D53D0E0625F2C44A00E5C2D7 /* Login */,
 				D51B4A2525F4ED54008ABCBB /* MainTab */,
@@ -285,7 +302,6 @@
 				D599144C25F52C17005F2F23 /* Friends */,
 				D599144825F52C0F005F2F23 /* WishList */,
 				D599144425F52C08005F2F23 /* Profile */,
-				D5E7511526496F6200C2D20A /* TextView.swift */,
 			);
 			path = MainTab;
 			sourceTree = "<group>";
@@ -431,6 +447,7 @@
 		D599144C25F52C17005F2F23 /* Friends */ = {
 			isa = PBXGroup;
 			children = (
+				D50FE2A9264C3C120083197B /* UserPage */,
 				D599142625F52879005F2F23 /* FriendsView.swift */,
 				D5E62F2B2611E96C0094BAF9 /* SearchView.swift */,
 				D573367A2611E47300C11EC0 /* GlobalSearchCell.swift */,
@@ -734,6 +751,7 @@
 				D599145125F53785005F2F23 /* FriendsViewModel.swift in Sources */,
 				D599142725F52879005F2F23 /* FriendsView.swift in Sources */,
 				D56B19002602700000F7031C /* LoginViewModel.swift in Sources */,
+				D50FE2A8264C35130083197B /* UserPageViewModel.swift in Sources */,
 				D53D0E0B25F2D1D800E5C2D7 /* Coordinator.swift in Sources */,
 				D55CC78025F6BE7300E5C04F /* WishListModel.swift in Sources */,
 				D55CC74525F5458A00E5C04F /* ProfileRepository.swift in Sources */,
@@ -741,8 +759,10 @@
 				D599145B25F53913005F2F23 /* ProfileViewModel.swift in Sources */,
 				D53D0E2A25F4150B00E5C2D7 /* UserStorage.swift in Sources */,
 				D573367B2611E47300C11EC0 /* GlobalSearchCell.swift in Sources */,
+				D50FE2A6264C35080083197B /* UserPageView.swift in Sources */,
 				D55CC78D25F6C66300E5C04F /* WishDetailsViewModel.swift in Sources */,
 				D552C8EA25E409A9000E2196 /* AppDelegate.swift in Sources */,
+				D50FE2A4264C34FE0083197B /* UserPageModuleBuilder.swift in Sources */,
 				D552C8EC25E409A9000E2196 /* SceneDelegate.swift in Sources */,
 				D53D0E1A25F3B74200E5C2D7 /* GoogleAppDelegate.swift in Sources */,
 				D55CC75D25F5581E00E5C04F /* EditProfileViewModel.swift in Sources */,

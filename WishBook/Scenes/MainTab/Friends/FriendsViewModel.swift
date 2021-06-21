@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 protocol FriendsViewModelProtocol: ObservableObject {
+    var router: FriendsRouterProtocol { get }
     var usersList: [ProfileModel] { get }
     var usersListPublished: Published<[ProfileModel]> { get }
     var usersListPublisher: Published<[ProfileModel]>.Publisher { get }

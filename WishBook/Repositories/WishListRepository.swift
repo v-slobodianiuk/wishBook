@@ -21,6 +21,7 @@ protocol WishListRepositoryProtocol {
     func addData(_ data: WishListModel)
     func updateData(_ data: WishListModel)
     func delete(id: String?)
+    func loadDataByUserId(_ userId: String)
 }
 
 final class WishListRepository: WishListRepositoryProtocol, ObservableObject {
@@ -104,6 +105,29 @@ final class WishListRepository: WishListRepositoryProtocol, ObservableObject {
             ]) { error in
                 if let error = error {
                     print("updateWishesCount error: \(error.localizedDescription)")
+                }
+            }
+    }
+    
+    func loadDataByUserId(_ userId: String) {
+        db.collection(FirestoreCollection[.wishList])
+            .order(by: "createdTime")
+            .whereField("userId", isEqualTo: userId)
+            .getDocuments { [weak self] querySnapshot, error in
+                if let error = error {
+                    print("LoadData error: \(error.localizedDescription)")
+                    return
+                }
+                if let querySnapshot = querySnapshot {
+                    self?.wishList = querySnapshot.documents.compactMap {
+                        //try? $0.data(as: WishListModel.self)
+                        do {
+                            return try $0.data(as: WishListModel.self)
+                        } catch {
+                            print("querySnapshot error: \(error.localizedDescription)")
+                            return nil
+                        }
+                    }
                 }
             }
     }

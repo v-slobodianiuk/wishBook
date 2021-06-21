@@ -21,6 +21,7 @@ protocol ProfileRepositoryProtocol {
     //func addData(_ data: ProfileModel)
     func updateData(_ data: ProfileModel)
     func addUserDataIfNeeded()
+    func loadDataByUserId(_ userId: String)
 }
 
 final class ProfileRepository: ProfileRepositoryProtocol, ObservableObject {
@@ -80,6 +81,24 @@ final class ProfileRepository: ProfileRepositoryProtocol, ObservableObject {
                     //                            return nil
                     //                        }
                     //                    }
+                }
+            }
+    }
+    
+    func loadDataByUserId(_ userId: String) {
+        db.collection(FirestoreCollection[.users])
+            .document(userId)
+            .getDocument { [weak self] documentSnapshot, error in
+                if let error = error {
+                    print("LoadData error: \(error.localizedDescription)")
+                    return
+                }
+                if let documentSnapshot = documentSnapshot {
+                    do {
+                        self?.profile = try documentSnapshot.data(as: ProfileModel.self) ?? ProfileModel()
+                    } catch {
+                        print("querySnapshot error: \(error.localizedDescription)")
+                    }
                 }
             }
     }

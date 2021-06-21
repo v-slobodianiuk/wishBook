@@ -73,6 +73,9 @@ struct EditProfileView<VM: EditProfileViewModelProtocol>: View {
             .padding()
             }
         .navigationBarTitle(Text("EDIT_PROFILE_TITLE".localized))
+        .onTapGesture {
+            UIApplication.shared.endEditing(true)
+        }
         .onAppear {
             firstName = vm.profileData.firstName ?? ""
             lastName = vm.profileData.lastName ?? ""
