@@ -507,7 +507,6 @@
 				D552C8E225E409A9000E2196 /* Sources */,
 				D552C8E325E409A9000E2196 /* Frameworks */,
 				D552C8E425E409A9000E2196 /* Resources */,
-				2C7ED6E1A63912065DFBE062 /* [CP] Embed Pods Frameworks */,
 				CA39E5EDD5C67F33F55D2FAA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -546,7 +545,6 @@
 				D552C90625E409AB000E2196 /* Sources */,
 				D552C90725E409AB000E2196 /* Frameworks */,
 				D552C90825E409AB000E2196 /* Resources */,
-				EAF6D0B4B0859E3939197D33 /* [CP] Embed Pods Frameworks */,
 				CCA1D3BD2E51B068366AFBC1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -654,23 +652,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2C7ED6E1A63912065DFBE062 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WishBook/Pods-WishBook-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WishBook/Pods-WishBook-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WishBook/Pods-WishBook-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B97F3E479E68D75384F6AD08 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -747,23 +728,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WishBook-WishBookUITests/Pods-WishBook-WishBookUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EAF6D0B4B0859E3939197D33 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WishBook-WishBookUITests/Pods-WishBook-WishBookUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WishBook-WishBookUITests/Pods-WishBook-WishBookUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WishBook-WishBookUITests/Pods-WishBook-WishBookUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
