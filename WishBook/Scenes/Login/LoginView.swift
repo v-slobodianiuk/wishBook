@@ -37,11 +37,15 @@ struct LoginView<VM: LoginViewModelProtocol>: View {
                     .cornerRadius(10)
             }
             .padding()
-            GoogleButton()
-                .colorScheme(.light)
-                .style(.standard)
-                .frame(width: 120, height: 50)
-                .padding()
+            Button {
+                vm.signInPressed()
+            } label: {
+                GoogleButton()
+                    .colorScheme(.light)
+                    .style(.standard)
+                    .frame(width: 120, height: 50)
+                    .padding()
+            }
         }
         .alert(isPresented: $vm.showWarning) {
 

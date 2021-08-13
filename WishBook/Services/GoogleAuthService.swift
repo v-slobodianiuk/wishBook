@@ -20,22 +20,13 @@ enum UserState {
 
 typealias AuthResult = (Result<UserState, Error>) -> Void
 
-protocol GoogleAuthServiceProtocol: class {
-    var googleSignIn: (() -> Void)? { get set }
+protocol GoogleAuthServiceProtocol: AnyObject {
     func createUser(email: String, password: String, completion: @escaping AuthResult)
     func loginUser(email: String, password: String, completion: @escaping AuthResult)
+    func signInUser(completion: @escaping () -> Void)
 }
 
 final class GoogleAuthService: NSObject, GoogleAuthServiceProtocol {
-    
-    var googleSignIn: (() -> Void)?
-    
-    override init() {
-        super.init()
-        
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        GIDSignIn.sharedInstance()?.delegate = self
-    }
     
     func createUser(email: String, password: String, completion: @escaping AuthResult) {
         Auth.auth().createUser(withEmail: email, password: password) { [self] authResult, error in
@@ -62,32 +53,39 @@ final class GoogleAuthService: NSObject, GoogleAuthServiceProtocol {
             }
         }
     }
-}
 
-extension GoogleAuthService: GIDSignInDelegate {
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        guard error == nil else {
+    func signInUser(completion: @escaping () -> Void) {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+
+        // Start the sign in flow!
+        guard let rootVC = UIApplication.shared.windows.last?.rootViewController else { return }
+        GIDSignIn.sharedInstance.signIn(with: config, presenting: rootVC) { user, error in
+
+          if let error = error {
             print("Google SignIn error: \(error.localizedDescription)")
             return
-        }
-        
-        guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(
-            withIDToken: authentication.idToken,
-            accessToken: authentication.accessToken
-        )
+          }
 
-        Auth.auth().signIn(with: credential) { [self] (result, error) in
-            guard error == nil else {
-                print("Google SignIn error: \(error?.localizedDescription ?? "Unknown")")
-                return
+          guard
+            let authentication = user?.authentication,
+            let idToken = authentication.idToken
+          else {
+            return
+          }
+
+            let credentials = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                         accessToken: authentication.accessToken)
+
+            Auth.auth().signIn(with: credentials) { (result, error) in
+                guard error == nil else {
+                    print("Google SignIn error: \(error?.localizedDescription ?? "Unknown")")
+                    return
+                }
+                completion()
             }
-            googleSignIn?()
         }
-    }
-
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
     }
 }

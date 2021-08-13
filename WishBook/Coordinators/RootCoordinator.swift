@@ -26,7 +26,6 @@ final class RootCoordinator: RootCoordinatorProtocol {
         let view = RootModuleBuilder.create(with: self)
         let hosting = UIHostingController(rootView: view)
         window?.rootViewController = hosting
-        GIDSignIn.sharedInstance()?.presentingViewController = window?.rootViewController
         window?.makeKeyAndVisible()
     }
     

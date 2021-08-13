@@ -28,6 +28,7 @@ protocol LoginViewModelProtocol: ObservableObject {
     var error: String? { get }
     
     func loginPressed()
+    func signInPressed()
 }
 
 final class LoginViewModel: LoginViewModelProtocol {
@@ -51,27 +52,26 @@ final class LoginViewModel: LoginViewModelProtocol {
         self.repository = repository
         
         print("LoginViewModel inited")
-        additionalLoginServices()
     }
     
     func loginPressed() {
-        googleAuthService.createUser(email: loginModel.email, password: loginModel.password) { [self] (result) in
+        googleAuthService.createUser(email: loginModel.email, password: loginModel.password) { [weak self] (result) in
             switch result {
             case .success(let user):
                 if user == .new {
-                    repository.addUserDataIfNeeded()
+                    self?.repository.addUserDataIfNeeded()
                 }
             case .failure(let error):
                 print("Login VM: \(error.localizedDescription)")
-                self.error = error.localizedDescription
-                showWarning = true
+                self?.error = error.localizedDescription
+                self?.showWarning = true
             }
         }
     }
     
-    private func additionalLoginServices() {
-        googleAuthService.googleSignIn = { [self] in
-            repository.addUserDataIfNeeded()
+    func signInPressed() {
+        googleAuthService.signInUser { [weak self] in
+            self?.repository.addUserDataIfNeeded()
         }
     }
 }
