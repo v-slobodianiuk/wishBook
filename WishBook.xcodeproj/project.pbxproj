@@ -18,7 +18,7 @@
 		D53D0E1525F3B64500E5C2D7 /* CompositeAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E1425F3B64500E5C2D7 /* CompositeAppDelegate.swift */; };
 		D53D0E1A25F3B74200E5C2D7 /* GoogleAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E1925F3B74200E5C2D7 /* GoogleAppDelegate.swift */; };
 		D53D0E2525F3B96500E5C2D7 /* AppDelegateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2425F3B96500E5C2D7 /* AppDelegateFactory.swift */; };
-		D53D0E2A25F4150B00E5C2D7 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2925F4150B00E5C2D7 /* UserStorage.swift */; };
+		D53D0E2A25F4150B00E5C2D7 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2925F4150B00E5C2D7 /* UserDefaultsStorage.swift */; };
 		D53D0E2F25F429C900E5C2D7 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2E25F429C900E5C2D7 /* MainTabView.swift */; };
 		D5442BA126809C1400BB1F5A /* LinkDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5442BA026809C1400BB1F5A /* LinkDataView.swift */; };
 		D552C8EA25E409A9000E2196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C8E925E409A9000E2196 /* AppDelegate.swift */; };
@@ -111,7 +111,7 @@
 		D53D0E1425F3B64500E5C2D7 /* CompositeAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeAppDelegate.swift; sourceTree = "<group>"; };
 		D53D0E1925F3B74200E5C2D7 /* GoogleAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAppDelegate.swift; sourceTree = "<group>"; };
 		D53D0E2425F3B96500E5C2D7 /* AppDelegateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateFactory.swift; sourceTree = "<group>"; };
-		D53D0E2925F4150B00E5C2D7 /* UserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorage.swift; sourceTree = "<group>"; };
+		D53D0E2925F4150B00E5C2D7 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		D53D0E2E25F429C900E5C2D7 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		D5442BA026809C1400BB1F5A /* LinkDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkDataView.swift; sourceTree = "<group>"; };
 		D552C8E625E409A9000E2196 /* WishBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WishBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -277,7 +277,7 @@
 		D51B4A2125F4EC18008ABCBB /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				D53D0E2925F4150B00E5C2D7 /* UserStorage.swift */,
+				D53D0E2925F4150B00E5C2D7 /* UserDefaultsStorage.swift */,
 				D56B190C2602785700F7031C /* GoogleAuthService.swift */,
 				D5B7F01626815B0900D578F1 /* MetaCache.swift */,
 			);
@@ -636,7 +636,7 @@
 				D5B7F01726815B0900D578F1 /* MetaCache.swift in Sources */,
 				D599145B25F53913005F2F23 /* ProfileViewModel.swift in Sources */,
 				D5442BA126809C1400BB1F5A /* LinkDataView.swift in Sources */,
-				D53D0E2A25F4150B00E5C2D7 /* UserStorage.swift in Sources */,
+				D53D0E2A25F4150B00E5C2D7 /* UserDefaultsStorage.swift in Sources */,
 				D573367B2611E47300C11EC0 /* GlobalSearchCell.swift in Sources */,
 				D50FE2A6264C35080083197B /* UserPageView.swift in Sources */,
 				D55CC78D25F6C66300E5C04F /* WishDetailsViewModel.swift in Sources */,

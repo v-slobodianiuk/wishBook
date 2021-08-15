@@ -1,5 +1,5 @@
 //
-//  Defaults.swift
+//  UserDefaultsStorage.swift
 //  WishBook
 //
 //  Created by Vadym on 06.03.2021.
@@ -8,7 +8,7 @@
 import Foundation
 
 @propertyWrapper
-struct Storage<Value> {
+struct UserDefaultsStorage<Value> {
     
     let key: String
     let defaultValue: Value
@@ -24,6 +24,6 @@ struct Storage<Value> {
 }
 
 final class UserStorage {
-    @Storage<Bool>(key: "isLoggedIn", defaultValue: false)
+    @UserDefaultsStorage<Bool>(key: "isLoggedIn", defaultValue: false)
     static var isLoggedIn
 }
