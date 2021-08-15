@@ -69,6 +69,7 @@
 		D5BA4406260A2F51004D5B36 /* UsersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BA4405260A2F51004D5B36 /* UsersRepository.swift */; };
 		D5BA440B260A321A004D5B36 /* FriendsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BA440A260A321A004D5B36 /* FriendsRouter.swift */; };
 		D5C1E76D25EA604A00B96DE7 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C1E76C25EA604A00B96DE7 /* RootView.swift */; };
+		D5C5869A26C93BA400BFF6A5 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C5869926C93BA400BFF6A5 /* ImagePicker.swift */; };
 		D5E62F2C2611E96C0094BAF9 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E62F2B2611E96C0094BAF9 /* SearchView.swift */; };
 		D5E7511626496F6200C2D20A /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E7511526496F6200C2D20A /* TextView.swift */; };
 		D5FB2E0526C645160036B4E9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D5FB2E0426C645160036B4E9 /* FirebaseFirestore */; };
@@ -167,6 +168,7 @@
 		D5BA4405260A2F51004D5B36 /* UsersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersRepository.swift; sourceTree = "<group>"; };
 		D5BA440A260A321A004D5B36 /* FriendsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRouter.swift; sourceTree = "<group>"; };
 		D5C1E76C25EA604A00B96DE7 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		D5C5869926C93BA400BFF6A5 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		D5E62F2B2611E96C0094BAF9 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		D5E7511526496F6200C2D20A /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -460,6 +462,7 @@
 				D5E7511526496F6200C2D20A /* TextView.swift */,
 				D5442BA026809C1400BB1F5A /* LinkDataView.swift */,
 				D5B7F01B26815BC800D578F1 /* LinkContainerView.swift */,
+				D5C5869926C93BA400BFF6A5 /* ImagePicker.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -664,6 +667,7 @@
 				D599144025F52BFD005F2F23 /* ProfileModuleBuilder.swift in Sources */,
 				D57336802611E4A700C11EC0 /* UIExtensions.swift in Sources */,
 				D55CC76F25F6A37100E5C04F /* FirestoreCollection.swift in Sources */,
+				D5C5869A26C93BA400BFF6A5 /* ImagePicker.swift in Sources */,
 				D56B190D2602785700F7031C /* GoogleAuthService.swift in Sources */,
 				D599142225F526EE005F2F23 /* MainTabCoordinator.swift in Sources */,
 				D5BA440B260A321A004D5B36 /* FriendsRouter.swift in Sources */,
