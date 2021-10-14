@@ -46,6 +46,7 @@ extension TextView {
     
     func isEditable(_ isEditable: Bool) -> Self {
         textView.isEditable = isEditable
+        textView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
         return self
     }
     
@@ -78,13 +79,22 @@ extension TextView {
 }
 
 struct TextView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        TextView(text: .constant("Description"))
-            .font(.systemFont(ofSize: 25, weight: .medium))
-            .backgroundColor(.systemGreen)
-            .textColor(.white)
-            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 70)
-            .cornerRadius(5)
-            .padding()
+        VStack(alignment: .leading) {
+            TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: .constant(""))
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .disabled(true)
+                .padding(.horizontal)
+            TextView(text: .constant("Description"))
+                .font(.systemFont(ofSize: 17))
+                .setBorder(borderColor: .lightGray, borderWidth: 0.25, cornerRadius: 5)
+                .isEditable(false)
+                .frame(width: UIScreen.main.bounds.width - 32, height: 150, alignment: .leading)
+                //.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 70)
+                .cornerRadius(5)
+                .padding()
+        }
+
     }
 }
