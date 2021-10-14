@@ -19,6 +19,7 @@ protocol PeopleViewModelProtocol: ObservableObject {
     var searchTextPublisher: Published<String>.Publisher { get }
     
     func getUsersData()
+    func setupSearch()
     func getBirthdate(date: Date?) -> String
 }
 
@@ -49,25 +50,26 @@ final class PeopleViewModel: PeopleViewModelProtocol {
     init(router: PeopleRouterProtocol, usersRepository: UsersRepositoryProtocol) {
         self.router = router
         self.usersRepository = usersRepository
-        getUsersData()
-        setupSearch()
     }
     
     func getUsersData() {
-        //usersRepository.loadData()
         usersRepository.usersPublisher
             .assign(to: \.usersList, on: self)
             .store(in: &cancellables)
     }
     
-    private func setupSearch() {
+    func setupSearch() {
         searchTextPublisher
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .filter { $0.count <= 3 }
             .map { $0.lowercased() }
             .sink { [self] (text) in
                 if text.isEmpty {
-                    usersRepository.loadData()
+                    if let filterCase = filter {
+                        usersRepository.loadPeopleByFilter(filterCase)
+                    } else {
+                        usersRepository.loadData()
+                    }
                 } else {
                     usersRepository.searchData(text)
                 }

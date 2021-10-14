@@ -31,6 +31,10 @@ struct PeopleView<VM: PeopleViewModelProtocol>: View {
             endEditing()
             
         }
+        .onAppear {
+            vm.getUsersData()
+            vm.setupSearch()
+        }
         .navigationBarTitle("FRIENDS_NAV_TITLE".localized)
     }
 }
