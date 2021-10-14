@@ -14,7 +14,7 @@ struct MainTabView<C: MainTabCoordinatorProtocol>: View {
     
     var body: some View {
         TabView(selection: $tabItem) {
-            coordinator.setupFriendsTabItem()
+            coordinator.setupPeopleTabItem()
                 .tabItem {
                     Image(systemName: "person.2.fill")
                     Text("People")

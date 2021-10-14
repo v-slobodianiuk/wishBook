@@ -12,7 +12,7 @@ protocol MainTabCoordinatorProtocol: Coordinator {
     associatedtype FriendsView: View
     associatedtype WishListView: View
     associatedtype Profile: View
-    func setupFriendsTabItem() -> FriendsView
+    func setupPeopleTabItem() -> FriendsView
     func setupWishListTabItem() -> WishListView
     func setupProfileView() -> Profile
 }
@@ -23,8 +23,8 @@ final class MainTabCoordinator: MainTabCoordinatorProtocol {
         
     }
     
-    func setupFriendsTabItem() -> some View {
-        let friendsNavigatedView = NavigationView { PeopleModuleBuilder.create() }
+    func setupPeopleTabItem() -> some View {
+        let friendsNavigatedView = NavigationView { PeopleModuleBuilder().create() }
             .navigationViewStyle(StackNavigationViewStyle())
         return friendsNavigatedView
     }

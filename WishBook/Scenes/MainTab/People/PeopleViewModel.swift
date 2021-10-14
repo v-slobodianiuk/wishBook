@@ -35,6 +35,8 @@ final class PeopleViewModel: PeopleViewModelProtocol {
     
     private var cancellables = Set<AnyCancellable>()
     
+    var filter: PeopleFilter?
+    
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         //let region = Locale.current

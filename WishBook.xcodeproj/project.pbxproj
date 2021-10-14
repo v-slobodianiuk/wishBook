@@ -51,6 +51,7 @@
 		D573367B2611E47300C11EC0 /* GlobalSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573367A2611E47300C11EC0 /* GlobalSearchCell.swift */; };
 		D57336802611E4A700C11EC0 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573367F2611E4A700C11EC0 /* UIExtensions.swift */; };
 		D58D27B827181E2B00F9A91B /* UserPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58D27B727181E2B00F9A91B /* UserPageRouter.swift */; };
+		D58D27BA2718285B00F9A91B /* PeopleFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58D27B92718285B00F9A91B /* PeopleFilter.swift */; };
 		D599142225F526EE005F2F23 /* MainTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142125F526EE005F2F23 /* MainTabCoordinator.swift */; };
 		D599142725F52879005F2F23 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142625F52879005F2F23 /* PeopleView.swift */; };
 		D599142C25F528C9005F2F23 /* WishListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142B25F528C9005F2F23 /* WishListView.swift */; };
@@ -152,6 +153,7 @@
 		D573367A2611E47300C11EC0 /* GlobalSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchCell.swift; sourceTree = "<group>"; };
 		D573367F2611E4A700C11EC0 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		D58D27B727181E2B00F9A91B /* UserPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageRouter.swift; sourceTree = "<group>"; };
+		D58D27B92718285B00F9A91B /* PeopleFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleFilter.swift; sourceTree = "<group>"; };
 		D599142125F526EE005F2F23 /* MainTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabCoordinator.swift; sourceTree = "<group>"; };
 		D599142625F52879005F2F23 /* PeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
 		D599142B25F528C9005F2F23 /* WishListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListView.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 			children = (
 				D55CC74925F546FC00E5C04F /* ProfileModel.swift */,
 				D55CC77F25F6BE7300E5C04F /* WishListModel.swift */,
+				D58D27B92718285B00F9A91B /* PeopleFilter.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -688,6 +691,7 @@
 				D5C5869E26C97FF400BFF6A5 /* FirebaseStorageService.swift in Sources */,
 				D59914CE25F54062005F2F23 /* StringLocalized.swift in Sources */,
 				D5E7511626496F6200C2D20A /* TextView.swift in Sources */,
+				D58D27BA2718285B00F9A91B /* PeopleFilter.swift in Sources */,
 				D5C1E76D25EA604A00B96DE7 /* RootView.swift in Sources */,
 				D5BA4406260A2F51004D5B36 /* UsersRepository.swift in Sources */,
 				D55CC7A125F6C77500E5C04F /* WishDetailsModuleBuilder.swift in Sources */,

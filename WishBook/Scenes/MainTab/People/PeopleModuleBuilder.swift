@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-enum PeopleModuleBuilder {
-    static func create() -> some View {
+struct PeopleModuleBuilder {
+    func create(filter: PeopleFilter? = nil) -> some View {
         let router = PeopleRouter()
         let vm = PeopleViewModel(router: router, usersRepository: DI.getUsersRepository())
+        vm.filter = filter
         let friendsView = PeopleView(vm: vm)
         return friendsView
     }
