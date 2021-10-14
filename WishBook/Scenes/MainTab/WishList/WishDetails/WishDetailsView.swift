@@ -19,12 +19,20 @@ struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
                     VStack(alignment: .leading) {
                         TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: $vm.wishItem.title)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                        TextField("WISH_ITEM_TITLE_LINK_PLACEHOLER".localized, text: $vm.wishItem.url.safeValue)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .disabled(vm.readOnly)
+                        if !vm.readOnly || vm.wishItem.url?.isEmpty ?? false {
+                            TextField("WISH_ITEM_TITLE_LINK_PLACEHOLER".localized, text: $vm.wishItem.url.safeValue)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .disabled(vm.readOnly)
+                        }
                         Text("WISH_ITEM_TITLE_DESCRIPTION_PLACEHOLER".localized)
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                            .padding(.top)
                         TextView(text: $vm.wishItem.description.safeValue)
                             .font(.systemFont(ofSize: 17))
                             .setBorder(borderColor: .lightGray, borderWidth: 0.25, cornerRadius: 5)
+                            .isEditable(!vm.readOnly)
                             .frame(width: UIScreen.main.bounds.width - 32, height: 150, alignment: .leading)
                         LinkDataView(urlString: $vm.wishItem.url.safeValue)
                             .frame(height: 150)
@@ -33,17 +41,19 @@ struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
                 }
                 .padding(.top)
                 Spacer()
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }, label: {
-                    Text("EDIT_PROFILE_BUTTON_TITLE".localized)
-                        .font(.title)
-                        .frame(maxWidth: .infinity, maxHeight: 50)
-                        .background(Color.selectedTabItem)
-                        .foregroundColor(.lightText)
-                        .cornerRadius(10)
-                })
-                .padding()
+                if !vm.readOnly {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Text("EDIT_PROFILE_BUTTON_TITLE".localized)
+                            .font(.title)
+                            .frame(maxWidth: .infinity, maxHeight: 50)
+                            .background(Color.selectedTabItem)
+                            .foregroundColor(.lightText)
+                            .cornerRadius(10)
+                    })
+                        .padding()
+                }
             }
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(trailing: setupTrailingNavBarItems())
@@ -51,7 +61,9 @@ struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
                 vm.loadWishItem()
             }
             .onDisappear {
-                vm.saveData()
+                if !vm.readOnly {
+                    vm.saveData()
+                }
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
@@ -71,7 +83,7 @@ struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
 
 struct WishDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        WishDetailsView(vm: WishDetailsViewModel(repository: DI.getWishListRepository()))
+        WishDetailsView(vm: WishDetailsViewModel(repository: DI.getWishListRepository(), readOnly: false))
             .previewDevice(PreviewDevice(rawValue: "iPhone SE (1st generation)"))
             .previewDisplayName("iPhone SE (1st generation)")
     }

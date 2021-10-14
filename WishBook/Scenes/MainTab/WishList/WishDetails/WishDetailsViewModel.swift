@@ -15,6 +15,8 @@ protocol WishDetailsViewModelProtocol: ObservableObject {
     var wishItemPublished: Published<WishListModel> { get }
     // Publisher
     var wishItemPublisher: Published<WishListModel>.Publisher { get }
+    var readOnly: Bool { get }
+    
     func loadWishItem()
     func saveData()
 }
@@ -25,10 +27,12 @@ final class WishDetailsViewModel: WishDetailsViewModelProtocol {
     var wishItemPublished: Published<WishListModel> { _wishItem }
     var wishItemPublisher: Published<WishListModel>.Publisher { $wishItem }
     private var cancellables = Set<AnyCancellable>()
+    let readOnly: Bool
     
-    init(repository: WishListRepositoryProtocol, wishItem: WishListModel? = nil) {
+    init(repository: WishListRepositoryProtocol, wishItem: WishListModel? = nil, readOnly: Bool) {
         self.repository = repository
         self.wishItem = wishItem ?? WishListModel(title: "")
+        self.readOnly = readOnly
     }
     
     func loadWishItem() {
