@@ -132,23 +132,8 @@ final class UsersRepository: UsersRepositoryProtocol, ObservableObject {
     }
     
     func loadPeopleByFilter(_ filter: PeopleFilter) {
-        //guard let ids: [String] = getUsersIdsByFilter(filter) else { return }
-        
         getUsersIdsByFilter(filter) { [weak self] ids in
             guard let safeIds: [String] = ids, !safeIds.isEmpty else { return }
-//            var searchField: String?
-//            switch filter {
-//            case .subscribers:
-//                searchField = "subscribers"
-//            case .subscriptions:
-//                searchField = "subscriptions"
-//            default:
-//                break
-//            }
-            
-//            guard let field = searchField else {
-//                return
-//            }
             
             self?.db.collection(FirestoreCollection[.users])
                 .whereField("userId", in: safeIds)
