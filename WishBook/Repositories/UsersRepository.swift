@@ -67,6 +67,8 @@ final class UsersRepository: UsersRepositoryProtocol, ObservableObject {
     }
     
     func loadData() {
+        guard let userId = user?.uid else { return }
+        
         db.collection(FirestoreCollection[.users])
             .getDocuments { [weak self] (querySnapshot, error) in
                 if let error = error {
@@ -80,12 +82,14 @@ final class UsersRepository: UsersRepositoryProtocol, ObservableObject {
                             print("querySnapshot error: \(error.localizedDescription)")
                             return nil
                         }
-                    }
+                    }.filter { $0.id != userId }
                 }
             }
     }
     
     func searchData(_ key: String) {
+        guard let userId = user?.uid else { return }
+        
         db.collection(FirestoreCollection[.users])
             .whereField("searchKey", isEqualTo: key)
             .getDocuments { [weak self] (querySnapshot, error) in
@@ -100,7 +104,7 @@ final class UsersRepository: UsersRepositoryProtocol, ObservableObject {
                             print("querySnapshot error: \(error.localizedDescription)")
                             return nil
                         }
-                    }
+                    }.filter { $0.id != userId }
                 }
             }
     }
