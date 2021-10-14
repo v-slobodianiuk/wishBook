@@ -14,7 +14,8 @@ enum UserPageModuleBuilder {
             router: router,
             userId: userId,
             profileRepository: DI.getProfileRepository(),
-            wishListRepository: DI.getWishListRepository()
+            wishListRepository: DI.getWishListRepository(),
+            usersRepository: DI.getUsersRepository()
         )
         let userPageView = UserPageView(vm: vm)
         return userPageView

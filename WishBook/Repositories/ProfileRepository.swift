@@ -17,6 +17,8 @@ protocol ProfileRepositoryProtocol {
     // Publisher
     var profilePublisher: Published<ProfileModel>.Publisher { get }
     
+    var user: User? { get set }
+    
     func loadData()
     //func addData(_ data: ProfileModel)
     func updateData(_ data: ProfileModel)
@@ -27,7 +29,7 @@ protocol ProfileRepositoryProtocol {
 final class ProfileRepository: ProfileRepositoryProtocol, ObservableObject {
     
     private let db = Firestore.firestore()
-    private lazy var user = Auth.auth().currentUser
+    lazy var user = Auth.auth().currentUser
     
     @Published var profile = ProfileModel()
     var profilePublished: Published<ProfileModel> { _profile }

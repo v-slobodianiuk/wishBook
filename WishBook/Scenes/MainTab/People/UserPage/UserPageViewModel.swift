@@ -16,11 +16,13 @@ protocol UserPageViewModelProtocol: ObservableObject {
     
     var router: UserPageRouterProtocol { get }
     var selectedItem: Int { get set }
+    var isSubscribed: Bool { get set }
     
     func getData()
     func getFullName() -> String
     func getBirthdate() -> String
     func getProfileData() -> ProfileModel?
+    func subscribeAction()
 }
 
 final class UserPageViewModel: UserPageViewModelProtocol {
@@ -29,6 +31,7 @@ final class UserPageViewModel: UserPageViewModelProtocol {
     
     @Published private var profileRepository: ProfileRepositoryProtocol
     @Published private var wishListRepository: WishListRepositoryProtocol
+    private let usersRepository: UsersRepositoryProtocol
     
     @Published var profileData = ProfileModel()
     
@@ -37,6 +40,7 @@ final class UserPageViewModel: UserPageViewModelProtocol {
     var wishListPublisher: Published<[WishListModel]>.Publisher { $wishList }
     
     var selectedItem: Int = 0
+    @Published var isSubscribed: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
     private let dateFormatter: DateFormatter = {
@@ -52,17 +56,20 @@ final class UserPageViewModel: UserPageViewModelProtocol {
         router: UserPageRouterProtocol,
         userId: String?,
         profileRepository: ProfileRepositoryProtocol,
-        wishListRepository: WishListRepositoryProtocol
+        wishListRepository: WishListRepositoryProtocol,
+        usersRepository: UsersRepositoryProtocol
     ) {
         self.router = router
         self.userId = userId
         self.profileRepository = profileRepository
         self.wishListRepository = wishListRepository
+        self.usersRepository = usersRepository
     }
     
     func getData() {
         guard let userId = self.userId else { return }
         
+        profileRepository.loadData()
         profileRepository.loadDataByUserId(userId)
         wishListRepository.loadDataByUserId(userId)
         
@@ -71,7 +78,19 @@ final class UserPageViewModel: UserPageViewModelProtocol {
             .store(in: &cancellables)
         
         profileRepository.profilePublisher
-            .assign(to: \.profileData, on: self)
+            .sink { [weak self] profileData in
+                print("profileData: \(profileData)")
+                guard let self = self, let uid = self.profileRepository.user?.uid else { return }
+                if profileData.id != uid {
+                    self.profileData = profileData
+                }
+                print("uid: \(uid)")
+                print("self.userId \(self.userId)")
+                print("profileData.id: \(profileData.id)")
+                print("USERID: \(self.profileRepository.user?.uid)")
+                guard profileData.id == uid, let profileId = self.userId, let subscriptions = profileData.subscriptions else { return }
+                self.isSubscribed = subscriptions.contains(profileId)
+            }
             .store(in: &cancellables)
     }
     
@@ -89,5 +108,13 @@ final class UserPageViewModel: UserPageViewModelProtocol {
     
     func getProfileData() -> ProfileModel? {
         return profileData
+    }
+    
+    func subscribeAction() {
+        if isSubscribed {
+            usersRepository.unsubscribeFrom(id: self.userId)
+        } else {
+            usersRepository.subscribeTo(id: self.userId)
+        }
     }
 }

@@ -39,9 +39,20 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
                 subscriptions: vm.getProfileData()?.subscriptions?.count,
                 wishes: vm.getProfileData()?.wishes))
             HStack {
-                Text("🎂")
+                Text("PROFILE_BIRTHDATE_EMOJI".localized)
                 Text(vm.getBirthdate())
                     .padding(.leading, 5)
+                Spacer()
+                Button {
+                    vm.subscribeAction()
+                } label: {
+                    Text(vm.isSubscribed ? "USER_PAGE_BUTTON_UNSUBSCRIBE".localized : "USER_PAGE_BUTTON_SUBSCRIBE".localized)
+                        .font(.subheadline)
+                        .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                        .background(Color.green)
+                        .foregroundColor(.lightText)
+                        .cornerRadius(8)
+                }
             }
             .padding()
             Divider()
@@ -66,16 +77,17 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
             }
         }
         .sheet(isPresented: $wishDetailsIsPresented) {
-            vm.router.showWishDetails(wishItem: vm.wishList[vm.selectedItem])
+            vm.router.showWishDetails(wishItem: vm.wishList[vm.selectedItem], readOnly: true)
         }
     }
     
-    struct ContentView_Previews: PreviewProvider {
+    struct UserPageView_Previews: PreviewProvider {
         static var previews: some View {
             let vm = UserPageViewModel(
                 router: UserPageRouter(), userId: nil,
                 profileRepository: DI.getProfileRepository(),
-                wishListRepository: DI.getWishListRepository()
+                wishListRepository: DI.getWishListRepository(),
+                usersRepository: DI.getUsersRepository()
             )
             UserPageView(vm: vm as! VM)
         }
