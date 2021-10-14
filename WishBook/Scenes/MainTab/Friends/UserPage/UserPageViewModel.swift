@@ -14,7 +14,9 @@ protocol UserPageViewModelProtocol: ObservableObject {
     var wishListPublished: Published<[WishListModel]> { get }
     var wishListPublisher: Published<[WishListModel]>.Publisher { get }
     
-    var router: WishListRouterProtocol { get }
+    var router: UserPageRouterProtocol { get }
+    var selectedItem: Int { get set }
+    
     func getData()
     func getFullName() -> String
     func getBirthdate() -> String
@@ -22,7 +24,7 @@ protocol UserPageViewModelProtocol: ObservableObject {
 }
 
 final class UserPageViewModel: UserPageViewModelProtocol {
-    let router: WishListRouterProtocol
+    let router: UserPageRouterProtocol
     private var userId: String? = nil
     
     @Published private var profileRepository: ProfileRepositoryProtocol
@@ -34,6 +36,7 @@ final class UserPageViewModel: UserPageViewModelProtocol {
     var wishListPublished: Published<[WishListModel]> { _wishList }
     var wishListPublisher: Published<[WishListModel]>.Publisher { $wishList }
     
+    var selectedItem: Int = 0
     private var cancellables = Set<AnyCancellable>()
     
     private let dateFormatter: DateFormatter = {
@@ -46,7 +49,7 @@ final class UserPageViewModel: UserPageViewModelProtocol {
     }()
     
     init(
-        router: WishListRouterProtocol,
+        router: UserPageRouterProtocol,
         userId: String?,
         profileRepository: ProfileRepositoryProtocol,
         wishListRepository: WishListRepositoryProtocol

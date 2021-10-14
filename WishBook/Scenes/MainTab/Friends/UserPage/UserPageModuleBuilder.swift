@@ -9,7 +9,7 @@ import SwiftUI
 
 enum UserPageModuleBuilder {
     static func create(userId: String?) -> some View {
-        let router = WishListRouter()
+        let router = UserPageRouter()
         let vm = UserPageViewModel(
             router: router,
             userId: userId,

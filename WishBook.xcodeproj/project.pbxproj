@@ -50,6 +50,7 @@
 		D56B191526027E4E00F7031C /* LoginModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56B191426027E4E00F7031C /* LoginModuleBuilder.swift */; };
 		D573367B2611E47300C11EC0 /* GlobalSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573367A2611E47300C11EC0 /* GlobalSearchCell.swift */; };
 		D57336802611E4A700C11EC0 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573367F2611E4A700C11EC0 /* UIExtensions.swift */; };
+		D58D27B827181E2B00F9A91B /* UserPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58D27B727181E2B00F9A91B /* UserPageRouter.swift */; };
 		D599142225F526EE005F2F23 /* MainTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142125F526EE005F2F23 /* MainTabCoordinator.swift */; };
 		D599142725F52879005F2F23 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142625F52879005F2F23 /* FriendsView.swift */; };
 		D599142C25F528C9005F2F23 /* WishListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142B25F528C9005F2F23 /* WishListView.swift */; };
@@ -150,6 +151,7 @@
 		D56B191426027E4E00F7031C /* LoginModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModuleBuilder.swift; sourceTree = "<group>"; };
 		D573367A2611E47300C11EC0 /* GlobalSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchCell.swift; sourceTree = "<group>"; };
 		D573367F2611E4A700C11EC0 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
+		D58D27B727181E2B00F9A91B /* UserPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageRouter.swift; sourceTree = "<group>"; };
 		D599142125F526EE005F2F23 /* MainTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabCoordinator.swift; sourceTree = "<group>"; };
 		D599142625F52879005F2F23 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		D599142B25F528C9005F2F23 /* WishListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListView.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				D50FE2A5264C35080083197B /* UserPageView.swift */,
 				D50FE2A7264C35130083197B /* UserPageViewModel.swift */,
 				D50FE2A3264C34FE0083197B /* UserPageModuleBuilder.swift */,
+				D58D27B727181E2B00F9A91B /* UserPageRouter.swift */,
 			);
 			path = UserPage;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				D599145625F5388C005F2F23 /* WishListViewModel.swift in Sources */,
 				D599145125F53785005F2F23 /* FriendsViewModel.swift in Sources */,
 				D599142725F52879005F2F23 /* FriendsView.swift in Sources */,
+				D58D27B827181E2B00F9A91B /* UserPageRouter.swift in Sources */,
 				D56B19002602700000F7031C /* LoginViewModel.swift in Sources */,
 				D50FE2A8264C35130083197B /* UserPageViewModel.swift in Sources */,
 				D53D0E0B25F2D1D800E5C2D7 /* Coordinator.swift in Sources */,

@@ -11,6 +11,7 @@ import SwiftUI
 struct UserPageView<VM: UserPageViewModelProtocol>: View {
     
     @ObservedObject var vm: VM
+    @State private var wishDetailsIsPresented: Bool = false
     
     var body: some View {
         VStack() {
@@ -69,11 +70,7 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
             }
             .padding()
             Divider()
-            List {
-                ForEach(vm.wishList) { item in
-                    Text(item.title)
-                }
-            }
+            listView()
             Spacer()
         }
         .onAppear {
@@ -82,10 +79,26 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
         .navigationBarTitle("", displayMode: .inline)
     }
     
+    fileprivate func listView() -> some View {
+        List {
+            ForEach(vm.wishList.indices, id: \.self) { index in
+                Text(vm.wishList[index].title)
+                    .onTapGesture {
+                        //itemIndex = index
+                        vm.selectedItem = index
+                        wishDetailsIsPresented.toggle()
+                    }
+            }
+        }
+        .sheet(isPresented: $wishDetailsIsPresented) {
+            vm.router.showWishDetails(wishItem: vm.wishList[vm.selectedItem])
+        }
+    }
+    
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
             let vm = UserPageViewModel(
-                router: WishListRouter(), userId: nil,
+                router: UserPageRouter(), userId: nil,
                 profileRepository: DI.getProfileRepository(),
                 wishListRepository: DI.getWishListRepository()
             )
