@@ -49,3 +49,8 @@
 "PROFILE_ABOUT" = "About";
 "PROFILE_BIRTHDATE" = "Birthdate";
 "EDIT_PROFILE_BUTTON_TITLE" = "Save";
+
+
+//MARK: User Page
+"USER_PAGE_BUTTON_SUBSCRIBE" = "Subscribe";
+"USER_PAGE_BUTTON_UNSUBSCRIBE" = "Unsubscribe";
