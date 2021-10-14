@@ -18,8 +18,9 @@
 "WISH_LIST_TAB_ITEM" = "Wish List";
 "PROFILE_TAB_ITEM" = "Profile";
 
-//MARK: Friends
-"FRIENDS_NAV_TITLE" = "Friends";
+//MARK: People
+"FRIENDS_NAV_TITLE" = "People Search";
+"PEOPLE_SEARCH_PLACEHOLDER" = "Last name";
 
 //MARK: Wish List
 "WISH_LIST_NAV_TITLE" = "Wish List";

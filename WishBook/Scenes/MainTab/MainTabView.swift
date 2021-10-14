@@ -17,7 +17,7 @@ struct MainTabView<C: MainTabCoordinatorProtocol>: View {
             coordinator.setupFriendsTabItem()
                 .tabItem {
                     Image(systemName: "person.2.fill")
-                    Text("Friends")
+                    Text("People")
                 }
                 .tag(TabItems.friendsView)
             

@@ -1,5 +1,5 @@
 //
-//  FriendsViewModel.swift
+//  PeopleViewModel.swift
 //  WishBook
 //
 //  Created by Vadym on 07.03.2021.
@@ -8,8 +8,8 @@
 import Foundation
 import Combine
 
-protocol FriendsViewModelProtocol: ObservableObject {
-    var router: FriendsRouterProtocol { get }
+protocol PeopleViewModelProtocol: ObservableObject {
+    var router: PeopleRouterProtocol { get }
     var usersList: [ProfileModel] { get }
     var usersListPublished: Published<[ProfileModel]> { get }
     var usersListPublisher: Published<[ProfileModel]>.Publisher { get }
@@ -22,8 +22,8 @@ protocol FriendsViewModelProtocol: ObservableObject {
     func getBirthdate(date: Date?) -> String
 }
 
-final class FriendsViewModel: FriendsViewModelProtocol {
-    let router: FriendsRouterProtocol
+final class PeopleViewModel: PeopleViewModelProtocol {
+    let router: PeopleRouterProtocol
     @Published private var usersRepository: UsersRepositoryProtocol
     @Published var usersList = [ProfileModel]()
     var usersListPublished: Published<[ProfileModel]> { _usersList }
@@ -44,7 +44,7 @@ final class FriendsViewModel: FriendsViewModelProtocol {
         return formatter
     }()
     
-    init(router: FriendsRouterProtocol, usersRepository: UsersRepositoryProtocol) {
+    init(router: PeopleRouterProtocol, usersRepository: UsersRepositoryProtocol) {
         self.router = router
         self.usersRepository = usersRepository
         getUsersData()

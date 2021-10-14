@@ -1,5 +1,5 @@
 //
-//  FriendsRouter.swift
+//  PeopleRouter.swift
 //  WishBook
 //
 //  Created by Vadym on 23.03.2021.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-protocol FriendsRouterProtocol {
+protocol PeopleRouterProtocol {
     func showProfile<V: View>(userId: String?, content: () -> V) -> AnyView
 }
 
-final class FriendsRouter: FriendsRouterProtocol {
+final class PeopleRouter: PeopleRouterProtocol {
     func showProfile<V: View>(userId: String?, content: () -> V) -> AnyView {
         let userPageView = UserPageModuleBuilder.create(userId: userId)
         let navLink = NavigationLink(destination: userPageView) {

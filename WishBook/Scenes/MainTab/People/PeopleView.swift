@@ -1,5 +1,5 @@
 //
-//  FriendsView.swift
+//  PeopleView.swift
 //  WishBook
 //
 //  Created by Vadym on 07.03.2021.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct FriendsView<VM: FriendsViewModelProtocol>: View {
+struct PeopleView<VM: PeopleViewModelProtocol>: View {
     
     @ObservedObject var vm: VM
     
     var body: some View {
         ScrollView {
-            SearchView(placeholder: "Last name", text: $vm.searchText)
+            SearchView(placeholder: "PEOPLE_SEARCH_PLACEHOLDER".localized, text: $vm.searchText)
                 .padding(.horizontal)
             ForEach(vm.usersList.indices, id: \.self) { i in
                 vm.router.showProfile(userId: vm.usersList[i].id) {
@@ -56,6 +56,6 @@ extension ScrollView {
 
 struct FriendsView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendsView(vm: FriendsViewModel(router: FriendsRouter(), usersRepository: DI.getUsersRepository()))
+        PeopleView(vm: PeopleViewModel(router: PeopleRouter(), usersRepository: DI.getUsersRepository()))
     }
 }

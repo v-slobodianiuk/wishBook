@@ -24,7 +24,7 @@ final class MainTabCoordinator: MainTabCoordinatorProtocol {
     }
     
     func setupFriendsTabItem() -> some View {
-        let friendsNavigatedView = NavigationView { FriendsModuleBuilder.create() }
+        let friendsNavigatedView = NavigationView { PeopleModuleBuilder.create() }
             .navigationViewStyle(StackNavigationViewStyle())
         return friendsNavigatedView
     }
