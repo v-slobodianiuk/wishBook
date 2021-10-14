@@ -6,10 +6,17 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
+import Combine
 
 struct ProfileView<VM: ProfileViewModelProtocol>: View {
     
     @ObservedObject var vm: VM
+    @State private var showingImagePicker = false
+    //self.showingImagePicker = true
+    @State private var inputImage: UIImage?
+    @State private var image: WebImage?
+    private let firebaseStorage = FirebaseStorageService()
     
     var body: some View {
         ZStack {
@@ -21,6 +28,14 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
         }
         .navigationBarTitle("PROFILE_NAV_TITLE".localized)
         .navigationBarItems(trailing: setupTrailingNavBarItems())
+        .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
+            ImagePicker(image: self.$inputImage)
+        }
+        .onAppear(perform: {
+            vm.getUserImage { url in
+                image = WebImage(url: url)
+            }
+        })
     }
     
     fileprivate func setupTrailingNavBarItems() -> some View {
@@ -50,12 +65,25 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
     
     fileprivate func profileBlock() -> some View {
         VStack(alignment: .center) {
-            Image(systemName: "person.crop.circle.fill")
-                .resizable()
-                .frame(width: 150, height: 150)
-                .foregroundColor(.selectedTabItem)
-                .padding(.top, 50)
-            
+            Button {
+                showingImagePicker.toggle()
+            } label: {
+                
+                if image != nil {
+                    image?
+                        .resizable()
+                        .frame(width: 150, height: 150)
+                        .clipShape(Circle())
+                        .padding(.top, 50)
+                } else {
+                    Image(systemName: "person.crop.circle.fill")
+                        .resizable()
+                        .frame(width: 150, height: 150)
+                        .foregroundColor(.selectedTabItem)
+                        .padding(.top, 50)
+                }
+                
+            }
             Text(vm.getFullName())
                 .font(.title)
                 .padding(.top)
@@ -110,10 +138,28 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
             }
         }
     }
+    
+    fileprivate func loadImage() {
+        guard let inputImage = inputImage else { return }
+        let resizedImage = inputImage.downsample(to: CGSize(width: 1000, height: 1000), scale: nil)
+        print("Image: \(inputImage.scale) | \(inputImage.size)")
+        // Convert the image into JPEG and compress the quality to reduce its size
+        let data: Data? = resizedImage.jpegData(compressionQuality: 0.75)
+        
+        vm.uploadUserImage(imageData: data) {
+            vm.getUserImage { url in
+                image = WebImage(url: url)
+            }
+        }
+    }
 }
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(vm: ProfileViewModel(router: ProfileRouter(), repository: ProfileRepository()))
+        ProfileView(vm: ProfileViewModel(
+            router: ProfileRouter(),
+            repository: DI.getProfileRepository(),
+            storageService: DI.getFirebaseStorage()
+        ))
     }
 }

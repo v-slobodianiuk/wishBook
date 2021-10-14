@@ -17,6 +17,8 @@ protocol ProfileViewModelProtocol: ObservableObject {
     func getFullName() -> String
     func getBirthdate() -> String
     func getProfileData() -> ProfileModel?
+    func getUserImage(completion: @escaping ((URL?) -> Void))
+    func uploadUserImage(imageData: Data?, completion: @escaping (() -> Void))
 }
 
 final class ProfileViewModel: ProfileViewModelProtocol {
@@ -25,6 +27,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     
     @Published private var repository: ProfileRepositoryProtocol
     let router: ProfileRouterProtocol
+    private let storageService: FirebaseStorageServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
     let dateFormatter: DateFormatter = {
@@ -36,9 +39,10 @@ final class ProfileViewModel: ProfileViewModelProtocol {
         return formatter
     }()
     
-    init(router: ProfileRouterProtocol, repository: ProfileRepositoryProtocol) {
+    init(router: ProfileRouterProtocol, repository: ProfileRepositoryProtocol, storageService: FirebaseStorageServiceProtocol) {
         self.router = router
         self.repository = repository
+        self.storageService = storageService
         getData()
     }
     
@@ -77,5 +81,26 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     
     func getProfileData() -> ProfileModel? {
         return profileData
+    }
+    
+    func getUserImage(completion: @escaping ((URL?) -> Void)) {
+        guard let userId = profileData?.id else { return }
+        storageService.getImage(userId: userId) { url in
+            completion(url)
+        }
+    }
+    
+    func uploadUserImage(imageData: Data?, completion: @escaping (() -> Void)) {
+        guard let userId = profileData?.id else { return }
+        storageService.upload(imageData: imageData, userId: userId) { result in
+            switch result {
+            case .success(let isOk):
+                if isOk {
+                    completion()
+                }
+            case .failure(_):
+                break
+            }
+        }
     }
 }

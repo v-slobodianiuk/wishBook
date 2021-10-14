@@ -26,6 +26,10 @@ struct DI {
     fileprivate static var usersRepository: UsersRepositoryProtocol {
         return UsersRepository()
     }
+    
+    fileprivate static var firebaseStorage: FirebaseStorageServiceProtocol {
+        return FirebaseStorageService()
+    }
 }
 
 extension DI {
@@ -48,5 +52,10 @@ extension DI {
     // MARK: Users Repository
     static func getUsersRepository() -> UsersRepositoryProtocol {
         return usersRepository
+    }
+    
+    // MARK: Firebase Storage
+    static func getFirebaseStorage() -> FirebaseStorageServiceProtocol {
+        return firebaseStorage
     }
 }
