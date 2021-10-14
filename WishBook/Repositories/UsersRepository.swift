@@ -21,6 +21,7 @@ protocol UsersRepositoryProtocol {
     func searchData(_ key: String)
     func subscribeTo(id: String?)
     func unsubscribeFrom(id: String?)
+    func loadPeopleByFilter(_ filter: PeopleFilter)
 }
 
 final class UsersRepository: UsersRepositoryProtocol, ObservableObject {
@@ -30,6 +31,40 @@ final class UsersRepository: UsersRepositoryProtocol, ObservableObject {
     @Published var users: [ProfileModel] = [ProfileModel]()
     var usersPublished: Published<[ProfileModel]> { _users }
     var usersPublisher: Published<[ProfileModel]>.Publisher { $users }
+    var peopleIds: [String]?
+    
+    private func getUsersIdsByFilter(_ filter: PeopleFilter, completion: @escaping (([String]?) -> Void)) {
+        guard let userId = user?.uid else {
+            completion(nil)
+            return
+        }
+        
+        db.collection(FirestoreCollection[.users])
+            .document(userId)
+            .getDocument { (document, error) in
+                if let document = document, document.exists {
+                    do {
+                        let userData = try document.data(as: ProfileModel.self)
+                        if let data = userData {
+                            switch filter {
+                            case .subscribers:
+                                completion(data.subscribers)
+                            case .subscriptions:
+                                completion(data.subscriptions)
+                            default:
+                                completion(nil)
+                            }
+                        }
+                    } catch {
+                        completion(nil)
+                        print("querySnapshot error: \(error.localizedDescription)")
+                    }
+                } else {
+                    completion(nil)
+                    print("Document does not exist")
+                }
+            }
+    }
     
     func loadData() {
         db.collection(FirestoreCollection[.users])
@@ -94,5 +129,44 @@ final class UsersRepository: UsersRepositoryProtocol, ObservableObject {
                     print("subscribeTo error: \(error.localizedDescription)")
                 }
             }
+    }
+    
+    func loadPeopleByFilter(_ filter: PeopleFilter) {
+        //guard let ids: [String] = getUsersIdsByFilter(filter) else { return }
+        
+        getUsersIdsByFilter(filter) { [weak self] ids in
+            guard let safeIds: [String] = ids, !safeIds.isEmpty else { return }
+//            var searchField: String?
+//            switch filter {
+//            case .subscribers:
+//                searchField = "subscribers"
+//            case .subscriptions:
+//                searchField = "subscriptions"
+//            default:
+//                break
+//            }
+            
+//            guard let field = searchField else {
+//                return
+//            }
+            
+            self?.db.collection(FirestoreCollection[.users])
+                .whereField("userId", in: safeIds)
+                .getDocuments { [weak self] (querySnapshot, error) in
+                    if let error = error {
+                        print("LoadData error: \(error.localizedDescription)")
+                    }
+                    if let querySnapshot = querySnapshot {
+                        self?.users = querySnapshot.documents.compactMap {
+                            do {
+                                return try $0.data(as: ProfileModel.self)
+                            } catch {
+                                print("querySnapshot error: \(error.localizedDescription)")
+                                return nil
+                            }
+                        }
+                    }
+                }
+        }
     }
 }

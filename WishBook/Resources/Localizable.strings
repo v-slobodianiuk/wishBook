@@ -33,6 +33,7 @@
 //MARK: Profile
 "PROFILE_NAV_TITLE" = "Profile";
 "PROFILE_BIRTHDATE" = "Birthdate:";
+"PROFILE_BIRTHDATE_EMOJI" = "🎂";
 "PROFILE_EDIT_BUTTON_TITLE" = "Edit";
 "PROFILE_SIGN_OUT_BUTTON_TITLE" = "Sign Out";
 "EMPTY_VIEW_TITLE" = "Please fill profile info";

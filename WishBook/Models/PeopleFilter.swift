@@ -9,6 +9,6 @@ import Foundation
 
 enum PeopleFilter {
     case all
-    case subscibers
+    case subscribers
     case subscriptions
 }

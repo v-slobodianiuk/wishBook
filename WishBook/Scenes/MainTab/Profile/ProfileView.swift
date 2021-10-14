@@ -96,9 +96,9 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
                     .padding(.horizontal)
                     .padding(.bottom)
             }
-            statisticView()
+            statisticBlockView()
             HStack {
-                Text("🎂")
+                Text("PROFILE_BIRTHDATE_EMOJI".localized)
                 Text(vm.getBirthdate())
                     .padding(.leading, 5)
             }
@@ -107,36 +107,38 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
         }
     }
     
-    fileprivate func statisticView() -> some View {
+    fileprivate func statisticBlockView() -> some View {
         HStack() {
-            VStack {
-                Text("\(vm.getProfileData()?.subscribers?.count ?? 0)")
-                    .fontWeight(.medium)
-                Text("PROFILE_SUBSCRIBERS_COUNT_TITLE".localized)
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
+            vm.router.showPeople(filter: .subscribers) {
+                statisticView(count: vm.getProfileData()?.subscribers?.count, title: "PROFILE_SUBSCRIBERS_COUNT_TITLE".localized)
             }
-            Divider()
-                .frame(height: 25)
-                .padding(.horizontal, 8)
-            VStack {
-                Text("\(vm.getProfileData()?.subscriptions?.count ?? 0)")
-                    .fontWeight(.medium)
-                Text("PROFILE_SUBSCRIPTIONS_COUNT_TITLE".localized)
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
+
+            profileHorizontalDivider()
+            
+            vm.router.showPeople(filter: .subscriptions) {
+                statisticView(count: vm.getProfileData()?.subscriptions?.count, title: "PROFILE_SUBSCRIPTIONS_COUNT_TITLE".localized)
             }
-            Divider()
-                .frame(height: 25)
-                .padding(.horizontal, 8)
-            VStack {
-                Text("\(vm.getProfileData()?.wishes ?? 0)")
-                    .fontWeight(.medium)
-                Text("PROFILE_WISHES_COUNT_TITLE".localized)
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
-            }
+            
+            profileHorizontalDivider()
+            
+            statisticView(count: vm.getProfileData()?.wishes, title: "PROFILE_WISHES_COUNT_TITLE".localized)
         }
+    }
+    
+    fileprivate func statisticView(count: Int?, title: String) -> some View {
+        VStack {
+            Text("\(count ?? 0)")
+                .fontWeight(.medium)
+            Text(title)
+                .font(.system(size: 12))
+                .foregroundColor(.gray)
+        }
+    }
+    
+    fileprivate func profileHorizontalDivider() -> some View {
+        Divider()
+            .frame(height: 25)
+            .padding(.horizontal, 8)
     }
     
     fileprivate func loadImage() {
