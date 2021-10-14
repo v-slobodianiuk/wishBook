@@ -11,9 +11,13 @@ protocol WishListRouterProtocol {
     func showWishDetails(wishItem: WishListModel?) -> AnyView
 }
 
-final class WishListRouter: WishListRouterProtocol {
+extension WishListRouterProtocol {
     func showWishDetails(wishItem: WishListModel?) -> AnyView {
-        let wishDetailsView = WishDetailsModuleBuilder.create(wishItem: wishItem)
+        let wishDetailsView = WishDetailsModuleBuilder().create(wishItem: wishItem)
         return AnyView(wishDetailsView)
     }
+}
+
+final class WishListRouter: WishListRouterProtocol {
+
 }

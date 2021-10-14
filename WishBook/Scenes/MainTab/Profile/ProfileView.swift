@@ -96,7 +96,10 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
                     .padding(.horizontal)
                     .padding(.bottom)
             }
-            statisticBlockView()
+            StatisticBlockView(router: vm.router, count: (
+                subscribers: vm.getProfileData()?.subscribers?.count,
+                subscriptions: vm.getProfileData()?.subscriptions?.count,
+                wishes: vm.getProfileData()?.wishes))
             HStack {
                 Text("PROFILE_BIRTHDATE_EMOJI".localized)
                 Text(vm.getBirthdate())
@@ -105,40 +108,6 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
             .padding()
             Spacer()
         }
-    }
-    
-    fileprivate func statisticBlockView() -> some View {
-        HStack() {
-            vm.router.showPeople(filter: .subscribers) {
-                statisticView(count: vm.getProfileData()?.subscribers?.count, title: "PROFILE_SUBSCRIBERS_COUNT_TITLE".localized)
-            }
-
-            profileHorizontalDivider()
-            
-            vm.router.showPeople(filter: .subscriptions) {
-                statisticView(count: vm.getProfileData()?.subscriptions?.count, title: "PROFILE_SUBSCRIPTIONS_COUNT_TITLE".localized)
-            }
-            
-            profileHorizontalDivider()
-            
-            statisticView(count: vm.getProfileData()?.wishes, title: "PROFILE_WISHES_COUNT_TITLE".localized)
-        }
-    }
-    
-    fileprivate func statisticView(count: Int?, title: String) -> some View {
-        VStack {
-            Text("\(count ?? 0)")
-                .fontWeight(.medium)
-            Text(title)
-                .font(.system(size: 12))
-                .foregroundColor(.gray)
-        }
-    }
-    
-    fileprivate func profileHorizontalDivider() -> some View {
-        Divider()
-            .frame(height: 25)
-            .padding(.horizontal, 8)
     }
     
     fileprivate func loadImage() {

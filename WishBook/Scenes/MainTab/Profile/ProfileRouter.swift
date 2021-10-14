@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-protocol ProfileRouterProtocol {
+protocol ProfileRouterProtocol: UserPageRouterProtocol {
     func goEditProfile<V: View>(profileData: ProfileModel?, content: () -> V) -> AnyView
-    func showPeople<V: View>(filter: PeopleFilter, content: () -> V) -> AnyView
 }
 
 final class ProfileRouter: ProfileRouterProtocol {
@@ -17,14 +16,6 @@ final class ProfileRouter: ProfileRouterProtocol {
     func goEditProfile<V: View>(profileData: ProfileModel?, content: () -> V) -> AnyView {
         let editProfileView = EditProfileModuleBuilder.create(profileData: profileData)
         let navLink = NavigationLink(destination: editProfileView) {
-            content()
-        }
-        return AnyView(navLink)
-    }
-    
-    func showPeople<V: View>(filter: PeopleFilter, content: () -> V) -> AnyView {
-        let peopleView = PeopleModuleBuilder().create(filter: filter)
-        let navLink = NavigationLink(destination: peopleView) {
             content()
         }
         return AnyView(navLink)

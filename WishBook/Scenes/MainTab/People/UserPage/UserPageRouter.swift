@@ -11,12 +11,7 @@ protocol UserPageRouterProtocol: WishListRouterProtocol {
     func showPeople<V: View>(filter: PeopleFilter, content: () -> V) -> AnyView
 }
 
-final class UserPageRouter: UserPageRouterProtocol {
-    func showWishDetails(wishItem: WishListModel?) -> AnyView {
-        let wishDetailsView = WishDetailsModuleBuilder.create(wishItem: wishItem)
-        return AnyView(wishDetailsView)
-    }
-    
+extension UserPageRouterProtocol {
     func showPeople<V: View>(filter: PeopleFilter, content: () -> V) -> AnyView {
         let peopleView = PeopleModuleBuilder().create(filter: filter)
         let navLink = NavigationLink(destination: peopleView) {
@@ -24,4 +19,8 @@ final class UserPageRouter: UserPageRouterProtocol {
         }
         return AnyView(navLink)
     }
+}
+
+final class UserPageRouter: UserPageRouterProtocol {
+
 }

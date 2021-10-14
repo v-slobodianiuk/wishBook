@@ -34,35 +34,10 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
                 }
                 Spacer()
             }
-            HStack() {
-                VStack {
-                    Text("\(vm.getProfileData()?.subscribers?.count ?? 0)")
-                        .fontWeight(.medium)
-                    Text("PROFILE_SUBSCRIBERS_COUNT_TITLE".localized)
-                        .font(.system(size: 12))
-                        .foregroundColor(.gray)
-                }
-                Divider()
-                    .frame(height: 25)
-                    .padding(.horizontal, 8)
-                VStack {
-                    Text("\(vm.getProfileData()?.subscriptions?.count ?? 0)")
-                        .fontWeight(.medium)
-                    Text("PROFILE_SUBSCRIPTIONS_COUNT_TITLE".localized)
-                        .font(.system(size: 12))
-                        .foregroundColor(.gray)
-                }
-                Divider()
-                    .frame(height: 25)
-                    .padding(.horizontal, 8)
-                VStack {
-                    Text("\(vm.getProfileData()?.wishes ?? 0)")
-                        .fontWeight(.medium)
-                    Text("PROFILE_WISHES_COUNT_TITLE".localized)
-                        .font(.system(size: 12))
-                        .foregroundColor(.gray)
-                }
-            }
+            StatisticBlockView(router: vm.router, count: (
+                subscribers: vm.getProfileData()?.subscribers?.count,
+                subscriptions: vm.getProfileData()?.subscriptions?.count,
+                wishes: vm.getProfileData()?.wishes))
             HStack {
                 Text("🎂")
                 Text(vm.getBirthdate())

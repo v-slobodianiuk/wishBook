@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-enum WishDetailsModuleBuilder {
-    static func create(wishItem: WishListModel? = nil) -> some View {
+struct WishDetailsModuleBuilder {
+    func create(wishItem: WishListModel? = nil) -> some View {
         let vm = WishDetailsViewModel(repository: DI.getWishListRepository(), wishItem: wishItem)
         let wishDetailsView = WishDetailsView(vm: vm)
         return wishDetailsView
