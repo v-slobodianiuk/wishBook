@@ -39,6 +39,10 @@ struct SearchView: UIViewRepresentable {
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             text = searchText
         }
+        
+        func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+            text = ""
+        }
     }
 }
 
