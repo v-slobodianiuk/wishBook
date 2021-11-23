@@ -25,19 +25,16 @@ final class MainTabCoordinator: MainTabCoordinatorProtocol {
     
     func setupPeopleTabItem() -> some View {
         let friendsNavigatedView = NavigationView { PeopleModuleBuilder().create() }
-            .navigationViewStyle(StackNavigationViewStyle())
         return friendsNavigatedView
     }
     
     func setupWishListTabItem() -> some View {
         let wishListNavigatedView = NavigationView { WishListModuleBuilder.create() }
-            .navigationViewStyle(StackNavigationViewStyle())
         return wishListNavigatedView
     }
     
     func setupProfileView() -> some View {
         let profileNavigatedView = NavigationView { ProfileModuleBuilder.create() }
-            .navigationViewStyle(StackNavigationViewStyle())
         return profileNavigatedView
     }
 }

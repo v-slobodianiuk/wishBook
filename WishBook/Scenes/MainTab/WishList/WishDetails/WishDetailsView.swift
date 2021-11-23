@@ -66,7 +66,6 @@ struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
                 }
             }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     fileprivate func setupTrailingNavBarItems() -> some View {
