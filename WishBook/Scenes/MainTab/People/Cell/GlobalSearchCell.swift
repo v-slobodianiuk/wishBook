@@ -9,6 +9,8 @@ import SwiftUI
 
 struct GlobalSearchCell: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var image: String?
     var firstName: String?
     var lastName: String?
@@ -19,25 +21,38 @@ struct GlobalSearchCell: View {
             Image(systemName: "person.crop.circle.fill")
                 .resizable()
                 .frame(width: 50, height: 50)
-                .foregroundColor(.white)
+                .foregroundColor(.selectedTabItem)
                 .padding(.leading)
             VStack(alignment: .leading) {
                 Text("\(firstName ?? "") \(lastName ?? "")")
                     .lineLimit(2)
                     .font(.system(size: 20, weight: .medium))
-                    .foregroundColor(.white)
+                    .foregroundColor(.selectedTabItem)
                     .padding(.horizontal)
                 Text("\(birthDate ?? "")")
                     .font(.system(size: 14, weight: .light))
-                    .foregroundColor(.white)
+                    .foregroundColor(.selectedTabItem)
                     .padding(.horizontal)
             }
             Spacer()
         }
         .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading)
-        .background(Color.black)
+        .background(colorScheme == .dark ? AnyView(BlurView(style: .systemThinMaterialDark)) : AnyView(Color.lightText))
         .cornerRadius(10)
-        .shadow(radius: 10, x: 0, y: 5)
+        .shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 5)
         .padding(.horizontal)
+        .padding(.bottom, 8)
+    }
+}
+
+struct GlobalSearchCell_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+            GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+            GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+            GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+            GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+        }
     }
 }

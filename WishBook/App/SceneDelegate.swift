@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         // Set permanent interface style
-        window?.overrideUserInterfaceStyle = .light
+        //window?.overrideUserInterfaceStyle = .light
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

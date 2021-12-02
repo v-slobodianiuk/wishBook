@@ -48,7 +48,7 @@ struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
                         Text("EDIT_PROFILE_BUTTON_TITLE".localized)
                             .font(.title)
                             .frame(maxWidth: .infinity, maxHeight: 50)
-                            .background(Color.selectedTabItem)
+                            .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
                             .foregroundColor(.lightText)
                             .cornerRadius(10)
                     })

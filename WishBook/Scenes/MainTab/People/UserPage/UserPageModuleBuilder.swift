@@ -8,11 +8,11 @@
 import SwiftUI
 
 enum UserPageModuleBuilder {
-    static func create(userId: String?) -> some View {
+    static func create(profileUserId: String?) -> some View {
         let router = UserPageRouter()
         let vm = UserPageViewModel(
             router: router,
-            userId: userId,
+            profileUserId: profileUserId,
             profileRepository: DI.getProfileRepository(),
             wishListRepository: DI.getWishListRepository(),
             usersRepository: DI.getUsersRepository()

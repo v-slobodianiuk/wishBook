@@ -12,6 +12,7 @@ struct WishListView<VM: WishListViewModelProtocol>: View {
     @ObservedObject var vm: VM
     @State private var wishDetailsIsPresented: Bool = false
     @State private var createNewWishIsPresented: Bool = false
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -51,8 +52,9 @@ struct WishListView<VM: WishListViewModelProtocol>: View {
             }, label: {
                 HStack {
                     Image(systemName: "plus.circle.fill")
-                        .foregroundColor(.selectedTabItem)
+                        .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
                     Text("WISH_ITEM_ADD_BUTTON_TITLE".localized)
+                        .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
                 }
             })
         }

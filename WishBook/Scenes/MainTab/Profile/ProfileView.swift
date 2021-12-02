@@ -17,6 +17,7 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
     @State private var inputImage: UIImage?
     @State private var image: WebImage?
     private let firebaseStorage = FirebaseStorageService()
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack {
@@ -72,13 +73,16 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
                 if image != nil {
                     image?
                         .resizable()
-                        .frame(width: 150, height: 150)
+                        .indicator(.activity) // Activity Indicator
+                            .transition(.fade(duration: 0.25)) // Fade Transition with duration
+                        .scaledToFill()
+                        .frame(width: 150, height: 150, alignment: .center)
                         .clipShape(Circle())
                         .padding(.top, 50)
                 } else {
                     Image(systemName: "person.crop.circle.fill")
                         .resizable()
-                        .frame(width: 150, height: 150)
+                        .frame(width: 150, height: 150, alignment: .center)
                         .foregroundColor(.selectedTabItem)
                         .padding(.top, 50)
                 }
@@ -112,7 +116,9 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
     
     fileprivate func loadImage() {
         guard let inputImage = inputImage else { return }
-        let resizedImage = inputImage.downsample(to: CGSize(width: 1000, height: 1000), scale: nil)
+        let multiplier = inputImage.size.height /  inputImage.size.width
+        let width: CGFloat = 1000
+        let resizedImage = inputImage.downsample(to: CGSize(width: width, height: width * multiplier), scale: nil)
         print("Image: \(inputImage.scale) | \(inputImage.size)")
         // Convert the image into JPEG and compress the quality to reduce its size
         let data: Data? = resizedImage.jpegData(compressionQuality: 0.75)

@@ -8,12 +8,12 @@
 import SwiftUI
 
 protocol PeopleRouterProtocol {
-    func showProfile<V: View>(userId: String?, content: () -> V) -> AnyView
+    func showProfile<V: View>(profileUserId: String?, content: () -> V) -> AnyView
 }
 
 final class PeopleRouter: PeopleRouterProtocol {
-    func showProfile<V: View>(userId: String?, content: () -> V) -> AnyView {
-        let userPageView = UserPageModuleBuilder.create(userId: userId)
+    func showProfile<V: View>(profileUserId: String?, content: () -> V) -> AnyView {
+        let userPageView = UserPageModuleBuilder.create(profileUserId: profileUserId)
         let navLink = NavigationLink(destination: userPageView) {
             content()
         }

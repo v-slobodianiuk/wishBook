@@ -11,6 +11,7 @@ struct StatisticBlockView: View {
     
     private let router: UserPageRouterProtocol
     private let count: (subscribers: Int?, subscriptions: Int?, wishes: Int?)
+    @Environment(\.colorScheme) var colorScheme
     
     init(router: UserPageRouterProtocol, count: (subscribers: Int?, subscriptions: Int?, wishes: Int?)) {
         self.router = router
@@ -39,6 +40,7 @@ struct StatisticBlockView: View {
         VStack {
             Text("\(count ?? 0)")
                 .fontWeight(.medium)
+                .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
             Text(title)
                 .font(.system(size: 12))
                 .foregroundColor(.gray)

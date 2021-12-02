@@ -11,6 +11,7 @@ struct MainTabView<C: MainTabCoordinatorProtocol>: View {
     
     let coordinator: C
     @State private var tabItem = TabItems.wishListView
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         TabView(selection: $tabItem) {
@@ -35,11 +36,10 @@ struct MainTabView<C: MainTabCoordinatorProtocol>: View {
                 }
                 .tag(TabItems.profileView)
         }
-        .accentColor(.selectedTabItem)
+        .accentColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
         .onAppear {
             let tabBarAppearance = UITabBarAppearance()
-            tabBarAppearance.configureWithTransparentBackground()
-            tabBarAppearance.backgroundColor = .white
+            tabBarAppearance.configureWithDefaultBackground()
             UITabBar.appearance().standardAppearance = tabBarAppearance
         }
     }

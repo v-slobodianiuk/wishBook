@@ -48,19 +48,32 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
                 } label: {
                     Text(vm.isSubscribed ? "USER_PAGE_BUTTON_UNSUBSCRIBE".localized : "USER_PAGE_BUTTON_SUBSCRIBE".localized)
                         .font(.subheadline)
-                        .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
-                        .background(Color.green)
+                        .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                        .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
                         .foregroundColor(.lightText)
                         .cornerRadius(8)
                 }
             }
             .padding()
             Divider()
-            listView()
-            Spacer()
+            if #available(iOS 15.0, *) {
+                listView()
+                    .headerProminence(.increased)
+            } else {
+                listView()
+            }
+            //Spacer()
         }
         .onAppear {
+            print(#function)
+            if #available(iOS 15.0, *) {
+                UITableView.appearance().sectionHeaderTopPadding = .leastNormalMagnitude
+            }
+            
             vm.getData()
+        }
+        .onDisappear {
+            print(#function)
         }
         .navigationBarTitle("", displayMode: .inline)
     }
@@ -75,6 +88,7 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
                         wishDetailsIsPresented.toggle()
                     }
             }
+            .listStyle(.plain)
         }
         .sheet(isPresented: $wishDetailsIsPresented) {
             vm.router.showWishDetails(wishItem: vm.wishList[vm.selectedItem], readOnly: true)
@@ -84,7 +98,7 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
     struct UserPageView_Previews: PreviewProvider {
         static var previews: some View {
             let vm = UserPageViewModel(
-                router: UserPageRouter(), userId: nil,
+                router: UserPageRouter(), profileUserId: nil,
                 profileRepository: DI.getProfileRepository(),
                 wishListRepository: DI.getWishListRepository(),
                 usersRepository: DI.getUsersRepository()

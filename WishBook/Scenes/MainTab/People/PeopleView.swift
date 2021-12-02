@@ -16,7 +16,7 @@ struct PeopleView<VM: PeopleViewModelProtocol>: View {
             SearchView(placeholder: "PEOPLE_SEARCH_PLACEHOLDER".localized, text: $vm.searchText)
                 .padding(.horizontal)
             ForEach(vm.usersList.indices, id: \.self) { i in
-                vm.router.showProfile(userId: vm.usersList[i].id) {
+                vm.router.showProfile(profileUserId: vm.usersList[i].id) {
                     GlobalSearchCell(
                         image: vm.usersList[i].photoUrl,
                         firstName: vm.usersList[i].firstName,
