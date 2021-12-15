@@ -12,7 +12,7 @@ enum UserPageModuleBuilder {
         let router = UserPageRouter()
         let vm = UserPageViewModel(
             router: router,
-            profileUserId: profileUserId,
+            userId: profileUserId,
             profileRepository: DI.getProfileRepository(),
             wishListRepository: DI.getWishListRepository(),
             usersRepository: DI.getUsersRepository()

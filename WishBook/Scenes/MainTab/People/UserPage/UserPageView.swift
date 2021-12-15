@@ -98,7 +98,7 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
     struct UserPageView_Previews: PreviewProvider {
         static var previews: some View {
             let vm = UserPageViewModel(
-                router: UserPageRouter(), profileUserId: nil,
+                router: UserPageRouter(), userId: nil,
                 profileRepository: DI.getProfileRepository(),
                 wishListRepository: DI.getWishListRepository(),
                 usersRepository: DI.getUsersRepository()
