@@ -21,6 +21,7 @@
 		D53D0E2525F3B96500E5C2D7 /* AppDelegateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2425F3B96500E5C2D7 /* AppDelegateFactory.swift */; };
 		D53D0E2A25F4150B00E5C2D7 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2925F4150B00E5C2D7 /* UserDefaultsStorage.swift */; };
 		D53D0E2F25F429C900E5C2D7 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2E25F429C900E5C2D7 /* MainTabView.swift */; };
+		D53F493A276A57C8000A9738 /* ReduxCore in Frameworks */ = {isa = PBXBuildFile; productRef = D53F4939276A57C8000A9738 /* ReduxCore */; };
 		D5442BA126809C1400BB1F5A /* LinkDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5442BA026809C1400BB1F5A /* LinkDataView.swift */; };
 		D547FE4526C9883D00049B57 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D547FE4426C9883D00049B57 /* SDWebImageSwiftUI */; };
 		D552C8EA25E409A9000E2196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C8E925E409A9000E2196 /* AppDelegate.swift */; };
@@ -189,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D53F493A276A57C8000A9738 /* ReduxCore in Frameworks */,
 				D5FB2E0526C645160036B4E9 /* FirebaseFirestore in Frameworks */,
 				D5FB2E1426C645550036B4E9 /* GoogleSignIn in Frameworks */,
 				D5FB2E0F26C645160036B4E9 /* FirebaseAuth in Frameworks */,
@@ -518,6 +520,7 @@
 				D5FB2E1026C645160036B4E9 /* FirebaseDynamicLinks */,
 				D5FB2E1326C645550036B4E9 /* GoogleSignIn */,
 				D547FE4426C9883D00049B57 /* SDWebImageSwiftUI */,
+				D53F4939276A57C8000A9738 /* ReduxCore */,
 			);
 			productName = WishBook;
 			productReference = D552C8E625E409A9000E2196 /* WishBook.app */;
@@ -594,6 +597,7 @@
 				D5FB2E0326C645160036B4E9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D5FB2E1226C645550036B4E9 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				D547FE4326C9883D00049B57 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				D53F4938276A57C8000A9738 /* XCRemoteSwiftPackageReference "ReduxCore" */,
 			);
 			productRefGroup = D552C8E725E409A9000E2196 /* Products */;
 			projectDirPath = "";
@@ -1035,6 +1039,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D53F4938276A57C8000A9738 /* XCRemoteSwiftPackageReference "ReduxCore" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/v-slobodianiuk/ReduxCore";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		D547FE4326C9883D00049B57 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
@@ -1062,6 +1074,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D53F4939276A57C8000A9738 /* ReduxCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D53F4938276A57C8000A9738 /* XCRemoteSwiftPackageReference "ReduxCore" */;
+			productName = ReduxCore;
+		};
 		D547FE4426C9883D00049B57 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D547FE4326C9883D00049B57 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
