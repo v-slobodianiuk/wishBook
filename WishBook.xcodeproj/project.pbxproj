@@ -22,6 +22,8 @@
 		D53D0E2A25F4150B00E5C2D7 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2925F4150B00E5C2D7 /* UserDefaultsStorage.swift */; };
 		D53D0E2F25F429C900E5C2D7 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53D0E2E25F429C900E5C2D7 /* MainTabView.swift */; };
 		D53F493A276A57C8000A9738 /* ReduxCore in Frameworks */ = {isa = PBXBuildFile; productRef = D53F4939276A57C8000A9738 /* ReduxCore */; };
+		D53F493C276A686E000A9738 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F493B276A686E000A9738 /* AppState.swift */; };
+		D53F4940276A688E000A9738 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F493F276A688E000A9738 /* AppAction.swift */; };
 		D5442BA126809C1400BB1F5A /* LinkDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5442BA026809C1400BB1F5A /* LinkDataView.swift */; };
 		D547FE4526C9883D00049B57 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D547FE4426C9883D00049B57 /* SDWebImageSwiftUI */; };
 		D552C8EA25E409A9000E2196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C8E925E409A9000E2196 /* AppDelegate.swift */; };
@@ -121,6 +123,8 @@
 		D53D0E2425F3B96500E5C2D7 /* AppDelegateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateFactory.swift; sourceTree = "<group>"; };
 		D53D0E2925F4150B00E5C2D7 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		D53D0E2E25F429C900E5C2D7 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		D53F493B276A686E000A9738 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		D53F493F276A688E000A9738 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
 		D5442BA026809C1400BB1F5A /* LinkDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkDataView.swift; sourceTree = "<group>"; };
 		D552C8E625E409A9000E2196 /* WishBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WishBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D552C8E925E409A9000E2196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -235,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				D552C8E925E409A9000E2196 /* AppDelegate.swift */,
+				D53F493E276A687D000A9738 /* Redux */,
 				D53D0E1425F3B64500E5C2D7 /* CompositeAppDelegate.swift */,
 				D53D0E2425F3B96500E5C2D7 /* AppDelegateFactory.swift */,
 				D53D0E1925F3B74200E5C2D7 /* GoogleAppDelegate.swift */,
@@ -319,6 +324,31 @@
 				D56B191426027E4E00F7031C /* LoginModuleBuilder.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		D53F493D276A6874000A9738 /* States */ = {
+			isa = PBXGroup;
+			children = (
+				D53F493B276A686E000A9738 /* AppState.swift */,
+			);
+			path = States;
+			sourceTree = "<group>";
+		};
+		D53F493E276A687D000A9738 /* Redux */ = {
+			isa = PBXGroup;
+			children = (
+				D53F493D276A6874000A9738 /* States */,
+				D53F4941276A6896000A9738 /* Actions */,
+			);
+			path = Redux;
+			sourceTree = "<group>";
+		};
+		D53F4941276A6896000A9738 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				D53F493F276A688E000A9738 /* AppAction.swift */,
+			);
+			path = Actions;
 			sourceTree = "<group>";
 		};
 		D552C8DD25E409A9000E2196 = {
@@ -675,6 +705,7 @@
 				D55CC78525F6C0C700E5C04F /* WishListRouter.swift in Sources */,
 				D51B4A1925F4EB70008ABCBB /* RootModuleBuilder.swift in Sources */,
 				D55CC74A25F546FC00E5C04F /* ProfileModel.swift in Sources */,
+				D53F493C276A686E000A9738 /* AppState.swift in Sources */,
 				D599143B25F52BED005F2F23 /* WishListModuleBuilder.swift in Sources */,
 				D55CC79C25F6C6A100E5C04F /* WishDetailsView.swift in Sources */,
 				D599143125F528DC005F2F23 /* ProfileView.swift in Sources */,
@@ -685,6 +716,7 @@
 				D552C8EE25E409A9000E2196 /* LoginView.swift in Sources */,
 				D599143625F52AEF005F2F23 /* PeopleModuleBuilder.swift in Sources */,
 				D599142C25F528C9005F2F23 /* WishListView.swift in Sources */,
+				D53F4940276A688E000A9738 /* AppAction.swift in Sources */,
 				D56B191526027E4E00F7031C /* LoginModuleBuilder.swift in Sources */,
 				D55CC75825F5527500E5C04F /* ProfileRouter.swift in Sources */,
 				D55CC76A25F6A15500E5C04F /* DI.swift in Sources */,
