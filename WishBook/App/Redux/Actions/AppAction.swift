@@ -8,5 +8,7 @@
 import Foundation
 
 enum AppAction {
-
+    case auth(action: AuthAction)
+    case profile(action: ProfileAction)
+    case wishes(action: WishesAction)
 }
