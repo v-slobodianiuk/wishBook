@@ -7,29 +7,28 @@
 
 import SwiftUI
 
-struct MainTabView<C: MainTabCoordinatorProtocol>: View {
+struct MainTabView: View {
     
-    let coordinator: C
     @State private var tabItem = TabItems.wishListView
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         TabView(selection: $tabItem) {
-            coordinator.setupPeopleTabItem()
+            screenFactory.makePeopleView()
                 .tabItem {
                     Image(systemName: "person.2.fill")
                     Text("People")
                 }
                 .tag(TabItems.friendsView)
             
-            coordinator.setupWishListTabItem()
+            screenFactory.makeWishListView()
                 .tabItem {
                     Image(systemName: "list.triangle")
                     Text("Wish List")
                 }
                 .tag(TabItems.wishListView)
             
-            coordinator.setupProfileView()
+            screenFactory.makeProfileView()
                 .tabItem {
                     Image(systemName: "person.crop.circle.fill")
                     Text("PROFILE_TAB_ITEM".localized)
@@ -53,6 +52,6 @@ extension MainTabView {
 
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
-        MainTabView(coordinator: MainTabCoordinator())
+        MainTabView()
     }
 }

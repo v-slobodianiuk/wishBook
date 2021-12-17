@@ -9,9 +9,14 @@ import SwiftUI
 import SDWebImageSwiftUI
 import Combine
 
-struct ProfileView<VM: ProfileViewModelProtocol>: View {
+struct ProfileView: View {
     
-    @ObservedObject var vm: VM
+    @ObservedObject var vm = ProfileViewModel(
+        router: ProfileRouter(),
+        repository: DI.getProfileRepository(),
+        storageService: DI.getFirebaseStorage()
+    )
+    
     @State private var showingImagePicker = false
     //self.showingImagePicker = true
     @State private var inputImage: UIImage?
@@ -133,10 +138,6 @@ struct ProfileView<VM: ProfileViewModelProtocol>: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(vm: ProfileViewModel(
-            router: ProfileRouter(),
-            repository: DI.getProfileRepository(),
-            storageService: DI.getFirebaseStorage()
-        ))
+        ProfileView()
     }
 }

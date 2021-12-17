@@ -8,5 +8,11 @@
 import Foundation
 
 enum AuthAction {
-    
+    case fetch
+    case fetchComplete
+    case status(isLoggedIn: Bool)
+    case logIn(login: String, password: String)
+    case googleLogIn
+    case signOut
+    case fetchError(error: Error?)
 }

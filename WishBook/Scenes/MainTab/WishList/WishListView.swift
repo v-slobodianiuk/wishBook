@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct WishListView<VM: WishListViewModelProtocol>: View {
+struct WishListView: View {
     
-    @ObservedObject var vm: VM
+    @ObservedObject var vm = WishListViewModel(router: WishListRouter(), repository: WishListRepository())
     @State private var wishDetailsIsPresented: Bool = false
     @State private var createNewWishIsPresented: Bool = false
     @Environment(\.colorScheme) var colorScheme
@@ -66,6 +66,6 @@ struct WishListView<VM: WishListViewModelProtocol>: View {
 
 struct WishListView_Previews: PreviewProvider {
     static var previews: some View {
-        WishListView(vm: WishListViewModel(router: WishListRouter(), repository: WishListRepository()))
+        WishListView()
     }
 }

@@ -9,25 +9,39 @@ import SwiftUI
 import Firebase
 import GoogleSignIn
 
-struct LoginView<VM: LoginViewModelProtocol>: View {
+struct LoginView: View {
     
-    @ObservedObject var vm: VM
+    @EnvironmentObject private var store: AppStore
+    @State private var login: String = ""
+    @State private var password: String = ""
     
     var body: some View {
-        VStack {
-            TextField("Email", text: $vm.loginModel.email)
+        if store.state.auth.fetchInProgress {
+            ProgressView("In progress...")
+        } else {
+            loginFormsView()
+        }
+    }
+    
+    private func loginFormsView() -> some View {
+        let shouldDisplayError =  Binding<Bool>(
+            get: { store.state.auth.errorMessage != nil },
+            set: { _ in store.dispatch(action: .auth(action: .fetchError(error: nil))) }
+        )
+        
+        return VStack {
+            TextField("Email", text: $login)
                 .keyboardType(.namePhonePad)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-            TextField("Password", text: $vm.loginModel.password)
+            TextField("Password", text: $password)
                 .keyboardType(.namePhonePad)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
-//                .background(Color.orange)
-//                .clipShape(RoundedRectangle(cornerRadius: 10))
-//                .padding()
             Button {
-                vm.loginPressed()
+                withAnimation {
+                    store.dispatch(action: .auth(action: .logIn(login: login, password: password)))
+                }
             } label: {
                 Text("Log in")
                     .font(.title)
@@ -38,7 +52,9 @@ struct LoginView<VM: LoginViewModelProtocol>: View {
             }
             .padding()
             Button {
-                vm.signInPressed()
+                withAnimation {
+                    store.dispatch(action: .auth(action: .googleLogIn))
+                }
             } label: {
                 GoogleButton()
                     .colorScheme(.light)
@@ -47,19 +63,18 @@ struct LoginView<VM: LoginViewModelProtocol>: View {
                     .padding()
             }
         }
-        .alert(isPresented: $vm.showWarning) {
-
-            Alert(title: Text("Login Failed"),
-                  message: Text("\(vm.error ?? "")"),
-                  dismissButton: .default(Text("OK"), action: {
-                    vm.showWarning = false
-                  }))
+        .alert(isPresented: shouldDisplayError) {
+            Alert(
+                title: Text("Login Failed"),
+                message: Text(store.state.auth.errorMessage ?? ""),
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(vm: LoginViewModel(googleAuthService: DI.getGoogleAuthService(), repository: DI.getProfileRepository()))
+        LoginView()
     }
 }

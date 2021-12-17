@@ -10,19 +10,18 @@ import Firebase
 
 struct RootView: View {
     
-    @State private var isLoggedIn = UserStorage.isLoggedIn
-    
-    let coordinator: RootCoordinatorProtocol
+    @EnvironmentObject private var store: AppStore
     
     var body: some View {
         Group {
-            isLoggedIn ? coordinator.showManTabView() : coordinator.showLoginView()
+            if store.state.auth.isLoggedIn {
+                screenFactory.makeMainTabBar()
+            } else {
+                screenFactory.makeLoginView()
+            }
         }
         .onAppear {
-            Auth.auth().addStateDidChangeListener { (_, user) in
-                UserStorage.isLoggedIn = user != nil
-                isLoggedIn = user != nil
-            }
+            store.dispatch(action: .auth(action: .fetch))
         }
     }
 }

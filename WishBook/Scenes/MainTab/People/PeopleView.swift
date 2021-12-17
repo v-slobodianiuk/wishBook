@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct PeopleView<VM: PeopleViewModelProtocol>: View {
+struct PeopleView: View {
     
-    @ObservedObject var vm: VM
+    @ObservedObject var vm = PeopleViewModel(router: PeopleRouter(), usersRepository: DI.getUsersRepository())
     
     var body: some View {
         ScrollView {
@@ -60,6 +60,6 @@ extension ScrollView {
 
 struct FriendsView_Previews: PreviewProvider {
     static var previews: some View {
-        PeopleView(vm: PeopleViewModel(router: PeopleRouter(), usersRepository: DI.getUsersRepository()))
+        PeopleView()
     }
 }
