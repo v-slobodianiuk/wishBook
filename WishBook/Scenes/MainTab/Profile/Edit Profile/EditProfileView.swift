@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct EditProfileView<VM: EditProfileViewModelProtocol>: View {
-    @ObservedObject var vm: VM
+struct EditProfileView: View {
+    @EnvironmentObject private var store: AppStore
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var firstName = ""
-    @State var lastName = ""
-    @State var email = ""
-    @State var description = ""
-    
+    @State private var firstName = ""
+    @State private var lastName = ""
+    @State private var email = ""
+    @State private var description = ""
     @State private var birthDate = Date()
     
     var body: some View {
@@ -54,13 +54,18 @@ struct EditProfileView<VM: EditProfileViewModelProtocol>: View {
                 .padding(.horizontal)
             Spacer()
             Button(action: {
-                vm.updateProfile(
-                    firstName: firstName,
-                    lastName: lastName,
-                    email: email,
-                    description: description,
-                    birthdate: birthDate
+                store.dispatch(
+                    action: .profile(
+                        action: .updateProfileData(
+                            firstName: firstName,
+                            lastName: lastName,
+                            description: description,
+                            email: email,
+                            birthDate: birthDate
+                        )
+                    )
                 )
+                presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("EDIT_PROFILE_BUTTON_TITLE".localized)
                     .font(.title)
@@ -77,17 +82,17 @@ struct EditProfileView<VM: EditProfileViewModelProtocol>: View {
             UIApplication.shared.endEditing(true)
         }
         .onAppear {
-            firstName = vm.profileData.firstName ?? ""
-            lastName = vm.profileData.lastName ?? ""
-            description = vm.profileData.description ?? ""
-            email = vm.profileData.email ?? ""
-            birthDate = vm.profileData.birthdate ?? Date()
+            firstName = store.state.profile.profileData?.firstName ?? ""
+            lastName = store.state.profile.profileData?.lastName ?? ""
+            description = store.state.profile.profileData?.description ?? ""
+            email = store.state.profile.profileData?.email ?? ""
+            birthDate = store.state.profile.profileData?.birthdate ?? Date()
         }
     }
 }
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView(vm: EditProfileViewModel(repository: ProfileRepository(), profileData: ProfileModel()))
+        screenFactory.makeEditProfileView()
     }
 }

@@ -15,7 +15,10 @@ struct Di {
         self.store =  AppStore(
             initialState: .init(auth: AuthState(), profile: ProfileState(), wishes: WishesState()),
             reducer: appReducer,
-            middlewares: [authMiddleware(service: GoogleAuthService())]
+            middlewares: [
+                authMiddleware(service: GoogleAuthService()),
+                profileMiddleware(service: ProfileService(), storageService: FirebaseStorageService())
+            ]
         )
     }
     
@@ -58,9 +61,12 @@ struct ScreenFactory {
     }
     
     func makeProfileView() -> some View {
-        NavigationView {
             ProfileView()
                 .environmentObject(di.getStore())
-        }
+    }
+    
+    func makeEditProfileView() -> some View {
+        EditProfileView()
+            .environmentObject(di.getStore())
     }
 }

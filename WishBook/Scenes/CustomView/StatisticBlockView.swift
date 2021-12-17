@@ -9,26 +9,24 @@ import SwiftUI
 
 struct StatisticBlockView: View {
     
-    private let router: UserPageRouterProtocol
     private let count: (subscribers: Int?, subscriptions: Int?, wishes: Int?)
     @Environment(\.colorScheme) var colorScheme
     
-    init(router: UserPageRouterProtocol, count: (subscribers: Int?, subscriptions: Int?, wishes: Int?)) {
-        self.router = router
+    init(count: (subscribers: Int?, subscriptions: Int?, wishes: Int?)) {
         self.count = count
     }
     
     var body: some View {
         HStack() {
-            router.showPeople(filter: .subscribers) {
+            //router.showPeople(filter: .subscribers) {
                 statisticView(count: count.subscribers, title: "PROFILE_SUBSCRIBERS_COUNT_TITLE".localized)
-            }
+            //}
 
             profileHorizontalDivider()
             
-            router.showPeople(filter: .subscriptions) {
+            //router.showPeople(filter: .subscriptions) {
                 statisticView(count: count.subscriptions, title: "PROFILE_SUBSCRIPTIONS_COUNT_TITLE".localized)
-            }
+            //}
             
             profileHorizontalDivider()
             
@@ -56,6 +54,6 @@ struct StatisticBlockView: View {
 
 struct StatisticBlockView_Previews: PreviewProvider {
     static var previews: some View {
-        StatisticBlockView(router: UserPageRouter(), count: (0, 0, 0))
+        StatisticBlockView(count: (0, 0, 0))
     }
 }

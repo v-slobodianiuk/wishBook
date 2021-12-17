@@ -34,7 +34,7 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
                 }
                 Spacer()
             }
-            StatisticBlockView(router: vm.router, count: (
+            StatisticBlockView(count: (
                 subscribers: vm.getProfileData()?.subscribers?.count,
                 subscriptions: vm.getProfileData()?.subscriptions?.count,
                 wishes: vm.getProfileData()?.wishes))

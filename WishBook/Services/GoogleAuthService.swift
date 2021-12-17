@@ -15,14 +15,13 @@ enum UserState {
     case existed
 }
 
-typealias AuthResult = (Result<UserState, Error>) -> Void
-
 protocol GoogleAuthServiceProtocol {
     func checkState() -> AnyPublisher<Bool, Never>
     func startAuthListener()
     
     func createUser(email: String, password: String) -> AnyPublisher<UserState, Error>
     func signInUser()
+    func signOut()
     
     func addUserDataIfNeeded()
 }
@@ -104,6 +103,14 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
                 }
                 self?.addUserDataIfNeeded()
             }
+        }
+    }
+    
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("Sign Out error: \(error.localizedDescription)")
         }
     }
     

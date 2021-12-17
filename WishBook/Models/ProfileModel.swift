@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct ProfileModel: Codable, Identifiable {
+struct ProfileModel: Codable, Identifiable, Equatable {
     var id: String?
     var photoUrl: String?
     var firstName: String?
@@ -36,6 +36,15 @@ struct ProfileModel: Codable, Identifiable {
         case wishes
         case subscribers
         case subscriptions
+    }
+    
+    static func == (lhs: ProfileModel, rhs: ProfileModel) -> Bool {
+        lhs.id == rhs.id
+        && lhs.firstName == rhs.firstName
+        && lhs.lastName == rhs.lastName
+        && lhs.description == rhs.description
+        && lhs.email == rhs.email
+        && lhs.birthdate == rhs.birthdate
     }
 }
 

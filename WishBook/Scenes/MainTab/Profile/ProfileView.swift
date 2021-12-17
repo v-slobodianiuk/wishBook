@@ -11,54 +11,64 @@ import Combine
 
 struct ProfileView: View {
     
-    @ObservedObject var vm = ProfileViewModel(
-        router: ProfileRouter(),
-        repository: DI.getProfileRepository(),
-        storageService: DI.getFirebaseStorage()
-    )
+    @EnvironmentObject private var store: AppStore
     
     @State private var showingImagePicker = false
-    //self.showingImagePicker = true
-    @State private var inputImage: UIImage?
-    @State private var image: WebImage?
-    private let firebaseStorage = FirebaseStorageService()
+    @State private var inputImageData: Data?
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        ZStack {
-            if vm.emptyViewIsHidden() {
-                profileBlock()
-            } else {
-                emptyView()
+        NavigationView {
+            Group {
+                if store.state.profile.fetchInProgress {
+                    ProgressView()
+                } else {
+                    contentView
+                }
             }
+            .navigationBarTitle("PROFILE_NAV_TITLE".localized)
+            .navigationBarItems(trailing: trailingNavBarItems)
         }
-        .navigationBarTitle("PROFILE_NAV_TITLE".localized)
-        .navigationBarItems(trailing: setupTrailingNavBarItems())
+        .navigationViewStyle(.stack)
         .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
-            ImagePicker(image: self.$inputImage)
+            ImagePicker(imageData: self.$inputImageData)
         }
-        .onAppear(perform: {
-            vm.getUserImage { url in
-                image = WebImage(url: url)
-            }
-        })
+        .onAppear {
+            store.dispatch(action: .profile(action: .fetch))
+        }
     }
     
-    fileprivate func setupTrailingNavBarItems() -> some View {
+    @ViewBuilder
+    fileprivate var contentView: some View {
+        if store.state.profile.haveFullName {
+           profileBlock
+        } else {
+            emptyView
+        }
+    }
+    
+    @ViewBuilder
+    fileprivate var trailingNavBarItems: some View {
         HStack {
-            vm.router.goEditProfile(profileData: vm.getProfileData()) {
+            NavigationLink {
+                screenFactory.makeEditProfileView()
+            } label: {
                 Text("PROFILE_EDIT_BUTTON_TITLE".localized)
             }
+
             Button(action: {
-                vm.signOut()
+                store.dispatch(action: .auth(action: .signOut))
             }, label: {
                 Text("PROFILE_SIGN_OUT_BUTTON_TITLE".localized)
             })
         }
     }
     
-    fileprivate func emptyView() -> some View {
-        vm.router.goEditProfile(profileData: vm.getProfileData()) {
+    @ViewBuilder
+    fileprivate var emptyView: some View {
+        NavigationLink {
+            screenFactory.makeEditProfileView()
+        } label: {
             VStack(alignment: .center) {
                 Text("🙈")
                     .font(.system(size: 100))
@@ -69,14 +79,14 @@ struct ProfileView: View {
         }
     }
     
-    fileprivate func profileBlock() -> some View {
+    @ViewBuilder
+    fileprivate var profileBlock: some View {
         VStack(alignment: .center) {
             Button {
                 showingImagePicker.toggle()
             } label: {
-                
-                if image != nil {
-                    image?
+                if store.state.profile.havePhoto {
+                    WebImage(url: store.state.profile.getPhotoUrl())
                         .resizable()
                         .indicator(.activity) // Activity Indicator
                             .transition(.fade(duration: 0.25)) // Fade Transition with duration
@@ -93,25 +103,25 @@ struct ProfileView: View {
                 }
                 
             }
-            Text(vm.getFullName())
+            Text(store.state.profile.getFullName())
                 .font(.title)
                 .padding(.top)
                 .padding(.horizontal)
                 .padding(.horizontal)
-            if let description = vm.getProfileData()?.description {
+            if let description = store.state.profile.profileData?.description {
                 Text(description)
                     .foregroundColor(.gray)
                     .lineLimit(2)
                     .padding(.horizontal)
                     .padding(.bottom)
             }
-            StatisticBlockView(router: vm.router, count: (
-                subscribers: vm.getProfileData()?.subscribers?.count,
-                subscriptions: vm.getProfileData()?.subscriptions?.count,
-                wishes: vm.getProfileData()?.wishes))
+            StatisticBlockView(count: (
+                subscribers: store.state.profile.profileData?.subscribers?.count,
+                subscriptions: store.state.profile.profileData?.subscriptions?.count,
+                wishes: store.state.profile.profileData?.wishes))
             HStack {
                 Text("PROFILE_BIRTHDATE_EMOJI".localized)
-                Text(vm.getBirthdate())
+                Text(store.state.profile.getBirthdate())
                     .padding(.leading, 5)
             }
             .padding()
@@ -120,24 +130,13 @@ struct ProfileView: View {
     }
     
     fileprivate func loadImage() {
-        guard let inputImage = inputImage else { return }
-        let multiplier = inputImage.size.height /  inputImage.size.width
-        let width: CGFloat = 1000
-        let resizedImage = inputImage.downsample(to: CGSize(width: width, height: width * multiplier), scale: nil)
-        print("Image: \(inputImage.scale) | \(inputImage.size)")
-        // Convert the image into JPEG and compress the quality to reduce its size
-        let data: Data? = resizedImage.jpegData(compressionQuality: 0.75)
-        
-        vm.uploadUserImage(imageData: data) {
-            vm.getUserImage { url in
-                image = WebImage(url: url)
-            }
-        }
+        guard let inputImage = inputImageData else { return }
+        store.dispatch(action: .profile(action: .uploadProfilePhoto(data: inputImage)))
     }
 }
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        screenFactory.makeProfileView()
     }
 }

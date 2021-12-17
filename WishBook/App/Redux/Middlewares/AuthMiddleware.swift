@@ -41,6 +41,8 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
             
         case .auth(action: .googleLogIn):
             service.signInUser()
+        case .auth(action: .signOut):
+            service.signOut()
         default:
             break
         }

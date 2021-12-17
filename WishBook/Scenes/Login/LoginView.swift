@@ -17,7 +17,7 @@ struct LoginView: View {
     
     var body: some View {
         if store.state.auth.fetchInProgress {
-            ProgressView("In progress...")
+            ProgressView()
         } else {
             loginFormsView()
         }
@@ -75,6 +75,6 @@ struct LoginView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        screenFactory.makeLoginView()
     }
 }
