@@ -55,9 +55,7 @@
 		D55CC77B25F6BE3500E5C04F /* WishListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC77A25F6BE3500E5C04F /* WishListRepository.swift */; };
 		D55CC78025F6BE7300E5C04F /* WishListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC77F25F6BE7300E5C04F /* WishListModel.swift */; };
 		D55CC78525F6C0C700E5C04F /* WishListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC78425F6C0C700E5C04F /* WishListRouter.swift */; };
-		D55CC78D25F6C66300E5C04F /* WishDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC78C25F6C66300E5C04F /* WishDetailsViewModel.swift */; };
 		D55CC79C25F6C6A100E5C04F /* WishDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC79B25F6C6A100E5C04F /* WishDetailsView.swift */; };
-		D55CC7A125F6C77500E5C04F /* WishDetailsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC7A025F6C77500E5C04F /* WishDetailsModuleBuilder.swift */; };
 		D56B190D2602785700F7031C /* GoogleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56B190C2602785700F7031C /* GoogleAuthService.swift */; };
 		D573367B2611E47300C11EC0 /* GlobalSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573367A2611E47300C11EC0 /* GlobalSearchCell.swift */; };
 		D57336802611E4A700C11EC0 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573367F2611E4A700C11EC0 /* UIExtensions.swift */; };
@@ -67,13 +65,12 @@
 		D599142C25F528C9005F2F23 /* WishListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142B25F528C9005F2F23 /* WishListView.swift */; };
 		D599143125F528DC005F2F23 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599143025F528DC005F2F23 /* ProfileView.swift */; };
 		D599143625F52AEF005F2F23 /* PeopleModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599143525F52AEF005F2F23 /* PeopleModuleBuilder.swift */; };
-		D599143B25F52BED005F2F23 /* WishListModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599143A25F52BED005F2F23 /* WishListModuleBuilder.swift */; };
 		D599145125F53785005F2F23 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599145025F53785005F2F23 /* PeopleViewModel.swift */; };
-		D599145625F5388C005F2F23 /* WishListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599145525F5388C005F2F23 /* WishListViewModel.swift */; };
 		D599146025F53C12005F2F23 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D599145F25F53C12005F2F23 /* Colors.xcassets */; };
 		D599146525F53DAD005F2F23 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599146425F53DAD005F2F23 /* Colors.swift */; };
 		D59914C925F53FD9005F2F23 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D59914C825F53FD9005F2F23 /* Localizable.strings */; };
 		D59914CE25F54062005F2F23 /* StringLocalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59914CD25F54062005F2F23 /* StringLocalized.swift */; };
+		D5A4B67B276E0B9F00309E03 /* wishesMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A4B67A276E0B9F00309E03 /* wishesMiddleware.swift */; };
 		D5B7F01726815B0900D578F1 /* MetaCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F01626815B0900D578F1 /* MetaCache.swift */; };
 		D5B7F01C26815BC800D578F1 /* LinkContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F01B26815BC800D578F1 /* LinkContainerView.swift */; };
 		D5B7F02126815C1900D578F1 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F02026815C1900D578F1 /* Optional.swift */; };
@@ -165,9 +162,7 @@
 		D55CC77A25F6BE3500E5C04F /* WishListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListRepository.swift; sourceTree = "<group>"; };
 		D55CC77F25F6BE7300E5C04F /* WishListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListModel.swift; sourceTree = "<group>"; };
 		D55CC78425F6C0C700E5C04F /* WishListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListRouter.swift; sourceTree = "<group>"; };
-		D55CC78C25F6C66300E5C04F /* WishDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishDetailsViewModel.swift; sourceTree = "<group>"; };
 		D55CC79B25F6C6A100E5C04F /* WishDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishDetailsView.swift; sourceTree = "<group>"; };
-		D55CC7A025F6C77500E5C04F /* WishDetailsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishDetailsModuleBuilder.swift; sourceTree = "<group>"; };
 		D56B190C2602785700F7031C /* GoogleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthService.swift; sourceTree = "<group>"; };
 		D573367A2611E47300C11EC0 /* GlobalSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchCell.swift; sourceTree = "<group>"; };
 		D573367F2611E4A700C11EC0 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
@@ -177,13 +172,12 @@
 		D599142B25F528C9005F2F23 /* WishListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListView.swift; sourceTree = "<group>"; };
 		D599143025F528DC005F2F23 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D599143525F52AEF005F2F23 /* PeopleModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleModuleBuilder.swift; sourceTree = "<group>"; };
-		D599143A25F52BED005F2F23 /* WishListModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListModuleBuilder.swift; sourceTree = "<group>"; };
 		D599145025F53785005F2F23 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
-		D599145525F5388C005F2F23 /* WishListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewModel.swift; sourceTree = "<group>"; };
 		D599145F25F53C12005F2F23 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		D599146425F53DAD005F2F23 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D59914C825F53FD9005F2F23 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		D59914CD25F54062005F2F23 /* StringLocalized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLocalized.swift; sourceTree = "<group>"; };
+		D5A4B67A276E0B9F00309E03 /* wishesMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wishesMiddleware.swift; sourceTree = "<group>"; };
 		D5B7F01626815B0900D578F1 /* MetaCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaCache.swift; sourceTree = "<group>"; };
 		D5B7F01B26815BC800D578F1 /* LinkContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkContainerView.swift; sourceTree = "<group>"; };
 		D5B7F02026815C1900D578F1 /* Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
@@ -459,8 +453,6 @@
 			isa = PBXGroup;
 			children = (
 				D55CC79B25F6C6A100E5C04F /* WishDetailsView.swift */,
-				D55CC78C25F6C66300E5C04F /* WishDetailsViewModel.swift */,
-				D55CC7A025F6C77500E5C04F /* WishDetailsModuleBuilder.swift */,
 			);
 			path = WishDetails;
 			sourceTree = "<group>";
@@ -488,8 +480,6 @@
 			isa = PBXGroup;
 			children = (
 				D599142B25F528C9005F2F23 /* WishListView.swift */,
-				D599145525F5388C005F2F23 /* WishListViewModel.swift */,
-				D599143A25F52BED005F2F23 /* WishListModuleBuilder.swift */,
 				D55CC78425F6C0C700E5C04F /* WishListRouter.swift */,
 				D55CC79125F6C66800E5C04F /* WishDetails */,
 			);
@@ -548,6 +538,7 @@
 			children = (
 				D53F495C276B4AF8000A9738 /* AuthMiddleware.swift */,
 				D5362229276CB90F003035FF /* profileMiddleware.swift */,
+				D5A4B67A276E0B9F00309E03 /* wishesMiddleware.swift */,
 			);
 			path = Middlewares;
 			sourceTree = "<group>";
@@ -705,13 +696,13 @@
 			files = (
 				D53D0E2F25F429C900E5C2D7 /* MainTabView.swift in Sources */,
 				D5CE4F882718518D009B4644 /* StatisticBlockView.swift in Sources */,
-				D599145625F5388C005F2F23 /* WishListViewModel.swift in Sources */,
 				D53F494B276A6A4A000A9738 /* AuthAction.swift in Sources */,
 				D599145125F53785005F2F23 /* PeopleViewModel.swift in Sources */,
 				D599142725F52879005F2F23 /* PeopleView.swift in Sources */,
 				D53F495B276B44E0000A9738 /* AppStore.swift in Sources */,
 				D536222A276CB90F003035FF /* profileMiddleware.swift in Sources */,
 				D58D27B827181E2B00F9A91B /* UserPageRouter.swift in Sources */,
+				D5A4B67B276E0B9F00309E03 /* wishesMiddleware.swift in Sources */,
 				D50FE2A8264C35130083197B /* UserPageViewModel.swift in Sources */,
 				D55CC78025F6BE7300E5C04F /* WishListModel.swift in Sources */,
 				D55CC74525F5458A00E5C04F /* ProfileRepository.swift in Sources */,
@@ -721,7 +712,6 @@
 				D53D0E2A25F4150B00E5C2D7 /* UserDefaultsStorage.swift in Sources */,
 				D573367B2611E47300C11EC0 /* GlobalSearchCell.swift in Sources */,
 				D50FE2A6264C35080083197B /* UserPageView.swift in Sources */,
-				D55CC78D25F6C66300E5C04F /* WishDetailsViewModel.swift in Sources */,
 				D552C8EA25E409A9000E2196 /* AppDelegate.swift in Sources */,
 				D50FE2A4264C34FE0083197B /* UserPageModuleBuilder.swift in Sources */,
 				D552C8EC25E409A9000E2196 /* SceneDelegate.swift in Sources */,
@@ -735,7 +725,6 @@
 				D55CC74A25F546FC00E5C04F /* ProfileModel.swift in Sources */,
 				D53F493C276A686E000A9738 /* AppState.swift in Sources */,
 				D53F494D276A6A59000A9738 /* WishesAction.swift in Sources */,
-				D599143B25F52BED005F2F23 /* WishListModuleBuilder.swift in Sources */,
 				D55CC79C25F6C6A100E5C04F /* WishDetailsView.swift in Sources */,
 				D599143125F528DC005F2F23 /* ProfileView.swift in Sources */,
 				D5B7F02126815C1900D578F1 /* Optional.swift in Sources */,
@@ -770,7 +759,6 @@
 				D5C1E76D25EA604A00B96DE7 /* RootView.swift in Sources */,
 				D53F4943276A69BE000A9738 /* AuthState.swift in Sources */,
 				D5BA4406260A2F51004D5B36 /* UsersRepository.swift in Sources */,
-				D55CC7A125F6C77500E5C04F /* WishDetailsModuleBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

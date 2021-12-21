@@ -7,42 +7,57 @@
 
 import SwiftUI
 
-struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
+struct WishDetailsView: View {
+    @EnvironmentObject private var store: AppStore
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var vm: VM
+    @State var title: String = ""
+    @State var description: String = ""
+    @State var url: String = ""
+    let isEditable: Bool
     
     var body: some View {
         NavigationView {
             VStack {
                 ScrollView {
                     VStack(alignment: .leading) {
-                        TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: $vm.wishItem.title)
+                        TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: $title)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .disabled(vm.readOnly)
-                        if !vm.readOnly || vm.wishItem.url?.isEmpty ?? false {
-                            TextField("WISH_ITEM_TITLE_LINK_PLACEHOLER".localized, text: $vm.wishItem.url.safeValue)
+                            .disabled(!isEditable)
+                        if isEditable || url.isEmpty {
+                            TextField("WISH_ITEM_TITLE_LINK_PLACEHOLER".localized, text: $url)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .disabled(vm.readOnly)
+                                .disabled(!isEditable)
                         }
                         Text("WISH_ITEM_TITLE_DESCRIPTION_PLACEHOLER".localized)
                             .font(.headline)
                             .foregroundColor(.gray)
                             .padding(.top)
-                        TextView(text: $vm.wishItem.description.safeValue)
+                        TextView(text: $description)
                             .font(.systemFont(ofSize: 17))
                             .setBorder(borderColor: .lightGray, borderWidth: 0.25, cornerRadius: 5)
-                            .isEditable(!vm.readOnly)
+                            .isEditable(isEditable)
                             .frame(width: UIScreen.main.bounds.width - 32, height: 150, alignment: .leading)
-                        LinkDataView(urlString: $vm.wishItem.url.safeValue)
+                        LinkDataView(urlString: $url)
                             .frame(height: 150)
                     }
                     .padding(.horizontal)
                 }
                 .padding(.top)
                 Spacer()
-                if !vm.readOnly {
+                if isEditable {
                     Button(action: {
+                        if !title.isEmpty {
+                            store.dispatch(
+                                action: .wishes(
+                                    action: .updateWishListWithItem(
+                                        title: title,
+                                        description: description.isEmpty ? nil : description,
+                                        url: url.isEmpty ? nil : url
+                                    )
+                                )
+                            )
+                        }
                         presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Text("EDIT_PROFILE_BUTTON_TITLE".localized)
@@ -58,12 +73,14 @@ struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(trailing: setupTrailingNavBarItems())
             .onAppear {
-                vm.loadWishItem()
+                guard let selectedItem = store.state.wishes.selectedItem else { return }
+                let wish = store.state.wishes.wishList[selectedItem]
+                title = wish.title
+                url = wish.url ?? ""
+                description = wish.description ?? ""
             }
             .onDisappear {
-                if !vm.readOnly {
-                    vm.saveData()
-                }
+                store.dispatch(action: .wishes(action: .discardSelection))
             }
         }
     }
@@ -82,7 +99,7 @@ struct WishDetailsView<VM: WishDetailsViewModelProtocol>: View {
 
 struct WishDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        WishDetailsView(vm: WishDetailsViewModel(repository: DI.getWishListRepository(), readOnly: false))
+        WishDetailsView(isEditable: true)
             .previewDevice(PreviewDevice(rawValue: "iPhone SE (1st generation)"))
             .previewDisplayName("iPhone SE (1st generation)")
     }

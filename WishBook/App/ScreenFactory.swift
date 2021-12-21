@@ -9,15 +9,24 @@ import SwiftUI
 
 
 struct Di {
-    private let store: AppStore
+    fileprivate let store: AppStore
+    
+    fileprivate var authState = AuthState()
+    fileprivate var profileState = ProfileState()
+    fileprivate var wishesState = WishesState()
+    fileprivate var googleAuthService = GoogleAuthService()
+    fileprivate var profileService = ProfileService()
+    fileprivate var firebaseStorageService = FirebaseStorageService()
+    fileprivate var wishListService = WishListService()
     
     init() {
         self.store =  AppStore(
-            initialState: .init(auth: AuthState(), profile: ProfileState(), wishes: WishesState()),
+            initialState: .init(auth: authState, profile: profileState, wishes: wishesState),
             reducer: appReducer,
             middlewares: [
-                authMiddleware(service: GoogleAuthService()),
-                profileMiddleware(service: ProfileService(), storageService: FirebaseStorageService())
+                authMiddleware(service: googleAuthService),
+                profileMiddleware(service: profileService, storageService: firebaseStorageService),
+                wishesMiddleware(service: wishListService)
             ]
         )
     }
@@ -57,6 +66,11 @@ struct ScreenFactory {
     
     func makeWishListView() -> some View {
         WishListView()
+            .environmentObject(di.getStore())
+    }
+    
+    func makeWishDetailsView(isEditable: Bool) -> some View {
+        WishDetailsView(isEditable: isEditable)
             .environmentObject(di.getStore())
     }
     

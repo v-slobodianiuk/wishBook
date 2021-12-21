@@ -13,8 +13,8 @@ protocol WishListRouterProtocol {
 
 extension WishListRouterProtocol {
     func showWishDetails(wishItem: WishListModel?, readOnly: Bool = false) -> AnyView {
-        let wishDetailsView = WishDetailsModuleBuilder().create(wishItem: wishItem, readOnly: readOnly)
-        return AnyView(wishDetailsView)
+        //let wishDetailsView = WishDetailsModuleBuilder().create(wishItem: wishItem, readOnly: readOnly)
+        return AnyView(EmptyView())
     }
 }
 

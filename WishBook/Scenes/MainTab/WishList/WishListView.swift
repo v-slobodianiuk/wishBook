@@ -9,43 +9,66 @@ import SwiftUI
 
 struct WishListView: View {
     
-    @ObservedObject var vm = WishListViewModel(router: WishListRouter(), repository: WishListRepository())
+    @EnvironmentObject private var store: AppStore
     @State private var wishDetailsIsPresented: Bool = false
     @State private var createNewWishIsPresented: Bool = false
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
-        VStack(alignment: .leading) {
-            listView()
+        return NavigationView {
+            ZStack {
+                if store.state.wishes.fetchInProgress {
+                    ProgressView()
+                } else {
+                    VStack(alignment: .leading) {
+                        listView
+                    }
+                }
+            }
+            .navigationBarTitle("WISH_LIST_NAV_TITLE".localized)
+            .navigationBarItems(trailing: setupTrailingNavBarItems)
         }
+        .navigationViewStyle(.stack)
         .onAppear {
-            vm.getData()
+            store.dispatch(action: .wishes(action: .fetch))
         }
-        .navigationBarTitle("WISH_LIST_NAV_TITLE".localized)
-        .navigationBarItems(trailing: setupTrailingNavBarItems())
+        
     }
     
-    fileprivate func listView() -> some View {
+    @ViewBuilder
+    fileprivate var listView: some View {
         List {
-            ForEach(vm.wishList.indices, id: \.self) { index in
-                Text(vm.wishList[index].title)
-                    .onTapGesture {
-                        //itemIndex = index
-                        vm.selectedItem = index
-                        wishDetailsIsPresented.toggle()
+            ForEach(store.state.wishes.wishList.indices, id: \.self) { index in
+                ZStack {
+                    if index == store.state.wishes.getLastIndexItem() && store.state.wishes.paginationInProgress {
+                        ProgressView()
+                    } else {
+                        Text(store.state.wishes.wishList[index].title)
+                            .onTapGesture {
+                                store.dispatch(action: .wishes(action: .selectItem(index)))
+                                wishDetailsIsPresented.toggle()
+                            }
                     }
+                }
+                .onAppear {
+                    if index == store.state.wishes.getLastIndexItem() {
+                        guard !store.state.wishes.paginationCompleted else { return }
+                        store.dispatch(action: .wishes(action: .fetchMore))
+                    }
+                }
             }
-            .onDelete(perform: { indexSet in
+            .onDelete { indexSet in
                 guard let index = indexSet.first else { return }
-                vm.deleteItem(id: vm.wishList[index].id)
-            })
+                store.dispatch(action: .wishes(action: .deleteItem(id: store.state.wishes.wishList[index].id)))
+            }
         }
         .sheet(isPresented: $wishDetailsIsPresented) {
-            vm.router.showWishDetails(wishItem: vm.wishList[vm.selectedItem])
+            screenFactory.makeWishDetailsView(isEditable: true)
         }
     }
     
-    fileprivate func setupTrailingNavBarItems() -> some View {
+    @ViewBuilder
+    fileprivate var setupTrailingNavBarItems: some View {
         HStack {
             Button(action: {
                 createNewWishIsPresented.toggle()
@@ -59,7 +82,7 @@ struct WishListView: View {
             })
         }
         .sheet(isPresented: $createNewWishIsPresented) {
-            vm.router.showWishDetails(wishItem: nil)
+            screenFactory.makeWishDetailsView(isEditable: true)
         }
     }
 }
