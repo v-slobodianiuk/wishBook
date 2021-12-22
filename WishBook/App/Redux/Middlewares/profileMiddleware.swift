@@ -12,8 +12,8 @@ import ReduxCore
 func profileMiddleware(service: ProfileServiceProtocol, storageService: FirebaseStorageServiceProtocol) -> Middleware<AppState, AppAction> {
     return { state, action in
         switch action {
-        case .profile(action: .fetch):
-            guard state.profile.profileData == nil else {
+        case .profile(action: .fetch(let force)):
+            guard state.profile.profileData == nil || force else {
                 return Empty().eraseToAnyPublisher()
             }
             
@@ -46,15 +46,16 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
                 .mapError { error -> ProfileServiceError in
                     return .unknown(message: error.localizedDescription)
                 }
-                .flatMap { url -> AnyPublisher<ProfileModel, ProfileServiceError> in
-                    var profileData = state.profile.profileData ?? ProfileModel()
-                    profileData.photoUrl = url?.absoluteString
-                    return service.updateData(profileData)
-                        .print("Update Profile Data")
+                .compactMap {
+                    $0?.absoluteString
+                }
+                .flatMap { urlString -> AnyPublisher<Bool, Never> in
+                    return service.updateDataBy(key: .photoUrl, value: urlString)
+                        .print("Update photo url in profile")
                         .eraseToAnyPublisher()
                 }
-                .map { updatedData -> AppAction in
-                    return AppAction.profile(action: .profileUpdated(data: updatedData))
+                .map { _ in
+                    return AppAction.profile(action: .fetch(force: true))
                 }
                 .catch { (error) -> Just<AppAction> in
                     switch error {
@@ -81,10 +82,10 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
                 return Empty().eraseToAnyPublisher()
             }
             return service.updateData(checkData)
-                .print("Update Profile Data")
+                .print("Update profile data")
                 .subscribe(on: DispatchQueue.global())
-                .map { updatedData -> AppAction in
-                    return AppAction.profile(action: .profileUpdated(data: updatedData))
+                .map { _ in
+                    return AppAction.profile(action: .fetch(force: true))
                 }
                 .catch { (error) -> Just<AppAction> in
                     switch error {
@@ -93,6 +94,36 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
                     default:
                         return Just(AppAction.profile(action: .fetchError(error: "")))
                     }
+                }
+                .eraseToAnyPublisher()
+        case .profile(action: .fetchComplete):
+            let publisher = Just(AppAction.profile(action: .checkWishesCount))
+                .eraseToAnyPublisher()
+            return service.wishCounterListener == nil ? publisher : Empty().eraseToAnyPublisher()
+        case .profile(action: .checkWishesCount):
+            
+            let publisher = service.wishesCountPublisher()
+            
+            if service.wishCounterListener == nil {
+                service.startWishesListener()
+            }
+            
+            return publisher
+                .print("Wishes count publisher")
+                .subscribe(on: DispatchQueue.global())
+                .filter {
+                    $0 != state.profile.profileData?.wishes
+                }
+                .flatMap { wishes -> AnyPublisher<Bool, Never> in
+                    return service.updateDataBy(key: .wishesCount, value: wishes)
+                        .print("Update wishes count in profile")
+                        .eraseToAnyPublisher()
+                }
+                .filter {
+                    return $0
+                }
+                .map { _ in
+                    AppAction.profile(action: .fetch(force: true))
                 }
                 .eraseToAnyPublisher()
         default:

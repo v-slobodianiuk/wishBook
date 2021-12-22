@@ -15,20 +15,26 @@ enum ProfileServiceError: Error {
     case unknown(message: String)
 }
 
-protocol ProfileServiceProtocol {
-    func loadDataByUserId(_ userId: String?) -> AnyPublisher<ProfileModel, ProfileServiceError>
-    func updateData(_ data: ProfileModel) -> AnyPublisher<ProfileModel, ProfileServiceError>
+enum ProfileKey: String {
+    case wishesCount = "wishes"
+    case photoUrl = "photoUrl"
 }
 
-extension ProfileServiceProtocol {
-//    func loadDataByUserId(_ userId: String? = nil) -> AnyPublisher<ProfileModel, ProfileServiceError> {
-//        return Empty().eraseToAnyPublisher()
-//    }
+protocol ProfileServiceProtocol {
+    var wishCounterListener: ListenerRegistration? { get }
+    
+    func loadDataByUserId(_ userId: String?) -> AnyPublisher<ProfileModel, ProfileServiceError>
+    func updateData(_ data: ProfileModel) -> AnyPublisher<ProfileModel, ProfileServiceError>
+    func startWishesListener()
+    func wishesCountPublisher() -> AnyPublisher<Int, Never>
+    func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never>
 }
 
 final class ProfileService: ProfileServiceProtocol {
     private let db = Firestore.firestore()
     lazy var profileUserId = Auth.auth().currentUser?.uid
+    let subject = PassthroughSubject<Int, Never>()
+    var wishCounterListener: ListenerRegistration?
     
     func loadDataByUserId(_ userId: String?) -> AnyPublisher<ProfileModel, ProfileServiceError> {
         Deferred {
@@ -87,6 +93,47 @@ final class ProfileService: ProfileServiceProtocol {
                 } catch {
                     promise(.failure(.unknown(message: error.localizedDescription)))
                 }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    func startWishesListener() {
+        guard let userId = profileUserId else { return }
+        wishCounterListener = db.collection(FirestoreCollection[.wishList])
+            .whereField("userId", isEqualTo: userId)
+            .addSnapshotListener { [weak self] querySnapshot, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                
+                if let snapshotCount = querySnapshot?.count {
+                    self?.subject.send(snapshotCount)
+                }
+            }
+    }
+    
+    func wishesCountPublisher() -> AnyPublisher<Int, Never> {
+        subject
+            .eraseToAnyPublisher()
+    }
+    
+    func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never> {
+        Deferred {
+            Future { [weak self] promise in
+                guard let userId = self?.profileUserId else { return }
+                
+                self?.db.collection(FirestoreCollection[.users])
+                    .document(userId)
+                    .updateData([
+                        key.rawValue : value
+                    ]) { error in
+                        if let error = error {
+                            print("updateWishesCount error: \(error.localizedDescription)")
+                            promise(.success(false))
+                        }
+                        promise(.success(true))
+                    }
             }
         }.eraseToAnyPublisher()
     }

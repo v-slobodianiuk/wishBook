@@ -20,8 +20,6 @@ func profileReducer(state: inout ProfileState, action: ProfileAction) -> Void {
     case .fetchError(let error):
         state.fetchInProgress = false
         state.errorMessage = error
-    case .profileUpdated(let updatedProfile):
-        state.profileData = updatedProfile
     default:
         break
     }

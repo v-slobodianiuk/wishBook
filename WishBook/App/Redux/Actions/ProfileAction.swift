@@ -8,10 +8,10 @@
 import Foundation
 
 enum ProfileAction {
-    case fetch
+    case fetch(force: Bool)
     case fetchComplete(data: ProfileModel)
     case fetchError(error: String?)
     case uploadProfilePhoto(data: Data)
     case updateProfileData(firstName: String, lastName: String, description: String, email: String, birthDate: Date)
-    case profileUpdated(data: ProfileModel)
+    case checkWishesCount
 }
