@@ -16,7 +16,8 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
         case .auth(action: .fetch):
             let publisher = service.checkState()
                 .print("! Fetch Auth State")
-                //.subscribe(on: DispatchQueue.main)
+                .subscribe(on: DispatchQueue.global())
+                .removeDuplicates()
                 .flatMap({ (isLoggedIn) -> Just<AppAction> in
                     //myNotification.
                     print("Get new value: \(isLoggedIn)")
@@ -30,6 +31,7 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
         case .auth(action: .logIn(let email, let password)):
             return service.createUser(email: email, password: password)
                 .print("Create User")
+                .subscribe(on: DispatchQueue.global())
                 .map {
                     if $0 == .new { service.addUserDataIfNeeded() }
                     return AppAction.auth(action: .fetchComplete)

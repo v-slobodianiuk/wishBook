@@ -19,7 +19,8 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
             
             return service.loadDataByUserId(nil)
                 .print("Fetch profile data")
-                .delay(for: .seconds(0.24), scheduler: DispatchQueue.global())
+                .subscribe(on: DispatchQueue.global())
+                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
                 .map {
                     return AppAction.profile(action: .fetchComplete(data: $0))
                 }
@@ -41,6 +42,7 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
             
             return storageService.upload(imageData: data, userId: userId)
                 .print("Upload photo")
+                .subscribe(on: DispatchQueue.global())
                 .mapError { error -> ProfileServiceError in
                     return .unknown(message: error.localizedDescription)
                 }
@@ -80,6 +82,7 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
             }
             return service.updateData(checkData)
                 .print("Update Profile Data")
+                .subscribe(on: DispatchQueue.global())
                 .map { updatedData -> AppAction in
                     return AppAction.profile(action: .profileUpdated(data: updatedData))
                 }

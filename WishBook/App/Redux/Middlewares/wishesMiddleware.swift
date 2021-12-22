@@ -16,23 +16,23 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
             guard limit != nil || state.wishes.wishList.isEmpty else {
                 return Empty().eraseToAnyPublisher()
             }
-            
-            let publisher = service.wishesSubject()
-            service.loadData(limit: limit != nil ? (limit ?? 20) : 20)
-            return publisher
-                .print("Fetch wishes")
+
+            return service.loadData(limit: limit != nil ? (limit ?? 20) : 20)
+                //.print("Fetch wishes")
                 .subscribe(on: DispatchQueue.global())
-                .delay(for: .seconds(0.24), scheduler: DispatchQueue.global())
-                .removeDuplicates()
+                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
                 .map {
                     return AppAction.wishes(action: .fetchComplete(data: $0))
+                }
+                .catch { error in
+                    Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                 }
                 .eraseToAnyPublisher()
         case .wishes(action: .fetchMore):
             return service.loadMore()
-                .print("Fetch more wishes")
+                //.print("Fetch more wishes")
                 .subscribe(on: DispatchQueue.global())
-                .delay(for: .seconds(0.24), scheduler: DispatchQueue.global())
+                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
                 .map {
                     return AppAction.wishes(action: .fetchMoreComplete(data: $0))
                 }
@@ -45,7 +45,6 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                 return Empty().eraseToAnyPublisher()
             }
             
-            service.removeListener()
             return service.delete(id: id)
                 .print("Remove wish")
                 .subscribe(on: DispatchQueue.global())
@@ -59,7 +58,6 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
         case .wishes(action: .updateWishListWithItem(let title,let description, let url)):
             let publisher: Publishers.Print<AnyPublisher<WishListModel, Error>>
             var wish: WishListModel
-            service.removeListener()
             
             if let selectedItem = state.wishes.selectedItem {
                 wish = state.wishes.wishList[selectedItem]
@@ -76,7 +74,6 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
 
             return publisher
                 .subscribe(on: DispatchQueue.global())
-                .delay(for: .seconds(0.24), scheduler: DispatchQueue.global())
                 .map { _ in
                     return AppAction.wishes(action: .fetch(state.wishes.wishList.count + 1))
                 }
