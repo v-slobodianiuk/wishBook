@@ -30,7 +30,7 @@ struct WishListView: View {
         }
         .navigationViewStyle(.stack)
         .onAppear {
-            store.dispatch(action: .wishes(action: .fetch))
+            store.dispatch(action: .wishes(action: .fetch(nil)))
         }
         
     }

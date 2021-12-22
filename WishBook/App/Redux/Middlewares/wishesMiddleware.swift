@@ -12,13 +12,13 @@ import Foundation
 func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, AppAction> {
     return { state, action in
         switch action {
-        case .wishes(action: .fetch):
-            guard state.wishes.wishList.isEmpty else {
+        case .wishes(action: .fetch(let limit)):
+            guard limit != nil || state.wishes.wishList.isEmpty else {
                 return Empty().eraseToAnyPublisher()
             }
             
             let publisher = service.wishesSubject()
-            service.loadData(limit: state.wishes.wishList.isEmpty ? 20 : state.wishes.wishList.count + 1)
+            service.loadData(limit: limit != nil ? (limit ?? 20) : 20)
             return publisher
                 .print("Fetch wishes")
                 .subscribe(on: DispatchQueue.global())
@@ -50,7 +50,7 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                 .print("Remove wish")
                 .subscribe(on: DispatchQueue.global())
                 .map { _ in
-                    AppAction.wishes(action: .fetch)
+                    AppAction.wishes(action: .fetch(state.wishes.wishList.count))
                 }
                 .catch { error in
                     Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
@@ -78,7 +78,7 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                 .subscribe(on: DispatchQueue.global())
                 .delay(for: .seconds(0.24), scheduler: DispatchQueue.global())
                 .map { _ in
-                    return AppAction.wishes(action: .fetch)
+                    return AppAction.wishes(action: .fetch(state.wishes.wishList.count + 1))
                 }
                 .catch { Just(AppAction.wishes(action: .fetchError(error: $0.localizedDescription))) }
                 .eraseToAnyPublisher()
