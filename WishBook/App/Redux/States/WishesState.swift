@@ -13,9 +13,9 @@ struct WishesState {
     var paginationInProgress: Bool = false
     var paginationCompleted: Bool = false
     var paginationLimit: Int = 20
-    var errorMessage: String?
-    var selectedItem: Int?
-    var itemIdForDelete: String?
+    var errorMessage: String? = nil
+    var selectedItem: Int? = nil
+    var itemIdForDelete: String? = nil
     
     func getLastIndexItem() -> Int {
         wishList.count - 1

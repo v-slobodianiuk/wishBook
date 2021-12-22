@@ -12,7 +12,7 @@ struct PeopleModuleBuilder {
         let router = PeopleRouter()
         let vm = PeopleViewModel(router: router, usersRepository: DI.getUsersRepository())
         vm.filter = filter
-        let friendsView = PeopleView(vm: vm)
+        let friendsView = PeopleView()
         return friendsView
     }
 }

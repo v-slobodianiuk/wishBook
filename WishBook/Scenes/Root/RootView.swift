@@ -10,7 +10,7 @@ import Firebase
 
 struct RootView: View {
     
-    @EnvironmentObject private var store: AppStore
+    @EnvironmentObject var store: AppStore
     
     var body: some View {
         Group {

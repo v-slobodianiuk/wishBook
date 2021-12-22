@@ -70,6 +70,11 @@
 		D599146525F53DAD005F2F23 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599146425F53DAD005F2F23 /* Colors.swift */; };
 		D59914C925F53FD9005F2F23 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D59914C825F53FD9005F2F23 /* Localizable.strings */; };
 		D59914CE25F54062005F2F23 /* StringLocalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59914CD25F54062005F2F23 /* StringLocalized.swift */; };
+		D5A1825C2773BA410099709C /* PeopleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A1825B2773BA410099709C /* PeopleState.swift */; };
+		D5A1825E2773BA600099709C /* PeopleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A1825D2773BA600099709C /* PeopleAction.swift */; };
+		D5A182602773BAA40099709C /* PeopleReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A1825F2773BAA40099709C /* PeopleReducer.swift */; };
+		D5A182622773BBDA0099709C /* peopleMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A182612773BBDA0099709C /* peopleMiddleware.swift */; };
+		D5A182642773BCF60099709C /* PeopleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A182632773BCF60099709C /* PeopleService.swift */; };
 		D5A4B67B276E0B9F00309E03 /* wishesMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A4B67A276E0B9F00309E03 /* wishesMiddleware.swift */; };
 		D5B7F01726815B0900D578F1 /* MetaCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F01626815B0900D578F1 /* MetaCache.swift */; };
 		D5B7F01C26815BC800D578F1 /* LinkContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F01B26815BC800D578F1 /* LinkContainerView.swift */; };
@@ -177,6 +182,11 @@
 		D599146425F53DAD005F2F23 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D59914C825F53FD9005F2F23 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		D59914CD25F54062005F2F23 /* StringLocalized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLocalized.swift; sourceTree = "<group>"; };
+		D5A1825B2773BA410099709C /* PeopleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleState.swift; sourceTree = "<group>"; };
+		D5A1825D2773BA600099709C /* PeopleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleAction.swift; sourceTree = "<group>"; };
+		D5A1825F2773BAA40099709C /* PeopleReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleReducer.swift; sourceTree = "<group>"; };
+		D5A182612773BBDA0099709C /* peopleMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peopleMiddleware.swift; sourceTree = "<group>"; };
+		D5A182632773BCF60099709C /* PeopleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleService.swift; sourceTree = "<group>"; };
 		D5A4B67A276E0B9F00309E03 /* wishesMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wishesMiddleware.swift; sourceTree = "<group>"; };
 		D5B7F01626815B0900D578F1 /* MetaCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaCache.swift; sourceTree = "<group>"; };
 		D5B7F01B26815BC800D578F1 /* LinkContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkContainerView.swift; sourceTree = "<group>"; };
@@ -289,6 +299,7 @@
 				D5B7F01626815B0900D578F1 /* MetaCache.swift */,
 				D5C5869D26C97FF400BFF6A5 /* FirebaseStorageService.swift */,
 				D5362225276CAF7B003035FF /* WishListService.swift */,
+				D5A182632773BCF60099709C /* PeopleService.swift */,
 				D5362227276CB004003035FF /* ProfileService.swift */,
 			);
 			path = Services;
@@ -320,6 +331,7 @@
 				D53F4942276A69BE000A9738 /* AuthState.swift */,
 				D53F4946276A69DF000A9738 /* ProfileState.swift */,
 				D53F4944276A69C6000A9738 /* WishesState.swift */,
+				D5A1825B2773BA410099709C /* PeopleState.swift */,
 			);
 			path = States;
 			sourceTree = "<group>";
@@ -343,6 +355,7 @@
 				D53F494A276A6A4A000A9738 /* AuthAction.swift */,
 				D53F4948276A6A2C000A9738 /* ProfileAction.swift */,
 				D53F494C276A6A59000A9738 /* WishesAction.swift */,
+				D5A1825D2773BA600099709C /* PeopleAction.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -354,6 +367,7 @@
 				D53F4951276A6B8F000A9738 /* AuthReducer.swift */,
 				D53F4953276A6B96000A9738 /* ProfileReducer.swift */,
 				D53F4955276A6B9D000A9738 /* WishesReducer.swift */,
+				D5A1825F2773BAA40099709C /* PeopleReducer.swift */,
 			);
 			path = Reducers;
 			sourceTree = "<group>";
@@ -539,6 +553,7 @@
 				D53F495C276B4AF8000A9738 /* AuthMiddleware.swift */,
 				D5362229276CB90F003035FF /* profileMiddleware.swift */,
 				D5A4B67A276E0B9F00309E03 /* wishesMiddleware.swift */,
+				D5A182612773BBDA0099709C /* peopleMiddleware.swift */,
 			);
 			path = Middlewares;
 			sourceTree = "<group>";
@@ -699,6 +714,7 @@
 				D53F494B276A6A4A000A9738 /* AuthAction.swift in Sources */,
 				D599145125F53785005F2F23 /* PeopleViewModel.swift in Sources */,
 				D599142725F52879005F2F23 /* PeopleView.swift in Sources */,
+				D5A182602773BAA40099709C /* PeopleReducer.swift in Sources */,
 				D53F495B276B44E0000A9738 /* AppStore.swift in Sources */,
 				D536222A276CB90F003035FF /* profileMiddleware.swift in Sources */,
 				D58D27B827181E2B00F9A91B /* UserPageRouter.swift in Sources */,
@@ -707,7 +723,9 @@
 				D55CC78025F6BE7300E5C04F /* WishListModel.swift in Sources */,
 				D55CC74525F5458A00E5C04F /* ProfileRepository.swift in Sources */,
 				D599146525F53DAD005F2F23 /* Colors.swift in Sources */,
+				D5A182642773BCF60099709C /* PeopleService.swift in Sources */,
 				D5B7F01726815B0900D578F1 /* MetaCache.swift in Sources */,
+				D5A1825E2773BA600099709C /* PeopleAction.swift in Sources */,
 				D5442BA126809C1400BB1F5A /* LinkDataView.swift in Sources */,
 				D53D0E2A25F4150B00E5C2D7 /* UserDefaultsStorage.swift in Sources */,
 				D573367B2611E47300C11EC0 /* GlobalSearchCell.swift in Sources */,
@@ -725,7 +743,9 @@
 				D55CC74A25F546FC00E5C04F /* ProfileModel.swift in Sources */,
 				D53F493C276A686E000A9738 /* AppState.swift in Sources */,
 				D53F494D276A6A59000A9738 /* WishesAction.swift in Sources */,
+				D5A182622773BBDA0099709C /* peopleMiddleware.swift in Sources */,
 				D55CC79C25F6C6A100E5C04F /* WishDetailsView.swift in Sources */,
+				D5A1825C2773BA410099709C /* PeopleState.swift in Sources */,
 				D599143125F528DC005F2F23 /* ProfileView.swift in Sources */,
 				D5B7F02126815C1900D578F1 /* Optional.swift in Sources */,
 				D53D0E2525F3B96500E5C2D7 /* AppDelegateFactory.swift in Sources */,

@@ -14,5 +14,5 @@ struct AuthState {
     var isLoggedIn: Bool = UserStorage.isLoggedIn
     var login: String = ""
     var password: String = ""
-    var errorMessage: String?
+    var errorMessage: String? = nil
 }

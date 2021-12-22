@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @EnvironmentObject private var store: AppStore
+    @EnvironmentObject var store: AppStore
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State private var firstName = ""

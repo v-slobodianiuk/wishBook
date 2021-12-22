@@ -9,10 +9,10 @@ import SwiftUI
 
 struct WishListView: View {
     
-    @EnvironmentObject private var store: AppStore
+    @EnvironmentObject var store: AppStore
     @State private var wishDetailsIsPresented: Bool = false
     @State private var createNewWishIsPresented: Bool = false
-    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         return NavigationView {
@@ -30,7 +30,7 @@ struct WishListView: View {
         }
         .navigationViewStyle(.stack)
         .onAppear {
-            store.dispatch(action: .wishes(action: .fetch(nil)))
+            store.dispatch(action: .wishes(action: .fetch(limit: nil)))
         }
         
     }

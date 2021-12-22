@@ -5,9 +5,9 @@
 //  Created by Vadym Slobodianiuk on 16.12.2021.
 //
 
-import Combine
 import ReduxCore
 import Foundation
+import Combine
 
 func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, AppAction> {
     return { state, action in

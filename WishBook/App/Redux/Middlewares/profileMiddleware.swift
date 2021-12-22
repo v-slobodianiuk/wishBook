@@ -5,9 +5,9 @@
 //  Created by Vadym Slobodianiuk on 17.12.2021.
 //
 
+import ReduxCore
 import Foundation
 import Combine
-import ReduxCore
 
 func profileMiddleware(service: ProfileServiceProtocol, storageService: FirebaseStorageServiceProtocol) -> Middleware<AppState, AppAction> {
     return { state, action in

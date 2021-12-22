@@ -11,4 +11,5 @@ struct AppState {
     var auth: AuthState
     var profile: ProfileState
     var wishes: WishesState
+    var people: PeopleState
 }

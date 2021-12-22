@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject private var store: AppStore
+    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var store: AppStore
     @State private var login: String = ""
     @State private var password: String = ""
     

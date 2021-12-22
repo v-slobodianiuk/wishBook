@@ -9,31 +9,35 @@ import SwiftUI
 
 struct PeopleView: View {
     
-    @ObservedObject var vm = PeopleViewModel(router: PeopleRouter(), usersRepository: DI.getUsersRepository())
+    @EnvironmentObject var store: AppStore
+    @State private var searchText: String = ""
     
     var body: some View {
         ScrollView {
-            SearchView(placeholder: "PEOPLE_SEARCH_PLACEHOLDER".localized, text: $vm.searchText)
+            SearchView(placeholder: "PEOPLE_SEARCH_PLACEHOLDER".localized, text: $searchText)
                 .padding(.horizontal)
-            ForEach(vm.usersList.indices, id: \.self) { i in
-                vm.router.showProfile(profileUserId: vm.usersList[i].id) {
-                    GlobalSearchCell(
-                        image: vm.usersList[i].photoUrl,
-                        firstName: vm.usersList[i].firstName,
-                        lastName: vm.usersList[i].lastName,
-                        birthDate: vm.getBirthdate(date: vm.usersList[i].birthdate)
-                    )
+                .onChange(of: searchText) { newValue in
+                    print(newValue)
+                    store.dispatch(action: .people(action: .fetch(searchText: newValue.lowercased())))
                 }
+            ForEach(store.state.people.peopleList.indices, id: \.self) { i in
+                //vm.router.showProfile(profileUserId: store.state.people.peopleList[i].id) {
+                    GlobalSearchCell(
+                        image: store.state.people.peopleList[i].photoUrl,
+                        firstName: store.state.people.peopleList[i].firstName,
+                        lastName: store.state.people.peopleList[i].lastName,
+                        birthDate: store.state.people.getBirthdate(date: store.state.people.peopleList[i].birthdate)
+                    )
+                //}
             }
         }
-        .fixFlickering()
+        //.fixFlickering()
         .onTapGesture {
             endEditing()
             
         }
         .onAppear {
-            vm.getUsersData()
-            vm.setupSearch()
+
         }
         .navigationBarTitle("FRIENDS_NAV_TITLE".localized)
     }
@@ -45,21 +49,21 @@ extension View {
     }
 }
 
-extension ScrollView {
-    private typealias PaddedContent = ModifiedContent<Content, _PaddingLayout>
-    
-    func fixFlickering() -> some View {
-        GeometryReader { geo in
-            ScrollView<PaddedContent>(axes, showsIndicators: showsIndicators) {
-                content.padding(geo.safeAreaInsets) as! PaddedContent
-            }
-            .edgesIgnoringSafeArea(.all)
-        }
-    }
-}
+//extension ScrollView {
+//    private typealias PaddedContent = ModifiedContent<Content, _PaddingLayout>
+//
+//    func fixFlickering() -> some View {
+//        GeometryReader { geo in
+//            ScrollView<PaddedContent>(axes, showsIndicators: showsIndicators) {
+//                content.padding(geo.safeAreaInsets) as! PaddedContent
+//            }
+//            .edgesIgnoringSafeArea(.all)
+//        }
+//    }
+//}
 
 struct FriendsView_Previews: PreviewProvider {
     static var previews: some View {
-        PeopleView()
+        screenFactory.makePeopleView()
     }
 }

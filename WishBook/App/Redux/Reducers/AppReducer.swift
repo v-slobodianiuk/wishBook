@@ -15,6 +15,8 @@ func appReducer(state: inout AppState, action: AppAction) -> Void {
         profileReducer(state: &state.profile, action: profileAction)
     case .wishes(let wishesAction):
         wishesReducer(state: &state.wishes, action: wishesAction)
+    case .people(let peopleAction):
+        peopleReducer(state: &state.people, action: peopleAction)
     case .clearData:
         state.profile = ProfileState()
         state.wishes = WishesState()

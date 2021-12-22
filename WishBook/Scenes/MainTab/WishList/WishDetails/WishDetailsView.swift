@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WishDetailsView: View {
-    @EnvironmentObject private var store: AppStore
+    @EnvironmentObject var store: AppStore
     @Environment(\.presentationMode) var presentationMode
     
     @State var title: String = ""

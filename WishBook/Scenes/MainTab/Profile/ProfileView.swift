@@ -11,7 +11,7 @@ import Combine
 
 struct ProfileView: View {
     
-    @EnvironmentObject private var store: AppStore
+    @EnvironmentObject var store: AppStore
     
     @State private var showingImagePicker = false
     @State private var inputImageData: Data?

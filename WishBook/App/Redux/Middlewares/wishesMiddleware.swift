@@ -5,15 +5,15 @@
 //  Created by Vadym Slobodianiuk on 18.12.2021.
 //
 
-import Combine
 import ReduxCore
 import Foundation
+import Combine
 
 func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, AppAction> {
     return { state, action in
         switch action {
-        case .wishes(action: .fetch(let limit)):
-            guard limit != nil || state.wishes.wishList.isEmpty else {
+        case .wishes(action: .fetch(limit: let limit)):
+            guard (limit != nil) || state.wishes.wishList.isEmpty else {
                 return Empty().eraseToAnyPublisher()
             }
 
@@ -49,7 +49,7 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                 .print("Remove wish")
                 .subscribe(on: DispatchQueue.global())
                 .map { _ in
-                    AppAction.wishes(action: .fetch(state.wishes.wishList.count))
+                    AppAction.wishes(action: .fetch(limit: state.wishes.wishList.count))
                 }
                 .catch { error in
                     Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
@@ -75,7 +75,7 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
             return publisher
                 .subscribe(on: DispatchQueue.global())
                 .map { _ in
-                    return AppAction.wishes(action: .fetch(state.wishes.wishList.count + 1))
+                    return AppAction.wishes(action: .fetch(limit: state.wishes.wishList.count + 1))
                 }
                 .catch { Just(AppAction.wishes(action: .fetchError(error: $0.localizedDescription))) }
                 .eraseToAnyPublisher()

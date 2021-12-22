@@ -8,7 +8,7 @@
 import Foundation
 
 enum WishesAction {
-    case fetch(_ limit: Int?)
+    case fetch(limit: Int?)
     case fetchComplete(data: [WishListModel])
     case fetchError(error: String?)
     case selectItem(_ item: Int)
