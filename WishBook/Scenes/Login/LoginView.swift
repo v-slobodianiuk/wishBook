@@ -6,11 +6,10 @@
 //
 
 import SwiftUI
-import Firebase
-import GoogleSignIn
 
 struct LoginView: View {
     
+    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var store: AppStore
     @State private var login: String = ""
     @State private var password: String = ""
@@ -31,11 +30,11 @@ struct LoginView: View {
         
         return VStack {
             TextField("Email", text: $login)
-                .keyboardType(.namePhonePad)
+                //.keyboardType(.namePhonePad)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-            TextField("Password", text: $password)
-                .keyboardType(.namePhonePad)
+            SecureField("Password", text: $password)
+                //.keyboardType(.namePhonePad)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
             Button {
@@ -45,8 +44,8 @@ struct LoginView: View {
             } label: {
                 Text("Log in")
                     .font(.title)
-                    .frame(maxWidth: .infinity, maxHeight: 50)
-                    .background(Color.selectedTabItem)
+                    .frame(maxWidth: .infinity, minHeight: 50)
+                    .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
                     .foregroundColor(.lightText)
                     .cornerRadius(10)
             }
@@ -56,12 +55,25 @@ struct LoginView: View {
                     store.dispatch(action: .auth(action: .googleLogIn))
                 }
             } label: {
-                GoogleButton()
-                    .colorScheme(.light)
-                    .style(.standard)
-                    .frame(width: 120, height: 50)
-                    .padding()
+                Text("Google")
+                    .font(.title)
+                    .frame(maxWidth: .infinity, minHeight: 50)
+                    .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
+                    .foregroundColor(.lightText)
+                    .cornerRadius(10)
             }
+            .padding(.horizontal)
+//            Button {
+//                withAnimation {
+//                    store.dispatch(action: .auth(action: .googleLogIn))
+//                }
+//            } label: {
+//                GoogleButton()
+//                    .colorScheme(colorScheme == .dark ? .dark : .light)
+//                    .style(.standard)
+//                    .frame(width: 120, height: 50)
+//                    .padding()
+//            }
         }
         .alert(isPresented: shouldDisplayError) {
             Alert(

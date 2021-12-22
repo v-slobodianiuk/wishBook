@@ -40,6 +40,8 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
     
     func startAuthListener() {
         Auth.auth().addStateDidChangeListener { [weak self] (_, user) in
+            UserStorage.profileUserId = Auth.auth().currentUser?.uid ?? ""
+            print("New uid: \(UserStorage.profileUserId)")
             self?.subject.send(user != nil)
         }
     }

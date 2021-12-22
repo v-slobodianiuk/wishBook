@@ -14,6 +14,9 @@ func authReducer(state: inout AuthState, action: AuthAction) -> Void {
     case .status(let isLoggedIn):
         UserStorage.isLoggedIn = isLoggedIn
         state.isLoggedIn = UserStorage.isLoggedIn
+        state.login.removeAll()
+        state.password.removeAll()
+        state.errorMessage = nil
         state.fetchInProgress = false
     case .logIn(let login, let password):
         state.fetchInProgress = true

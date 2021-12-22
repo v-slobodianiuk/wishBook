@@ -19,13 +19,16 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
                 .subscribe(on: DispatchQueue.global())
                 .removeDuplicates()
                 .flatMap({ (isLoggedIn) -> Just<AppAction> in
-                    //myNotification.
                     print("Get new value: \(isLoggedIn)")
                     return Just(AppAction.auth(action: .status(isLoggedIn: isLoggedIn)))
                 })
             
             service.startAuthListener()
             
+            return publisher
+                .eraseToAnyPublisher()
+        case .auth(action: .status(let isLoggedIn)):
+            let publisher = !isLoggedIn ? Just(AppAction.clearData).eraseToAnyPublisher() : Empty().eraseToAnyPublisher()
             return publisher
                 .eraseToAnyPublisher()
         case .auth(action: .logIn(let email, let password)):

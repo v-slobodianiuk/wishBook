@@ -19,16 +19,15 @@ protocol WishListServiceProtocol {
 
 final class WishListService: WishListServiceProtocol {
     private let db = Firestore.firestore()
-    private lazy var firebaseUserId = Auth.auth().currentUser?.uid
     private var lastSnapshot: QueryDocumentSnapshot?
     
     func loadData(limit: Int) -> AnyPublisher<[WishListModel], Error> {
         Deferred {
             Future { [weak self] promise in
-                guard let userId = self?.firebaseUserId else { return }
+                guard !UserStorage.profileUserId.isEmpty else { return }
                 self?.db.collection(FirestoreCollection[.wishList])
                     .order(by: "createdTime")
-                    .whereField("userId", isEqualTo: userId)
+                    .whereField("userId", isEqualTo: UserStorage.profileUserId)
                     .limit(to: limit)
                     .getDocuments { [weak self] querySnapshot, error in
                         self?.lastSnapshot = querySnapshot?.documents.last
@@ -62,13 +61,13 @@ final class WishListService: WishListServiceProtocol {
     func loadMore() -> AnyPublisher<[WishListModel], Error> {
         Deferred {
             Future { [weak self] promise in
-                guard let userId = self?.firebaseUserId, let snapshot = self?.lastSnapshot else {
+                guard !UserStorage.profileUserId.isEmpty, let snapshot = self?.lastSnapshot else {
                     promise(.success([]))
                     return
                 }
                 self?.db.collection(FirestoreCollection[.wishList])
                     .order(by: "createdTime")
-                    .whereField("userId", isEqualTo: userId)
+                    .whereField("userId", isEqualTo: UserStorage.profileUserId)
                     .start(afterDocument: snapshot)
                     .limit(to: 20)
                     .getDocuments { querySnapshot, error in
@@ -103,9 +102,10 @@ final class WishListService: WishListServiceProtocol {
     func addData(_ data: WishListModel) -> AnyPublisher<WishListModel, Error> {
         Deferred {
             Future { [weak self] promise in
+                guard !UserStorage.profileUserId.isEmpty else { return }
                 do {
                     var configuredData = data
-                    configuredData.userId = self?.firebaseUserId
+                    configuredData.userId = UserStorage.profileUserId
                     let _ = try self?.db.collection(FirestoreCollection[.wishList])
                         .addDocument(from: configuredData)
                     promise(.success(configuredData))
@@ -120,9 +120,9 @@ final class WishListService: WishListServiceProtocol {
     func updateData(_ data: WishListModel) -> AnyPublisher<WishListModel, Error> {
         Deferred {
             Future { [weak self] promise in
-                guard let userId = self?.firebaseUserId, let id = data.id else { return }
+                guard !UserStorage.profileUserId.isEmpty, let id = data.id else { return }
                 var configuredData = data
-                configuredData.userId = userId
+                configuredData.userId = UserStorage.profileUserId
                 do {
                     try self?.db.collection(FirestoreCollection[.wishList])
                         .document(id)

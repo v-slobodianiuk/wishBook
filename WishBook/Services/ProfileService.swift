@@ -32,7 +32,6 @@ protocol ProfileServiceProtocol {
 
 final class ProfileService: ProfileServiceProtocol {
     private let db = Firestore.firestore()
-    lazy var profileUserId = Auth.auth().currentUser?.uid
     let subject = PassthroughSubject<Int, Never>()
     var wishCounterListener: ListenerRegistration?
     
@@ -42,8 +41,8 @@ final class ProfileService: ProfileServiceProtocol {
                 var id: String
                 if let userId = userId {
                     id = userId
-                } else if let profileUserId = self?.profileUserId {
-                    id = profileUserId
+                } else if !UserStorage.profileUserId.isEmpty {
+                    id = UserStorage.profileUserId
                 } else {
                     promise(.failure(.userIdNotFound))
                     return
@@ -79,15 +78,15 @@ final class ProfileService: ProfileServiceProtocol {
     func updateData(_ data: ProfileModel) -> AnyPublisher<ProfileModel, ProfileServiceError> {
         Deferred {
             Future { [weak self] promise in
-                guard let userId = self?.profileUserId else {
+                guard !UserStorage.profileUserId.isEmpty else {
                     promise(.failure(.userIdNotFound))
                     return
                 }
                 var confiredData = data
-                confiredData.id = userId
+                confiredData.id = UserStorage.profileUserId
                 do {
                     try self?.db.collection(FirestoreCollection[.users])
-                        .document(userId)
+                        .document(UserStorage.profileUserId)
                         .setData(from: confiredData)
                     promise(.success(data))
                 } catch {
@@ -98,9 +97,9 @@ final class ProfileService: ProfileServiceProtocol {
     }
     
     func startWishesListener() {
-        guard let userId = profileUserId else { return }
+        guard !UserStorage.profileUserId.isEmpty else { return }
         wishCounterListener = db.collection(FirestoreCollection[.wishList])
-            .whereField("userId", isEqualTo: userId)
+            .whereField("userId", isEqualTo: UserStorage.profileUserId)
             .addSnapshotListener { [weak self] querySnapshot, error in
                 if let error = error {
                     print(error.localizedDescription)
@@ -121,10 +120,10 @@ final class ProfileService: ProfileServiceProtocol {
     func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never> {
         Deferred {
             Future { [weak self] promise in
-                guard let userId = self?.profileUserId else { return }
+                guard !UserStorage.profileUserId.isEmpty else { return }
                 
                 self?.db.collection(FirestoreCollection[.users])
-                    .document(userId)
+                    .document(UserStorage.profileUserId)
                     .updateData([
                         key.rawValue : value
                     ]) { error in
