@@ -12,6 +12,7 @@
 		D50FE2A8264C35130083197B /* UserPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FE2A7264C35130083197B /* UserPageViewModel.swift */; };
 		D519385B2758B895005BF7B5 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D519385A2758B895005BF7B5 /* BlurView.swift */; };
 		D51B49DE25F4E7E4008ABCBB /* GoogleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */; };
+		D51B5A84277522CF00DF8B78 /* MiddlewarePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51B5A83277522CF00DF8B78 /* MiddlewarePublisher.swift */; };
 		D5362226276CAF7B003035FF /* WishListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5362225276CAF7B003035FF /* WishListService.swift */; };
 		D5362228276CB004003035FF /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5362227276CB004003035FF /* ProfileService.swift */; };
 		D536222A276CB90F003035FF /* profileMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5362229276CB90F003035FF /* profileMiddleware.swift */; };
@@ -120,6 +121,7 @@
 		D50FE2A7264C35130083197B /* UserPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageViewModel.swift; sourceTree = "<group>"; };
 		D519385A2758B895005BF7B5 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleButton.swift; sourceTree = "<group>"; };
+		D51B5A83277522CF00DF8B78 /* MiddlewarePublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewarePublisher.swift; sourceTree = "<group>"; };
 		D5362225276CAF7B003035FF /* WishListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListService.swift; sourceTree = "<group>"; };
 		D5362227276CB004003035FF /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		D5362229276CB90F003035FF /* profileMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileMiddleware.swift; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 		D5DDDC05276CA0D800FE0B94 /* Middlewares */ = {
 			isa = PBXGroup;
 			children = (
+				D51B5A83277522CF00DF8B78 /* MiddlewarePublisher.swift */,
 				D53F495C276B4AF8000A9738 /* AuthMiddleware.swift */,
 				D5362229276CB90F003035FF /* profileMiddleware.swift */,
 				D5A4B67A276E0B9F00309E03 /* wishesMiddleware.swift */,
@@ -750,6 +753,7 @@
 				D5B7F02126815C1900D578F1 /* Optional.swift in Sources */,
 				D53D0E2525F3B96500E5C2D7 /* AppDelegateFactory.swift in Sources */,
 				D53F4954276A6B96000A9738 /* ProfileReducer.swift in Sources */,
+				D51B5A84277522CF00DF8B78 /* MiddlewarePublisher.swift in Sources */,
 				D53D0E1525F3B64500E5C2D7 /* CompositeAppDelegate.swift in Sources */,
 				D5E62F2C2611E96C0094BAF9 /* SearchView.swift in Sources */,
 				D53F4947276A69DF000A9738 /* ProfileState.swift in Sources */,
