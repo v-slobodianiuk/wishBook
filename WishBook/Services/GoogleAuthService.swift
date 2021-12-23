@@ -16,33 +16,30 @@ enum UserState {
 }
 
 protocol GoogleAuthServiceProtocol {
-    func checkState() -> AnyPublisher<Bool, Never>
     func startAuthListener()
-    
+    func checkState() -> AnyPublisher<String, Never>
     func createUser(email: String, password: String) -> AnyPublisher<UserState, Error>
     func signInUser()
-    func signOut()
-    
     func addUserDataIfNeeded()
+    func signOut()
 }
 
 final class GoogleAuthService: GoogleAuthServiceProtocol {
     
     
-    let subject = PassthroughSubject<Bool, Never>()
+    private let subject = PassthroughSubject<String, Never>()
     private let db = Firestore.firestore()
-    lazy var user = Auth.auth().currentUser
+    private var authListener: AuthStateDidChangeListenerHandle?
     
-    func checkState() -> AnyPublisher<Bool, Never> {
+    func checkState() -> AnyPublisher<String, Never> {
         return subject
             .eraseToAnyPublisher()
     }
     
     func startAuthListener() {
-        Auth.auth().addStateDidChangeListener { [weak self] (_, user) in
-            UserStorage.profileUserId = Auth.auth().currentUser?.uid ?? ""
-            print("New uid: \(UserStorage.profileUserId)")
-            self?.subject.send(user != nil)
+        guard authListener == nil else { return }
+        authListener = Auth.auth().addStateDidChangeListener { [weak self] (_, _) in
+            self?.subject.send(Auth.auth().currentUser?.uid ?? "")
         }
     }
     
@@ -62,7 +59,7 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
                         promise(.success(.new))
                     }
                 }
-            }.eraseToAnyPublisher()
+            }
         }.eraseToAnyPublisher()
     }
     
@@ -117,9 +114,9 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
     }
     
     func addUserDataIfNeeded() {
-        guard let userId = user?.uid, let email = user?.email else { fatalError() }
-        print("user id: \(userId), \(email)")
-        let userDoc = db.collection(FirestoreCollection[.users]).document(userId)
+        guard !UserStorage.profileUserId.isEmpty, let email = Auth.auth().currentUser?.email else { fatalError() }
+        print("user id: \(UserStorage.profileUserId), \(email)")
+        let userDoc = db.collection(FirestoreCollection[.users]).document(UserStorage.profileUserId)
         userDoc.getDocument { (document, error) in
             if let error = error {
                 print("LoadData error: \(error.localizedDescription)")
@@ -127,7 +124,7 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
             }
             
             guard let document = document, !document.exists else { return }
-            let confiredData = ProfileModel(id: userId, email: email)
+            let confiredData = ProfileModel(id: UserStorage.profileUserId, email: email)
             do {
                 try userDoc.setData(from: confiredData)
             } catch {
