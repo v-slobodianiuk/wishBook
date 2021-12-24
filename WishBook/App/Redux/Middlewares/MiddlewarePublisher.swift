@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 typealias PromiseClosure<Action> = (Result<Action, MiddlewareError>) -> Void
-typealias MiddlewareClosure<Action> = (_ promise: PromiseClosure<Action>) -> Void
+typealias MiddlewareClosure<Action> = (_ promise: @escaping PromiseClosure<Action>) -> Void
 
 enum MiddlewareError: Error {
     case noAction
@@ -18,6 +18,7 @@ enum MiddlewareError: Error {
 func middlewarePublisher<Action>(completion: @escaping MiddlewareClosure<Action>) -> AnyPublisher<Action, Never> {
     Deferred {
         Future<Action, MiddlewareError> { promise in
+            //print("middlewarePublisher Future: \(Thread.current)")
             completion(promise)
         }
     }
@@ -28,5 +29,6 @@ func middlewarePublisher<Action>(completion: @escaping MiddlewareClosure<Action>
             return Empty()
         }
     }
+    //.print("middlewarePublisher")
     .eraseToAnyPublisher()
 }

@@ -24,38 +24,44 @@ final class WishListService: WishListServiceProtocol {
     func loadData(limit: Int) -> AnyPublisher<[WishListModel], Error> {
         Deferred {
             Future { [weak self] promise in
+                print("Future loadData: \(Thread.current)")
                 guard !UserStorage.profileUserId.isEmpty else { return }
                 self?.db.collection(FirestoreCollection[.wishList])
                     .order(by: "createdTime")
                     .whereField("userId", isEqualTo: UserStorage.profileUserId)
                     .limit(to: limit)
                     .getDocuments { [weak self] querySnapshot, error in
-                        self?.lastSnapshot = querySnapshot?.documents.last
-                        let result = Result {
-                            try querySnapshot?.documents.compactMap {
-                                try $0.data(as: WishListModel.self)
-                                
-                            }
-                        }
-                        
-                        switch result {
-                        case .success(let documents):
-                            guard let wishList = documents else {
-                                // A nil value was successfully initialized from the DocumentSnapshot,
-                                // or the DocumentSnapshot was nil.
-                                promise(.success([]))
-                                return
+                        DispatchQueue.global().async {
+                            print("loadData .getDocuments: \(Thread.current)")
+                            self?.lastSnapshot = querySnapshot?.documents.last
+                            let result = Result {
+                                try querySnapshot?.documents.compactMap {
+                                    try $0.data(as: WishListModel.self)
+                                    
+                                }
                             }
                             
-                            // Data value was successfully initialized from the DocumentSnapshot.
-                            promise(.success(wishList))
-                        case .failure(let error):
-                            // Data value could not be initialized from the DocumentSnapshot.
-                            promise(.failure(error))
+                            switch result {
+                            case .success(let documents):
+                                guard let wishList = documents else {
+                                    // A nil value was successfully initialized from the DocumentSnapshot,
+                                    // or the DocumentSnapshot was nil.
+                                    promise(.success([]))
+                                    return
+                                }
+                                
+                                // Data value was successfully initialized from the DocumentSnapshot.
+                                promise(.success(wishList))
+                            case .failure(let error):
+                                // Data value could not be initialized from the DocumentSnapshot.
+                                promise(.failure(error))
+                            }
                         }
                     }
             }
-        }.eraseToAnyPublisher()
+        }
+        //.subscribe(on: DispatchQueue.global())
+        .eraseToAnyPublisher()
     }
     
     func loadMore() -> AnyPublisher<[WishListModel], Error> {
