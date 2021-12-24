@@ -18,7 +18,7 @@ struct WishDetailsView: View {
     
     var body: some View {
         NavigationView {
-            LazyVStack {
+            VStack {
                 ScrollView {
                     VStack(alignment: .leading) {
                         TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: $title)

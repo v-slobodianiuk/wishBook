@@ -284,13 +284,13 @@
 		D51B4A2125F4EC18008ABCBB /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D5B7F01626815B0900D578F1 /* MetaCache.swift */,
 				D53D0E2925F4150B00E5C2D7 /* UserDefaultsStorage.swift */,
 				D56B190C2602785700F7031C /* GoogleAuthService.swift */,
-				D5B7F01626815B0900D578F1 /* MetaCache.swift */,
-				D5C5869D26C97FF400BFF6A5 /* FirebaseStorageService.swift */,
 				D5362225276CAF7B003035FF /* WishListService.swift */,
 				D5A182632773BCF60099709C /* PeopleService.swift */,
 				D5362227276CB004003035FF /* ProfileService.swift */,
+				D5C5869D26C97FF400BFF6A5 /* FirebaseStorageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -943,7 +943,7 @@
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=200 -Xfrontend -warn-long-function-bodies=200";
 				PRODUCT_BUNDLE_IDENTIFIER = va.slobodianiuk.WishBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SUPPRESS_WARNINGS = YES;
+				SWIFT_SUPPRESS_WARNINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -966,7 +966,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = va.slobodianiuk.WishBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SUPPRESS_WARNINGS = YES;
+				SWIFT_SUPPRESS_WARNINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

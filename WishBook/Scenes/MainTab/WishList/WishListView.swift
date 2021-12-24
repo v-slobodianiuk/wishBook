@@ -53,7 +53,9 @@ struct WishListView: View {
                 .onAppear {
                     if index == store.state.wishes.getLastIndexItem() {
                         guard !store.state.wishes.paginationCompleted else { return }
-                        store.dispatch(action: .wishes(action: .fetchMore))
+                        withAnimation {
+                            store.dispatch(action: .wishes(action: .fetchMore))
+                        }
                     }
                 }
             }

@@ -19,7 +19,7 @@ struct EditProfileView: View {
     @State private var birthDate: Date = Date()
     
     var body: some View {
-        LazyVStack {
+        VStack {
             HStack {
                 Text("\("PROFILE_FIRST_NAME".localized): ")
                     .frame(width: 100, alignment: .leading)
