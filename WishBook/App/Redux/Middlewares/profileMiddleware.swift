@@ -98,20 +98,13 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
                 }
                 .eraseToAnyPublisher()
         case .profile(action: .fetchComplete):
-            let publisher = Just(AppAction.profile(action: .checkWishesCount))
+            return Just(AppAction.profile(action: .checkWishesCount))
                 .eraseToAnyPublisher()
-            return service.wishCounterListener == nil ? publisher : Empty().eraseToAnyPublisher()
         case .profile(action: .checkWishesCount):
-            
-            let publisher: AnyPublisher<Int, Never> = service.wishesCountPublisher()
-            
-            if service.wishCounterListener == nil {
-                service.startWishesListener()
-            }
-            
-            return publisher
+            let publisher: AnyPublisher<AppAction, Never> = service.wishesCountPublisher()
                 .print("Wishes count publisher")
                 .subscribe(on: DispatchQueue.global())
+                .removeDuplicates()
                 .filter { (wishes: Int) -> Bool in
                     return wishes != state.profile.profileData?.wishes
                 }
@@ -127,6 +120,10 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
                     return AppAction.profile(action: .fetch(force: true))
                 }
                 .eraseToAnyPublisher()
+            
+            service.startWishesListener()
+            
+            return publisher
         default:
             break
         }

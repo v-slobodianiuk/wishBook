@@ -21,8 +21,6 @@ enum ProfileKey: String {
 }
 
 protocol ProfileServiceProtocol {
-    var wishCounterListener: ListenerRegistration? { get }
-    
     func loadDataByUserId(_ userId: String?) -> AnyPublisher<ProfileModel, ProfileServiceError>
     func updateData(_ data: ProfileModel) -> AnyPublisher<ProfileModel, ProfileServiceError>
     func startWishesListener()
@@ -32,8 +30,8 @@ protocol ProfileServiceProtocol {
 
 final class ProfileService: ProfileServiceProtocol {
     private let db = Firestore.firestore()
-    let subject = PassthroughSubject<Int, Never>()
-    var wishCounterListener: ListenerRegistration?
+    private let subject = PassthroughSubject<Int, Never>()
+    private var wishCounterListener: ListenerRegistration?
     
     func loadDataByUserId(_ userId: String?) -> AnyPublisher<ProfileModel, ProfileServiceError> {
         Deferred {
@@ -97,7 +95,7 @@ final class ProfileService: ProfileServiceProtocol {
     }
     
     func startWishesListener() {
-        guard !UserStorage.profileUserId.isEmpty else { return }
+        guard !UserStorage.profileUserId.isEmpty, wishCounterListener == nil else { return }
         wishCounterListener = db.collection(FirestoreCollection[.wishList])
             .whereField("userId", isEqualTo: UserStorage.profileUserId)
             .addSnapshotListener { [weak self] querySnapshot, error in
@@ -113,8 +111,7 @@ final class ProfileService: ProfileServiceProtocol {
     }
     
     func wishesCountPublisher() -> AnyPublisher<Int, Never> {
-        subject
-            .eraseToAnyPublisher()
+        return subject.eraseToAnyPublisher()
     }
     
     func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never> {
