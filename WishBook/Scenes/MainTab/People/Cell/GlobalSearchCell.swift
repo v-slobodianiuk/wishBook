@@ -56,12 +56,21 @@ struct GlobalSearchCell: View {
 
 struct GlobalSearchCell_Previews: PreviewProvider {
     static var previews: some View {
-        LazyVStack {
-            GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
-            GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
-            GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
-            GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
-            GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+        VStack {
+            SearchView(placeholder: "PEOPLE_SEARCH_PLACEHOLDER".localized, text: .constant("test"))
+                .padding(.horizontal)
+            ScrollView {
+                LazyVStack {
+                    GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+                    GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+                    GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+                    GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+                    GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+                    GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+                    GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+                    GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
+                }
+            }
         }
     }
 }

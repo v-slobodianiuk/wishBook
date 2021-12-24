@@ -30,10 +30,8 @@ func wishesReducer(state: inout WishesState, action: WishesAction) -> Void {
             state.errorMessage = errorMessage
         }
         state.fetchInProgress = false
-    case .selectItem(let selectedItem):
-        state.selectedItem = selectedItem
-    case .discardSelection:
-        state.selectedItem = nil
+    case .prepareWishDetailsFor(let index):
+        state.wishDetails = state.wishList[index]
     default:
         break
     }

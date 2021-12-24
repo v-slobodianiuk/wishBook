@@ -20,7 +20,6 @@ struct ScreenFactory {
             .environmentObject(di.getStore())
     }
     
-    
     func makeMainTabBar() -> some View {
         MainTabView()
             .environmentObject(di.getStore())
@@ -28,6 +27,11 @@ struct ScreenFactory {
     
     func makePeopleView() -> some View {
         PeopleView()
+            .environmentObject(di.getStore())
+    }
+    
+    func makeSearchedProfileView() -> some View {
+        UserPageView()
             .environmentObject(di.getStore())
     }
     

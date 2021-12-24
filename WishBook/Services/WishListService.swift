@@ -10,8 +10,8 @@ import Combine
 import Firebase
 
 protocol WishListServiceProtocol {
-    func loadData(limit: Int) -> AnyPublisher<[WishListModel], Error>
-    func loadMore() -> AnyPublisher<[WishListModel], Error>
+    func loadData(userId: String, limit: Int) -> AnyPublisher<[WishListModel], Error>
+    func loadMore(userId: String) -> AnyPublisher<[WishListModel], Error>
     func addData(_ data: WishListModel) -> AnyPublisher<WishListModel, Error>
     func updateData(_ data: WishListModel) -> AnyPublisher<WishListModel, Error>
     func delete(id: String) -> AnyPublisher<Bool, Error>
@@ -21,17 +21,14 @@ final class WishListService: WishListServiceProtocol {
     private let db = Firestore.firestore()
     private var lastSnapshot: QueryDocumentSnapshot?
     
-    func loadData(limit: Int) -> AnyPublisher<[WishListModel], Error> {
+    func loadData(userId: String, limit: Int) -> AnyPublisher<[WishListModel], Error> {
         Deferred {
             Future { [weak self] promise in
                 print("Future loadData: \(Thread.current)")
-                guard !UserStorage.profileUserId.isEmpty else {
-                    return
-                }
                 
                 self?.db.collection(FirestoreCollection[.wishList])
                     .order(by: "createdTime")
-                    .whereField("userId", isEqualTo: UserStorage.profileUserId)
+                    .whereField("userId", isEqualTo: userId)
                     .limit(to: limit)
                     .getDocuments { [weak self] querySnapshot, error in
                         DispatchQueue.global().async {
@@ -65,17 +62,17 @@ final class WishListService: WishListServiceProtocol {
         .eraseToAnyPublisher()
     }
     
-    func loadMore() -> AnyPublisher<[WishListModel], Error> {
+    func loadMore(userId: String) -> AnyPublisher<[WishListModel], Error> {
         Deferred {
             Future { [weak self] promise in
                 print("Future loadMore: \(Thread.current)")
-                guard !UserStorage.profileUserId.isEmpty, let snapshot = self?.lastSnapshot else {
+                guard let snapshot = self?.lastSnapshot else {
                     return
                 }
                 
                 self?.db.collection(FirestoreCollection[.wishList])
                     .order(by: "createdTime")
-                    .whereField("userId", isEqualTo: UserStorage.profileUserId)
+                    .whereField("userId", isEqualTo: userId)
                     .start(afterDocument: snapshot)
                     .limit(to: 20)
                     .getDocuments { querySnapshot, error in

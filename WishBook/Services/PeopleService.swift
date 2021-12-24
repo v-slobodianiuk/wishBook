@@ -10,7 +10,9 @@ import Firebase
 import Combine
 
 protocol PeopleServiceProtocol {
-    func searchData(key: String, limit: Int) -> AnyPublisher<[ProfileModel],Error>
+    func sendSearchText(_ text: String)
+    func searchPublisher() -> AnyPublisher<String, Never>
+    func searchData(key: String) -> AnyPublisher<[ProfileModel],Error>
     func loadMore() -> AnyPublisher<[ProfileModel], Error>
 }
 
@@ -18,8 +20,17 @@ final class PeopleService: PeopleServiceProtocol {
     private let db = Firestore.firestore()
     private var lastSnapshot: QueryDocumentSnapshot?
     private var searchKey: String = ""
+    private let subject = PassthroughSubject<String, Never>()
     
-    func searchData(key: String, limit: Int) -> AnyPublisher<[ProfileModel], Error> {
+    func sendSearchText(_ text: String) {
+        subject.send(text)
+    }
+    
+    func searchPublisher() -> AnyPublisher<String, Never> {
+        subject.eraseToAnyPublisher()
+    }
+    
+    func searchData(key: String) -> AnyPublisher<[ProfileModel], Error> {
         Deferred {
             Future { [weak self] promise in
                 guard let self = self, !UserStorage.profileUserId.isEmpty else {
@@ -29,7 +40,7 @@ final class PeopleService: PeopleServiceProtocol {
                 self.searchKey = key
                 self.db.collection(FirestoreCollection[.users])
                     .whereField("searchKey", isEqualTo: self.searchKey)
-                    .limit(to: limit)
+                    .limit(to: 20)
                     .getDocuments { querySnapshot, error in
                         self.lastSnapshot = querySnapshot?.documents.last
                         let result = Result {

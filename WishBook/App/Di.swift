@@ -29,7 +29,7 @@ struct Di {
                 authMiddleware(service: googleAuthService),
                 profileMiddleware(service: profileService, storageService: firebaseStorageService),
                 wishesMiddleware(service: wishListService),
-                peopleMiddleware(service: peopleService)
+                peopleMiddleware(service: peopleService, profileService: profileService, wishesService: wishListService)
             ]
         )
     }

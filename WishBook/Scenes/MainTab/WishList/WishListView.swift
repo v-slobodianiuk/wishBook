@@ -45,7 +45,7 @@ struct WishListView: View {
                     } else {
                         Text(store.state.wishes.wishList[index].title)
                             .onTapGesture {
-                                store.dispatch(action: .wishes(action: .selectItem(index)))
+                                store.dispatch(action: .wishes(action: .prepareWishDetailsFor(index: index)))
                                 wishDetailsIsPresented.toggle()
                             }
                     }

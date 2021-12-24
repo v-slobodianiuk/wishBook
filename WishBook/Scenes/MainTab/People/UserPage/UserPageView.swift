@@ -10,6 +10,7 @@ import SwiftUI
 
 struct UserPageView: View {
 
+    @EnvironmentObject var store: AppStore
     @State private var wishDetailsIsPresented: Bool = false
     
     var body: some View {
@@ -20,38 +21,39 @@ struct UserPageView: View {
                     .frame(width: 50, height: 50)
                     .foregroundColor(.selectedTabItem)
                     .padding(.leading)
-//                VStack(alignment: .leading) {
-//                    Text(vm.getFullName())
-//                        .font(.title)
-//                        .padding(.top)
-//                        .padding(.horizontal)
-//                    Text(vm.getProfileData()?.description ?? "")
-//                        .foregroundColor(.gray)
-//                        .lineLimit(2)
-//                        .padding(.horizontal)
-//                        .padding(.bottom)
-//                }
+                VStack(alignment: .leading) {
+                    Text(store.state.people.getFullName())
+                        .font(.title)
+                        .padding(.top)
+                        .padding(.horizontal)
+                    Text(store.state.people.searchedProfile?.description ?? "")
+                        .foregroundColor(.gray)
+                        .lineLimit(2)
+                        .padding(.horizontal)
+                        .padding(.bottom)
+                }
                 Spacer()
             }
-//            StatisticBlockView(count: (
-//                subscribers: vm.getProfileData()?.subscribers?.count,
-//                subscriptions: vm.getProfileData()?.subscriptions?.count,
-//                wishes: vm.getProfileData()?.wishes))
+            StatisticBlockView(count: (
+                subscribers: store.state.people.searchedProfile?.subscribers?.count,
+                subscriptions: store.state.people.searchedProfile?.subscriptions?.count,
+                wishes: store.state.people.searchedProfile?.wishes))
             HStack {
                 Text("PROFILE_BIRTHDATE_EMOJI".localized)
-//                Text(vm.getBirthdate())
+                Text(store.state.people.getBirthdate())
                     .padding(.leading, 5)
                 Spacer()
-//                Button {
-//                    vm.subscribeAction()
-//                } label: {
-//                    Text(vm.isSubscribed ? "USER_PAGE_BUTTON_UNSUBSCRIBE".localized : "USER_PAGE_BUTTON_SUBSCRIBE".localized)
-//                        .font(.subheadline)
-//                        .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-//                        .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
-//                        .foregroundColor(.lightText)
-//                        .cornerRadius(8)
-//                }
+                Button {
+                    //TODO: - Subscription action
+                } label: {
+                    //Text(vm.isSubscribed ? "USER_PAGE_BUTTON_UNSUBSCRIBE".localized : "USER_PAGE_BUTTON_SUBSCRIBE".localized)
+                    Text("USER_PAGE_BUTTON_SUBSCRIBE".localized)
+                        .font(.subheadline)
+                        .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                        .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
+                        .foregroundColor(.lightText)
+                        .cornerRadius(8)
+                }
             }
             .padding()
             Divider()
@@ -61,43 +63,53 @@ struct UserPageView: View {
             } else {
                 listView()
             }
-            //Spacer()
         }
         .onAppear {
             print(#function)
             if #available(iOS 15.0, *) {
                 UITableView.appearance().sectionHeaderTopPadding = .leastNormalMagnitude
             }
-            
-//            vm.getData()
+            store.dispatch(action: .people(action: .fetchWishes(limit: nil)))
         }
         .onDisappear {
-            print(#function)
+            store.dispatch(action: .people(action: .clearSearchedProfileData))
         }
         .navigationBarTitle("", displayMode: .inline)
     }
     
     fileprivate func listView() -> some View {
-        EmptyView()
-//        List {
-//            ForEach(vm.wishList.indices, id: \.self) { index in
-//                Text(vm.wishList[index].title)
-//                    .onTapGesture {
-//                        //itemIndex = index
-//                        vm.selectedItem = index
-//                        wishDetailsIsPresented.toggle()
-//                    }
-//            }
-//            .listStyle(.plain)
-//        }
+        List {
+            ForEach(store.state.people.searchedProfileWishes.indices, id: \.self) { index in
+                ZStack {
+                    if index == store.state.people.getWishesLastIndexItem() && store.state.people.paginationInProgress {
+                        ProgressView()
+                    } else {
+                        Text(store.state.people.searchedProfileWishes[index].title)
+                            .onTapGesture {
+                                store.dispatch(action: .people(action: .prepareWishDetailsFor(index: index)))
+                                wishDetailsIsPresented.toggle()
+                            }
+                    }
+                }
+                .onAppear {
+                    if index == store.state.people.getWishesLastIndexItem() {
+                        guard !store.state.people.wishesPaginationCompleted else { return }
+                        withAnimation {
+                            store.dispatch(action: .people(action: .fetchWishesMore))
+                        }
+                    }
+                }
+            }
+            //.listStyle(.plain)
+        }
         .sheet(isPresented: $wishDetailsIsPresented) {
-//            vm.router.showWishDetails(wishItem: vm.wishList[vm.selectedItem], readOnly: true)
+            screenFactory.makeWishDetailsView(isEditable: false)
         }
     }
 }
 
 struct UserPageView_Previews: PreviewProvider {
     static var previews: some View {
-        UserPageView()
+        screenFactory.makeSearchedProfileView()
     }
 }

@@ -17,7 +17,7 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                     return Empty().eraseToAnyPublisher()
                 }
 
-                return service.loadData(limit: limit != nil ? (limit ?? 20) : 20)
+                return service.loadData(userId: UserStorage.profileUserId, limit: limit != nil ? (limit ?? 20) : 20)
                     //.print("Fetch wishes")
                     .subscribe(on: DispatchQueue.global())
                     .map { (data: [WishListModel]) -> AppAction in
@@ -30,7 +30,7 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                     .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
                     .eraseToAnyPublisher()
             case .wishes(action: .fetchMore):
-                return service.loadMore()
+                return service.loadMore(userId: UserStorage.profileUserId)
                     //.print("Fetch more wishes")
                     .subscribe(on: DispatchQueue.global())
                     .map { (data: [WishListModel]) -> AppAction in
@@ -61,12 +61,11 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                 var publisher: Publishers.Print<AnyPublisher<WishListModel, Error>>
                 var wish: WishListModel
                 
-                if let selectedItem = state.wishes.selectedItem {
-                    wish = state.wishes.wishList[selectedItem]
-                    wish.title = title
-                    wish.description = description
-                    wish.url = url
-                    publisher = service.updateData(wish)
+                if var selectedItem = state.wishes.wishDetails {
+                    selectedItem.title = title
+                    selectedItem.description = description
+                    selectedItem.url = url
+                    publisher = service.updateData(selectedItem)
                         .print("Update wish")
                 } else {
                     wish = WishListModel(title: title, description: description, url: url)

@@ -11,9 +11,9 @@ struct WishDetailsView: View {
     @EnvironmentObject var store: AppStore
     @Environment(\.presentationMode) var presentationMode
     
-    @State var title: String = ""
-    @State var description: String = ""
-    @State var url: String = ""
+    @State private var title: String = ""
+    @State private var description: String = ""
+    @State private var url: String = ""
     let isEditable: Bool
     
     var body: some View {
@@ -73,14 +73,17 @@ struct WishDetailsView: View {
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(trailing: setupTrailingNavBarItems())
             .onAppear {
-                guard let selectedItem = store.state.wishes.selectedItem else { return }
-                let wish = store.state.wishes.wishList[selectedItem]
-                title = wish.title
-                url = wish.url ?? ""
-                description = wish.description ?? ""
-            }
-            .onDisappear {
-                store.dispatch(action: .wishes(action: .discardSelection))
+                let wish: WishListModel?
+                if isEditable {
+                    wish = store.state.wishes.wishDetails
+                } else {
+                    wish = store.state.people.searchedProfileWishDetails
+                }
+                
+                title = wish?.title ?? ""
+                url = wish?.url ?? ""
+                description = wish?.description ?? ""
+                
             }
         }
     }

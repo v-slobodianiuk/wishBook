@@ -20,5 +20,6 @@ func appReducer(state: inout AppState, action: AppAction) -> Void {
     case .clearData:
         state.profile = ProfileState()
         state.wishes = WishesState()
+        state.people = PeopleState()
     }
 }

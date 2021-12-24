@@ -9,8 +9,8 @@ import Foundation
 
 func peopleReducer(state: inout PeopleState, action: PeopleAction) -> Void {
     switch action {
-    case .fetch:
-        if state.peopleList.isEmpty {
+    case .fetch(let searchText):
+        if searchText.count >= 3 {
             state.fetchInProgress = true
         }
     case .fetchMore:
@@ -30,5 +30,29 @@ func peopleReducer(state: inout PeopleState, action: PeopleAction) -> Void {
             state.errorMessage = errorMessage
         }
         state.fetchInProgress = false
+    case .prepareProfileDataFor(let index):
+        state.searchedProfile = state.peopleList[index]
+        
+        
+    case .fetchWishes(limit: _):
+        if state.searchedProfileWishes.isEmpty {
+            state.wishesFetchInProgress = true
+        }
+    case .fetchWishesMore:
+        state.wishesPaginationInProgress = true
+    case .fetchWishesComplete(let data):
+        state.searchedProfileWishes = data
+        state.wishesFetchInProgress = false
+    case .fetchWishesMoreComplete(let data):
+        guard !data.isEmpty else {
+            state.wishesPaginationCompleted = true
+            state.wishesPaginationInProgress = false
+            return
+        }
+        state.searchedProfileWishes += data
+    case .clearSearchedProfileData:
+        state.searchedProfileWishes.removeAll()
+    case .prepareWishDetailsFor(let index):
+        state.searchedProfileWishDetails = state.searchedProfileWishes[index]
     }
 }

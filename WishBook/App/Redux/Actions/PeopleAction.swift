@@ -13,4 +13,14 @@ enum PeopleAction {
     case fetchMore
     case fetchMoreComplete(data: [ProfileModel])
     case fetchError(error: String?)
+    
+    case prepareProfileDataFor(index: Int)
+    
+    case fetchWishes(limit: Int?)
+    case fetchWishesComplete(data: [WishListModel])
+    case fetchWishesMore
+    case fetchWishesMoreComplete(data: [WishListModel])
+    case clearSearchedProfileData
+    
+    case prepareWishDetailsFor(index: Int)
 }

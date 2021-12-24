@@ -6,14 +6,27 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct PeopleState {
     var peopleList = [ProfileModel] ()
+    var searchedProfile: ProfileModel?
+    
     var fetchInProgress: Bool = false
     var paginationInProgress: Bool = false
+   
     var paginationCompleted: Bool = false
+    
     var paginationLimit: Int = 20
     var errorMessage: String? = nil
+    
+    
+    var searchedProfileWishes: [WishListModel] = [WishListModel]()
+    var searchedProfileWishDetails: WishListModel?
+    
+    var wishesFetchInProgress: Bool = false
+    var wishesPaginationInProgress: Bool = false
+    var wishesPaginationCompleted: Bool = false
     
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -24,13 +37,22 @@ struct PeopleState {
         return formatter
     }()
     
-    func getBirthdate(date: Date?) -> String {
-        guard let date = date else { return "" }
-        let formattedDate = dateFormatter.string(from: date)
+    func getFullName() -> String {
+        guard let firstName = searchedProfile?.firstName, let lastName = searchedProfile?.lastName else { return "" }
+        return "\(firstName) \(lastName)"
+    }
+    
+    func getBirthdate() -> String {
+        guard let birthdate = searchedProfile?.birthdate else { return "" }
+        let formattedDate = dateFormatter.string(from: birthdate)
         return  "\("PROFILE_BIRTHDATE".localized): \(formattedDate)"
     }
     
     func getLastIndexItem() -> Int {
         peopleList.count - 1
+    }
+    
+    func getWishesLastIndexItem() -> Int {
+        searchedProfileWishes.count - 1
     }
 }

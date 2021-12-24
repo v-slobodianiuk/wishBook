@@ -9,13 +9,20 @@ import ReduxCore
 import Foundation
 import Combine
 
-func peopleMiddleware(service: PeopleServiceProtocol) -> Middleware<AppState, AppAction> {
+func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileServiceProtocol, wishesService: WishListServiceProtocol) -> Middleware<AppState, AppAction> {
     return { (state: AppState, action: AppAction) -> AnyPublisher<AppAction, Never> in
         switch action {
         case .people(action: .fetch(let searchText)):
-            return service.searchData(key: searchText, limit: 20)
-                .print("Search People")
+           let publisher = service.searchPublisher()
+                .print("Search Publisher")
                 .subscribe(on: DispatchQueue.global())
+                .filter { searchText -> Bool in
+                    searchText.count == 3
+                }
+                .delay(for: 0.5, scheduler: DispatchQueue.global())
+                .flatMap { searchText in
+                    service.searchData(key: searchText)
+                }
                 .map { (data: [ProfileModel]) -> AppAction in
                     return AppAction.people(action: .fetchComplete(data: data))
                 }
@@ -24,12 +31,33 @@ func peopleMiddleware(service: PeopleServiceProtocol) -> Middleware<AppState, Ap
                 }
                 .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
                 .eraseToAnyPublisher()
+            
+            service.sendSearchText(searchText.lowercased())
+            
+            return publisher
         case .people(action: .fetchMore):
             return service.loadMore()
                 .print("Fetch more search result")
                 .subscribe(on: DispatchQueue.global())
                 .map { (data: [ProfileModel]) -> AppAction in
                     return AppAction.people(action: .fetchMoreComplete(data: data))
+                }
+                .catch { (error: Error) -> Just<AppAction> in
+                    return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
+                }
+                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
+                .eraseToAnyPublisher()
+        case .people(action: .fetchWishes(let limit)):
+            guard (limit != nil) || state.people.searchedProfileWishes.isEmpty, let userId = state.people.searchedProfile?.id else {
+                return Empty().eraseToAnyPublisher()
+            }
+
+            return wishesService.loadData(userId: userId, limit: limit != nil ? (limit ?? 20) : 20)
+                //.print("Fetch wishes")
+                .subscribe(on: DispatchQueue.global())
+                .map { (data: [WishListModel]) -> AppAction in
+                    print(".fetch .map: \(Thread.current)")
+                    return AppAction.people(action: .fetchWishesComplete(data: data))
                 }
                 .catch { (error: Error) -> Just<AppAction> in
                     return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
