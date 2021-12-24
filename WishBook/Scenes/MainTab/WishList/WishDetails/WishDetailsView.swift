@@ -18,7 +18,7 @@ struct WishDetailsView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            LazyVStack {
                 ScrollView {
                     VStack(alignment: .leading) {
                         TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: $title)
@@ -99,8 +99,8 @@ struct WishDetailsView: View {
 
 struct WishDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        WishDetailsView(isEditable: true)
-            .previewDevice(PreviewDevice(rawValue: "iPhone SE (1st generation)"))
-            .previewDisplayName("iPhone SE (1st generation)")
+        screenFactory.makeWishDetailsView(isEditable: true)
+            //.previewDevice(PreviewDevice(rawValue: "iPhone SE (1st generation)"))
+            //.previewDisplayName("iPhone SE (1st generation)")
     }
 }

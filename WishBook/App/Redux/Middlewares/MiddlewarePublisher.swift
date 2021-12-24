@@ -17,13 +17,13 @@ enum MiddlewareError: Error {
 
 func middlewarePublisher<Action>(completion: @escaping MiddlewareClosure<Action>) -> AnyPublisher<Action, Never> {
     Deferred {
-        Future<Action, MiddlewareError> { promise in
+        Future<Action, MiddlewareError> { (promise: @escaping (Result<Action, MiddlewareError>) -> Void) in
             //print("middlewarePublisher Future: \(Thread.current)")
             completion(promise)
         }
     }
     .subscribe(on: DispatchQueue.global())
-    .catch { error -> Empty in
+    .catch { (error: MiddlewareError) -> Empty in
         switch error {
         case .noAction:
             return Empty()

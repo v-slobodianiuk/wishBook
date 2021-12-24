@@ -7,44 +7,9 @@
 
 import SwiftUI
 
-struct Di {
-    fileprivate let store: AppStore
-    
-    fileprivate var authState = AuthState()
-    fileprivate var profileState = ProfileState()
-    fileprivate var wishesState = WishesState()
-    fileprivate var peopleState = PeopleState()
-    fileprivate var googleAuthService = GoogleAuthService()
-    fileprivate var profileService = ProfileService()
-    fileprivate var firebaseStorageService = FirebaseStorageService()
-    fileprivate var wishListService = WishListService()
-    fileprivate var peopleService = PeopleService()
-    
-    init() {
-        self.store =  AppStore(
-            initialState: .init(auth: authState, profile: profileState, wishes: wishesState, people: peopleState),
-            reducer: appReducer,
-            middlewares: [
-                authMiddleware(service: googleAuthService),
-                profileMiddleware(service: profileService, storageService: firebaseStorageService),
-                wishesMiddleware(service: wishListService),
-                peopleMiddleware(service: peopleService)
-            ]
-        )
-    }
-    
-    func getStore() -> AppStore {
-        return store
-    }
-}
-
-let screenFactory = ScreenFactory()
+let screenFactory: ScreenFactory = ScreenFactory()
 
 struct ScreenFactory {
-    fileprivate let di = Di()
-    
-    fileprivate init() {}
-    
     func makeRootView() -> some View {
         RootView()
             .environmentObject(di.getStore())

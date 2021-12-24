@@ -8,9 +8,8 @@
 import SwiftUI
 
 
-struct UserPageView<VM: UserPageViewModelProtocol>: View {
-    
-    @ObservedObject var vm: VM
+struct UserPageView: View {
+
     @State private var wishDetailsIsPresented: Bool = false
     
     var body: some View {
@@ -21,38 +20,38 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
                     .frame(width: 50, height: 50)
                     .foregroundColor(.selectedTabItem)
                     .padding(.leading)
-                VStack(alignment: .leading) {
-                    Text(vm.getFullName())
-                        .font(.title)
-                        .padding(.top)
-                        .padding(.horizontal)
-                    Text(vm.getProfileData()?.description ?? "")
-                        .foregroundColor(.gray)
-                        .lineLimit(2)
-                        .padding(.horizontal)
-                        .padding(.bottom)
-                }
+//                VStack(alignment: .leading) {
+//                    Text(vm.getFullName())
+//                        .font(.title)
+//                        .padding(.top)
+//                        .padding(.horizontal)
+//                    Text(vm.getProfileData()?.description ?? "")
+//                        .foregroundColor(.gray)
+//                        .lineLimit(2)
+//                        .padding(.horizontal)
+//                        .padding(.bottom)
+//                }
                 Spacer()
             }
-            StatisticBlockView(count: (
-                subscribers: vm.getProfileData()?.subscribers?.count,
-                subscriptions: vm.getProfileData()?.subscriptions?.count,
-                wishes: vm.getProfileData()?.wishes))
+//            StatisticBlockView(count: (
+//                subscribers: vm.getProfileData()?.subscribers?.count,
+//                subscriptions: vm.getProfileData()?.subscriptions?.count,
+//                wishes: vm.getProfileData()?.wishes))
             HStack {
                 Text("PROFILE_BIRTHDATE_EMOJI".localized)
-                Text(vm.getBirthdate())
+//                Text(vm.getBirthdate())
                     .padding(.leading, 5)
                 Spacer()
-                Button {
-                    vm.subscribeAction()
-                } label: {
-                    Text(vm.isSubscribed ? "USER_PAGE_BUTTON_UNSUBSCRIBE".localized : "USER_PAGE_BUTTON_SUBSCRIBE".localized)
-                        .font(.subheadline)
-                        .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                        .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
-                        .foregroundColor(.lightText)
-                        .cornerRadius(8)
-                }
+//                Button {
+//                    vm.subscribeAction()
+//                } label: {
+//                    Text(vm.isSubscribed ? "USER_PAGE_BUTTON_UNSUBSCRIBE".localized : "USER_PAGE_BUTTON_SUBSCRIBE".localized)
+//                        .font(.subheadline)
+//                        .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+//                        .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
+//                        .foregroundColor(.lightText)
+//                        .cornerRadius(8)
+//                }
             }
             .padding()
             Divider()
@@ -70,7 +69,7 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
                 UITableView.appearance().sectionHeaderTopPadding = .leastNormalMagnitude
             }
             
-            vm.getData()
+//            vm.getData()
         }
         .onDisappear {
             print(#function)
@@ -79,31 +78,26 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
     }
     
     fileprivate func listView() -> some View {
-        List {
-            ForEach(vm.wishList.indices, id: \.self) { index in
-                Text(vm.wishList[index].title)
-                    .onTapGesture {
-                        //itemIndex = index
-                        vm.selectedItem = index
-                        wishDetailsIsPresented.toggle()
-                    }
-            }
-            .listStyle(.plain)
-        }
+        EmptyView()
+//        List {
+//            ForEach(vm.wishList.indices, id: \.self) { index in
+//                Text(vm.wishList[index].title)
+//                    .onTapGesture {
+//                        //itemIndex = index
+//                        vm.selectedItem = index
+//                        wishDetailsIsPresented.toggle()
+//                    }
+//            }
+//            .listStyle(.plain)
+//        }
         .sheet(isPresented: $wishDetailsIsPresented) {
-            vm.router.showWishDetails(wishItem: vm.wishList[vm.selectedItem], readOnly: true)
+//            vm.router.showWishDetails(wishItem: vm.wishList[vm.selectedItem], readOnly: true)
         }
     }
-    
-    struct UserPageView_Previews: PreviewProvider {
-        static var previews: some View {
-            let vm = UserPageViewModel(
-                router: UserPageRouter(), userId: nil,
-                profileRepository: DI.getProfileRepository(),
-                wishListRepository: DI.getWishListRepository(),
-                usersRepository: DI.getUsersRepository()
-            )
-            UserPageView(vm: vm as! VM)
-        }
+}
+
+struct UserPageView_Previews: PreviewProvider {
+    static var previews: some View {
+        UserPageView()
     }
 }

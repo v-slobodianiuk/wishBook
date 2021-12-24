@@ -81,20 +81,18 @@ extension TextView {
 struct TextView_Previews: PreviewProvider {
     
     static var previews: some View {
-        VStack(alignment: .leading) {
-            TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: .constant(""))
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .disabled(true)
-                .padding(.horizontal)
+//        VStack(alignment: .leading) {
+//            TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: .constant(""))
+//                .textFieldStyle(RoundedBorderTextFieldStyle())
+//                .disabled(true)
+//                .padding(.horizontal)
             TextView(text: .constant("Description"))
                 .font(.systemFont(ofSize: 17))
                 .setBorder(borderColor: .lightGray, borderWidth: 0.25, cornerRadius: 5)
                 .isEditable(false)
                 .frame(width: UIScreen.main.bounds.width - 32, height: 150, alignment: .leading)
-                //.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 70)
                 .cornerRadius(5)
                 .padding()
-        }
-
+//        }
     }
 }

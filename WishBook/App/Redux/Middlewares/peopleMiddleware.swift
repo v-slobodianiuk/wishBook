@@ -10,18 +10,18 @@ import Foundation
 import Combine
 
 func peopleMiddleware(service: PeopleServiceProtocol) -> Middleware<AppState, AppAction> {
-    return { state, action in
+    return { (state: AppState, action: AppAction) -> AnyPublisher<AppAction, Never> in
         switch action {
         case .people(action: .fetch(let searchText)):
             return service.searchData(key: searchText, limit: 20)
                 .print("Search People")
                 .subscribe(on: DispatchQueue.global())
                 .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
-                .map {
-                    return AppAction.people(action: .fetchComplete(data: $0))
+                .map { (data: [ProfileModel]) -> AppAction in
+                    return AppAction.people(action: .fetchComplete(data: data))
                 }
-                .catch { error in
-                    Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
+                .catch { (error: Error) -> Just<AppAction> in
+                    return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                 }
                 .eraseToAnyPublisher()
         case .people(action: .fetchMore):
@@ -29,11 +29,11 @@ func peopleMiddleware(service: PeopleServiceProtocol) -> Middleware<AppState, Ap
                 .print("Fetch more search result")
                 .subscribe(on: DispatchQueue.global())
                 .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
-                .map {
-                    return AppAction.people(action: .fetchMoreComplete(data: $0))
+                .map { (data: [ProfileModel]) -> AppAction in
+                    return AppAction.people(action: .fetchMoreComplete(data: data))
                 }
-                .catch { error in
-                    Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
+                .catch { (error: Error) -> Just<AppAction> in
+                    return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
                 }
                 .eraseToAnyPublisher()
         default:

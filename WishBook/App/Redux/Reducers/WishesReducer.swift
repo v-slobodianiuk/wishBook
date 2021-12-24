@@ -9,7 +9,7 @@ import Foundation
 
 func wishesReducer(state: inout WishesState, action: WishesAction) -> Void {
     switch action {
-    case .fetch:
+    case .fetch(limit: _):
         if state.wishList.isEmpty {
             state.fetchInProgress = true
         }

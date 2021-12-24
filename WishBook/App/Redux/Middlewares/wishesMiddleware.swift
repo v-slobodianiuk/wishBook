@@ -10,8 +10,8 @@ import Foundation
 import Combine
 
 func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, AppAction> {
-    return { state, action in
-        middlewarePublisher { promise in
+    return { (state: AppState, action: AppAction) -> AnyPublisher<AppAction, Never> in
+        middlewarePublisher { (promise: @escaping (Result<AppAction, MiddlewareError>) -> Void) in
             switch action {
             case .wishes(action: .fetch(limit: let limit)):
                 guard (limit != nil) || state.wishes.wishList.isEmpty else {
@@ -20,16 +20,16 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                 }
                 
                 service.loadData(limit: limit != nil ? (limit ?? 20) : 20)
-                //.print("Fetch wishes")
+                    //.print("Fetch wishes")
                     .subscribe(on: DispatchQueue.global())
-                    .map {
-                        return AppAction.wishes(action: .fetchComplete(data: $0))
+                    .map { (data: [WishListModel]) -> AppAction in
+                        return AppAction.wishes(action: .fetchComplete(data: data))
                     }
-                    .catch { error in
-                        Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
+                    .catch { (error: Error) -> Just<AppAction> in
+                        return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                     }
                     .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
-                    .sink { action in
+                    .sink { (action: AppAction) in
                         promise(.success(action))
                     }
                     .cancel()
@@ -37,17 +37,17 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
             case .wishes(action: .fetchMore):
                 print("action: .fetchMore: \(Thread.current)")
                 service.loadMore()
-                //.print("Fetch more wishes")
+                    //.print("Fetch more wishes")
                     .subscribe(on: DispatchQueue.global())
                     .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
-                    .map {
+                    .map { (data: [WishListModel]) -> AppAction in
                         print(".fetchMore .map: \(Thread.current)")
-                        return AppAction.wishes(action: .fetchMoreComplete(data: $0))
+                        return AppAction.wishes(action: .fetchMoreComplete(data: data))
                     }
-                    .catch { error in
-                        Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
+                    .catch { (error: Error) -> Just<AppAction> in
+                        return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                     }
-                    .sink { action in
+                    .sink { (action: AppAction) in
                         print(".fetchMore .sink: \(Thread.current)")
                         promise(.success(action))
                     }
@@ -61,13 +61,13 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                 service.delete(id: id)
                     .print("Remove wish")
                     .subscribe(on: DispatchQueue.global())
-                    .map { _ in
-                        AppAction.wishes(action: .fetch(limit: state.wishes.wishList.count))
+                    .map { (_) -> AppAction in
+                        return AppAction.wishes(action: .fetch(limit: state.wishes.wishList.count))
                     }
-                    .catch { error in
-                        Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
+                    .catch { (error: Error) -> Just<AppAction> in
+                        return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                     }
-                    .sink { action in
+                    .sink { (action: AppAction) in
                         promise(.success(action))
                     }
                     .cancel()
@@ -89,11 +89,13 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                 }
                 
                 publisher
-                    .map { _ in
+                    .map { (_) -> AppAction in
                         return AppAction.wishes(action: .fetch(limit: state.wishes.wishList.count + 1))
                     }
-                    .catch { Just(AppAction.wishes(action: .fetchError(error: $0.localizedDescription))) }
-                    .sink { action in
+                    .catch { (error: Error) -> Just<AppAction> in
+                        return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
+                    }
+                    .sink { (action: AppAction) in
                         promise(.success(action))
                     }
                     .cancel()

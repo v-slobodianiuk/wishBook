@@ -6,19 +6,20 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct EditProfileView: View {
     @EnvironmentObject var store: AppStore
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State private var firstName = ""
-    @State private var lastName = ""
-    @State private var email = ""
-    @State private var description = ""
-    @State private var birthDate = Date()
+    @State private var firstName: String = ""
+    @State private var lastName: String = ""
+    @State private var email: String = ""
+    @State private var description: String = ""
+    @State private var birthDate: Date = Date()
     
     var body: some View {
-        VStack {
+        LazyVStack {
             HStack {
                 Text("\("PROFILE_FIRST_NAME".localized): ")
                     .frame(width: 100, alignment: .leading)

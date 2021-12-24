@@ -30,7 +30,5 @@ func peopleReducer(state: inout PeopleState, action: PeopleAction) -> Void {
             state.errorMessage = errorMessage
         }
         state.fetchInProgress = false
-    default:
-        break
     }
 }

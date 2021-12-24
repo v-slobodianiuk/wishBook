@@ -37,17 +37,26 @@ struct GlobalSearchCell: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading)
-        .background(colorScheme == .dark ? AnyView(BlurView(style: .systemThinMaterialDark)) : AnyView(Color.lightText))
+        .background(cellBgView)
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 5)
         .padding(.horizontal)
         .padding(.bottom, 8)
     }
+    
+    @ViewBuilder
+    fileprivate var cellBgView: some View {
+        if colorScheme == .dark  {
+            BlurView(style: .systemThinMaterialDark)
+        } else {
+            Color.lightText
+        }
+    }
 }
 
 struct GlobalSearchCell_Previews: PreviewProvider {
     static var previews: some View {
-        VStack {
+        LazyVStack {
             GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
             GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
             GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
