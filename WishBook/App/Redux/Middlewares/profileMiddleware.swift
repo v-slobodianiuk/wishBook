@@ -20,7 +20,6 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
             return service.loadDataByUserId(nil)
                 .print("Fetch profile data")
                 .subscribe(on: DispatchQueue.global())
-                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
                 .map { (data: ProfileModel) -> AppAction in
                     return AppAction.profile(action: .fetchComplete(data: data))
                 }
@@ -34,6 +33,7 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
                         return Just(AppAction.profile(action: .fetchError(error: message)))
                     }
                 }
+                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
                 .eraseToAnyPublisher()
         case .profile(action: .uploadProfilePhoto(data: let data)):
             guard let userId = state.profile.profileData?.id else {

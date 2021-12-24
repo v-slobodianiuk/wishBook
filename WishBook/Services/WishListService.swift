@@ -25,14 +25,16 @@ final class WishListService: WishListServiceProtocol {
         Deferred {
             Future { [weak self] promise in
                 print("Future loadData: \(Thread.current)")
-                guard !UserStorage.profileUserId.isEmpty else { return }
+                guard !UserStorage.profileUserId.isEmpty else {
+                    return
+                }
+                
                 self?.db.collection(FirestoreCollection[.wishList])
                     .order(by: "createdTime")
                     .whereField("userId", isEqualTo: UserStorage.profileUserId)
                     .limit(to: limit)
                     .getDocuments { [weak self] querySnapshot, error in
                         DispatchQueue.global().async {
-                            print("loadData .getDocuments: \(Thread.current)")
                             self?.lastSnapshot = querySnapshot?.documents.last
                             let result = Result {
                                 try querySnapshot?.documents.compactMap {
@@ -60,45 +62,47 @@ final class WishListService: WishListServiceProtocol {
                     }
             }
         }
-        //.subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
     }
     
     func loadMore() -> AnyPublisher<[WishListModel], Error> {
         Deferred {
             Future { [weak self] promise in
+                print("Future loadMore: \(Thread.current)")
                 guard !UserStorage.profileUserId.isEmpty, let snapshot = self?.lastSnapshot else {
-                    promise(.success([]))
                     return
                 }
+                
                 self?.db.collection(FirestoreCollection[.wishList])
                     .order(by: "createdTime")
                     .whereField("userId", isEqualTo: UserStorage.profileUserId)
                     .start(afterDocument: snapshot)
                     .limit(to: 20)
                     .getDocuments { querySnapshot, error in
-                        self?.lastSnapshot = querySnapshot?.documents.last
-                        let result = Result {
-                            try querySnapshot?.documents.compactMap {
-                                try $0.data(as: WishListModel.self)
+                        DispatchQueue.global().async {
+                            self?.lastSnapshot = querySnapshot?.documents.last
+                            let result = Result {
+                                try querySnapshot?.documents.compactMap {
+                                    try $0.data(as: WishListModel.self)
+                                    
+                                }
+                            }
+                            
+                            switch result {
+                            case .success(let documents):
+                                guard let wishList = documents else {
+                                    // A nil value was successfully initialized from the DocumentSnapshot,
+                                    // or the DocumentSnapshot was nil.
+                                    promise(.success([]))
+                                    return
+                                }
                                 
+                                // Data value was successfully initialized from the DocumentSnapshot.
+                                promise(.success(wishList))
+                            case .failure(let error):
+                                // Data value could not be initialized from the DocumentSnapshot.
+                                promise(.failure(error))
                             }
-                        }
-                        
-                        switch result {
-                        case .success(let documents):
-                            guard let wishList = documents else {
-                                // A nil value was successfully initialized from the DocumentSnapshot,
-                                // or the DocumentSnapshot was nil.
-                                promise(.success([]))
-                                return
-                            }
-    
-                            // Data value was successfully initialized from the DocumentSnapshot.
-                            promise(.success(wishList))
-                        case .failure(let error):
-                            // Data value could not be initialized from the DocumentSnapshot.
-                            promise(.failure(error))
                         }
                     }
             }
@@ -108,7 +112,10 @@ final class WishListService: WishListServiceProtocol {
     func addData(_ data: WishListModel) -> AnyPublisher<WishListModel, Error> {
         Deferred {
             Future { [weak self] promise in
-                guard !UserStorage.profileUserId.isEmpty else { return }
+                guard !UserStorage.profileUserId.isEmpty else {
+                    return
+                }
+                
                 do {
                     var configuredData = data
                     configuredData.userId = UserStorage.profileUserId
@@ -126,9 +133,13 @@ final class WishListService: WishListServiceProtocol {
     func updateData(_ data: WishListModel) -> AnyPublisher<WishListModel, Error> {
         Deferred {
             Future { [weak self] promise in
-                guard !UserStorage.profileUserId.isEmpty, let id = data.id else { return }
+                guard !UserStorage.profileUserId.isEmpty, let id = data.id else {
+                    return
+                }
+                
                 var configuredData = data
                 configuredData.userId = UserStorage.profileUserId
+                
                 do {
                     try self?.db.collection(FirestoreCollection[.wishList])
                         .document(id)
@@ -148,12 +159,14 @@ final class WishListService: WishListServiceProtocol {
                 self?.db.collection(FirestoreCollection[.wishList])
                     .document(id)
                     .delete() { error in
-                        if let error = error {
-                            print("Error removing document: \(error.localizedDescription)")
-                            promise(.failure(error))
-                        } else {
-                            print("Document successfully removed!")
-                            promise(.success(true))
+                        DispatchQueue.global().async {
+                            if let error = error {
+                                print("Error removing document: \(error.localizedDescription)")
+                                promise(.failure(error))
+                            } else {
+                                print("Document successfully removed!")
+                                promise(.success(true))
+                            }
                         }
                     }
             }

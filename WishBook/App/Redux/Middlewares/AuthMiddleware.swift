@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, AppAction> {
-    return { state, action in
+    return { (state: AppState, action: AppAction) -> AnyPublisher<AppAction, Never> in
         switch action {
         case .auth(action: .fetch):
             let publisher = service.checkState()

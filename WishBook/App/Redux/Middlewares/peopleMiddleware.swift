@@ -16,25 +16,25 @@ func peopleMiddleware(service: PeopleServiceProtocol) -> Middleware<AppState, Ap
             return service.searchData(key: searchText, limit: 20)
                 .print("Search People")
                 .subscribe(on: DispatchQueue.global())
-                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
                 .map { (data: [ProfileModel]) -> AppAction in
                     return AppAction.people(action: .fetchComplete(data: data))
                 }
                 .catch { (error: Error) -> Just<AppAction> in
                     return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                 }
+                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
                 .eraseToAnyPublisher()
         case .people(action: .fetchMore):
             return service.loadMore()
                 .print("Fetch more search result")
                 .subscribe(on: DispatchQueue.global())
-                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
                 .map { (data: [ProfileModel]) -> AppAction in
                     return AppAction.people(action: .fetchMoreComplete(data: data))
                 }
                 .catch { (error: Error) -> Just<AppAction> in
                     return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
                 }
+                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
                 .eraseToAnyPublisher()
         default:
             break

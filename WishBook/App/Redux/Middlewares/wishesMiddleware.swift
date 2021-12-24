@@ -11,35 +11,28 @@ import Combine
 
 func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, AppAction> {
     return { (state: AppState, action: AppAction) -> AnyPublisher<AppAction, Never> in
-        middlewarePublisher { (promise: @escaping (Result<AppAction, MiddlewareError>) -> Void) in
             switch action {
             case .wishes(action: .fetch(limit: let limit)):
                 guard (limit != nil) || state.wishes.wishList.isEmpty else {
-                    promise(.failure(.noAction))
-                    return
+                    return Empty().eraseToAnyPublisher()
                 }
-                
-                service.loadData(limit: limit != nil ? (limit ?? 20) : 20)
+
+                return service.loadData(limit: limit != nil ? (limit ?? 20) : 20)
                     //.print("Fetch wishes")
                     .subscribe(on: DispatchQueue.global())
                     .map { (data: [WishListModel]) -> AppAction in
+                        print(".fetch .map: \(Thread.current)")
                         return AppAction.wishes(action: .fetchComplete(data: data))
                     }
                     .catch { (error: Error) -> Just<AppAction> in
                         return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                     }
                     .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
-                    .sink { (action: AppAction) in
-                        promise(.success(action))
-                    }
-                    .cancel()
-                
+                    .eraseToAnyPublisher()
             case .wishes(action: .fetchMore):
-                print("action: .fetchMore: \(Thread.current)")
-                service.loadMore()
+                return service.loadMore()
                     //.print("Fetch more wishes")
                     .subscribe(on: DispatchQueue.global())
-                    .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
                     .map { (data: [WishListModel]) -> AppAction in
                         print(".fetchMore .map: \(Thread.current)")
                         return AppAction.wishes(action: .fetchMoreComplete(data: data))
@@ -47,18 +40,14 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                     .catch { (error: Error) -> Just<AppAction> in
                         return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                     }
-                    .sink { (action: AppAction) in
-                        print(".fetchMore .sink: \(Thread.current)")
-                        promise(.success(action))
-                    }
-                    .cancel()
+                    .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
+                    .eraseToAnyPublisher()
             case .wishes(action: .deleteItem(let id)):
                 guard let id = id else {
-                    promise(.failure(.noAction))
-                    return
+                    return Empty().eraseToAnyPublisher()
                 }
                 
-                service.delete(id: id)
+                return service.delete(id: id)
                     .print("Remove wish")
                     .subscribe(on: DispatchQueue.global())
                     .map { (_) -> AppAction in
@@ -67,10 +56,7 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                     .catch { (error: Error) -> Just<AppAction> in
                         return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                     }
-                    .sink { (action: AppAction) in
-                        promise(.success(action))
-                    }
-                    .cancel()
+                    .eraseToAnyPublisher()
             case .wishes(action: .updateWishListWithItem(let title,let description, let url)):
                 var publisher: Publishers.Print<AnyPublisher<WishListModel, Error>>
                 var wish: WishListModel
@@ -88,20 +74,19 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                         .print("Add wish")
                 }
                 
-                publisher
+                return publisher
+                    .subscribe(on: DispatchQueue.global())
                     .map { (_) -> AppAction in
                         return AppAction.wishes(action: .fetch(limit: state.wishes.wishList.count + 1))
                     }
                     .catch { (error: Error) -> Just<AppAction> in
                         return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                     }
-                    .sink { (action: AppAction) in
-                        promise(.success(action))
-                    }
-                    .cancel()
+                    .eraseToAnyPublisher()
             default:
-                promise(.failure(.noAction))
+                break
             }
-        }
+        
+        return Empty().eraseToAnyPublisher()
     }
 }
