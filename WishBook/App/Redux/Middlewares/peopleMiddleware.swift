@@ -29,7 +29,7 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
                 .catch { (error: Error) -> Just<AppAction> in
                     return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                 }
-                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
+                .delay(for: .seconds(0.5), scheduler: DispatchQueue.main)
                 .eraseToAnyPublisher()
             
             service.sendSearchText(searchText.lowercased())
@@ -58,6 +58,22 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
                 .map { (data: [WishListModel]) -> AppAction in
                     print(".fetch .map: \(Thread.current)")
                     return AppAction.people(action: .fetchWishesComplete(data: data))
+                }
+                .catch { (error: Error) -> Just<AppAction> in
+                    return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
+                }
+                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
+                .eraseToAnyPublisher()
+        case .people(action: .fetchWishesMore):
+            guard let userId = state.people.searchedProfile?.id else {
+                return Empty().eraseToAnyPublisher()
+            }
+            
+            return wishesService.loadMore(userId: userId)
+                //.print("Fetch more wishes")
+                .subscribe(on: DispatchQueue.global())
+                .map { (data: [WishListModel]) -> AppAction in
+                    return AppAction.people(action: .fetchWishesMoreComplete(data: data))
                 }
                 .catch { (error: Error) -> Just<AppAction> in
                     return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))

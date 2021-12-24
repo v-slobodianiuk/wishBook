@@ -11,6 +11,7 @@ import SwiftUI
 struct UserPageView: View {
 
     @EnvironmentObject var store: AppStore
+    @Environment(\.presentationMode) var presentationMode
     @State private var wishDetailsIsPresented: Bool = false
     
     var body: some View {
@@ -65,23 +66,30 @@ struct UserPageView: View {
             }
         }
         .onAppear {
-            print(#function)
             if #available(iOS 15.0, *) {
                 UITableView.appearance().sectionHeaderTopPadding = .leastNormalMagnitude
             }
-            store.dispatch(action: .people(action: .fetchWishes(limit: nil)))
-        }
-        .onDisappear {
-            store.dispatch(action: .people(action: .clearSearchedProfileData))
+            withAnimation {
+                store.dispatch(action: .people(action: .fetchWishes(limit: nil)))
+            }
         }
         .navigationBarTitle("", displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
+        // Add your custom back button here
+        .navigationBarItems(leading:
+                                Button(action: {
+            store.dispatch(action: .people(action: .clearSearchedProfileData))
+            presentationMode.wrappedValue.dismiss()
+        }) {
+            Image(systemName: "chevron.backward")
+        })
     }
     
     fileprivate func listView() -> some View {
         List {
             ForEach(store.state.people.searchedProfileWishes.indices, id: \.self) { index in
                 ZStack {
-                    if index == store.state.people.getWishesLastIndexItem() && store.state.people.paginationInProgress {
+                    if index == store.state.people.getWishesLastIndexItem() && store.state.people.wishesPaginationInProgress {
                         ProgressView()
                     } else {
                         Text(store.state.people.searchedProfileWishes[index].title)
