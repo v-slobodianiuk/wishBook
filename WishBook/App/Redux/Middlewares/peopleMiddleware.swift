@@ -13,28 +13,32 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
     return { (state: AppState, action: AppAction) -> AnyPublisher<AppAction, Never> in
         switch action {
         case .people(action: .fetch(let searchText)):
-           let publisher = service.searchPublisher()
-                .print("Search Publisher")
-                .subscribe(on: DispatchQueue.global())
-                .filter { searchText -> Bool in
-                    searchText.count == 3
-                }
-                .delay(for: 0.5, scheduler: DispatchQueue.global())
-                .flatMap { searchText in
-                    service.searchData(key: searchText)
-                }
-                .map { (data: [ProfileModel]) -> AppAction in
-                    return AppAction.people(action: .fetchComplete(data: data))
-                }
-                .catch { (error: Error) -> Just<AppAction> in
-                    return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
-                }
-                .delay(for: .seconds(0.5), scheduler: DispatchQueue.main)
-                .eraseToAnyPublisher()
+            
+            if let publisher = service.searchPublisher() {
+                return publisher
+                    .print("Search Publisher")
+                    .subscribe(on: DispatchQueue.global())
+                    .filter { searchText -> Bool in
+                        return searchText.count == 3 || searchText.isEmpty
+                    }
+                    .debounce(for: .seconds(0.5), scheduler: DispatchQueue.global())
+                    .flatMap { searchText in
+                        service.searchData(key: searchText)
+                    }
+                    .map { (data: [ProfileModel]) -> AppAction in
+                        return AppAction.people(action: .fetchComplete(data: data))
+                    }
+                    .catch { (error: Error) -> Just<AppAction> in
+                        return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
+                    }
+                    .eraseToAnyPublisher()
+            }
             
             service.sendSearchText(searchText.lowercased())
             
-            return publisher
+            if searchText.isEmpty {
+                service.cancellPreviousSearch()
+            }
         case .people(action: .fetchMore):
             return service.loadMore()
                 .print("Fetch more search result")

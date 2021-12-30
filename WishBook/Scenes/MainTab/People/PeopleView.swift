@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct PeopleView: View {
     
@@ -16,13 +17,13 @@ struct PeopleView: View {
     var body: some View {
         NavigationView {
             VStack {
-                SearchView(placeholder: "PEOPLE_SEARCH_PLACEHOLDER".localized, text: $searchText)
-                    .padding(.horizontal)
+                SearchTextFieldView(searchText: $searchText)
                     .onChange(of: searchText) { newValue in
                         withAnimation {
                             store.dispatch(action: .people(action: .fetch(searchText: newValue)))
                         }
                     }
+
                 emptyView
             }
             .navigationBarTitle("FRIENDS_NAV_TITLE".localized)
@@ -65,37 +66,13 @@ struct PeopleView: View {
                 }
             }
         }
+        .resignKeyboardOnDragGesture()
     }
 }
-
-extension View {
-    func endEditing() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
-}
-
-//.fixFlickering()
-//        .onTapGesture {
-//            endEditing()
-//        }
-
-//extension ScrollView {
-//    private typealias PaddedContent = ModifiedContent<Content, _PaddingLayout>
-//
-//    func fixFlickering() -> some View {
-//        GeometryReader { geo in
-//            ScrollView<PaddedContent>(axes, showsIndicators: showsIndicators) {
-//                content.padding(geo.safeAreaInsets) as! PaddedContent
-//            }
-//            .edgesIgnoringSafeArea(.all)
-//        }
-//    }
-//}
 
 struct FriendsView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
             screenFactory.makePeopleView()
-        }
+            .preferredColorScheme(.light)
     }
 }

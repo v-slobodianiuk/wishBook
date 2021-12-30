@@ -11,7 +11,8 @@ import Combine
 
 protocol PeopleServiceProtocol {
     func sendSearchText(_ text: String)
-    func searchPublisher() -> AnyPublisher<String, Never>
+    func searchPublisher() -> AnyPublisher<String, Never>?
+    func cancellPreviousSearch()
     func searchData(key: String) -> AnyPublisher<[ProfileModel],Error>
     func loadMore() -> AnyPublisher<[ProfileModel], Error>
 }
@@ -20,19 +21,27 @@ final class PeopleService: PeopleServiceProtocol {
     private let db = Firestore.firestore()
     private var lastSnapshot: QueryDocumentSnapshot?
     private var searchKey: String = ""
-    private let subject = PassthroughSubject<String, Never>()
+    private var subject: PassthroughSubject<String, Never>?
     
     func sendSearchText(_ text: String) {
-        subject.send(text)
+        subject?.send(text)
     }
     
-    func searchPublisher() -> AnyPublisher<String, Never> {
-        subject.eraseToAnyPublisher()
+    func searchPublisher() -> AnyPublisher<String, Never>? {
+        guard subject == nil else { return nil }
+        subject = PassthroughSubject<String, Never>()
+        return subject?.eraseToAnyPublisher()
+    }
+    
+    func cancellPreviousSearch() {
+        subject?.send(completion: .finished)
+        subject = nil
     }
     
     func searchData(key: String) -> AnyPublisher<[ProfileModel], Error> {
         Deferred {
             Future { [weak self] promise in
+                print(#function)
                 guard let self = self, !UserStorage.profileUserId.isEmpty else {
                     return
                 }
