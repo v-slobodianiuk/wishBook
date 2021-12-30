@@ -11,6 +11,7 @@ import Combine
 struct PeopleView: View {
     
     @EnvironmentObject var store: AppStore
+    @Environment(\.colorScheme) var colorScheme
     @State private var searchText: String = ""
     @State private var navLinkIsActive: Bool = false
     
@@ -37,7 +38,17 @@ struct PeopleView: View {
             if store.state.people.fetchInProgress {
                 ProgressView()
             } else {
-                resultListView
+                if store.state.people.peopleList.isEmpty {
+                    Image(systemName: "rectangle.badge.person.crop")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        //.foregroundColor(.selectedTabItem)
+                        .foregroundColor(.gray)
+                        //.foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                        .frame(width: 250, height: 250, alignment: .center)
+                } else {
+                    resultListView
+                }
             }
         }
         .frame(maxHeight: .infinity)
@@ -56,7 +67,7 @@ struct PeopleView: View {
                             image: store.state.people.peopleList[i].photoUrl,
                             firstName: store.state.people.peopleList[i].firstName,
                             lastName: store.state.people.peopleList[i].lastName,
-                            birthDate: store.state.people.getBirthdate()
+                            birthDate: store.state.people.getBirthdate(date: store.state.people.peopleList[i].birthdate)
                         )
                             .onTapGesture {
                                 store.dispatch(action: .people(action: .prepareProfileDataFor(index: i)))

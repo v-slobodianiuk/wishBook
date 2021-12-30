@@ -26,19 +26,17 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
                         service.searchData(key: searchText)
                     }
                     .map { (data: [ProfileModel]) -> AppAction in
+                        if data.isEmpty { service.cancellPreviousSearch() }
                         return AppAction.people(action: .fetchComplete(data: data))
                     }
                     .catch { (error: Error) -> Just<AppAction> in
+                        service.cancellPreviousSearch()
                         return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                     }
                     .eraseToAnyPublisher()
             }
             
             service.sendSearchText(searchText.lowercased())
-            
-            if searchText.isEmpty {
-                service.cancellPreviousSearch()
-            }
         case .people(action: .fetchMore):
             return service.loadMore()
                 .print("Fetch more search result")

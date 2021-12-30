@@ -32,20 +32,26 @@ func peopleReducer(state: inout PeopleState, action: PeopleAction) -> Void {
         state.fetchInProgress = false
     case .prepareProfileDataFor(let index):
         state.searchedProfile = state.peopleList[index]
-        
+        state.searchedProfileWishes.removeAll()
         
     case .fetchWishes(limit: _):
-        if state.searchedProfileWishes.isEmpty {
+        if state.searchedProfileWishes.isEmpty && !state.wishesFullDataLoadingCompleted {
             state.wishesFetchInProgress = true
         }
     case .fetchWishesMore:
-        state.wishesPaginationInProgress = true
+        if !state.wishesFullDataLoadingCompleted {
+            state.wishesPaginationInProgress = true
+        }
     case .fetchWishesComplete(let data):
+        if data.count < state.paginationLimit {
+            state.wishesFullDataLoadingCompleted = true
+        }
+        
         state.searchedProfileWishes = data
         state.wishesFetchInProgress = false
     case .fetchWishesMoreComplete(let data):
         guard !data.isEmpty else {
-            state.wishesPaginationCompleted = true
+            state.wishesFullDataLoadingCompleted = true
             state.wishesPaginationInProgress = false
             return
         }

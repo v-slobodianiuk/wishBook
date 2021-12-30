@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import SDWebImageSwiftUI
 
 struct UserPageView: View {
 
@@ -17,10 +17,18 @@ struct UserPageView: View {
     var body: some View {
         VStack() {
             HStack() {
-                Image(systemName: "person.crop.circle.fill")
+                WebImage(url: URL(string: store.state.people.searchedProfile?.photoUrl ?? ""))
                     .resizable()
+                    .placeholder {
+                        Image(systemName: "person.crop.circle.fill")
+                            .resizable()
+                            .foregroundColor(.selectedTabItem)
+                    }
+                    .indicator(.activity)
+                    .transition(.fade(duration: 0.25))
+                    .scaledToFill()
                     .frame(width: 50, height: 50)
-                    .foregroundColor(.selectedTabItem)
+                    .clipShape(Circle())
                     .padding(.leading)
                 VStack(alignment: .leading) {
                     Text(store.state.people.getFullName())
@@ -57,10 +65,22 @@ struct UserPageView: View {
                 }
             }
             .padding([.top, .horizontal])
-            listView
+            
+            emptyView
         }
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private var emptyView: some View {
+        ZStack {
+            if store.state.people.wishesFetchInProgress {
+                ProgressView()
+            } else {
+                listView
+            }
+        }
+        .frame(maxHeight: .infinity)
     }
     
     private var listView: some View {
@@ -79,7 +99,7 @@ struct UserPageView: View {
                 }
                 .onAppear {
                     if index == store.state.people.getWishesLastIndexItem() {
-                        guard !store.state.people.wishesPaginationCompleted else { return }
+                        guard !store.state.people.wishesFullDataLoadingCompleted else { return }
                         withAnimation {
                             store.dispatch(action: .people(action: .fetchWishesMore))
                         }

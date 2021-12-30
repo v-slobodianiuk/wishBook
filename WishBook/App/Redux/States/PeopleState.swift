@@ -26,7 +26,7 @@ struct PeopleState {
     
     var wishesFetchInProgress: Bool = false
     var wishesPaginationInProgress: Bool = false
-    var wishesPaginationCompleted: Bool = false
+    var wishesFullDataLoadingCompleted: Bool = false
     
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -40,6 +40,12 @@ struct PeopleState {
     func getFullName() -> String {
         guard let firstName = searchedProfile?.firstName, let lastName = searchedProfile?.lastName else { return "" }
         return "\(firstName) \(lastName)"
+    }
+    
+    func getBirthdate(date: Date?) -> String {
+        guard let date = date else { return "" }
+        let formattedDate = dateFormatter.string(from: date)
+        return  "\("PROFILE_BIRTHDATE".localized): \(formattedDate)"
     }
     
     func getBirthdate() -> String {
