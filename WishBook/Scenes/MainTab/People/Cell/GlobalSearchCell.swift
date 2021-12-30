@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct GlobalSearchCell: View {
     
@@ -18,10 +19,18 @@ struct GlobalSearchCell: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "person.crop.circle.fill")
+            WebImage(url: URL(string: image ?? ""))
                 .resizable()
+                .placeholder {
+                    Image(systemName: "person.crop.circle.fill")
+                        .resizable()
+                        .foregroundColor(.selectedTabItem)
+                }
+                .indicator(.activity)
+                .transition(.fade(duration: 0.25))
+                .scaledToFill()
                 .frame(width: 50, height: 50)
-                .foregroundColor(.selectedTabItem)
+                .clipShape(Circle())
                 .padding(.leading)
             VStack(alignment: .leading) {
                 Text("\(firstName ?? "") \(lastName ?? "")")
