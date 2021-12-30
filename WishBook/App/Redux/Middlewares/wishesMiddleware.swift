@@ -12,35 +12,33 @@ import Combine
 func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, AppAction> {
     return { (state: AppState, action: AppAction) -> AnyPublisher<AppAction, Never> in
             switch action {
-            case .wishes(action: .fetch(limit: let limit)):
-                guard (limit != nil) || state.wishes.wishList.isEmpty else {
+            case .wishes(action: .fetch(let limit)):
+                guard limit != nil || !state.wishes.fullDataLoadingCompleted else {
                     return Empty().eraseToAnyPublisher()
                 }
 
-                return service.loadData(userId: UserStorage.profileUserId, limit: limit != nil ? (limit ?? 20) : 20)
-                    //.print("Fetch wishes")
+                return service.loadData(userId: UserStorage.profileUserId, limit: state.wishes.paginationLimit)
+                    .print("Fetch wishes")
                     .subscribe(on: DispatchQueue.global())
                     .map { (data: [WishListModel]) -> AppAction in
-                        print(".fetch .map: \(Thread.current)")
                         return AppAction.wishes(action: .fetchComplete(data: data))
                     }
                     .catch { (error: Error) -> Just<AppAction> in
                         return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                     }
-                    .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
+                    .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
                     .eraseToAnyPublisher()
             case .wishes(action: .fetchMore):
                 return service.loadMore(userId: UserStorage.profileUserId)
-                    //.print("Fetch more wishes")
+                    .print("Fetch more wishes")
                     .subscribe(on: DispatchQueue.global())
                     .map { (data: [WishListModel]) -> AppAction in
-                        print(".fetchMore .map: \(Thread.current)")
                         return AppAction.wishes(action: .fetchMoreComplete(data: data))
                     }
                     .catch { (error: Error) -> Just<AppAction> in
                         return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                     }
-                    .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
+                    .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
                     .eraseToAnyPublisher()
             case .wishes(action: .deleteItem(let id)):
                 guard let id = id else {
@@ -51,7 +49,8 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                     .print("Remove wish")
                     .subscribe(on: DispatchQueue.global())
                     .map { (_) -> AppAction in
-                        return AppAction.wishes(action: .fetch(limit: state.wishes.wishList.count))
+                        let limit = state.wishes.wishList.count - 1
+                        return AppAction.wishes(action: .fetch(limit: limit))
                     }
                     .catch { (error: Error) -> Just<AppAction> in
                         return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
@@ -60,6 +59,7 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
             case .wishes(action: .updateWishListWithItem(let title,let description, let url)):
                 var publisher: Publishers.Print<AnyPublisher<WishListModel, Error>>
                 var wish: WishListModel
+                var limit: Int = state.wishes.wishList.count
                 
                 if var selectedItem = state.wishes.wishDetails {
                     selectedItem.title = title
@@ -69,6 +69,7 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                         .print("Update wish")
                 } else {
                     wish = WishListModel(title: title, description: description, url: url)
+                    limit += 1
                     publisher = service.addData(wish)
                         .print("Add wish")
                 }
@@ -76,7 +77,7 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                 return publisher
                     .subscribe(on: DispatchQueue.global())
                     .map { (_) -> AppAction in
-                        return AppAction.wishes(action: .fetch(limit: state.wishes.wishList.count + 1))
+                        return AppAction.wishes(action: .fetch(limit: limit))
                     }
                     .catch { (error: Error) -> Just<AppAction> in
                         return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))

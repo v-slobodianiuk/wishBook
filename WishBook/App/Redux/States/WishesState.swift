@@ -12,7 +12,7 @@ struct WishesState {
     var wishDetails: WishListModel?
     var fetchInProgress: Bool = false
     var paginationInProgress: Bool = false
-    var paginationCompleted: Bool = false
+    var fullDataLoadingCompleted: Bool = false
     var errorMessage: String? = nil
     var itemIdForDelete: String? = nil
     var paginationLimit: Int = 20

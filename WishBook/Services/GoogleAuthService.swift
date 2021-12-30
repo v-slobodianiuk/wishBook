@@ -38,8 +38,8 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
     
     func startAuthListener() {
         guard authListener == nil else { return }
-        authListener = Auth.auth().addStateDidChangeListener { [weak self] (_, _) in
-            self?.subject.send(Auth.auth().currentUser?.uid ?? "")
+        authListener = Auth.auth().addStateDidChangeListener { [weak self] (auth, _) in
+            self?.subject.send(auth.currentUser?.uid ?? "")
         }
     }
     

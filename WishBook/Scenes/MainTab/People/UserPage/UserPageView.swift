@@ -56,36 +56,14 @@ struct UserPageView: View {
                         .cornerRadius(8)
                 }
             }
-            .padding()
-            Divider()
-            if #available(iOS 15.0, *) {
-                listView()
-                    .headerProminence(.increased)
-            } else {
-                listView()
-            }
+            .padding([.top, .horizontal])
+            listView
         }
-        .onAppear {
-            if #available(iOS 15.0, *) {
-                UITableView.appearance().sectionHeaderTopPadding = .leastNormalMagnitude
-            }
-            withAnimation {
-                store.dispatch(action: .people(action: .fetchWishes(limit: nil)))
-            }
-        }
-        .navigationBarTitle("", displayMode: .inline)
-        .navigationBarBackButtonHidden(true)
-        // Add your custom back button here
-        .navigationBarItems(leading:
-                                Button(action: {
-            store.dispatch(action: .people(action: .clearSearchedProfileData))
-            presentationMode.wrappedValue.dismiss()
-        }) {
-            Image(systemName: "chevron.backward")
-        })
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
     }
     
-    fileprivate func listView() -> some View {
+    private var listView: some View {
         List {
             ForEach(store.state.people.searchedProfileWishes.indices, id: \.self) { index in
                 ZStack {
@@ -108,7 +86,9 @@ struct UserPageView: View {
                     }
                 }
             }
-            //.listStyle(.plain)
+        }
+        .onAppear {
+            store.dispatch(action: .people(action: .fetchWishes(limit: nil)))
         }
         .sheet(isPresented: $wishDetailsIsPresented) {
             screenFactory.makeWishDetailsView(isEditable: false)

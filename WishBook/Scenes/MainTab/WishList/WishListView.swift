@@ -29,10 +29,6 @@ struct WishListView: View {
             .navigationBarItems(trailing: setupTrailingNavBarItems)
         }
         .navigationViewStyle(.stack)
-        .onAppear {
-            store.dispatch(action: .wishes(action: .fetch(limit: nil)))
-        }
-        
     }
     
     @ViewBuilder
@@ -52,7 +48,7 @@ struct WishListView: View {
                 }
                 .onAppear {
                     if index == store.state.wishes.getLastIndexItem() {
-                        guard !store.state.wishes.paginationCompleted else { return }
+                        guard !store.state.wishes.fullDataLoadingCompleted else { return }
                         withAnimation {
                             store.dispatch(action: .wishes(action: .fetchMore))
                         }
@@ -62,6 +58,11 @@ struct WishListView: View {
             .onDelete { indexSet in
                 guard let index = indexSet.first else { return }
                 store.dispatch(action: .wishes(action: .deleteItem(id: store.state.wishes.wishList[index].id)))
+            }
+        }
+        .onAppear {
+            withAnimation {
+                store.dispatch(action: .wishes(action: .fetch(limit: nil)))
             }
         }
         .sheet(isPresented: $wishDetailsIsPresented) {

@@ -24,6 +24,7 @@ protocol ProfileServiceProtocol {
     func loadDataByUserId(_ userId: String?) -> AnyPublisher<ProfileModel, ProfileServiceError>
     func updateData(_ data: ProfileModel) -> AnyPublisher<ProfileModel, ProfileServiceError>
     func startWishesListener()
+    func wishCounterListenerIsActive() -> Bool
     func wishesCountPublisher() -> AnyPublisher<Int, Never>
     func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never>
 }
@@ -49,24 +50,26 @@ final class ProfileService: ProfileServiceProtocol {
                 self?.db.collection(FirestoreCollection[.users])
                     .document(id)
                     .getDocument { (document, error) in
-                        let result = Result {
-                            try document?.data(as: ProfileModel.self)
-                        }
-                        
-                        switch result {
-                        case .success(let document):
-                            guard let profile = document else {
-                                // A nil value was successfully initialized from the DocumentSnapshot,
-                                // or the DocumentSnapshot was nil.
-                                promise(.failure(.notFound))
-                                return
+                        DispatchQueue.global().async {
+                            let result = Result {
+                                try document?.data(as: ProfileModel.self)
                             }
                             
-                            // Data value was successfully initialized from the DocumentSnapshot.
-                            promise(.success(profile))
-                        case .failure(let error):
-                            // Data value could not be initialized from the DocumentSnapshot.
-                            promise(.failure(.unknown(message: error.localizedDescription)))
+                            switch result {
+                            case .success(let document):
+                                guard let profile = document else {
+                                    // A nil value was successfully initialized from the DocumentSnapshot,
+                                    // or the DocumentSnapshot was nil.
+                                    promise(.failure(.notFound))
+                                    return
+                                }
+                                
+                                // Data value was successfully initialized from the DocumentSnapshot.
+                                promise(.success(profile))
+                            case .failure(let error):
+                                // Data value could not be initialized from the DocumentSnapshot.
+                                promise(.failure(.unknown(message: error.localizedDescription)))
+                            }
                         }
                     }
             }
@@ -114,6 +117,10 @@ final class ProfileService: ProfileServiceProtocol {
         return subject.eraseToAnyPublisher()
     }
     
+    func wishCounterListenerIsActive() -> Bool {
+        return wishCounterListener != nil
+    }
+    
     func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never> {
         Deferred {
             Future { [weak self] promise in
@@ -128,6 +135,7 @@ final class ProfileService: ProfileServiceProtocol {
                             print("updateWishesCount error: \(error.localizedDescription)")
                             promise(.success(false))
                         }
+                        print("Updated data!")
                         promise(.success(true))
                     }
             }

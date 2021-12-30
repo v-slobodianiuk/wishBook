@@ -45,7 +45,7 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
                 .catch { (error: Error) -> Just<AppAction> in
                     return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
                 }
-                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
+                .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
                 .eraseToAnyPublisher()
         case .people(action: .fetchWishes(let limit)):
             guard (limit != nil) || state.people.searchedProfileWishes.isEmpty, let userId = state.people.searchedProfile?.id else {
@@ -62,7 +62,7 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
                 .catch { (error: Error) -> Just<AppAction> in
                     return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
                 }
-                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
+                .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
                 .eraseToAnyPublisher()
         case .people(action: .fetchWishesMore):
             guard let userId = state.people.searchedProfile?.id else {
@@ -78,7 +78,7 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
                 .catch { (error: Error) -> Just<AppAction> in
                     return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
                 }
-                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
+                .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
                 .eraseToAnyPublisher()
         default:
             break

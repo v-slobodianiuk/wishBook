@@ -24,7 +24,6 @@ final class WishListService: WishListServiceProtocol {
     func loadData(userId: String, limit: Int) -> AnyPublisher<[WishListModel], Error> {
         Deferred {
             Future { [weak self] promise in
-                print("Future loadData: \(Thread.current)")
                 
                 self?.db.collection(FirestoreCollection[.wishList])
                     .order(by: "createdTime")
@@ -65,7 +64,6 @@ final class WishListService: WishListServiceProtocol {
     func loadMore(userId: String) -> AnyPublisher<[WishListModel], Error> {
         Deferred {
             Future { [weak self] promise in
-                print("Future loadMore: \(Thread.current)")
                 guard let snapshot = self?.lastSnapshot else {
                     return
                 }

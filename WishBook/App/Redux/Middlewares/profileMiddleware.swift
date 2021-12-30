@@ -33,7 +33,7 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
                         return Just(AppAction.profile(action: .fetchError(error: message)))
                     }
                 }
-                .delay(for: .seconds(0.24), scheduler: DispatchQueue.main)
+                .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
                 .eraseToAnyPublisher()
         case .profile(action: .uploadProfilePhoto(data: let data)):
             guard let userId = state.profile.profileData?.id else {
@@ -98,6 +98,10 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
                 }
                 .eraseToAnyPublisher()
         case .profile(action: .fetchComplete):
+            guard !service.wishCounterListenerIsActive() else {
+                return Empty().eraseToAnyPublisher()
+            }
+            
             return Just(AppAction.profile(action: .checkWishesCount))
                 .eraseToAnyPublisher()
         case .profile(action: .checkWishesCount):
