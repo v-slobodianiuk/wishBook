@@ -14,6 +14,10 @@ struct UserPageView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var wishDetailsIsPresented: Bool = false
     
+    var isSubscribed: Bool {
+        store.state.profile.profileData?.subscriptions?.contains(store.state.people.searchedProfile?.id ?? "") ?? false
+    }
+    
     var body: some View {
         VStack() {
             HStack() {
@@ -53,16 +57,18 @@ struct UserPageView: View {
                     .padding(.leading, 5)
                 Spacer()
                 Button {
-                    //TODO: - Subscription action
+                    withAnimation {
+                        store.dispatch(action: .people(action: isSubscribed ? .unsubscribe : .subscribe))
+                    }
                 } label: {
-                    //Text(vm.isSubscribed ? "USER_PAGE_BUTTON_UNSUBSCRIBE".localized : "USER_PAGE_BUTTON_SUBSCRIBE".localized)
-                    Text("USER_PAGE_BUTTON_SUBSCRIBE".localized)
+                    Text(isSubscribed ? "USER_PAGE_BUTTON_UNSUBSCRIBE".localized : "USER_PAGE_BUTTON_SUBSCRIBE".localized)
                         .font(.subheadline)
                         .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                         .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
                         .foregroundColor(.lightText)
                         .cornerRadius(8)
                 }
+                .disabled(store.state.people.subscribeIsDisabled)
             }
             .padding([.top, .horizontal])
             
@@ -70,6 +76,11 @@ struct UserPageView: View {
         }
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            if store.state.profile.profileData == nil {
+                store.dispatch(action: .profile(action: .fetch))
+            }
+        }
     }
     
     private var emptyView: some View {

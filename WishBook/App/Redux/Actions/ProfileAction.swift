@@ -8,7 +8,8 @@
 import Foundation
 
 enum ProfileAction {
-    case fetch(force: Bool)
+    case fetch
+    case updatedCompleted
     case fetchComplete(data: ProfileModel)
     case fetchError(error: String?)
     case uploadProfilePhoto(data: Data)

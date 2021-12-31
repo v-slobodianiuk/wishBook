@@ -16,7 +16,7 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
             
             if let publisher = service.searchPublisher() {
                 return publisher
-                    .print("Search Publisher")
+                    //.print("Search Publisher")
                     .subscribe(on: DispatchQueue.global())
                     .filter { searchText -> Bool in
                         return searchText.count == 3 || searchText.isEmpty
@@ -39,7 +39,7 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
             service.sendSearchText(searchText.lowercased())
         case .people(action: .fetchMore):
             return service.loadMore()
-                .print("Fetch more search result")
+                //.print("Fetch more search result")
                 .subscribe(on: DispatchQueue.global())
                 .map { (data: [ProfileModel]) -> AppAction in
                     return AppAction.people(action: .fetchMoreComplete(data: data))
@@ -58,7 +58,6 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
                 //.print("Fetch wishes")
                 .subscribe(on: DispatchQueue.global())
                 .map { (data: [WishListModel]) -> AppAction in
-                    print(".fetch .map: \(Thread.current)")
                     return AppAction.people(action: .fetchWishesComplete(data: data))
                 }
                 .catch { (error: Error) -> Just<AppAction> in
@@ -81,6 +80,66 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
                     return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
                 }
                 .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
+                .eraseToAnyPublisher()
+        case .people(action: .updateSearchedProfileDataBy(let id)):
+            return profileService.loadDataByUserId(id)
+                .print("Searched Profile Updated")
+                .subscribe(on: DispatchQueue.global())
+                .map { (data: ProfileModel) -> AppAction in
+                    AppAction.people(action: .updateSearchedProfileDataComplete(data: data))
+                }
+                .catch { (error: Error) -> Just<AppAction> in
+                    return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
+                }
+                .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
+                .eraseToAnyPublisher()
+        case .people(action: .subscribe):
+            guard let searchedProfileId = state.people.searchedProfile?.id else {
+                return Empty().eraseToAnyPublisher()
+            }
+            
+            let publishers = Publishers.Zip(
+                service.addToSubscriptions(id: searchedProfileId),
+                service.addToSubscribers(id: searchedProfileId)
+            )
+            
+            return publishers
+                .print("Subscribe publisher")
+                .subscribe(on: DispatchQueue.global())
+                .map { (isAddedToSubscriptions: Bool, isAddedToSubscribers: Bool) -> AppAction in
+                    if isAddedToSubscriptions && isAddedToSubscribers {
+                        return AppAction.people(action: .updateSearchedProfileDataBy(id: searchedProfileId))
+                    } else {
+                        return AppAction.people(action: .fetchError(error: "Try later =("))
+                    }
+                }
+                .catch { (error: Error) -> Just<AppAction> in
+                    return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
+                }
+                .eraseToAnyPublisher()
+        case .people(action: .unsubscribe):
+            guard let searchedProfileId = state.people.searchedProfile?.id else {
+                return Empty().eraseToAnyPublisher()
+            }
+            
+            let publishers = Publishers.Zip(
+                service.removeFromSubscriptions(id: searchedProfileId),
+                service.removeFromSubscribers(id: searchedProfileId)
+            )
+            
+            return publishers
+                .print("Unsubscribe publisher")
+                .subscribe(on: DispatchQueue.global())
+                .map { (isRemovedFromSubscriptions: Bool, isRemovedFromSubscribers: Bool) -> AppAction in
+                    if isRemovedFromSubscriptions && isRemovedFromSubscribers {
+                        return AppAction.people(action: .updateSearchedProfileDataBy(id: searchedProfileId))
+                    } else {
+                        return AppAction.people(action: .fetchError(error: "Try later =("))
+                    }
+                }
+                .catch { (error: Error) -> Just<AppAction> in
+                    return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
+                }
                 .eraseToAnyPublisher()
         default:
             break

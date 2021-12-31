@@ -60,5 +60,12 @@ func peopleReducer(state: inout PeopleState, action: PeopleAction) -> Void {
         state.searchedProfileWishes.removeAll()
     case .prepareWishDetailsFor(let index):
         state.searchedProfileWishDetails = state.searchedProfileWishes[index]
+    case .updateSearchedProfileDataBy(id: _):
+        state.subscribeIsDisabled = true
+    case .updateSearchedProfileDataComplete(let data):
+        state.searchedProfile = data
+        state.subscribeIsDisabled = false
+    default:
+        break
     }
 }

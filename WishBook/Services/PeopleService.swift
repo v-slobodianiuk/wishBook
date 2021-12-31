@@ -15,6 +15,12 @@ protocol PeopleServiceProtocol {
     func cancellPreviousSearch()
     func searchData(key: String) -> AnyPublisher<[ProfileModel],Error>
     func loadMore() -> AnyPublisher<[ProfileModel], Error>
+    
+    func addToSubscriptions(id: String?) -> AnyPublisher<Bool, Error>
+    func removeFromSubscriptions(id: String?) -> AnyPublisher<Bool, Error>
+    
+    func addToSubscribers(id: String?) -> AnyPublisher<Bool, Error>
+    func removeFromSubscribers(id: String?) -> AnyPublisher<Bool, Error>
 }
 
 final class PeopleService: PeopleServiceProtocol {
@@ -41,7 +47,6 @@ final class PeopleService: PeopleServiceProtocol {
     func searchData(key: String) -> AnyPublisher<[ProfileModel], Error> {
         Deferred {
             Future { [weak self] promise in
-                print(#function)
                 guard let self = self, !UserStorage.profileUserId.isEmpty else {
                     return
                 }
@@ -115,6 +120,89 @@ final class PeopleService: PeopleServiceProtocol {
                     }
             }
 
+        }.eraseToAnyPublisher()
+    }
+    
+    func addToSubscriptions(id: String?) -> AnyPublisher<Bool, Error> {
+        Deferred {
+            Future { [weak self] promise in
+                guard !UserStorage.profileUserId.isEmpty, let subscriptionId = id else { return }
+                
+                self?.db.collection(FirestoreCollection[.users])
+                    .document(UserStorage.profileUserId)
+                    .updateData([
+                        "subscriptions" : FieldValue.arrayUnion([subscriptionId])
+                    ]) { error in
+                        if let error = error {
+                            promise(.failure(error))
+                            print("subscribeTo error: \(error.localizedDescription)")
+                        }
+                        
+                        promise(.success(true))
+                    }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    func removeFromSubscriptions(id: String?) -> AnyPublisher<Bool, Error> {
+        Deferred {
+            Future { [weak self] promise in
+                guard !UserStorage.profileUserId.isEmpty, let subscriptionId = id else { return }
+                self?.db.collection(FirestoreCollection[.users])
+                    .document(UserStorage.profileUserId)
+                    .updateData([
+                        "subscriptions" : FieldValue.arrayRemove([subscriptionId])
+                    ]) { error in
+                        if let error = error {
+                            promise(.failure(error))
+                            print("unsubscribeFrom error: \(error.localizedDescription)")
+                        }
+                        
+                        promise(.success(true))
+                    }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    func addToSubscribers(id: String?) -> AnyPublisher<Bool, Error> {
+        Deferred {
+            Future { [weak self] promise in
+                guard !UserStorage.profileUserId.isEmpty, let subscriptionId = id else { return }
+                    
+                self?.db.collection(FirestoreCollection[.users])
+                    .document(subscriptionId)
+                    .updateData([
+                        "subscribers" : FieldValue.arrayUnion([UserStorage.profileUserId])
+                    ]) { error in
+                        if let error = error {
+                            promise(.failure(error))
+                            print("Add to subscribers error: \(error.localizedDescription)")
+                        }
+
+                        promise(.success(true))
+                    }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    func removeFromSubscribers(id: String?) -> AnyPublisher<Bool, Error> {
+        Deferred {
+            Future { [weak self] promise in
+                guard !UserStorage.profileUserId.isEmpty, let subscriptionId = id else { return }
+                    
+                self?.db.collection(FirestoreCollection[.users])
+                    .document(subscriptionId)
+                    .updateData([
+                        "subscribers" : FieldValue.arrayRemove([UserStorage.profileUserId])
+                    ]) { error in
+                        if let error = error {
+                            promise(.failure(error))
+                            print("Remove from subscribers error: \(error.localizedDescription)")
+                        }
+
+                        promise(.success(true))
+                    }
+            }
         }.eraseToAnyPublisher()
     }
 }

@@ -42,9 +42,7 @@ struct PeopleView: View {
                     Image(systemName: "rectangle.badge.person.crop")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        //.foregroundColor(.selectedTabItem)
                         .foregroundColor(.gray)
-                        //.foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
                         .frame(width: 250, height: 250, alignment: .center)
                 } else {
                     resultListView

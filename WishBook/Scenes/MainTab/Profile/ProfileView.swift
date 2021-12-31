@@ -34,7 +34,7 @@ struct ProfileView: View {
             ImagePicker(imageData: self.$inputImageData)
         }
         .onAppear {
-            store.dispatch(action: .profile(action: .fetch(force: false)))
+            store.dispatch(action: .profile(action: .fetch))
         }
     }
     

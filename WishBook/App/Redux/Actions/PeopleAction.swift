@@ -23,4 +23,9 @@ enum PeopleAction {
     case clearSearchedProfileData
     
     case prepareWishDetailsFor(index: Int)
+    
+    case subscribe
+    case unsubscribe
+    case updateSearchedProfileDataBy(id: String)
+    case updateSearchedProfileDataComplete(data: ProfileModel)
 }

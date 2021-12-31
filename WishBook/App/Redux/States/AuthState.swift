@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
-import Firebase
 
 struct AuthState {
     var fetchInProgress: Bool = false

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 struct PeopleState {
     var peopleList = [ProfileModel] ()
@@ -20,7 +19,6 @@ struct PeopleState {
     var paginationLimit: Int = 20
     var errorMessage: String? = nil
     
-    
     var searchedProfileWishes: [WishListModel] = [WishListModel]()
     var searchedProfileWishDetails: WishListModel?
     
@@ -28,10 +26,10 @@ struct PeopleState {
     var wishesPaginationInProgress: Bool = false
     var wishesFullDataLoadingCompleted: Bool = false
     
+    var subscribeIsDisabled: Bool = false
+    
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        //let region = Locale.current
-        //print("locate: \(region)")
         formatter.locale = Locale(identifier: "ru-UA")
         formatter.dateFormat = "d MMMM"
         return formatter

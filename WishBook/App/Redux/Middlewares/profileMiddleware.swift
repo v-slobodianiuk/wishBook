@@ -12,29 +12,43 @@ import Combine
 func profileMiddleware(service: ProfileServiceProtocol, storageService: FirebaseStorageServiceProtocol) -> Middleware<AppState, AppAction> {
     return { (state: AppState, action: AppAction) -> AnyPublisher<AppAction, Never> in
         switch action {
-        case .profile(action: .fetch(let force)):
-            guard state.profile.profileData == nil || force else {
+        case .profile(action: .fetch):
+            guard !service.profileDataListenerIsActive() else {
                 return Empty().eraseToAnyPublisher()
             }
             
-            return service.loadDataByUserId(nil)
+            let publisher: AnyPublisher<AppAction, Never> = service.profileDataPublisher()
                 .print("Fetch profile data")
                 .subscribe(on: DispatchQueue.global())
+                //.removeDuplicates()
                 .map { (data: ProfileModel) -> AppAction in
                     return AppAction.profile(action: .fetchComplete(data: data))
                 }
-                .catch { (error: ProfileServiceError) -> Just<AppAction> in
-                    switch error {
-                    case .userIdNotFound:
-                        return Just(AppAction.profile(action: .fetchError(error: "SignOut needed!")))
-                    case .notFound:
-                        return Just(AppAction.profile(action: .fetchError(error: "Oops! Not found =(")))
-                    case .unknown(let message):
-                        return Just(AppAction.profile(action: .fetchError(error: message)))
-                    }
-                }
                 .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
                 .eraseToAnyPublisher()
+            
+            service.startProfileDataListener()
+            
+            return publisher
+//            return service.loadDataByUserId(nil)
+//                .print("Fetch profile data")
+//                .subscribe(on: DispatchQueue.global())
+//                .map { (data: ProfileModel) -> AppAction in
+//                    return AppAction.profile(action: .fetchComplete(data: data))
+//                }
+//                .catch { (error: ProfileServiceError) -> Just<AppAction> in
+//                    switch error {
+//                    case .userIdNotFound:
+//                        return Just(AppAction.profile(action: .fetchError(error: "SignOut needed!")))
+//                    case .notFound:
+//                        return Just(AppAction.profile(action: .fetchError(error: "Oops! Not found =(")))
+//                    case .unknown(let message):
+//                        return Just(AppAction.profile(action: .fetchError(error: message)))
+//                    }
+//                }
+//                .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
+//                .eraseToAnyPublisher()
+            
         case .profile(action: .uploadProfilePhoto(data: let data)):
             guard let userId = state.profile.profileData?.id else {
                 return Empty().eraseToAnyPublisher()
@@ -55,7 +69,7 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
                         .eraseToAnyPublisher()
                 }
                 .map { (_) -> AppAction in
-                    return AppAction.profile(action: .fetch(force: true))
+                    return AppAction.profile(action: .updatedCompleted)
                 }
                 .catch { (error: ProfileServiceError) -> Just<AppAction> in
                     switch error {
@@ -86,7 +100,7 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
                 .print("Update profile data")
                 .subscribe(on: DispatchQueue.global())
                 .map { (_) -> AppAction in
-                    return AppAction.profile(action: .fetch(force: true))
+                    return AppAction.profile(action: .updatedCompleted)
                 }
                 .catch { (error: ProfileServiceError) -> Just<AppAction> in
                     switch error {
@@ -121,7 +135,7 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
                     return isUpdated
                 }
                 .map { (_) -> AppAction in
-                    return AppAction.profile(action: .fetch(force: true))
+                    return AppAction.profile(action: .updatedCompleted)
                 }
                 .eraseToAnyPublisher()
             

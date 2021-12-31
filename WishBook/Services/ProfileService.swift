@@ -22,17 +22,24 @@ enum ProfileKey: String {
 
 protocol ProfileServiceProtocol {
     func loadDataByUserId(_ userId: String?) -> AnyPublisher<ProfileModel, ProfileServiceError>
-    func updateData(_ data: ProfileModel) -> AnyPublisher<ProfileModel, ProfileServiceError>
+    func updateData(_ data: ProfileModel) -> AnyPublisher<Bool, ProfileServiceError>
+    func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never>
+    
     func startWishesListener()
     func wishCounterListenerIsActive() -> Bool
     func wishesCountPublisher() -> AnyPublisher<Int, Never>
-    func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never>
+    
+    func startProfileDataListener()
+    func profileDataListenerIsActive() -> Bool
+    func profileDataPublisher() -> AnyPublisher<ProfileModel, Never>
 }
 
 final class ProfileService: ProfileServiceProtocol {
     private let db = Firestore.firestore()
-    private let subject = PassthroughSubject<Int, Never>()
+    private let wishesCountSubject = PassthroughSubject<Int, Never>()
+    private let profileSubject = PassthroughSubject<ProfileModel, Never>()
     private var wishCounterListener: ListenerRegistration?
+    private var profileDataListener: ListenerRegistration?
     
     func loadDataByUserId(_ userId: String?) -> AnyPublisher<ProfileModel, ProfileServiceError> {
         Deferred {
@@ -76,7 +83,7 @@ final class ProfileService: ProfileServiceProtocol {
         }.eraseToAnyPublisher()
     }
     
-    func updateData(_ data: ProfileModel) -> AnyPublisher<ProfileModel, ProfileServiceError> {
+    func updateData(_ data: ProfileModel) -> AnyPublisher<Bool, ProfileServiceError> {
         Deferred {
             Future { [weak self] promise in
                 guard !UserStorage.profileUserId.isEmpty else {
@@ -89,7 +96,7 @@ final class ProfileService: ProfileServiceProtocol {
                     try self?.db.collection(FirestoreCollection[.users])
                         .document(UserStorage.profileUserId)
                         .setData(from: confiredData)
-                    promise(.success(data))
+                    promise(.success(true))
                 } catch {
                     promise(.failure(.unknown(message: error.localizedDescription)))
                 }
@@ -108,17 +115,53 @@ final class ProfileService: ProfileServiceProtocol {
                 }
                 
                 if let snapshotCount = querySnapshot?.count {
-                    self?.subject.send(snapshotCount)
+                    self?.wishesCountSubject.send(snapshotCount)
+                }
+            }
+    }
+    
+    func startProfileDataListener() {
+        guard !UserStorage.profileUserId.isEmpty, profileDataListener == nil else { return }
+        profileDataListener = db.collection(FirestoreCollection[.users])
+            .document(UserStorage.profileUserId)
+            .addSnapshotListener { [weak self] (querySnapshot, error) in
+                DispatchQueue.global().async {
+                    let result = Result {
+                        try querySnapshot?.data(as: ProfileModel.self)
+                    }
+                    
+                    switch result {
+                    case .success(let document):
+                        guard let profile = document else {
+                            // A nil value was successfully initialized from the DocumentSnapshot,
+                            // or the DocumentSnapshot was nil.
+                            return
+                        }
+                        
+                        // Data value was successfully initialized from the DocumentSnapshot.
+                        self?.profileSubject.send(profile)
+                    case .failure(let error):
+                        // Data value could not be initialized from the DocumentSnapshot.
+                        print("Profile data listener error: \(error.localizedDescription)")
+                    }
                 }
             }
     }
     
     func wishesCountPublisher() -> AnyPublisher<Int, Never> {
-        return subject.eraseToAnyPublisher()
+        return wishesCountSubject.eraseToAnyPublisher()
+    }
+    
+    func profileDataPublisher() -> AnyPublisher<ProfileModel, Never> {
+        return profileSubject.eraseToAnyPublisher()
     }
     
     func wishCounterListenerIsActive() -> Bool {
         return wishCounterListener != nil
+    }
+    
+    func profileDataListenerIsActive() -> Bool {
+        return profileDataListener != nil
     }
     
     func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never> {
