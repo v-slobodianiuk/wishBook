@@ -13,6 +13,7 @@ enum PeopleAction {
     case fetchMore
     case fetchMoreComplete(data: [ProfileModel])
     case fetchError(error: String?)
+    case clearSearch
     
     case prepareProfileDataFor(index: Int)
     
@@ -28,4 +29,7 @@ enum PeopleAction {
     case unsubscribe
     case updateSearchedProfileDataBy(id: String)
     case updateSearchedProfileDataComplete(data: ProfileModel)
+    
+    case subscribersList(data: ProfileModel)
+    case subscriptionsList(data: ProfileModel)
 }

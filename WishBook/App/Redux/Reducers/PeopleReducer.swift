@@ -65,6 +65,10 @@ func peopleReducer(state: inout PeopleState, action: PeopleAction) -> Void {
     case .updateSearchedProfileDataComplete(let data):
         state.searchedProfile = data
         state.subscribeIsDisabled = false
+    case .subscribersList, .subscriptionsList:
+        state.fetchInProgress = true
+    case .clearSearch:
+        state.peopleList.removeAll()
     default:
         break
     }

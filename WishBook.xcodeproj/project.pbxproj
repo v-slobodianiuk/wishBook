@@ -82,6 +82,8 @@
 		D5C5869E26C97FF400BFF6A5 /* FirebaseStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C5869D26C97FF400BFF6A5 /* FirebaseStorageService.swift */; };
 		D5C5BBEF277DB9540034E989 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C5BBEE277DB9540034E989 /* Globals.swift */; };
 		D5CE4F882718518D009B4644 /* StatisticBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CE4F872718518D009B4644 /* StatisticBlockView.swift */; };
+		D5D33E45277F3503008CE277 /* Environment+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D33E44277F3503008CE277 /* Environment+Extension.swift */; };
+		D5D33E47277F35A4008CE277 /* TabItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D33E46277F35A4008CE277 /* TabItems.swift */; };
 		D5E62F2C2611E96C0094BAF9 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E62F2B2611E96C0094BAF9 /* SearchView.swift */; };
 		D5E7511626496F6200C2D20A /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E7511526496F6200C2D20A /* TextView.swift */; };
 		D5FB2E0526C645160036B4E9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D5FB2E0426C645160036B4E9 /* FirebaseFirestore */; };
@@ -191,6 +193,8 @@
 		D5C5869D26C97FF400BFF6A5 /* FirebaseStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageService.swift; sourceTree = "<group>"; };
 		D5C5BBEE277DB9540034E989 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		D5CE4F872718518D009B4644 /* StatisticBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticBlockView.swift; sourceTree = "<group>"; };
+		D5D33E44277F3503008CE277 /* Environment+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Environment+Extension.swift"; sourceTree = "<group>"; };
+		D5D33E46277F35A4008CE277 /* TabItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItems.swift; sourceTree = "<group>"; };
 		D5E62F2B2611E96C0094BAF9 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		D5E7511526496F6200C2D20A /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -452,6 +456,7 @@
 				D55CC74925F546FC00E5C04F /* ProfileModel.swift */,
 				D55CC77F25F6BE7300E5C04F /* WishListModel.swift */,
 				D58D27B92718285B00F9A91B /* PeopleFilter.swift */,
+				D5D33E46277F35A4008CE277 /* TabItems.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -507,6 +512,7 @@
 			isa = PBXGroup;
 			children = (
 				D599146425F53DAD005F2F23 /* Colors.swift */,
+				D5D33E44277F3503008CE277 /* Environment+Extension.swift */,
 				D59914CD25F54062005F2F23 /* StringLocalized.swift */,
 				D573367F2611E4A700C11EC0 /* UIExtensions.swift */,
 				D5B7F02026815C1900D578F1 /* Optional.swift */,
@@ -733,12 +739,14 @@
 				D53F493C276A686E000A9738 /* AppState.swift in Sources */,
 				D53F494D276A6A59000A9738 /* WishesAction.swift in Sources */,
 				D5A182622773BBDA0099709C /* peopleMiddleware.swift in Sources */,
+				D5D33E45277F3503008CE277 /* Environment+Extension.swift in Sources */,
 				D55CC79C25F6C6A100E5C04F /* WishDetailsView.swift in Sources */,
 				D5A1825C2773BA410099709C /* PeopleState.swift in Sources */,
 				D599143125F528DC005F2F23 /* ProfileView.swift in Sources */,
 				D5B7F02126815C1900D578F1 /* Optional.swift in Sources */,
 				D53D0E2525F3B96500E5C2D7 /* AppDelegateFactory.swift in Sources */,
 				D5C5BBEF277DB9540034E989 /* Globals.swift in Sources */,
+				D5D33E47277F35A4008CE277 /* TabItems.swift in Sources */,
 				D53F4954276A6B96000A9738 /* ProfileReducer.swift in Sources */,
 				D53D0E1525F3B64500E5C2D7 /* CompositeAppDelegate.swift in Sources */,
 				D5BBC79C277DFE9D0048CBF4 /* SearchTextFieldView.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum PeopleFilter {
+enum PeopleFilter: Hashable {
     case all
     case subscribers
     case subscriptions

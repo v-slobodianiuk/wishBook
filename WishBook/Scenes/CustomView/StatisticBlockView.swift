@@ -17,16 +17,12 @@ struct StatisticBlockView: View {
     }
     
     var body: some View {
-        HStack() {
-            //router.showPeople(filter: .subscribers) {
-                statisticView(count: count.subscribers, title: "PROFILE_SUBSCRIBERS_COUNT_TITLE".localized)
-            //}
-
+        HStack {
+            statisticView(count: count.subscribers, title: "PROFILE_SUBSCRIBERS_COUNT_TITLE".localized)
+            
             profileHorizontalDivider()
             
-            //router.showPeople(filter: .subscriptions) {
-                statisticView(count: count.subscriptions, title: "PROFILE_SUBSCRIPTIONS_COUNT_TITLE".localized)
-            //}
+            statisticView(count: count.subscriptions, title: "PROFILE_SUBSCRIPTIONS_COUNT_TITLE".localized)
             
             profileHorizontalDivider()
             

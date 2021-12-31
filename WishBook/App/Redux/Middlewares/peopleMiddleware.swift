@@ -141,6 +141,30 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
                     return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
                 }
                 .eraseToAnyPublisher()
+        case .people(action: .subscribersList(let data)):
+            return service.loadPeopleByFilter(profile: data, filter: .subscribers)
+                .print("Subscribers List Publisher")
+                .subscribe(on: DispatchQueue.global())
+                .map { (data: [ProfileModel]) -> AppAction in
+                    return AppAction.people(action: .fetchComplete(data: data))
+                }
+                .catch { (error: Error) -> Just<AppAction> in
+                    return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
+                }
+                .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
+                .eraseToAnyPublisher()
+        case .people(action: .subscriptionsList(let data)):
+            return service.loadPeopleByFilter(profile: data, filter: .subscriptions)
+                .print("Subscribers List Publisher")
+                .subscribe(on: DispatchQueue.global())
+                .map { (data: [ProfileModel]) -> AppAction in
+                    return AppAction.people(action: .fetchComplete(data: data))
+                }
+                .catch { (error: Error) -> Just<AppAction> in
+                    return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
+                }
+                .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
+                .eraseToAnyPublisher()
         default:
             break
         }

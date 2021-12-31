@@ -14,22 +14,43 @@ struct PeopleView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var searchText: String = ""
     @State private var navLinkIsActive: Bool = false
+    @State private var filterSegment: PeopleFilter = .all
     
     var body: some View {
-        NavigationView {
-            VStack {
-                SearchTextFieldView(searchText: $searchText)
-                    .onChange(of: searchText) { newValue in
-                        withAnimation {
-                            store.dispatch(action: .people(action: .fetch(searchText: newValue)))
-                        }
+        VStack {
+            SearchTextFieldView(searchText: $searchText)
+                .onChange(of: searchText) { newValue in
+                    if newValue.isEmpty { store.dispatch(action: .clearData) }
+                    
+                    withAnimation {
+                        filterSegment = .all
+                        store.dispatch(action: .people(action: .fetch(searchText: newValue)))
                     }
-
-                emptyView
+                }
+            
+            Picker("", selection: $filterSegment) {
+                Text("All").tag(PeopleFilter.all)
+                Text("Subscribers").tag(PeopleFilter.subscribers)
+                Text("Subscriptions").tag(PeopleFilter.subscriptions)
             }
-            .navigationBarTitle("FRIENDS_NAV_TITLE".localized)
+            .onChange(of: filterSegment) { newValue in
+                guard let profileData = store.state.profile.profileData else { return }
+                switch newValue {
+                case .all:
+                    store.dispatch(action: .people(action: .clearSearch))
+                case .subscribers:
+                    store.dispatch(action: .people(action: .subscribersList(data: profileData)))
+                case .subscriptions:
+                    store.dispatch(action: .people(action: .subscriptionsList(data: profileData)))
+                }
+            }
+            .padding(.vertical, 8)
+            .padding(.horizontal)
+            .pickerStyle(SegmentedPickerStyle())
+            
+            emptyView
         }
-        .navigationViewStyle(.stack)
+        .navigationBarTitle("FRIENDS_NAV_TITLE".localized)
     }
     
     @ViewBuilder
@@ -50,6 +71,9 @@ struct PeopleView: View {
             }
         }
         .frame(maxHeight: .infinity)
+        .onTapGesture {
+            endEditing()
+        }
     }
     
     @ViewBuilder

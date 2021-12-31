@@ -18,23 +18,17 @@ struct ProfileView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        NavigationView {
-            Group {
-                if store.state.profile.fetchInProgress {
-                    ProgressView()
-                } else {
-                    contentView
-                }
+        Group {
+            if store.state.profile.fetchInProgress {
+                ProgressView()
+            } else {
+                contentView
             }
-            .navigationBarTitle("PROFILE_NAV_TITLE".localized)
-            .navigationBarItems(trailing: trailingNavBarItems)
         }
-        .navigationViewStyle(.stack)
+        .navigationBarTitle("PROFILE_NAV_TITLE".localized)
+        .navigationBarItems(trailing: trailingNavBarItems)
         .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
             ImagePicker(imageData: self.$inputImageData)
-        }
-        .onAppear {
-            store.dispatch(action: .profile(action: .fetch))
         }
     }
     

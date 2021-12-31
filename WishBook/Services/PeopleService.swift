@@ -21,6 +21,8 @@ protocol PeopleServiceProtocol {
     
     func addToSubscribers(id: String?) -> AnyPublisher<Bool, Error>
     func removeFromSubscribers(id: String?) -> AnyPublisher<Bool, Error>
+    
+    func loadPeopleByFilter(profile: ProfileModel, filter: PeopleFilter) -> AnyPublisher<[ProfileModel], Error>
 }
 
 final class PeopleService: PeopleServiceProtocol {
@@ -205,4 +207,54 @@ final class PeopleService: PeopleServiceProtocol {
             }
         }.eraseToAnyPublisher()
     }
+    
+    func loadPeopleByFilter(profile: ProfileModel, filter: PeopleFilter) -> AnyPublisher<[ProfileModel], Error> {
+            Deferred {
+                Future { [weak self] promise in
+                    var searchedIds: [String]?
+                    
+                    switch filter {
+                    case .subscribers:
+                        searchedIds = profile.subscribers
+                    case .subscriptions:
+                        searchedIds = profile.subscriptions
+                    default: break
+                    }
+                    
+                    guard let searchedIds = searchedIds, !searchedIds.isEmpty else {
+                        promise(.success([]))
+                        return
+                    }
+                    
+                    self?.db.collection(FirestoreCollection[.users])
+                        .whereField("userId", in: searchedIds)
+                        .getDocuments { (querySnapshot, error) in
+                            DispatchQueue.global().async {
+                                let result = Result {
+                                    try querySnapshot?.documents.compactMap {
+                                        try $0.data(as: ProfileModel.self)
+                                    }
+                                }
+                                
+                                switch result {
+                                case .success(let documents):
+                                    guard let peopleList = documents else {
+                                        // A nil value was successfully initialized from the DocumentSnapshot,
+                                        // or the DocumentSnapshot was nil.
+                                        promise(.success([]))
+                                        return
+                                    }
+                                    
+                                    // Data value was successfully initialized from the DocumentSnapshot.
+                                    promise(.success(peopleList))
+                                case .failure(let error):
+                                    // Data value could not be initialized from the DocumentSnapshot.
+                                    promise(.failure(error))
+                                }
+                            }
+                        }
+                    
+                }
+            }.eraseToAnyPublisher()
+        }
 }

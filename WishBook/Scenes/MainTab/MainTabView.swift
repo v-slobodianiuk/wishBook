@@ -9,44 +9,50 @@ import SwiftUI
 
 struct MainTabView: View {
     
-    @State private var tabItem = TabItems.wishListView
+    @EnvironmentObject var store: AppStore
     @Environment(\.colorScheme) var colorScheme
+    @State private var tabItem = TabItems.wishListView
     
     var body: some View {
         TabView(selection: $tabItem) {
-            screenFactory.makePeopleView()
-                .tabItem {
-                    Image(systemName: "person.2.fill")
-                    Text("People")
-                }
-                .tag(TabItems.friendsView)
+            NavigationView {
+                screenFactory.makePeopleView()
+            }
+            .navigationViewStyle(.stack)
+            .tabItem {
+                Image(systemName: "person.2.fill")
+                Text("People")
+            }
+            .tag(TabItems.friendsView)
             
-            screenFactory.makeWishListView()
-                .tabItem {
-                    Image(systemName: "list.triangle")
-                    Text("Wish List")
-                }
-                .tag(TabItems.wishListView)
+            NavigationView {
+                screenFactory.makeWishListView()
+            }
+            .navigationViewStyle(.stack)
+            .tabItem {
+                Image(systemName: "list.triangle")
+                Text("Wish List")
+            }
+            .tag(TabItems.wishListView)
             
-            screenFactory.makeProfileView()
-                .tabItem {
-                    Image(systemName: "person.crop.circle.fill")
-                    Text("PROFILE_TAB_ITEM".localized)
-                }
-                .tag(TabItems.profileView)
+            NavigationView {
+                screenFactory.makeProfileView()
+            }
+            .navigationViewStyle(.stack)
+            .tabItem {
+                Image(systemName: "person.crop.circle.fill")
+                Text("PROFILE_TAB_ITEM".localized)
+            }
+            .tag(TabItems.profileView)
         }
         .accentColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
         .onAppear {
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithDefaultBackground()
             UITabBar.appearance().standardAppearance = tabBarAppearance
+            
+            store.dispatch(action: .profile(action: .fetch))
         }
-    }
-}
-
-extension MainTabView {
-    enum TabItems: Hashable {
-        case friendsView, wishListView, profileView
     }
 }
 

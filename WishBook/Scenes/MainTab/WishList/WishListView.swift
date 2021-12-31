@@ -15,20 +15,17 @@ struct WishListView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        return NavigationView {
-            ZStack {
-                if store.state.wishes.fetchInProgress {
-                    ProgressView()
-                } else {
-                    VStack(alignment: .leading) {
-                        listView
-                    }
+        ZStack {
+            if store.state.wishes.fetchInProgress {
+                ProgressView()
+            } else {
+                VStack(alignment: .leading) {
+                    listView
                 }
             }
-            .navigationBarTitle("WISH_LIST_NAV_TITLE".localized)
-            .navigationBarItems(trailing: setupTrailingNavBarItems)
         }
-        .navigationViewStyle(.stack)
+        .navigationBarTitle("WISH_LIST_NAV_TITLE".localized)
+        .navigationBarItems(trailing: setupTrailingNavBarItems)
     }
     
     @ViewBuilder
