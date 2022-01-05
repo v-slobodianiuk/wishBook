@@ -17,11 +17,8 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
                 .print("! Fetch Auth State")
                 .subscribe(on: DispatchQueue.global())
                 .removeDuplicates()
-                .filter { (newProfileId) -> Bool in
-                    return newProfileId != UserStorage.profileUserId
-                }
                 .map { (newProfileId) -> AppAction in
-                    UserStorage.profileUserId = newProfileId
+                    UserStorage.profileUserId = newProfileId ?? ""
                     return AppAction.auth(action: .status(isLoggedIn: !UserStorage.profileUserId.isEmpty))
                 }
             

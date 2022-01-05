@@ -17,7 +17,7 @@ enum UserState {
 
 protocol GoogleAuthServiceProtocol {
     func startAuthListener()
-    func checkState() -> AnyPublisher<String, Never>
+    func checkState() -> AnyPublisher<String?, Never>
     func createUser(email: String, password: String) -> AnyPublisher<UserState, Error>
     func signInUser()
     func addUserDataIfNeeded()
@@ -27,11 +27,11 @@ protocol GoogleAuthServiceProtocol {
 final class GoogleAuthService: GoogleAuthServiceProtocol {
     
     
-    private let subject = PassthroughSubject<String, Never>()
+    private let subject = PassthroughSubject<String?, Never>()
     private let db = Firestore.firestore()
     private var authListener: AuthStateDidChangeListenerHandle?
     
-    func checkState() -> AnyPublisher<String, Never> {
+    func checkState() -> AnyPublisher<String?, Never> {
         return subject
             .eraseToAnyPublisher()
     }
@@ -39,7 +39,7 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
     func startAuthListener() {
         guard authListener == nil else { return }
         authListener = Auth.auth().addStateDidChangeListener { [weak self] (auth, _) in
-            self?.subject.send(auth.currentUser?.uid ?? "")
+            self?.subject.send(auth.currentUser?.uid)
         }
     }
     
