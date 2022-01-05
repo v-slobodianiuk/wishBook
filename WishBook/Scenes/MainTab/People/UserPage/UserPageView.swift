@@ -97,25 +97,19 @@ struct UserPageView: View {
     private var listView: some View {
         List {
             ForEach(store.state.people.searchedProfileWishes.indices, id: \.self) { index in
-                ZStack {
-                    if index == store.state.people.getWishesLastIndexItem() && store.state.people.wishesPaginationInProgress {
-                        ProgressView()
-                    } else {
-                        Text(store.state.people.searchedProfileWishes[index].title)
-                            .onTapGesture {
-                                store.dispatch(action: .people(action: .prepareWishDetailsFor(index: index)))
-                                wishDetailsIsPresented.toggle()
-                            }
+                WishCellView(
+                    title: store.state.people.searchedProfileWishes[index].title,
+                    currentIndex: index,
+                    lastIndexItem: store.state.people.getWishesLastIndexItem(),
+                    paginationInProgress: store.state.people.wishesPaginationInProgress,
+                    fullLoadingComplete: store.state.people.wishesFullDataLoadingCompleted,
+                    loadingAction: {
+                        store.dispatch(action: .people(action: .prepareWishDetailsFor(index: index)))
+                        wishDetailsIsPresented.toggle()
+                    }, prepareAction: {
+                        store.dispatch(action: .people(action: .fetchWishesMore))
                     }
-                }
-                .onAppear {
-                    if index == store.state.people.getWishesLastIndexItem() {
-                        guard !store.state.people.wishesFullDataLoadingCompleted else { return }
-                        withAnimation {
-                            store.dispatch(action: .people(action: .fetchWishesMore))
-                        }
-                    }
-                }
+                )
             }
         }
         .onAppear {

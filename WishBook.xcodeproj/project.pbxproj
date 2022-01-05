@@ -84,6 +84,7 @@
 		D5CE4F882718518D009B4644 /* StatisticBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CE4F872718518D009B4644 /* StatisticBlockView.swift */; };
 		D5D33E45277F3503008CE277 /* Environment+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D33E44277F3503008CE277 /* Environment+Extension.swift */; };
 		D5D33E47277F35A4008CE277 /* TabItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D33E46277F35A4008CE277 /* TabItems.swift */; };
+		D5DE3AB42785E9BF00E09106 /* WishCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE3AB32785E9BF00E09106 /* WishCellView.swift */; };
 		D5E62F2C2611E96C0094BAF9 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E62F2B2611E96C0094BAF9 /* SearchView.swift */; };
 		D5E7511626496F6200C2D20A /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E7511526496F6200C2D20A /* TextView.swift */; };
 		D5FB2E0526C645160036B4E9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D5FB2E0426C645160036B4E9 /* FirebaseFirestore */; };
@@ -195,6 +196,7 @@
 		D5CE4F872718518D009B4644 /* StatisticBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticBlockView.swift; sourceTree = "<group>"; };
 		D5D33E44277F3503008CE277 /* Environment+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Environment+Extension.swift"; sourceTree = "<group>"; };
 		D5D33E46277F35A4008CE277 /* TabItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItems.swift; sourceTree = "<group>"; };
+		D5DE3AB32785E9BF00E09106 /* WishCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCellView.swift; sourceTree = "<group>"; };
 		D5E62F2B2611E96C0094BAF9 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		D5E7511526496F6200C2D20A /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -491,6 +493,7 @@
 		D599144825F52C0F005F2F23 /* WishList */ = {
 			isa = PBXGroup;
 			children = (
+				D5DE3AB52785E9E500E09106 /* Cell */,
 				D599142B25F528C9005F2F23 /* WishListView.swift */,
 				D55CC79125F6C66800E5C04F /* WishDetails */,
 			);
@@ -553,6 +556,14 @@
 				D5A182612773BBDA0099709C /* peopleMiddleware.swift */,
 			);
 			path = Middlewares;
+			sourceTree = "<group>";
+		};
+		D5DE3AB52785E9E500E09106 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D5DE3AB32785E9BF00E09106 /* WishCellView.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -757,6 +768,7 @@
 				D53F495D276B4AF8000A9738 /* AuthMiddleware.swift in Sources */,
 				D53F4940276A688E000A9738 /* AppAction.swift in Sources */,
 				D53F4952276A6B8F000A9738 /* AuthReducer.swift in Sources */,
+				D5DE3AB42785E9BF00E09106 /* WishCellView.swift in Sources */,
 				D53F494F276A6B3B000A9738 /* AppReducer.swift in Sources */,
 				D57336802611E4A700C11EC0 /* UIExtensions.swift in Sources */,
 				D55CC76F25F6A37100E5C04F /* FirestoreCollection.swift in Sources */,

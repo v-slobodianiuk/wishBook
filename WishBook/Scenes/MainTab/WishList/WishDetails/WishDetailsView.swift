@@ -24,10 +24,9 @@ struct WishDetailsView: View {
                         TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: $title)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .disabled(wishState == .readOnly)
-                        if (wishState == .editable) || url.isEmpty {
+                        if wishState != .readOnly {
                             TextField("WISH_ITEM_TITLE_LINK_PLACEHOLER".localized, text: $url)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .disabled(wishState == .readOnly)
                         }
                         Text("WISH_ITEM_TITLE_DESCRIPTION_PLACEHOLER".localized)
                             .font(.headline)
@@ -36,7 +35,7 @@ struct WishDetailsView: View {
                         TextView(text: $description)
                             .font(.systemFont(ofSize: 17))
                             .setBorder(borderColor: .lightGray, borderWidth: 0.25, cornerRadius: 5)
-                            .isEditable(wishState == .editable)
+                            .isEditable(wishState != .readOnly)
                             .frame(width: UIScreen.main.bounds.width - 32, height: 150, alignment: .leading)
                         LinkDataView(urlString: $url)
                             .frame(height: 150)
@@ -45,7 +44,7 @@ struct WishDetailsView: View {
                 }
                 .padding(.top)
                 Spacer()
-                if wishState == .editable {
+                if wishState != .readOnly {
                     Button(action: {
                         if !title.isEmpty {
                             store.dispatch(

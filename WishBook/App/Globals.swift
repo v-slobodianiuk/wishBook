@@ -7,6 +7,8 @@
 
 import Foundation
 
+public typealias Closure = () -> Void
+
 struct Globals {
     static let defaultAnimationDuration: Double = 0.24
 }

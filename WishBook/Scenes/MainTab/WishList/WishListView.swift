@@ -12,16 +12,14 @@ struct WishListView: View {
     @EnvironmentObject var store: AppStore
     @State private var wishDetailsIsPresented: Bool = false
     @State private var createNewWishIsPresented: Bool = false
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         ZStack {
             if store.state.wishes.fetchInProgress {
                 ProgressView()
             } else {
-                VStack(alignment: .leading) {
-                    listView
-                }
+                listView
             }
         }
         .navigationBarTitle("WISH_LIST_NAV_TITLE".localized)
@@ -32,25 +30,19 @@ struct WishListView: View {
     fileprivate var listView: some View {
         List {
             ForEach(store.state.wishes.wishList.indices, id: \.self) { index in
-                ZStack {
-                    if index == store.state.wishes.getLastIndexItem() && store.state.wishes.paginationInProgress {
-                        ProgressView()
-                    } else {
-                        Text(store.state.wishes.wishList[index].title)
-                            .onTapGesture {
-                                store.dispatch(action: .wishes(action: .prepareWishDetailsFor(index: index)))
-                                wishDetailsIsPresented.toggle()
-                            }
+                WishCellView(
+                    title: store.state.wishes.wishList[index].title,
+                    currentIndex: index,
+                    lastIndexItem: store.state.wishes.getLastIndexItem(),
+                    paginationInProgress: store.state.wishes.paginationInProgress,
+                    fullLoadingComplete: store.state.wishes.fullDataLoadingCompleted,
+                    loadingAction: {
+                        store.dispatch(action: .wishes(action: .prepareWishDetailsFor(index: index)))
+                        wishDetailsIsPresented.toggle()
+                    }, prepareAction: {
+                        store.dispatch(action: .wishes(action: .fetchMore))
                     }
-                }
-                .onAppear {
-                    if index == store.state.wishes.getLastIndexItem() {
-                        guard !store.state.wishes.fullDataLoadingCompleted else { return }
-                        withAnimation {
-                            store.dispatch(action: .wishes(action: .fetchMore))
-                        }
-                    }
-                }
+                )
             }
             .onDelete { indexSet in
                 guard let index = indexSet.first else { return }
@@ -91,6 +83,6 @@ struct WishListView: View {
 
 struct WishListView_Previews: PreviewProvider {
     static var previews: some View {
-        WishListView()
+        screenFactory.makeWishListView()
     }
 }
