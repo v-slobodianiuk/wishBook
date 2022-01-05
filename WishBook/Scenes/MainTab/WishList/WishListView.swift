@@ -63,7 +63,8 @@ struct WishListView: View {
             }
         }
         .sheet(isPresented: $wishDetailsIsPresented) {
-            screenFactory.makeWishDetailsView(isEditable: true)
+            screenFactory.makeWishDetailsView()
+                .wishState(.editable)
         }
     }
     
@@ -82,7 +83,8 @@ struct WishListView: View {
             })
         }
         .sheet(isPresented: $createNewWishIsPresented) {
-            screenFactory.makeWishDetailsView(isEditable: true)
+            screenFactory.makeWishDetailsView()
+                .wishState(.new)
         }
     }
 }

@@ -40,8 +40,8 @@ struct ScreenFactory {
             .environmentObject(di.getStore())
     }
     
-    func makeWishDetailsView(isEditable: Bool) -> some View {
-        WishDetailsView(isEditable: isEditable)
+    func makeWishDetailsView() -> some View {
+        WishDetailsView()
             .environmentObject(di.getStore())
     }
     

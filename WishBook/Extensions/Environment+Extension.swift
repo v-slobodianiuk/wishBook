@@ -7,33 +7,27 @@
 
 import SwiftUI
 
-private struct SearchResultFilterKey: EnvironmentKey {
-    static let defaultValue: PeopleFilter = .all
+enum WishState {
+    case new
+    case readOnly
+    case editable
+}
+
+//MARK: - Wish State
+private struct WishStateKey: EnvironmentKey {
+    static let defaultValue: WishState = .readOnly
 }
 
 extension EnvironmentValues {
-    var searchResultFilter: PeopleFilter {
-        get { self[SearchResultFilterKey.self] }
-        set { self[SearchResultFilterKey.self] = newValue }
-    }
-}
-
-//MARK: - CurrentTabKey
-private struct CurrentTabKey: EnvironmentKey {
-    //static let defaultValue: TabItems = .wishListView
-    static var defaultValue: Binding<TabItems> = .constant(.wishListView)
-}
-
-extension EnvironmentValues {
-    var currentTab: Binding<TabItems> {
-        get { self[CurrentTabKey.self] }
-        set { self[CurrentTabKey.self] = newValue }
+    var wishState: WishState {
+        get { self[WishStateKey.self] }
+        set { self[WishStateKey.self] = newValue }
     }
 }
 
 //MARK: - View Extension
 extension View {
-    func searchResultFilter(_ searchResultFilter: PeopleFilter) -> some View {
-        environment(\.searchResultFilter, searchResultFilter)
+    func wishState(_ state: WishState) -> some View {
+        environment(\.wishState, state)
     }
 }

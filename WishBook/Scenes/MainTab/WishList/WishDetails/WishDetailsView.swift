@@ -10,11 +10,11 @@ import SwiftUI
 struct WishDetailsView: View {
     @EnvironmentObject var store: AppStore
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.wishState) var wishState
     
     @State private var title: String = ""
     @State private var description: String = ""
     @State private var url: String = ""
-    let isEditable: Bool
     
     var body: some View {
         NavigationView {
@@ -23,11 +23,11 @@ struct WishDetailsView: View {
                     VStack(alignment: .leading) {
                         TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: $title)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .disabled(!isEditable)
-                        if isEditable || url.isEmpty {
+                            .disabled(wishState == .readOnly)
+                        if (wishState == .editable) || url.isEmpty {
                             TextField("WISH_ITEM_TITLE_LINK_PLACEHOLER".localized, text: $url)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .disabled(!isEditable)
+                                .disabled(wishState == .readOnly)
                         }
                         Text("WISH_ITEM_TITLE_DESCRIPTION_PLACEHOLER".localized)
                             .font(.headline)
@@ -36,7 +36,7 @@ struct WishDetailsView: View {
                         TextView(text: $description)
                             .font(.systemFont(ofSize: 17))
                             .setBorder(borderColor: .lightGray, borderWidth: 0.25, cornerRadius: 5)
-                            .isEditable(isEditable)
+                            .isEditable(wishState == .editable)
                             .frame(width: UIScreen.main.bounds.width - 32, height: 150, alignment: .leading)
                         LinkDataView(urlString: $url)
                             .frame(height: 150)
@@ -45,7 +45,7 @@ struct WishDetailsView: View {
                 }
                 .padding(.top)
                 Spacer()
-                if isEditable {
+                if wishState == .editable {
                     Button(action: {
                         if !title.isEmpty {
                             store.dispatch(
@@ -73,8 +73,10 @@ struct WishDetailsView: View {
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(trailing: setupTrailingNavBarItems())
             .onAppear {
+                guard wishState != .new else { return }
+                
                 let wish: WishListModel?
-                if isEditable {
+                if wishState == .editable {
                     wish = store.state.wishes.wishDetails
                 } else {
                     wish = store.state.people.searchedProfileWishDetails
@@ -83,7 +85,6 @@ struct WishDetailsView: View {
                 title = wish?.title ?? ""
                 url = wish?.url ?? ""
                 description = wish?.description ?? ""
-                
             }
         }
     }
@@ -102,7 +103,7 @@ struct WishDetailsView: View {
 
 struct WishDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        screenFactory.makeWishDetailsView(isEditable: true)
+        screenFactory.makeWishDetailsView()
             //.previewDevice(PreviewDevice(rawValue: "iPhone SE (1st generation)"))
             //.previewDisplayName("iPhone SE (1st generation)")
     }

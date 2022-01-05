@@ -122,7 +122,8 @@ struct UserPageView: View {
             store.dispatch(action: .people(action: .fetchWishes(limit: nil)))
         }
         .sheet(isPresented: $wishDetailsIsPresented) {
-            screenFactory.makeWishDetailsView(isEditable: false)
+            screenFactory.makeWishDetailsView()
+                .wishState(.readOnly)
         }
     }
 }
