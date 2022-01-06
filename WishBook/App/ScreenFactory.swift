@@ -54,4 +54,9 @@ struct ScreenFactory {
         EditProfileView()
             .environmentObject(di.getStore())
     }
+    
+    func makeChangePasswordView() -> some View {
+        ChangePasswordView()
+            .environmentObject(di.getStore())
+    }
 }

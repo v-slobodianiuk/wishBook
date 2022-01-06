@@ -13,6 +13,9 @@ enum AuthAction {
     case status(isLoggedIn: Bool)
     case logIn(login: String, password: String)
     case googleLogIn
+    case resetPassword(email: String)
+    case updatePassword(password: String)
+    
     case signOut
-    case fetchError(error: Error?)
+    case fetchError(error: String?)
 }

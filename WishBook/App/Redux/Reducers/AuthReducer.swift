@@ -27,9 +27,13 @@ func authReducer(state: inout AuthState, action: AuthAction) -> Void {
     case .signOut:
         break
     case .fetchError(error: let error):
-        print(error?.localizedDescription ?? "")
-        break
+        state.fetchInProgress = false
+        state.errorMessage = error
     case .fetchComplete:
         state.fetchInProgress = false
+    case .resetPassword(email: _):
+        state.fetchInProgress = true
+    case .updatePassword(password: _):
+        state.fetchInProgress = true
     }
 }

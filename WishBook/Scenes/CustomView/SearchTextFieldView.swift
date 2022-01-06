@@ -20,6 +20,7 @@ struct SearchTextFieldView: View {
                     .padding(.leading, 8)
                 TextField("PEOPLE_SEARCH_PLACEHOLDER".localized, text: $searchText)
                     .foregroundColor(.gray)
+                    .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .onChange(of: searchText) { newValue in
                         withAnimation {

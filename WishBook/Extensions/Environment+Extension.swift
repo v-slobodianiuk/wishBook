@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-enum WishState {
-    case new
-    case readOnly
-    case editable
-}
-
 //MARK: - Wish State
 private struct WishStateKey: EnvironmentKey {
     static let defaultValue: WishState = .readOnly

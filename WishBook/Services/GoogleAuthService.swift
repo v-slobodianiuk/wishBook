@@ -22,6 +22,9 @@ protocol GoogleAuthServiceProtocol {
     func signInUser()
     func addUserDataIfNeeded()
     func signOut()
+    
+    func updatePassword(password: String) -> AnyPublisher<Bool, Error>
+    func resetPassword(email: String) -> AnyPublisher<Bool, Error>
 }
 
 final class GoogleAuthService: GoogleAuthServiceProtocol {
@@ -50,7 +53,13 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
                     if let error = error {
                         if (error as NSError).code == AuthErrorCode.emailAlreadyInUse.rawValue {
                             //promise(.success(.existed))
-                            self?.loginUser(email: email, password: password)
+                            self?.loginUser(email: email, password: password) { error in
+                                if let error = error {
+                                    promise(.failure(error))
+                                } else {
+                                    promise(.success(.existed))
+                                }
+                            }
                         } else {
                             promise(.failure(error))
                         }
@@ -63,14 +72,9 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
         }.eraseToAnyPublisher()
     }
     
-    private func loginUser(email: String, password: String) {
+    private func loginUser(email: String, password: String, completion: @escaping (Error?) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            } else {
-                // User existed
-            }
+            completion(error)
         }
     }
 
@@ -81,7 +85,7 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
         let config = GIDConfiguration(clientID: clientID)
         
         // Start the sign in flow!
-        guard let rootVC = UIApplication.shared.windows.last?.rootViewController else { return }
+        guard let rootVC = UIApplication.shared.windows.first?.rootViewController else { return }
         GIDSignIn.sharedInstance.signIn(with: config, presenting: rootVC) { [weak self] user, error in
             
             if let error = error {
@@ -131,5 +135,35 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
                 print("updateData error: \(error.localizedDescription)")
             }
         }
+    }
+    
+    func resetPassword(email: String) -> AnyPublisher<Bool, Error> {
+        Deferred {
+            Future { promise in
+                Auth.auth().sendPasswordReset(withEmail: email) { error in
+                    if let error = error {
+                        promise(.failure(error))
+                        return
+                    }
+                    
+                    promise(.success(true))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    func updatePassword(password: String) -> AnyPublisher<Bool, Error> {
+        Deferred {
+            Future { promise in
+                Auth.auth().currentUser?.updatePassword(to: password) { error in
+                    if let error = error {
+                        promise(.failure(error))
+                        return
+                    }
+                    
+                    promise(.success(true))
+                }
+            }
+        }.eraseToAnyPublisher()
     }
 }
