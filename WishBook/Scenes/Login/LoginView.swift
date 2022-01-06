@@ -28,10 +28,13 @@ struct LoginView: View {
         } else {
             ZStack {
                 contentView
+                    .frame(maxHeight: .infinity)
+                    .contentShape(Rectangle())
+                    .resignKeyboardOnTapGesture()
                     .alert(isPresented: shouldDisplayError) {
                         Alert(
-                            title: Text(""),
-                            message: Text("PASSWORD_PROMPT".localized),
+                            title: Text("Failed"),
+                            message: Text(store.state.auth.errorMessage ?? ""),
                             dismissButton: .default(Text("OK"))
                         )
                     }

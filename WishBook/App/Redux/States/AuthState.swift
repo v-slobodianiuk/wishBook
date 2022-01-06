@@ -14,6 +14,8 @@ struct AuthState {
     var password: String = ""
     var errorMessage: String? = nil
     
+    var successfullyPaswordChanged: Bool = false
+    
     func isValidEmail(_ email: String) -> Bool {
         return EmailValidate.isValid(email)
     }

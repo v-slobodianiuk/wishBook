@@ -15,6 +15,7 @@ enum AuthAction {
     case googleLogIn
     case resetPassword(email: String)
     case updatePassword(password: String)
+    case updatePasswordComplete(isChanged: Bool)
     
     case signOut
     case fetchError(error: String?)

@@ -60,8 +60,8 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
             return service.updatePassword(password: password)
                 .print("Update password")
                 .subscribe(on: DispatchQueue.global())
-                .map { (success: Bool) -> AppAction in
-                    return AppAction.auth(action: success ? .fetchComplete : .fetchError(error: "Something was wrong. Try again") )
+                .map { (isChanged: Bool) -> AppAction in
+                    return AppAction.auth(action: .updatePasswordComplete(isChanged: isChanged))
                 }
                 .catch { (error: Error) -> Just<AppAction> in
                     return Just(AppAction.auth(action: .fetchError(error: error.localizedDescription)))

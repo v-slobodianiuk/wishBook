@@ -16,6 +16,7 @@ struct ChangePasswordView: View {
     @State private var confirmPassword: String = ""
     @State private var isValidPassword: Bool = false
     @State private var passwordPromptIsPresented: Bool = false
+    @State private var closeButtonIsPresented: Bool = true
     
     var body: some View {
         let shouldDisplayError = Binding<Bool>(
@@ -23,14 +24,28 @@ struct ChangePasswordView: View {
             set: { _ in store.dispatch(action: .auth(action: .fetchError(error: nil))) }
         )
         
-        contentView
-            .alert(isPresented: shouldDisplayError) {
-                return Alert(
-                    title: Text("Failed"),
-                    message: Text(store.state.auth.errorMessage ?? ""),
-                    dismissButton: .default(Text("OK"))
-                )
+        if store.state.auth.fetchInProgress {
+            ProgressView()
+        } else {
+            if store.state.auth.successfullyPaswordChanged {
+                successView
+            } else {
+                contentView
+                    .frame(maxHeight: .infinity)
+                    .contentShape(Rectangle())
+                    .resignKeyboardOnTapGesture() {
+                        guard !closeButtonIsPresented else { return }
+                        withAnimation { closeButtonIsPresented = true }
+                    }
+                    .alert(isPresented: shouldDisplayError) {
+                        return Alert(
+                            title: Text("Failed"),
+                            message: Text(store.state.auth.errorMessage ?? ""),
+                            dismissButton: .default(Text("OK"))
+                        )
+                    }
             }
+        }
     }
     
     fileprivate var contentView: some View {
@@ -68,6 +83,9 @@ struct ChangePasswordView: View {
                     withAnimation {
                         let isValid = store.state.auth.isValidPassword(password)
                         isValidPassword = (password == confirmPassword && isValid)
+                        
+                        guard !closeButtonIsPresented else { return }
+                        closeButtonIsPresented = true
                     }
                 }
                 .onChange(of: password) { currentText in
@@ -77,12 +95,19 @@ struct ChangePasswordView: View {
                         isValidPassword = (password == confirmPassword && isValid)
                     }
                 }
+                .onTapGesture {
+                    guard closeButtonIsPresented else { return }
+                    withAnimation { closeButtonIsPresented = false }
+                }
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 SecureField("Repeat Password", text: $confirmPassword) {
                     withAnimation {
                         let isValid = store.state.auth.isValidPassword(confirmPassword)
                         isValidPassword = (password == confirmPassword && isValid)
+                        
+                        guard !closeButtonIsPresented else { return }
+                        closeButtonIsPresented = true
                     }
                 }
                 .onChange(of: confirmPassword) { currentText in
@@ -92,6 +117,10 @@ struct ChangePasswordView: View {
                         isValidPassword = (password == confirmPassword && isValid)
                     }
                 }
+                .onTapGesture {
+                    guard closeButtonIsPresented else { return }
+                    withAnimation { closeButtonIsPresented = false }
+                }
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 if password != confirmPassword {
@@ -99,7 +128,9 @@ struct ChangePasswordView: View {
                 }
                 
                 Button("Confirm") {
-                    store.dispatch(action: .auth(action: .updatePassword(password: password)))
+                    withAnimation {
+                        store.dispatch(action: .auth(action: .updatePassword(password: password)))
+                    }
                 }
                 .opacity(!isValidPassword ? 0.5 : 1.0)
                 .disabled(!isValidPassword)
@@ -108,16 +139,9 @@ struct ChangePasswordView: View {
                 
                 Spacer()
                 
-                Button {
-                    presentationMode.wrappedValue.dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                if closeButtonIsPresented {
+                    closeButtonView
                 }
-                .padding()
-                
             }
             .padding(.horizontal)
 
@@ -125,6 +149,42 @@ struct ChangePasswordView: View {
                 PasswordPromptView(isPresented: $passwordPromptIsPresented)
             }
         }
+    }
+    
+    fileprivate var closeButtonView: some View {
+        Button {
+            store.dispatch(action: .auth(action: .updatePasswordComplete(isChanged: false)))
+            presentationMode.wrappedValue.dismiss()
+        } label: {
+            Image(systemName: "xmark.circle.fill")
+                .resizable()
+                .frame(width: 50, height: 50)
+                .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+        }
+        .padding()
+    }
+    
+    fileprivate var successView: some View {
+        VStack {
+            Spacer()
+            
+            Image(systemName: "checkmark.circle")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 200, height: 200)
+                .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                .opacity(0.2)
+            
+            Text("Success")
+                .font(Font.largeTitle)
+                .foregroundColor(.selectedTabItem)
+                .padding()
+            
+            Spacer()
+            
+            closeButtonView
+        }
+        .transition(.asymmetric(insertion: AnyTransition.flipFromBottom(duration: 0.24), removal: .opacity))
     }
 }
 
