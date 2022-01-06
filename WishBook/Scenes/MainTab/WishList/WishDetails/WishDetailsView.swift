@@ -72,7 +72,10 @@ struct WishDetailsView: View {
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(trailing: setupTrailingNavBarItems())
             .onAppear {
-                guard wishState != .new else { return }
+                guard wishState != .new else {
+                    store.dispatch(action: .wishes(action: .clearWishDetails))
+                    return
+                }
                 
                 let wish: WishListModel?
                 if wishState == .editable {

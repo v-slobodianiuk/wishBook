@@ -43,5 +43,7 @@ func wishesReducer(state: inout WishesState, action: WishesAction) -> Void {
         state.fullDataLoadingCompleted = state.wishList.count <= 1
     case .prepareWishDetailsFor(let index):
         state.wishDetails = state.wishList[index]
+    case .clearWishDetails:
+        state.wishDetails = nil
     }
 }

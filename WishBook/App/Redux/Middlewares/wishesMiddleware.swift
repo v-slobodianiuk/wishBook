@@ -57,6 +57,10 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                     }
                     .eraseToAnyPublisher()
             case .wishes(action: .updateWishListWithItem(let title,let description, let url)):
+                guard !state.wishes.wishList.contains(where: {$0.title == title }) else {
+                    return Empty().eraseToAnyPublisher()
+                }
+                
                 var publisher: Publishers.Print<AnyPublisher<WishListModel, Error>>
                 var wish: WishListModel
                 var limit: Int = state.wishes.wishList.count

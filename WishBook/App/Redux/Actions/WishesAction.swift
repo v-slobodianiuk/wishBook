@@ -19,4 +19,5 @@ enum WishesAction {
     case deleteItem(id: String?)
     
     case prepareWishDetailsFor(index: Int)
+    case clearWishDetails
 }
