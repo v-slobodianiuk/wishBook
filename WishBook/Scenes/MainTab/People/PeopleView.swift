@@ -20,7 +20,7 @@ struct PeopleView: View {
         VStack {
             SearchTextFieldView(searchText: $searchText)
                 .onChange(of: searchText) { newValue in
-                    if newValue.isEmpty { store.dispatch(action: .clearData) }
+                    if newValue.isEmpty { store.dispatch(action: .people(action: .clearSearch)) }
                     
                     withAnimation {
                         filterSegment = .all
