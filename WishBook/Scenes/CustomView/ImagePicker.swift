@@ -35,9 +35,9 @@ struct ImagePicker: UIViewControllerRepresentable {
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let uiImage = info[.originalImage] as? UIImage {
-                let multiplier = uiImage.size.height /  uiImage.size.width
-                let width: CGFloat = 1000
-                let resizedImage = uiImage.downsample(to: CGSize(width: width, height: width * multiplier), scale: nil)
+                let ratio = uiImage.size.height /  uiImage.size.width
+                let sideDimension: CGFloat = 1000
+                let resizedImage = uiImage.downsample(to: CGSize(width: sideDimension, height: sideDimension / ratio), scale: nil)
                 // Convert the image into JPEG and compress the quality to reduce its size
                 parent.imageData = resizedImage.jpegData(compressionQuality: 0.75)
             }
