@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
 struct LoginView: View {
     @EnvironmentObject var store: AppStore
@@ -16,6 +17,7 @@ struct LoginView: View {
     @State private var isValidEmail: Bool = false
     @State private var isValidPassword: Bool = false
     @State private var passwordPromptIsPresented: Bool = false
+    @State private var currentNonce: String?
     
     var body: some View {
         let shouldDisplayError = Binding<Bool>(
@@ -34,8 +36,8 @@ struct LoginView: View {
             ZStack {
                 contentView
                     .frame(maxHeight: .infinity)
-                    .contentShape(Rectangle())
-                    .resignKeyboardOnTapGesture()
+                    //.contentShape(Rectangle())
+                    //.resignKeyboardOnTapGesture()
                     .alert(isPresented: shouldDisplayError) {
                         Alert(
                             title: Text("Failed"),
@@ -153,6 +155,20 @@ struct LoginView: View {
                     .foregroundColor(.lightText)
                     .cornerRadius(10)
             }
+            .padding(.horizontal)
+            
+            SignInWithAppleButton(.continue) { request in
+                let nonce = CryptoService.randomNonceString()
+                currentNonce = nonce
+                request.requestedScopes = [.fullName, .email]
+                request.nonce = CryptoService.sha256(nonce)
+            } onCompletion: { result in
+                guard let nonce = currentNonce else { return }
+                store.dispatch(action: .auth(action: .sighInWithApple(nonce: nonce, result: result)))
+            }
+            .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
+            .frame(height: 50)
+            .cornerRadius(10)
             .padding(.horizontal)
             
             Link("By signing in you accept our Privacy policy", destination: URL(string: "https://apple.com")!)

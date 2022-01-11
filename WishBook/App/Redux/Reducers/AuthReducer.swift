@@ -24,6 +24,8 @@ func authReducer(state: inout AuthState, action: AuthAction) -> Void {
         state.password = password
     case .googleLogIn:
         break
+    case .sighInWithApple:
+        break
     case .signOut:
         break
     case .fetchError(error: let error):

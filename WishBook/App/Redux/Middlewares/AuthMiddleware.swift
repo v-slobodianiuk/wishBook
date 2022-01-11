@@ -8,6 +8,7 @@
 import ReduxCore
 import Foundation
 import Combine
+import AuthenticationServices
 
 func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, AppAction> {
     return { (state: AppState, action: AppAction) -> AnyPublisher<AppAction, Never> in
@@ -35,7 +36,7 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
                 .print("Create User")
                 .subscribe(on: DispatchQueue.global())
                 .map { (state: UserState) -> AppAction in
-                    if state == .new { service.addUserDataIfNeeded() }
+                    if state == .new { service.addUserDataIfNeeded(email: email) }
                     return AppAction.auth(action: .fetchComplete)
                 }
                 .catch { (error: Error) -> Just<AppAction> in
@@ -45,6 +46,26 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
             
         case .auth(action: .googleLogIn):
             service.signInUser()
+        case .auth(action: .sighInWithApple(let nonce, let result)):
+            switch result {
+            case .success(let authorization):
+                switch authorization.credential {
+                case let appleIDCredential as ASAuthorizationAppleIDCredential:
+                    guard let appleIDToken = appleIDCredential.identityToken else {
+                        print("Unable to fetch identity token")
+                        return Empty().eraseToAnyPublisher()
+                    }
+                    guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                        print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                        return Empty().eraseToAnyPublisher()
+                    }
+                    
+                    service.signInWithApple(idTokenString: idTokenString, nonce: nonce, appleIDCredential: appleIDCredential)
+                default: break
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         case .auth(action: .resetPassword(let email)):
             return service.resetPassword(email: email)
                 .print("Reset password")

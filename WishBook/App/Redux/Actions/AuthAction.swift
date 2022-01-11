@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AuthenticationServices
 
 enum AuthAction {
     case fetch
@@ -13,6 +14,7 @@ enum AuthAction {
     case status(isLoggedIn: Bool)
     case logIn(login: String, password: String)
     case googleLogIn
+    case sighInWithApple(nonce: String, result: Result<ASAuthorization, Error>)
     case resetPassword(email: String)
     case updatePassword(password: String)
     case updatePasswordComplete(isChanged: Bool)

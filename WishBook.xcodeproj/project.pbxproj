@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D50FE2A6264C35080083197B /* UserPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FE2A5264C35080083197B /* UserPageView.swift */; };
 		D5168C63278D817400FFC1CB /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5168C62278D817400FFC1CB /* ResetPasswordView.swift */; };
+		D5168C68278DD3AE00FFC1CB /* CryptoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5168C67278DD3AE00FFC1CB /* CryptoService.swift */; };
 		D51802192775DD7D00AFD34C /* Di.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51802182775DD7D00AFD34C /* Di.swift */; };
 		D519385B2758B895005BF7B5 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D519385A2758B895005BF7B5 /* BlurView.swift */; };
 		D51B49DE25F4E7E4008ABCBB /* GoogleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */; };
@@ -119,6 +120,7 @@
 		D50FE2A5264C35080083197B /* UserPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageView.swift; sourceTree = "<group>"; };
 		D5168C62278D817400FFC1CB /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		D5168C64278DC10800FFC1CB /* WishBook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WishBook.entitlements; sourceTree = "<group>"; };
+		D5168C67278DD3AE00FFC1CB /* CryptoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoService.swift; sourceTree = "<group>"; };
 		D51802182775DD7D00AFD34C /* Di.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Di.swift; sourceTree = "<group>"; };
 		D519385A2758B895005BF7B5 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleButton.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				D5B7F01626815B0900D578F1 /* MetaCache.swift */,
 				D53D0E2925F4150B00E5C2D7 /* UserDefaultsStorage.swift */,
 				D56B190C2602785700F7031C /* GoogleAuthService.swift */,
+				D5168C67278DD3AE00FFC1CB /* CryptoService.swift */,
 				D5362225276CAF7B003035FF /* WishListService.swift */,
 				D5A182632773BCF60099709C /* PeopleService.swift */,
 				D5362227276CB004003035FF /* ProfileService.swift */,
@@ -726,6 +729,7 @@
 				D536222A276CB90F003035FF /* profileMiddleware.swift in Sources */,
 				D5A4B67B276E0B9F00309E03 /* wishesMiddleware.swift in Sources */,
 				D55CC78025F6BE7300E5C04F /* WishListModel.swift in Sources */,
+				D5168C68278DD3AE00FFC1CB /* CryptoService.swift in Sources */,
 				D599146525F53DAD005F2F23 /* Colors.swift in Sources */,
 				D5A182642773BCF60099709C /* PeopleService.swift in Sources */,
 				D5B7F01726815B0900D578F1 /* MetaCache.swift in Sources */,
