@@ -38,5 +38,8 @@ func authReducer(state: inout AuthState, action: AuthAction) -> Void {
     case .updatePasswordComplete(isChanged: let isChanged):
         state.fetchInProgress = false
         state.successfullyPaswordChanged = isChanged
+    case .resetPasswordComplete(let success):
+        state.fetchInProgress = false
+        state.successfullyPaswordReset = success
     }
 }

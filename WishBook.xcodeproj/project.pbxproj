@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D50FE2A6264C35080083197B /* UserPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FE2A5264C35080083197B /* UserPageView.swift */; };
+		D5168C63278D817400FFC1CB /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5168C62278D817400FFC1CB /* ResetPasswordView.swift */; };
 		D51802192775DD7D00AFD34C /* Di.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51802182775DD7D00AFD34C /* Di.swift */; };
 		D519385B2758B895005BF7B5 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D519385A2758B895005BF7B5 /* BlurView.swift */; };
 		D51B49DE25F4E7E4008ABCBB /* GoogleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */; };
@@ -116,6 +117,7 @@
 
 /* Begin PBXFileReference section */
 		D50FE2A5264C35080083197B /* UserPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageView.swift; sourceTree = "<group>"; };
+		D5168C62278D817400FFC1CB /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		D51802182775DD7D00AFD34C /* Di.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Di.swift; sourceTree = "<group>"; };
 		D519385A2758B895005BF7B5 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleButton.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				D552C8ED25E409A9000E2196 /* LoginView.swift */,
+				D5168C62278D817400FFC1CB /* ResetPasswordView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -770,6 +773,7 @@
 				D5C5869A26C93BA400BFF6A5 /* ImagePicker.swift in Sources */,
 				D56B190D2602785700F7031C /* GoogleAuthService.swift in Sources */,
 				D53F4949276A6A2C000A9738 /* ProfileAction.swift in Sources */,
+				D5168C63278D817400FFC1CB /* ResetPasswordView.swift in Sources */,
 				D53F4945276A69C6000A9738 /* WishesState.swift in Sources */,
 				D5B7F01C26815BC800D578F1 /* LinkContainerView.swift in Sources */,
 				D5C5869E26C97FF400BFF6A5 /* FirebaseStorageService.swift in Sources */,

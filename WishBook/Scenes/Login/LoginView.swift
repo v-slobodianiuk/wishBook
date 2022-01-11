@@ -23,6 +23,11 @@ struct LoginView: View {
             set: { _ in store.dispatch(action: .auth(action: .fetchError(error: nil))) }
         )
         
+        let shouldDisplayPasswordResetSuccess = Binding<Bool>(
+            get: { store.state.auth.successfullyPaswordReset },
+            set: { _ in store.dispatch(action: .auth(action: .resetPasswordComplete(success: false))) }
+        )
+        
         if store.state.auth.fetchInProgress {
             ProgressView()
         } else {
@@ -41,6 +46,10 @@ struct LoginView: View {
                 
                 if passwordPromptIsPresented {
                     PasswordPromptView(isPresented: $passwordPromptIsPresented)
+                }
+                
+                if store.state.auth.successfullyPaswordReset {
+                    ResetPasswordView(isPresented: shouldDisplayPasswordResetSuccess)
                 }
             }
         }
@@ -104,7 +113,10 @@ struct LoginView: View {
             
             if isValidEmail {
                 Button {
-                    store.dispatch(action: .auth(action: .resetPassword(email: email)))
+                    endEditing()
+                    withAnimation {
+                        store.dispatch(action: .auth(action: .resetPassword(email: email)))
+                    }
                 } label: {
                     Text("Reset password")
                         .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
@@ -118,7 +130,7 @@ struct LoginView: View {
                     store.dispatch(action: .auth(action: .logIn(login: email, password: password)))
                 }
             } label: {
-                Text("Log in")
+                Text("Sign in")
                     .font(.title)
                     .frame(maxWidth: .infinity, minHeight: 50)
                     .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
@@ -143,15 +155,11 @@ struct LoginView: View {
             }
             .padding(.horizontal)
             
-            Button {
-                // MARK: - TODO
-            } label: {
-                Text("By signing in you accept our Privacy policy")
-                    .font(Font.footnote)
-                    .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
-                    .padding([.horizontal, .top])
-                    .frame(maxWidth: .infinity, alignment: .center)
-            }
+            Link("By signing in you accept our Privacy policy", destination: URL(string: "https://apple.com")!)
+                .font(Font.footnote)
+                .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                .padding([.horizontal, .top])
+                .frame(maxWidth: .infinity, alignment: .center)
         }
     }
 }
