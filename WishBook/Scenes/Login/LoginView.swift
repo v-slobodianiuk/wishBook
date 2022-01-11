@@ -132,8 +132,8 @@ struct LoginView: View {
                     store.dispatch(action: .auth(action: .logIn(login: email, password: password)))
                 }
             } label: {
-                Text("Sign in")
-                    .font(.title)
+                Text("Sign In")
+                    .font(.title2)
                     .frame(maxWidth: .infinity, minHeight: 50)
                     .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
                     .foregroundColor(.lightText)
@@ -143,13 +143,18 @@ struct LoginView: View {
             .padding([.horizontal, .top])
             .disabled(!(isValidEmail && isValidPassword))
             
+            Text("or")
+                .font(Font.footnote)
+                .foregroundColor(.gray)
+                .frame(maxWidth: .infinity, alignment: .center)
+            
             Button {
                 withAnimation {
                     store.dispatch(action: .auth(action: .googleLogIn))
                 }
             } label: {
-                Text("Google")
-                    .font(.title)
+                Text("Continue with Google")
+                    .font(.title2)
                     .frame(maxWidth: .infinity, minHeight: 50)
                     .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
                     .foregroundColor(.lightText)
@@ -173,7 +178,8 @@ struct LoginView: View {
             
             Link("By signing in you accept our Privacy policy", destination: URL(string: "https://apple.com")!)
                 .font(Font.footnote)
-                .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                //.foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                .foregroundColor(.gray)
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity, alignment: .center)
         }
