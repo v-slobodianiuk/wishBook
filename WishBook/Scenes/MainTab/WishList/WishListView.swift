@@ -19,11 +19,35 @@ struct WishListView: View {
             if store.state.wishes.fetchInProgress {
                 ProgressView()
             } else {
-                listView
+                contentView
+                    .onAppear {
+                        withAnimation {
+                            store.dispatch(action: .wishes(action: .fetch(limit: nil)))
+                        }
+                    }
             }
         }
         .navigationBarTitle("WISH_LIST_NAV_TITLE".localized)
-        .navigationBarItems(trailing: setupTrailingNavBarItems)
+        .navigationBarItems(trailing: trailingNavBarItemsView)
+    }
+    
+    @ViewBuilder
+    fileprivate var contentView: some View {
+        if store.state.wishes.wishList.isEmpty {
+            Button {
+                createNewWishIsPresented.toggle()
+            } label: {
+                VStack {
+                    Text("📝")
+                        .font(.system(size: 100))
+                        .padding(.bottom, 1)
+                    Text("Add your first wish".uppercased())
+                        .foregroundColor(.gray)
+                }
+            }
+        } else {
+            listView
+        }
     }
     
     @ViewBuilder
@@ -49,11 +73,6 @@ struct WishListView: View {
                 store.dispatch(action: .wishes(action: .deleteItem(id: store.state.wishes.wishList[index].id)))
             }
         }
-        .onAppear {
-            withAnimation {
-                store.dispatch(action: .wishes(action: .fetch(limit: nil)))
-            }
-        }
         .sheet(isPresented: $wishDetailsIsPresented) {
             screenFactory.makeWishDetailsView()
                 .wishState(.editable)
@@ -61,7 +80,7 @@ struct WishListView: View {
     }
     
     @ViewBuilder
-    fileprivate var setupTrailingNavBarItems: some View {
+    fileprivate var trailingNavBarItemsView: some View {
         HStack {
             Button(action: {
                 createNewWishIsPresented.toggle()
