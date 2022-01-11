@@ -118,6 +118,7 @@
 /* Begin PBXFileReference section */
 		D50FE2A5264C35080083197B /* UserPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageView.swift; sourceTree = "<group>"; };
 		D5168C62278D817400FFC1CB /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		D5168C64278DC10800FFC1CB /* WishBook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WishBook.entitlements; sourceTree = "<group>"; };
 		D51802182775DD7D00AFD34C /* Di.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Di.swift; sourceTree = "<group>"; };
 		D519385A2758B895005BF7B5 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleButton.swift; sourceTree = "<group>"; };
@@ -407,6 +408,7 @@
 		D552C8E825E409A9000E2196 /* WishBook */ = {
 			isa = PBXGroup;
 			children = (
+				D5168C64278DC10800FFC1CB /* WishBook.entitlements */,
 				D51B4A0125F4E9A5008ABCBB /* App */,
 				D55CC77325F6B7E200E5C04F /* Models */,
 				D51B4A2125F4EC18008ABCBB /* Services */,
@@ -950,6 +952,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WishBook/WishBook.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"WishBook/Preview Content\"";
 				DEVELOPMENT_TEAM = KVLZH7HMMQ;
@@ -974,6 +977,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WishBook/WishBook.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"WishBook/Preview Content\"";
 				DEVELOPMENT_TEAM = KVLZH7HMMQ;
