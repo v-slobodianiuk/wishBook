@@ -96,6 +96,8 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
                 return Empty().eraseToAnyPublisher()
             }
             
+            checkData.searchKey = lastName.prefix(3).lowercased()
+            
             return service.updateData(checkData)
                 .print("Update profile data")
                 .subscribe(on: DispatchQueue.global())

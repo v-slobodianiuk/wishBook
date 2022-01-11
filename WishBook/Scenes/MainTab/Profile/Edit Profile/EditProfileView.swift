@@ -20,44 +20,50 @@ struct EditProfileView: View {
     @State private var birthDate: Date = Date()
     @State private var showNewPasswordFields: Bool = false
     
+    var requiredDataIsValid: Bool {
+        //print("Date: \(birthDate), \(store.state.profile.isValidDate(date: birthDate))")
+        return !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty && store.state.profile.isValidDate(date: birthDate)
+    }
+    
     var body: some View {
         VStack {
             HStack {
-                Text("\("PROFILE_FIRST_NAME".localized): ")
-                    .frame(width: 100, alignment: .leading)
+                requiredText(text: "\("PROFILE_FIRST_NAME".localized)")
+                    .frame(width: 120, alignment: .leading)
                 TextField("PROFILE_FIRST_NAME".localized, text: $firstName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             .padding(.horizontal)
             
             HStack {
-                Text("\("PROFILE_LAST_NAME".localized): ")
-                    .frame(width: 100, alignment: .leading)
+                requiredText(text: "\("PROFILE_LAST_NAME".localized)")
+                    .frame(width: 120, alignment: .leading)
                 TextField("PROFILE_LAST_NAME".localized, text: $lastName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             .padding(.horizontal)
             
             HStack {
-                Text("\("PROFILE_EMAIL".localized): ")
-                    .frame(width: 100, alignment: .leading)
+                requiredText(text: "\("PROFILE_EMAIL".localized)")
+                    .frame(width: 120, alignment: .leading)
                 TextField("PROFILE_EMAIL".localized, text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             .padding(.horizontal)
             
-            HStack(alignment: .top) {
-                Text("\("PROFILE_ABOUT".localized): ")
-                    .frame(width: 100, alignment: .leading)
-                TextView(text: $description)
-                    .font(.systemFont(ofSize: 17))
-                    .setBorder(borderColor: .lightGray, borderWidth: 0.25, cornerRadius: 5)
-                    .frame(maxWidth: .infinity, maxHeight: 150)
+            HStack {
+                Text("\("PROFILE_ABOUT".localized)")
+                    .frame(width: 120, alignment: .leading)
+                TextField("", text: $description)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             .padding(.horizontal)
             
-            DatePicker("PROFILE_BIRTHDATE".localized, selection: $birthDate, displayedComponents: .date)
+            DatePicker(selection: $birthDate, displayedComponents: [.date]) {
+                requiredText(text: "PROFILE_BIRTHDATE".localized)
+            }
                 .foregroundColor(.selectedTabItem)
+                .accentColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
                 .padding(.horizontal)
             
             Spacer()
@@ -76,6 +82,8 @@ struct EditProfileView: View {
                 )
                 presentationMode.wrappedValue.dismiss()
             }
+            .disabled(!requiredDataIsValid)
+            .opacity(requiredDataIsValid ? 1.0 : 0.5)
             .buttonStyle(ConfirmButtonStyle())
             .padding()
         }
@@ -106,6 +114,15 @@ struct EditProfileView: View {
                 }
         }
     }
+    
+    fileprivate func requiredText(text: String) -> some View {
+         Text(text) + Text("*").foregroundColor(.red).baselineOffset(3)
+    }
+    
+//    func isValidDate(date: Date) -> Bool {
+//        let dateComponents = Calendar.current.dateComponents([.year], from: Date(), to: date)
+//        return (dateComponents.year ?? 0) >= 4
+//    }
 }
 
 struct EditProfileView_Previews: PreviewProvider {

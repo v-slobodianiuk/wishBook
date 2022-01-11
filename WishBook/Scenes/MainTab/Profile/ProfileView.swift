@@ -33,49 +33,7 @@ struct ProfileView: View {
         }
     }
     
-    @ViewBuilder
     fileprivate var contentView: some View {
-        if store.state.profile.haveFullName {
-           profileBlock
-        } else {
-            emptyView
-        }
-    }
-    
-    @ViewBuilder
-    fileprivate var trailingNavBarItems: some View {
-        HStack {
-            NavigationLink {
-                screenFactory.makeEditProfileView()
-            } label: {
-                Text("PROFILE_EDIT_BUTTON_TITLE".localized)
-            }
-
-            Button(action: {
-                store.dispatch(action: .auth(action: .signOut))
-            }, label: {
-                Text("PROFILE_SIGN_OUT_BUTTON_TITLE".localized)
-            })
-        }
-    }
-    
-    @ViewBuilder
-    fileprivate var emptyView: some View {
-        NavigationLink {
-            screenFactory.makeEditProfileView()
-        } label: {
-            VStack(alignment: .center) {
-                Text("🙈")
-                    .font(.system(size: 100))
-                    .padding()
-                Text("EMPTY_VIEW_TITLE".localized)
-                    .padding()
-            }
-        }
-    }
-    
-    @ViewBuilder
-    fileprivate var profileBlock: some View {
         VStack(alignment: .center) {
             Button {
                 showingImagePicker.toggle()
@@ -121,6 +79,22 @@ struct ProfileView: View {
             }
             .padding()
             Spacer()
+        }
+    }
+    
+    fileprivate var trailingNavBarItems: some View {
+        HStack {
+            NavigationLink {
+                screenFactory.makeEditProfileView()
+            } label: {
+                Text("PROFILE_EDIT_BUTTON_TITLE".localized)
+            }
+
+            Button(action: {
+                store.dispatch(action: .auth(action: .signOut))
+            }, label: {
+                Text("PROFILE_SIGN_OUT_BUTTON_TITLE".localized)
+            })
         }
     }
     

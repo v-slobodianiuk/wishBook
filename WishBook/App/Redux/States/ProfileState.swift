@@ -11,7 +11,7 @@ struct ProfileState {
     var profileData: ProfileModel? = nil
     
     var fetchInProgress: Bool = false
-    var haveFullName: Bool = false
+    var haveFullName: Bool = true
     var havePhoto: Bool {
         return profileData?.photoUrl != nil
     }
@@ -40,5 +40,10 @@ struct ProfileState {
     
     func getPhotoUrl() -> URL? {
         return URL(string: profileData?.photoUrl ?? "")
+    }
+    
+    func isValidDate(date: Date) -> Bool {
+        let dateComponents = Calendar.current.dateComponents([.year], from: Date(), to: date)
+        return (dateComponents.year ?? 0) <= -4
     }
 }

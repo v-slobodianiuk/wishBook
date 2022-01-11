@@ -15,7 +15,14 @@ struct RootView: View {
     var body: some View {
         Group {
             if store.state.auth.isLoggedIn {
-                screenFactory.makeMainTabBar()
+                if store.state.profile.haveFullName {
+                    screenFactory.makeMainTabBar()
+                } else {
+                    NavigationView {
+                        screenFactory.makeEditProfileView()
+                    }
+                    .navigationViewStyle(.stack)
+                }
             } else {
                 screenFactory.makeLoginView()
             }
