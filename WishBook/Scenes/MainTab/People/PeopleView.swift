@@ -67,13 +67,12 @@ struct PeopleView: View {
                 ProgressView()
             } else {
                 if store.state.people.peopleList.isEmpty {
-                    Text("🔎")
-                        .font(.system(size: 100))
-//                    Image(systemName: "rectangle.badge.person.crop")
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fit)
-//                        .foregroundColor(.gray)
-//                        .frame(width: 250, height: 250, alignment: .center)
+                    Image(systemName: "magnifyingglass.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 200, height: 200)
+                        .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                        .opacity(0.2)
                 } else {
                     resultListView
                 }

@@ -38,9 +38,13 @@ struct WishListView: View {
                 createNewWishIsPresented.toggle()
             } label: {
                 VStack {
-                    Text("📝")
-                        .font(.system(size: 100))
-                        .padding(.bottom, 1)
+                    Image(systemName: "pencil.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 200, height: 200)
+                        .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                        .opacity(0.2)
+                        .padding(.bottom)
                     Text("Add your first wish".uppercased())
                         .foregroundColor(.gray)
                 }
