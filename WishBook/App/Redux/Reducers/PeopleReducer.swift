@@ -32,6 +32,7 @@ func peopleReducer(state: inout PeopleState, action: PeopleAction) -> Void {
         state.fetchInProgress = false
     case .prepareProfileDataFor(let index):
         state.searchedProfile = state.peopleList[index]
+        state.wishesFullDataLoadingCompleted = false
         state.searchedProfileWishes.removeAll()
         
     case .fetchWishes(limit: _):
@@ -56,8 +57,6 @@ func peopleReducer(state: inout PeopleState, action: PeopleAction) -> Void {
             return
         }
         state.searchedProfileWishes += data
-    case .clearSearchedProfileData:
-        state.searchedProfileWishes.removeAll()
     case .prepareWishDetailsFor(let index):
         state.searchedProfileWishDetails = state.searchedProfileWishes[index]
     case .updateSearchedProfileDataBy(id: _):

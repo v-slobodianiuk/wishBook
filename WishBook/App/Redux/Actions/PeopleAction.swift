@@ -21,7 +21,6 @@ enum PeopleAction {
     case fetchWishesComplete(data: [WishListModel])
     case fetchWishesMore
     case fetchWishesMoreComplete(data: [WishListModel])
-    case clearSearchedProfileData
     
     case prepareWishDetailsFor(index: Int)
     
