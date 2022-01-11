@@ -11,16 +11,6 @@ import Firebase
 import GoogleSignIn
 import AuthenticationServices
 
-typealias SignInWithAppleResult = (authDataResult: AuthDataResult, appleIDCredential: ASAuthorizationAppleIDCredential)
-
-// MARK: - SignIn with Apple Erors
-enum SignInWithAppleAuthError: Error {
-    case noAuthDataResult
-    case noIdentityToken
-    case noIdTokenString
-    case noAppleIDCredential
-}
-
 enum UserState {
     case new
     case existed
@@ -30,9 +20,8 @@ protocol GoogleAuthServiceProtocol {
     func startAuthListener()
     func checkState() -> AnyPublisher<String?, Never>
     func createUser(email: String, password: String) -> AnyPublisher<UserState, Error>
-    func signInUser()
+    func signInWithGoogle()
     func signInWithApple(idTokenString: String, nonce: String, appleIDCredential: ASAuthorizationAppleIDCredential)
-    func addUserDataIfNeeded(email: String)
     func signOut()
     
     func updatePassword(password: String) -> AnyPublisher<Bool, Error>
@@ -46,9 +35,11 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
     private let db = Firestore.firestore()
     private var authListener: AuthStateDidChangeListenerHandle?
     
-    func checkState() -> AnyPublisher<String?, Never> {
-        return subject
-            .eraseToAnyPublisher()
+    //MARK: - Sign In
+    private func loginUser(email: String, password: String, completion: @escaping (Error?) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            completion(error)
+        }
     }
     
     //MARK: - Auth State Listener
@@ -59,14 +50,19 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
         }
     }
     
+    func checkState() -> AnyPublisher<String?, Never> {
+        return subject
+            .eraseToAnyPublisher()
+    }
+    
     //MARK: - Create user
     func createUser(email: String, password: String) -> AnyPublisher<UserState, Error> {
         return Deferred {
             Future { promise in
                 Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
+                    
                     if let error = error {
                         if (error as NSError).code == AuthErrorCode.emailAlreadyInUse.rawValue {
-                            //promise(.success(.existed))
                             self?.loginUser(email: email, password: password) { error in
                                 if let error = error {
                                     promise(.failure(error))
@@ -78,23 +74,22 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
                             promise(.failure(error))
                         }
                         return
-                    } else {
-                        promise(.success(.new))
                     }
+                    
+                    promise(.success(.new))
+                    guard let userId = authResult?.user.uid else { return }
+                    var profile = ProfileModel()
+                    profile.id = userId
+                    profile.email = authResult?.user.email
+                    
+                    self?.addUserDataIfNeeded(profile: profile)
                 }
             }
         }.eraseToAnyPublisher()
     }
-    
-    //MARK: - Sign In
-    private func loginUser(email: String, password: String, completion: @escaping (Error?) -> Void) {
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-            completion(error)
-        }
-    }
 
     //MARK: - Sign In with Google
-    func signInUser() {
+    func signInWithGoogle() {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         
         // Create Google Sign In configuration object.
@@ -120,14 +115,19 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
                     print("Google SignIn error: \(error?.localizedDescription ?? "Unknown")")
                     return
                 }
-                if let email = result?.user.email {
-                    self?.addUserDataIfNeeded(email: email)
-                }
+                
+                guard let userId = result?.user.uid else { return }
+                var profile = ProfileModel()
+                profile.id = userId
+                profile.email = result?.user.email
+                profile.photoUrl = result?.user.photoURL?.absoluteString
+                
+                self?.addUserDataIfNeeded(profile: profile)
             }
         }
     }
     
-    // MARK: - SignIn with Apple Functions
+    // MARK: - Sign in with Apple
     func signInWithApple(idTokenString: String, nonce: String, appleIDCredential: ASAuthorizationAppleIDCredential) {
         // Initialize a Firebase credential.
         let credential = OAuthProvider.credential(
@@ -136,43 +136,53 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
             rawNonce: nonce
         )
         
-        // Sign in with Apple.
-        Auth.auth().signIn(with: credential) { [weak self] (authDataResult, err) in
-            if let err = err {
-                // Error. If error.code == .MissingOrInvalidNonce, make sure
-                // you're sending the SHA256-hashed nonce as a hex string with
-                // your request to Apple.
-                print(err.localizedDescription)
+        Auth.auth().signIn(with: credential) { [weak self] (authDataResult, error) in
+            if let error = error {
+                // Error. If error.code == .MissingOrInvalidNonce, make sure you're sending the SHA256-hashed nonce as a hex string with your request to Apple.
+                print(error.localizedDescription)
                 return
             }
             // User is signed in to Firebase with Apple.
             guard let authDataResult = authDataResult else {
-                //completion(.failure(SignInWithAppleAuthError.noAuthDataResult))
+                print("Apple Sign in error: No Auth Data Result!")
                 return
             }
             
-            let signInWithAppleRestult = (authDataResult,appleIDCredential)
-            self?.handle(signInWithAppleRestult)
+            var profile = ProfileModel()
+            profile.id = authDataResult.user.uid
+            profile.email = authDataResult.user.email
+            profile.firstName = appleIDCredential.fullName?.givenName
+            profile.photoUrl = authDataResult.user.photoURL?.absoluteString
+            
+            if let lastName = appleIDCredential.fullName?.familyName {
+                profile.lastName = lastName
+                profile.searchKey = lastName.prefix(3).lowercased()
+            }
+            
+            self?.addUserDataIfNeeded(profile: profile)
         }
     }
     
-    private func handle(_ signInWithAppleResult: SignInWithAppleResult) {
-        // SignInWithAppleResult is a tuple with the authDataResult and appleIDCredentioal
-        // Now that you are signed in, we can update our User database to add this user.
+    //MARK: - Add User data to DB
+    func addUserDataIfNeeded(profile: ProfileModel) {
+        let userDoc = db
+            .collection(FirestoreCollection[.users])
+            .document(UserStorage.profileUserId)
         
-        // First the uid
-        //let uid = signInWithAppleResult.authDataResult.user.uid
-        
-        //let fullName = signInWithAppleResult.appleIDCredential.fullName
-        
-        // Extract all three components
-        //let firstName = fullName?.givenName ?? ""
-        //let lastName = fullName?.familyName ?? ""
-        
-        let email = signInWithAppleResult.authDataResult.user.email ?? ""
-        
-        //TODO: - Save user Data
-        addUserDataIfNeeded(email: email)
+        userDoc.getDocument { (document, error) in
+            if let error = error {
+                print("LoadData error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let document = document, !document.exists else { return }
+
+            do {
+                try userDoc.setData(from: profile)
+            } catch {
+                print("UpdateData error: \(error.localizedDescription)")
+            }
+        }
     }
     
     //MARK: - Sign Out
@@ -181,27 +191,6 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
             try Auth.auth().signOut()
         } catch {
             print("Sign Out error: \(error.localizedDescription)")
-        }
-    }
-    
-    //MARK: - Add User data to Datebase
-    func addUserDataIfNeeded(email: String) {
-        guard !UserStorage.profileUserId.isEmpty else { return }
-        print("user id: \(UserStorage.profileUserId), \(email)")
-        let userDoc = db.collection(FirestoreCollection[.users]).document(UserStorage.profileUserId)
-        userDoc.getDocument { (document, error) in
-            if let error = error {
-                print("LoadData error: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let document = document, !document.exists else { return }
-            let confiredData = ProfileModel(id: UserStorage.profileUserId, email: email)
-            do {
-                try userDoc.setData(from: confiredData)
-            } catch {
-                print("updateData error: \(error.localizedDescription)")
-            }
         }
     }
     

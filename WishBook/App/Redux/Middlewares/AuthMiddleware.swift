@@ -36,7 +36,6 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
                 .print("Create User")
                 .subscribe(on: DispatchQueue.global())
                 .map { (state: UserState) -> AppAction in
-                    if state == .new { service.addUserDataIfNeeded(email: email) }
                     return AppAction.auth(action: .fetchComplete)
                 }
                 .catch { (error: Error) -> Just<AppAction> in
@@ -45,7 +44,7 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
                 .eraseToAnyPublisher()
             
         case .auth(action: .googleLogIn):
-            service.signInUser()
+            service.signInWithGoogle()
         case .auth(action: .sighInWithApple(let nonce, let result)):
             switch result {
             case .success(let authorization):
