@@ -20,7 +20,10 @@ struct PeopleView: View {
         VStack {
             SearchTextFieldView(searchText: $searchText)
                 .onChange(of: searchText) { newValue in
-                    if newValue.isEmpty { store.dispatch(action: .people(action: .clearSearch)) }
+                    if newValue.isEmpty {
+                        store.dispatch(action: .people(action: .clearSearch))
+                        return
+                    }
                     
                     withAnimation {
                         filterSegment = .all
@@ -40,8 +43,12 @@ struct PeopleView: View {
                     store.dispatch(action: .people(action: .clearSearch))
                 case .subscribers:
                     store.dispatch(action: .people(action: .subscribersList(data: profileData)))
+                    searchText.removeAll()
+                    endEditing()
                 case .subscriptions:
                     store.dispatch(action: .people(action: .subscriptionsList(data: profileData)))
+                    searchText.removeAll()
+                    endEditing()
                 }
             }
             .padding(.vertical, 8)
@@ -60,20 +67,21 @@ struct PeopleView: View {
                 ProgressView()
             } else {
                 if store.state.people.peopleList.isEmpty {
-                    Image(systemName: "rectangle.badge.person.crop")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(.gray)
-                        .frame(width: 250, height: 250, alignment: .center)
+                    Text("🔎")
+                        .font(.system(size: 100))
+//                    Image(systemName: "rectangle.badge.person.crop")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .foregroundColor(.gray)
+//                        .frame(width: 250, height: 250, alignment: .center)
                 } else {
                     resultListView
                 }
             }
         }
-        .frame(maxHeight: .infinity)
-        .onTapGesture {
-            endEditing()
-        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .contentShape(Rectangle())
+        .resignKeyboardOnTapGesture()
     }
     
     @ViewBuilder

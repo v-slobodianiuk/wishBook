@@ -10,7 +10,7 @@ import Foundation
 func peopleReducer(state: inout PeopleState, action: PeopleAction) -> Void {
     switch action {
     case .fetch(let searchText):
-        if searchText.count >= 3 {
+        if searchText.count == 3 {
             state.fetchInProgress = true
         }
     case .fetchMore:
