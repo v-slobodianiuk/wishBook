@@ -42,7 +42,7 @@ struct SearchTextFieldView: View {
             .padding(.vertical, 8)
             .background(Color(.secondarySystemBackground))
             .cornerRadius(10)
-            .padding(.horizontal, 8)
+            .padding(.horizontal)
         }
     }
 }
