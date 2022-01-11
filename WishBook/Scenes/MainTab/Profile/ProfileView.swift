@@ -18,13 +18,14 @@ struct ProfileView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        Group {
-            if store.state.profile.fetchInProgress {
-                ProgressView()
-            } else {
-                contentView
-            }
-        }
+//        Group {
+//            if store.state.profile.fetchInProgress {
+//                ProgressView()
+//            } else {
+//                contentView
+//            }
+//        }
+        contentView
         .navigationBarTitle("PROFILE_NAV_TITLE".localized)
         .navigationBarItems(trailing: trailingNavBarItems)
         .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
