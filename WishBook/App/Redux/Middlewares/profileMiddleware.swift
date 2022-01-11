@@ -142,6 +142,9 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
             service.startWishesListener()
             
             return publisher
+        case .profile(action: .removeListeners):
+            service.removeProfileDataListener()
+            service.removeWishesCountListener()
         default:
             break
         }

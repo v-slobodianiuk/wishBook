@@ -26,10 +26,12 @@ protocol ProfileServiceProtocol {
     func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never>
     
     func startWishesListener()
+    func removeWishesCountListener()
     func wishCounterListenerIsActive() -> Bool
     func wishesCountPublisher() -> AnyPublisher<Int, Never>
     
     func startProfileDataListener()
+    func removeProfileDataListener()
     func profileDataListenerIsActive() -> Bool
     func profileDataPublisher() -> AnyPublisher<ProfileModel, Never>
 }
@@ -162,6 +164,16 @@ final class ProfileService: ProfileServiceProtocol {
     
     func profileDataListenerIsActive() -> Bool {
         return profileDataListener != nil
+    }
+    
+    func removeProfileDataListener() {
+        profileDataListener?.remove()
+        profileDataListener = nil
+    }
+    
+    func removeWishesCountListener() {
+        wishCounterListener?.remove()
+        wishCounterListener = nil
     }
     
     func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never> {

@@ -30,7 +30,6 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
         case .auth(action: .status(let isLoggedIn)):
             let publisher: AnyPublisher<AppAction, Never> = !isLoggedIn ? Just(AppAction.clearData).eraseToAnyPublisher() : Empty().eraseToAnyPublisher()
             return publisher
-                .eraseToAnyPublisher()
         case .auth(action: .logIn(let email, let password)):
             return service.createUser(email: email, password: password)
                 .print("Create User")
@@ -91,6 +90,8 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
                 .eraseToAnyPublisher()
         case .auth(action: .signOut):
             service.signOut()
+        case .clearData:
+            return Just(AppAction.profile(action: .removeListeners)).eraseToAnyPublisher()
         default:
             break
         }

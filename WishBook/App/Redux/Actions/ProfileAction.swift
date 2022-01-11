@@ -15,4 +15,5 @@ enum ProfileAction {
     case uploadProfilePhoto(data: Data)
     case updateProfileData(firstName: String, lastName: String, description: String, email: String, birthDate: Date)
     case checkWishesCount
+    case removeListeners
 }
