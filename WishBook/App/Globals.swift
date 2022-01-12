@@ -13,6 +13,10 @@ struct Globals {
     static let defaultAnimationDuration: Double = 0.24
     static let photoRootFolder: String = "Photos"
     
+    static let googleServiceResource: String = {
+        return (Bundle.main.infoDictionary?["GOOGLE_SERVICE_RESOURCE"] as? String) ?? "GoogleService-Info"
+    }()
+    
     static let usersCollectionName: String = {
         return (Bundle.main.infoDictionary?["USERS_DB"] as? String) ?? "TestUsers"
     }()

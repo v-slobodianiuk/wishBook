@@ -79,5 +79,7 @@
 	<string>$(WISHES_DB)</string>
 	<key>ROOT_STORAGE</key>
 	<string>$(ROOT_STORAGE)</string>
+	<key>GOOGLE_SERVICE_RESOURCE</key>
+	<string>$(GOOGLE_SERVICE_RESOURCE)</string>
 </dict>
 </plist>

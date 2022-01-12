@@ -11,8 +11,11 @@ import GoogleSignIn
 
 final class GoogleAppDelegate: AppDelegateType {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Use Firebase library to configure APIs
-        FirebaseApp.configure()
+        if let filePath = Bundle.main.path(forResource: Globals.googleServiceResource, ofType: "plist"), let options = FirebaseOptions(contentsOfFile: filePath) {
+            FirebaseApp.configure(options: options)
+        } else {
+            FirebaseApp.configure()
+        }
         
         return true
     }
