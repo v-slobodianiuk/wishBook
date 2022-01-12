@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct GlobalSearchCell: View {
     
@@ -19,19 +18,10 @@ struct GlobalSearchCell: View {
     
     var body: some View {
         HStack {
-            WebImage(url: URL(string: image ?? ""))
-                .resizable()
-                .placeholder {
-                    Image(systemName: "person.crop.circle.fill")
-                        .resizable()
-                        .foregroundColor(.label)
-                }
-                .indicator(.activity)
-                .transition(.fade(duration: Globals.defaultAnimationDuration))
-                .scaledToFill()
+            ProfileImageView(stringUrl: image)
                 .frame(width: 50, height: 50)
-                .clipShape(Circle())
                 .padding(.leading)
+            
             VStack(alignment: .leading) {
                 Text("\(firstName ?? "") \(lastName ?? "")")
                     .lineLimit(2)
@@ -43,6 +33,7 @@ struct GlobalSearchCell: View {
                     .foregroundColor(.label)
                     .padding(.horizontal)
             }
+            
             Spacer()
         }
         .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading)

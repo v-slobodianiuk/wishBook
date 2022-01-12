@@ -19,6 +19,7 @@ struct LoginView: View {
     @State private var passwordPromptIsPresented: Bool = false
     @State private var currentNonce: String?
     
+    // MARK: - body
     var body: some View {
         let shouldDisplayError = Binding<Bool>(
             get: { store.state.auth.errorMessage != nil },
@@ -57,6 +58,7 @@ struct LoginView: View {
         }
     }
     
+    // MARK: - Content View
     fileprivate var contentView: some View {
         VStack(alignment: .leading) {
             inputView
@@ -71,6 +73,7 @@ struct LoginView: View {
         }
     }
     
+    // MARK: - Input view
     fileprivate var inputView: some View {
         Group {
             TextField("EMAIL_PLACEHOLDER".localized, text: $email) {
@@ -133,6 +136,7 @@ struct LoginView: View {
         }
     }
     
+    // MARK: - Buttons View
     fileprivate var buttonsView: some View {
         Group {
             if isValidEmail {

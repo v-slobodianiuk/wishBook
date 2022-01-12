@@ -17,6 +17,7 @@ struct ChangePasswordView: View {
     @State private var passwordPromptIsPresented: Bool = false
     @State private var closeButtonIsPresented: Bool = true
     
+    // MARK: - body
     var body: some View {
         let shouldDisplayError = Binding<Bool>(
             get: { store.state.auth.errorMessage != nil },
@@ -47,6 +48,7 @@ struct ChangePasswordView: View {
         }
     }
     
+    // MARK: - Content View
     fileprivate var contentView: some View {
         ZStack {
             VStack {
@@ -78,49 +80,7 @@ struct ChangePasswordView: View {
                     }
                 }
 
-                SecureField("PASSWORD_PLACEHOLDER".localized, text: $password) {
-                    withAnimation {
-                        let isValid = store.state.auth.isValidPassword(password)
-                        isValidPassword = (password == confirmPassword && isValid)
-                        
-                        guard !closeButtonIsPresented else { return }
-                        closeButtonIsPresented = true
-                    }
-                }
-                .onChange(of: password) { currentText in
-                    withAnimation {
-                        password = currentText.removeWrongCharacters()
-                        let isValid = store.state.auth.isValidPassword(currentText)
-                        isValidPassword = (password == confirmPassword && isValid)
-                    }
-                }
-                .onTapGesture {
-                    guard closeButtonIsPresented else { return }
-                    withAnimation { closeButtonIsPresented = false }
-                }
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                SecureField("REPEAT_PASSWORD_PLACEHOLDER".localized, text: $confirmPassword) {
-                    withAnimation {
-                        let isValid = store.state.auth.isValidPassword(confirmPassword)
-                        isValidPassword = (password == confirmPassword && isValid)
-                        
-                        guard !closeButtonIsPresented else { return }
-                        closeButtonIsPresented = true
-                    }
-                }
-                .onChange(of: confirmPassword) { currentText in
-                    withAnimation {
-                        confirmPassword = currentText.removeWrongCharacters()
-                        let isValid = store.state.auth.isValidPassword(currentText)
-                        isValidPassword = (password == confirmPassword && isValid)
-                    }
-                }
-                .onTapGesture {
-                    guard closeButtonIsPresented else { return }
-                    withAnimation { closeButtonIsPresented = false }
-                }
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                textFieldsView
                 
                 if password != confirmPassword {
                     WarningText(text: "PASSWORD_WARNING_TEXT".localized)
@@ -150,6 +110,57 @@ struct ChangePasswordView: View {
         }
     }
     
+    // MARK: - TextFields
+    fileprivate var textFieldsView: some View {
+        Group {
+            SecureField("PASSWORD_PLACEHOLDER".localized, text: $password) {
+                withAnimation {
+                    let isValid = store.state.auth.isValidPassword(password)
+                    isValidPassword = (password == confirmPassword && isValid)
+                    
+                    guard !closeButtonIsPresented else { return }
+                    closeButtonIsPresented = true
+                }
+            }
+            .onChange(of: password) { currentText in
+                withAnimation {
+                    password = currentText.removeWrongCharacters()
+                    let isValid = store.state.auth.isValidPassword(currentText)
+                    isValidPassword = (password == confirmPassword && isValid)
+                }
+            }
+            .onTapGesture {
+                guard closeButtonIsPresented else { return }
+                withAnimation { closeButtonIsPresented = false }
+            }
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            SecureField("REPEAT_PASSWORD_PLACEHOLDER".localized, text: $confirmPassword) {
+                withAnimation {
+                    let isValid = store.state.auth.isValidPassword(confirmPassword)
+                    isValidPassword = (password == confirmPassword && isValid)
+                    
+                    guard !closeButtonIsPresented else { return }
+                    closeButtonIsPresented = true
+                }
+            }
+            .onChange(of: confirmPassword) { currentText in
+                withAnimation {
+                    confirmPassword = currentText.removeWrongCharacters()
+                    let isValid = store.state.auth.isValidPassword(currentText)
+                    isValidPassword = (password == confirmPassword && isValid)
+                }
+            }
+            .onTapGesture {
+                guard closeButtonIsPresented else { return }
+                withAnimation { closeButtonIsPresented = false }
+            }
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+        }
+    }
+    
+    
+    // MARK: - Close Button
     fileprivate var closeButtonView: some View {
         Button {
             store.dispatch(action: .auth(action: .updatePasswordComplete(isChanged: false)))
@@ -163,6 +174,7 @@ struct ChangePasswordView: View {
         .padding()
     }
     
+    // MARK: - Success View
     fileprivate var successView: some View {
         VStack {
             Spacer()

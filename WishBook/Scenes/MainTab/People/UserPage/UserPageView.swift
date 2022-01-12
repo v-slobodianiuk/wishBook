@@ -14,25 +14,16 @@ struct UserPageView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var wishDetailsIsPresented: Bool = false
     
-    var isSubscribed: Bool {
+    private var isSubscribed: Bool {
         store.state.profile.profileData?.subscriptions?.contains(store.state.people.searchedProfile?.id ?? "") ?? false
     }
     
+    // MARK: - body
     var body: some View {
         VStack() {
             HStack() {
-                WebImage(url: URL(string: store.state.people.searchedProfile?.photoUrl ?? ""))
-                    .resizable()
-                    .placeholder {
-                        Image(systemName: "person.crop.circle.fill")
-                            .resizable()
-                            .foregroundColor(.label)
-                    }
-                    .indicator(.activity)
-                    .transition(.fade(duration: 0.25))
-                    .scaledToFill()
+                ProfileImageView(stringUrl: store.state.people.searchedProfile?.photoUrl)
                     .frame(width: 50, height: 50)
-                    .clipShape(Circle())
                     .padding(.leading)
                 VStack(alignment: .leading) {
                     Text(store.state.people.getFullName())
@@ -47,10 +38,12 @@ struct UserPageView: View {
                 }
                 Spacer()
             }
+            
             StatisticBlockView(count: (
                 subscribers: store.state.people.searchedProfile?.subscribers?.count,
                 subscriptions: store.state.people.searchedProfile?.subscriptions?.count,
                 wishes: store.state.people.searchedProfile?.wishes))
+            
             HStack {
                 Text("PROFILE_BIRTHDATE_EMOJI".localized)
                 Text(store.state.people.getBirthdate())
@@ -83,7 +76,8 @@ struct UserPageView: View {
         }
     }
     
-    private var emptyView: some View {
+    // MARK: - Empty View
+    fileprivate var emptyView: some View {
         ZStack {
             if store.state.people.wishesFetchInProgress {
                 ProgressView()
@@ -94,7 +88,8 @@ struct UserPageView: View {
         .frame(maxHeight: .infinity)
     }
     
-    private var listView: some View {
+    // MARK: - List View
+    fileprivate var listView: some View {
         List {
             ForEach(store.state.people.searchedProfileWishes.indices, id: \.self) { index in
                 WishCellView(

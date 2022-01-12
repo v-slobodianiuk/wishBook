@@ -11,4 +11,5 @@ public typealias Closure = () -> Void
 
 struct Globals {
     static let defaultAnimationDuration: Double = 0.24
+    static let photoRootFolder: String = "photos"
 }

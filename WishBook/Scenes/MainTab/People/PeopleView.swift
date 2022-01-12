@@ -15,6 +15,7 @@ struct PeopleView: View {
     @State private var navLinkIsActive: Bool = false
     @State private var filterSegment: PeopleFilter = .all
     
+    // MARK: - body
     var body: some View {
         VStack {
             SearchTextFieldView(searchText: $searchText)
@@ -59,7 +60,7 @@ struct PeopleView: View {
         .navigationBarTitle("PEOPLE_NAV_TITLE".localized)
     }
     
-    @ViewBuilder
+    // MARK: - Empty View
     fileprivate var emptyView: some View {
         ZStack {
             if store.state.people.fetchInProgress {
@@ -82,11 +83,11 @@ struct PeopleView: View {
         .resignKeyboardOnTapGesture()
     }
     
-    @ViewBuilder
+    // MARK: - List View
     fileprivate var resultListView: some View {
         ScrollView {
             LazyVStack {
-                Spacer(minLength: 8)
+                Spacer(minLength: 10)
                 ForEach(store.state.people.peopleList.indices, id: \.self) { i in
                     NavigationLink(isActive: $navLinkIsActive) {
                         screenFactory.makeSearchedProfileView()

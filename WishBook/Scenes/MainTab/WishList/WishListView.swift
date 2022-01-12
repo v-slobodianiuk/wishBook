@@ -13,6 +13,7 @@ struct WishListView: View {
     @State private var wishDetailsIsPresented: Bool = false
     @State private var createNewWishIsPresented: Bool = false
     
+    // MARK: - body
     var body: some View {
         ZStack {
             if store.state.wishes.fetchInProgress {
@@ -30,6 +31,7 @@ struct WishListView: View {
         .navigationBarItems(trailing: trailingNavBarItemsView)
     }
     
+    // MARK: - Content View
     @ViewBuilder
     fileprivate var contentView: some View {
         if store.state.wishes.wishList.isEmpty {
@@ -53,7 +55,7 @@ struct WishListView: View {
         }
     }
     
-    @ViewBuilder
+    // MARK: - List View
     fileprivate var listView: some View {
         List {
             ForEach(store.state.wishes.wishList.indices, id: \.self) { index in
@@ -82,7 +84,7 @@ struct WishListView: View {
         }
     }
     
-    @ViewBuilder
+    // MARK: - trailingNavBarItems
     fileprivate var trailingNavBarItemsView: some View {
         HStack {
             Button(action: {

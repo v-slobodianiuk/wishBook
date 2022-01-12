@@ -11,14 +11,12 @@ import Combine
 
 protocol FirebaseStorageServiceProtocol {
     func upload(imageData: Data, userId: String) -> AnyPublisher<URL?, Error>
-    //func getImage(userId: String) -> AnyPublisher<URL?, Never>
 }
 
 final class FirebaseStorageService: FirebaseStorageServiceProtocol {
     
     private let storage = Storage.storage()
-    //private lazy var user = Auth.auth().currentUser
-    private let photoRootFolder: String = "photos"
+    private let photoRootFolder: String = Globals.photoRootFolder
     
     func upload(imageData: Data, userId: String) -> AnyPublisher<URL?, Error> {
         Deferred {
@@ -56,24 +54,4 @@ final class FirebaseStorageService: FirebaseStorageServiceProtocol {
             }
         }.eraseToAnyPublisher()
     }
-    
-//    func getImage(userId: String) -> AnyPublisher<URL?, Never> {
-//        Deferred {
-//            Future { [weak self] promise in
-//                guard let self = self else { return }
-//                let starsRef = self.storage.reference().child("\(self.photoRootFolder)/\(userId)/\(userId).jpg")
-//
-//                // Fetch the download URL
-//                starsRef.downloadURL { url, error in
-//                    if let error = error {
-//                        // Handle any errors
-//                        print(error.localizedDescription)
-//                    }
-//                    print("!!!url: \(url?.absoluteString)")
-//                    promise(.success(url))
-//                }
-//            }
-//        }.eraseToAnyPublisher()
-//
-//    }
 }

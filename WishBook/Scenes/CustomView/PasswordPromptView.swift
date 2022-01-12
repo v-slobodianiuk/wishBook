@@ -25,6 +25,7 @@ struct PasswordPromptView: View {
     fileprivate var contentView: some View {
         VStack {
             Spacer()
+            
             Text("PASSWORD_PROMPT_TITLE".localized)
                 .font(Font.title2)
                 .foregroundColor(.label)
@@ -37,6 +38,7 @@ struct PasswordPromptView: View {
                 .padding(.horizontal)
             
             Spacer()
+            
             Button {
                 isPresented.toggle()
             } label: {

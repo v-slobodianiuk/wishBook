@@ -21,6 +21,7 @@ final class WishListService: WishListServiceProtocol {
     private let db = Firestore.firestore()
     private var lastSnapshot: QueryDocumentSnapshot?
     
+    //MARK: - Load wishes
     func loadData(userId: String, limit: Int) -> AnyPublisher<[WishListModel], Error> {
         Deferred {
             Future { [weak self] promise in
@@ -61,6 +62,7 @@ final class WishListService: WishListServiceProtocol {
         .eraseToAnyPublisher()
     }
     
+    //MARK: - Load more wishes
     func loadMore(userId: String) -> AnyPublisher<[WishListModel], Error> {
         Deferred {
             Future { [weak self] promise in
@@ -104,6 +106,7 @@ final class WishListService: WishListServiceProtocol {
         }.eraseToAnyPublisher()
     }
     
+    //MARK: - Add new wish item
     func addData(_ data: WishListModel) -> AnyPublisher<WishListModel, Error> {
         Deferred {
             Future { [weak self] promise in
@@ -125,6 +128,7 @@ final class WishListService: WishListServiceProtocol {
         }.eraseToAnyPublisher()
     }
     
+    //MARK: - Update wish item
     func updateData(_ data: WishListModel) -> AnyPublisher<WishListModel, Error> {
         Deferred {
             Future { [weak self] promise in
@@ -148,6 +152,7 @@ final class WishListService: WishListServiceProtocol {
         }.eraseToAnyPublisher()
     }
     
+    //MARK: - Delete wish item
     func delete(id: String) -> AnyPublisher<Bool, Error> {
         Deferred {
             Future { [weak self] promise in

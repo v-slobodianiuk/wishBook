@@ -17,41 +17,12 @@ struct WishDetailsView: View {
     @State private var description: String = ""
     @State private var url: String = ""
     
+    // MARK: - body
     var body: some View {
         NavigationView {
             VStack {
-                ScrollView {
-                    VStack(alignment: .leading) {
-                        TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: $title)
-                            .font(Font.title.weight(.medium))
-                            .disabled(wishState == .readOnly)
-                        if wishState != .readOnly {
-                            TextField("WISH_ITEM_TITLE_LINK_PLACEHOLER".localized, text: $url)
-                                .font(Font.subheadline)
-                                .foregroundColor(.main)
-                                .padding(.bottom)
-                        }
-                        
-                        if wishState != .readOnly {
-                            TextView(text: $description)
-                                .backgroundColor(UIColor.systemGray6)
-                                .font(.systemFont(ofSize: 14))
-                                .textColor(.gray)
-                                .frame(height: 250)
-                                .border(Color(UIColor.systemGray5), width: 1)
-                        } else {
-                            Text(description)
-                                .font(Font.callout)
-                                .foregroundColor(.gray)
-                                .padding(.bottom)
-                        }
-                        
-                        LinkDataView(urlString: $url)
-                            .frame(height: 150)
-                    }
-                    .padding(.horizontal)
-                }
-                .padding(.top)
+                detailsView
+                    .padding(.top)
                 
                 Spacer()
                 
@@ -75,7 +46,7 @@ struct WishDetailsView: View {
                 }
             }
             .navigationBarTitle("", displayMode: .inline)
-            .navigationBarItems(trailing: setupTrailingNavBarItems())
+            .navigationBarItems(trailing: trailingNavBarItems)
             .onAppear {
                 guard wishState != .new else {
                     store.dispatch(action: .wishes(action: .clearWishDetails))
@@ -96,7 +67,43 @@ struct WishDetailsView: View {
         }
     }
     
-    fileprivate func setupTrailingNavBarItems() -> some View {
+    // MARK: - DetailsView
+    fileprivate var detailsView: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
+                TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: $title)
+                    .font(Font.title.weight(.medium))
+                    .disabled(wishState == .readOnly)
+                if wishState != .readOnly {
+                    TextField("WISH_ITEM_TITLE_LINK_PLACEHOLER".localized, text: $url)
+                        .font(Font.subheadline)
+                        .foregroundColor(.main)
+                        .padding(.bottom)
+                }
+                
+                if wishState != .readOnly {
+                    TextView(text: $description)
+                        .backgroundColor(UIColor.systemGray6)
+                        .font(.systemFont(ofSize: 14))
+                        .textColor(.gray)
+                        .frame(height: 250)
+                        .border(Color(UIColor.systemGray5), width: 1)
+                } else {
+                    Text(description)
+                        .font(Font.callout)
+                        .foregroundColor(.gray)
+                        .padding(.bottom)
+                }
+                
+                LinkDataView(urlString: $url)
+                    .frame(height: 150)
+            }
+            .padding(.horizontal)
+        }
+    }
+    
+    // MARK: - trailingNavBarItems
+    fileprivate var trailingNavBarItems: some View {
         HStack {
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
