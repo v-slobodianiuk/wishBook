@@ -29,36 +29,50 @@ struct LoginView: View {
             get: { store.state.auth.successfullyPaswordReset },
             set: { _ in store.dispatch(action: .auth(action: .resetPasswordComplete(success: false))) }
         )
-        
-        if store.state.auth.fetchInProgress {
-            ProgressView()
-        } else {
-            ZStack {
-                contentView
-                    .frame(maxHeight: .infinity)
-                    //.contentShape(Rectangle())
-                    //.resignKeyboardOnTapGesture()
-                    .alert(isPresented: shouldDisplayError) {
-                        Alert(
-                            title: Text("Failed"),
-                            message: Text(store.state.auth.errorMessage ?? ""),
-                            dismissButton: .default(Text("OK"))
-                        )
+        NavigationView {
+            if store.state.auth.fetchInProgress {
+                ProgressView()
+            } else {
+                ZStack {
+                    contentView
+                        .frame(maxHeight: .infinity)
+                        .alert(isPresented: shouldDisplayError) {
+                            Alert(
+                                title: Text("Failed"),
+                                message: Text(store.state.auth.errorMessage ?? ""),
+                                dismissButton: .default(Text("OK"))
+                            )
+                        }
+                    
+                    if passwordPromptIsPresented {
+                        PasswordPromptView(isPresented: $passwordPromptIsPresented)
                     }
-                
-                if passwordPromptIsPresented {
-                    PasswordPromptView(isPresented: $passwordPromptIsPresented)
+                    
+                    if store.state.auth.successfullyPaswordReset {
+                        ResetPasswordView(isPresented: shouldDisplayPasswordResetSuccess)
+                    }
                 }
-                
-                if store.state.auth.successfullyPaswordReset {
-                    ResetPasswordView(isPresented: shouldDisplayPasswordResetSuccess)
-                }
+                .navigationTitle("Sign In")
             }
         }
     }
     
     fileprivate var contentView: some View {
         VStack(alignment: .leading) {
+            inputView
+            
+            buttonsView
+            
+            Link("By signing in you accept our Privacy policy", destination: URL(string: "https://apple.com")!)
+                .font(Font.footnote)
+                .foregroundColor(.gray)
+                .padding([.horizontal, .top])
+                .frame(maxWidth: .infinity, alignment: .center)
+        }
+    }
+    
+    fileprivate var inputView: some View {
+        Group {
             TextField("Email", text: $email) {
                 withAnimation {
                     isValidEmail = store.state.auth.isValidEmail(email)
@@ -70,10 +84,12 @@ struct LoginView: View {
                     isValidEmail = store.state.auth.isValidEmail(currentText)
                 }
             }
-            .textFieldStyle(RoundedBorderTextFieldStyle())
             .keyboardType(.emailAddress)
             .autocapitalization(.none)
-            .padding(.horizontal)
+            .padding([.horizontal, .top])
+            
+            Divider()
+                .padding(.horizontal)
             
             if !isValidEmail && !email.isEmpty {
                 WarningText(text: "Incorrect email")
@@ -92,8 +108,10 @@ struct LoginView: View {
                     isValidPassword = store.state.auth.isValidPassword(currentText)
                 }
             }
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .padding(.horizontal)
+            .padding([.horizontal, .top])
+            
+            Divider()
+                .padding(.horizontal)
             
             if !isValidPassword && !password.isEmpty {
                 Button {
@@ -112,7 +130,11 @@ struct LoginView: View {
                 }
                 .padding(.leading)
             }
-            
+        }
+    }
+    
+    fileprivate var buttonsView: some View {
+        Group {
             if isValidEmail {
                 Button {
                     endEditing()
@@ -142,12 +164,25 @@ struct LoginView: View {
                 .foregroundColor(.gray)
                 .frame(maxWidth: .infinity, alignment: .center)
             
-            Button("Continue with Google") {
+            Button {
                 withAnimation {
                     store.dispatch(action: .auth(action: .googleLogIn))
                 }
+            } label: {
+                Label {
+                    Text("Continue with Google")
+                        .font(.system(size: 19, weight: .medium))
+                        .foregroundColor(.light)
+                } icon: {
+                    Image("btn_google_light_normal_ios")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 36, height: 36)
+                }
             }
-            .buttonStyle(ConfirmButtonStyle())
+            .frame(maxWidth: .infinity, minHeight: 50)
+            .background(Color.label)
+            .cornerRadius(10)
             .padding(.horizontal)
             
             SignInWithAppleButton(.continue) { request in
@@ -163,12 +198,6 @@ struct LoginView: View {
             .frame(height: 50)
             .cornerRadius(10)
             .padding(.horizontal)
-            
-            Link("By signing in you accept our Privacy policy", destination: URL(string: "https://apple.com")!)
-                .font(Font.footnote)
-                .foregroundColor(.gray)
-                .padding([.horizontal, .top])
-                .frame(maxWidth: .infinity, alignment: .center)
         }
     }
 }
@@ -176,5 +205,6 @@ struct LoginView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         screenFactory.makeLoginView()
+            //.preferredColorScheme(.dark)
     }
 }
