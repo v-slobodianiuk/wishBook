@@ -65,6 +65,7 @@ struct ChangePasswordView: View {
                 
                 Button {
                     endEditing()
+                    closeButtonIsPresented = true
                     withAnimation {
                         passwordPromptIsPresented.toggle()
                     }
