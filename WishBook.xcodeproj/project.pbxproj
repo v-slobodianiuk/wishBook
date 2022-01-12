@@ -13,6 +13,7 @@
 		D51802192775DD7D00AFD34C /* Di.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51802182775DD7D00AFD34C /* Di.swift */; };
 		D519385B2758B895005BF7B5 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D519385A2758B895005BF7B5 /* BlurView.swift */; };
 		D521E8EC278F0DA700BEDFD8 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D521E8EB278F0DA700BEDFD8 /* ProfileImageView.swift */; };
+		D521E8F1278F257000BEDFD8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D521E8F0278F257000BEDFD8 /* GoogleService-Info.plist */; };
 		D5362226276CAF7B003035FF /* WishListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5362225276CAF7B003035FF /* WishListService.swift */; };
 		D5362228276CB004003035FF /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5362227276CB004003035FF /* ProfileService.swift */; };
 		D536222A276CB90F003035FF /* profileMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5362229276CB90F003035FF /* profileMiddleware.swift */; };
@@ -47,7 +48,6 @@
 		D552C8F925E409AB000E2196 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D552C8F725E409AB000E2196 /* LaunchScreen.storyboard */; };
 		D552C90425E409AB000E2196 /* WishBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C90325E409AB000E2196 /* WishBookTests.swift */; };
 		D552C90F25E409AB000E2196 /* WishBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C90E25E409AB000E2196 /* WishBookUITests.swift */; };
-		D552C95625E40ED1000E2196 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D552C95525E40ED1000E2196 /* GoogleService-Info.plist */; };
 		D55CC74A25F546FC00E5C04F /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC74925F546FC00E5C04F /* ProfileModel.swift */; };
 		D55CC74F25F54BE300E5C04F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC74E25F54BE300E5C04F /* EditProfileView.swift */; };
 		D55CC76F25F6A37100E5C04F /* FirestoreCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC76E25F6A37100E5C04F /* FirestoreCollection.swift */; };
@@ -122,6 +122,7 @@
 		D51802182775DD7D00AFD34C /* Di.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Di.swift; sourceTree = "<group>"; };
 		D519385A2758B895005BF7B5 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		D521E8EB278F0DA700BEDFD8 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		D521E8F0278F257000BEDFD8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D5362225276CAF7B003035FF /* WishListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListService.swift; sourceTree = "<group>"; };
 		D5362227276CB004003035FF /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		D5362229276CB90F003035FF /* profileMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileMiddleware.swift; sourceTree = "<group>"; };
@@ -160,7 +161,6 @@
 		D552C90A25E409AB000E2196 /* WishBookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WishBookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D552C90E25E409AB000E2196 /* WishBookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishBookUITests.swift; sourceTree = "<group>"; };
 		D552C91025E409AB000E2196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D552C95525E40ED1000E2196 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D55CC74925F546FC00E5C04F /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		D55CC74E25F54BE300E5C04F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		D55CC76E25F6A37100E5C04F /* FirestoreCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCollection.swift; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 				D5C5BBEE277DB9540034E989 /* Globals.swift */,
 				D53F4958276A6FF0000A9738 /* ScreenFactory.swift */,
 				D552C8F725E409AB000E2196 /* LaunchScreen.storyboard */,
-				D552C95525E40ED1000E2196 /* GoogleService-Info.plist */,
+				D521E8F0278F257000BEDFD8 /* GoogleService-Info.plist */,
 				D552C8FA25E409AB000E2196 /* Info.plist */,
 			);
 			path = App;
@@ -570,6 +570,7 @@
 				D552C8E225E409A9000E2196 /* Sources */,
 				D552C8E325E409A9000E2196 /* Frameworks */,
 				D552C8E425E409A9000E2196 /* Resources */,
+				D521E8ED278F1F3A00BEDFD8 /* Crashlytics Run Script */,
 			);
 			buildRules = (
 			);
@@ -683,10 +684,10 @@
 			files = (
 				D552C8F925E409AB000E2196 /* LaunchScreen.storyboard in Resources */,
 				D59914C925F53FD9005F2F23 /* Localizable.strings in Resources */,
-				D552C95625E40ED1000E2196 /* GoogleService-Info.plist in Resources */,
 				D599146025F53C12005F2F23 /* Colors.xcassets in Resources */,
 				D552C8F625E409AB000E2196 /* Preview Assets.xcassets in Resources */,
 				D552C8F325E409AB000E2196 /* Assets.xcassets in Resources */,
+				D521E8F1278F257000BEDFD8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,6 +706,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D521E8ED278F1F3A00BEDFD8 /* Crashlytics Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+			);
+			name = "Crashlytics Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D552C8E225E409A9000E2196 /* Sources */ = {
@@ -861,7 +885,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -882,6 +906,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -936,6 +961,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -950,6 +976,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WishBook/WishBook.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"WishBook/Preview Content\"";
 				DEVELOPMENT_TEAM = KVLZH7HMMQ;
 				ENABLE_PREVIEWS = YES;
@@ -959,6 +986,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=250 -Xfrontend -warn-long-function-bodies=250";
 				PRODUCT_BUNDLE_IDENTIFIER = va.slobodianiuk.WishBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -984,6 +1012,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = va.slobodianiuk.WishBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SUPPRESS_WARNINGS = NO;
