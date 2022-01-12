@@ -17,18 +17,12 @@ struct ProfileView: View {
     
     // MARK: - body
     var body: some View {
-        Group {
-            if store.state.profile.fetchInProgress {
-                ProgressView()
-            } else {
-                contentView
-                    .navigationBarTitle("PROFILE_NAV_TITLE".localized)
-                    .navigationBarItems(trailing: trailingNavBarItems)
-                    .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
-                        ImagePicker(imageData: self.$inputImageData)
-                    }
+        contentView
+            .navigationBarTitle("PROFILE_NAV_TITLE".localized)
+            .navigationBarItems(trailing: trailingNavBarItems)
+            .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
+                ImagePicker(imageData: self.$inputImageData)
             }
-        }
     }
     
     // MARK: - ContentView
@@ -61,12 +55,14 @@ struct ProfileView: View {
                 subscriptions: store.state.profile.profileData?.subscriptions?.count,
                 wishes: store.state.profile.profileData?.wishes))
             
-            HStack {
-                Text("PROFILE_BIRTHDATE_EMOJI".localized)
-                Text(store.state.profile.getBirthdate())
-                    .padding(.leading, 5)
+            if store.state.profile.profileData?.birthdate != nil {
+                HStack {
+                    Text("PROFILE_BIRTHDATE_EMOJI".localized)
+                    Text(store.state.profile.getBirthdate())
+                        .padding(.leading, 5)
+                }
+                .padding()
             }
-            .padding()
             
             Spacer()
         }

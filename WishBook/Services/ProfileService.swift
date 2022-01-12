@@ -59,7 +59,7 @@ final class ProfileService: ProfileServiceProtocol {
     
     func startWishesListener() {
         guard !UserStorage.profileUserId.isEmpty, wishCounterListener == nil else { return }
-        wishCounterListener = db.collection(FirestoreCollection[.wishList])
+        wishCounterListener = db.collection(Globals.wishesCollectionName)
             .whereField("userId", isEqualTo: UserStorage.profileUserId)
             .addSnapshotListener { [weak self] querySnapshot, error in
                 if let error = error {
@@ -75,7 +75,7 @@ final class ProfileService: ProfileServiceProtocol {
     
     func startProfileDataListener() {
         guard !UserStorage.profileUserId.isEmpty, profileDataListener == nil else { return }
-        profileDataListener = db.collection(FirestoreCollection[.users])
+        profileDataListener = db.collection(Globals.usersCollectionName)
             .document(UserStorage.profileUserId)
             .addSnapshotListener { [weak self] (querySnapshot, error) in
                 DispatchQueue.global().async {
@@ -129,7 +129,7 @@ final class ProfileService: ProfileServiceProtocol {
                     return
                 }
                 
-                self?.db.collection(FirestoreCollection[.users])
+                self?.db.collection(Globals.usersCollectionName)
                     .document(id)
                     .getDocument { (document, error) in
                         DispatchQueue.global().async {
@@ -169,7 +169,7 @@ final class ProfileService: ProfileServiceProtocol {
                 var confiredData = data
                 confiredData.id = UserStorage.profileUserId
                 do {
-                    try self?.db.collection(FirestoreCollection[.users])
+                    try self?.db.collection(Globals.usersCollectionName)
                         .document(UserStorage.profileUserId)
                         .setData(from: confiredData)
                     promise(.success(true))
@@ -186,7 +186,7 @@ final class ProfileService: ProfileServiceProtocol {
             Future { [weak self] promise in
                 guard !UserStorage.profileUserId.isEmpty else { return }
                 
-                self?.db.collection(FirestoreCollection[.users])
+                self?.db.collection(Globals.usersCollectionName)
                     .document(UserStorage.profileUserId)
                     .updateData([
                         key.rawValue : value

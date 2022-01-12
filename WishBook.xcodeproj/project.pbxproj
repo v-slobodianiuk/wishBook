@@ -50,7 +50,6 @@
 		D552C90F25E409AB000E2196 /* WishBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D552C90E25E409AB000E2196 /* WishBookUITests.swift */; };
 		D55CC74A25F546FC00E5C04F /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC74925F546FC00E5C04F /* ProfileModel.swift */; };
 		D55CC74F25F54BE300E5C04F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC74E25F54BE300E5C04F /* EditProfileView.swift */; };
-		D55CC76F25F6A37100E5C04F /* FirestoreCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC76E25F6A37100E5C04F /* FirestoreCollection.swift */; };
 		D55CC78025F6BE7300E5C04F /* WishListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC77F25F6BE7300E5C04F /* WishListModel.swift */; };
 		D55CC79C25F6C6A100E5C04F /* WishDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55CC79B25F6C6A100E5C04F /* WishDetailsView.swift */; };
 		D56B190D2602785700F7031C /* GoogleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56B190C2602785700F7031C /* GoogleAuthService.swift */; };
@@ -163,7 +162,6 @@
 		D552C91025E409AB000E2196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D55CC74925F546FC00E5C04F /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		D55CC74E25F54BE300E5C04F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
-		D55CC76E25F6A37100E5C04F /* FirestoreCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCollection.swift; sourceTree = "<group>"; };
 		D55CC77F25F6BE7300E5C04F /* WishListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListModel.swift; sourceTree = "<group>"; };
 		D55CC79B25F6C6A100E5C04F /* WishDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishDetailsView.swift; sourceTree = "<group>"; };
 		D56B190C2602785700F7031C /* GoogleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthService.swift; sourceTree = "<group>"; };
@@ -457,7 +455,6 @@
 		D55CC77325F6B7E200E5C04F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D55CC76E25F6A37100E5C04F /* FirestoreCollection.swift */,
 				D55CC74925F546FC00E5C04F /* ProfileModel.swift */,
 				D55CC77F25F6BE7300E5C04F /* WishListModel.swift */,
 				D58D27B92718285B00F9A91B /* PeopleFilter.swift */,
@@ -790,7 +787,6 @@
 				D5DE3AB42785E9BF00E09106 /* WishCellView.swift in Sources */,
 				D53F494F276A6B3B000A9738 /* AppReducer.swift in Sources */,
 				D57336802611E4A700C11EC0 /* UIExtensions.swift in Sources */,
-				D55CC76F25F6A37100E5C04F /* FirestoreCollection.swift in Sources */,
 				D519385B2758B895005BF7B5 /* BlurView.swift in Sources */,
 				D5C5869A26C93BA400BFF6A5 /* ImagePicker.swift in Sources */,
 				D56B190D2602785700F7031C /* GoogleAuthService.swift in Sources */,
@@ -979,6 +975,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"WishBook/Preview Content\"";
 				DEVELOPMENT_TEAM = KVLZH7HMMQ;
+				DISPLAY_NAME = "WishBook Test";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/WishBook/App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -990,9 +987,12 @@
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=250 -Xfrontend -warn-long-function-bodies=250";
 				PRODUCT_BUNDLE_IDENTIFIER = va.slobodianiuk.WishBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				ROOT_STORAGE = Test;
 				SWIFT_SUPPRESS_WARNINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				USERS_DB = TestUsers;
+				WISHES_DB = TestWishes;
 			};
 			name = Debug;
 		};
@@ -1005,6 +1005,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"WishBook/Preview Content\"";
 				DEVELOPMENT_TEAM = KVLZH7HMMQ;
+				DISPLAY_NAME = WishBook;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/WishBook/App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1015,9 +1016,12 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = va.slobodianiuk.WishBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				ROOT_STORAGE = Production;
 				SWIFT_SUPPRESS_WARNINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				USERS_DB = Users;
+				WISHES_DB = Wishes;
 			};
 			name = Release;
 		};

@@ -166,7 +166,7 @@ final class GoogleAuthService: GoogleAuthServiceProtocol {
     //MARK: - Add User data to DB
     func addUserDataIfNeeded(profile: ProfileModel) {
         let userDoc = db
-            .collection(FirestoreCollection[.users])
+            .collection(Globals.usersCollectionName)
             .document(UserStorage.profileUserId)
         
         userDoc.getDocument { (document, error) in

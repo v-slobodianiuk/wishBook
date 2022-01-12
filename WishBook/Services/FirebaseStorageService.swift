@@ -16,14 +16,13 @@ protocol FirebaseStorageServiceProtocol {
 final class FirebaseStorageService: FirebaseStorageServiceProtocol {
     
     private let storage = Storage.storage()
-    private let photoRootFolder: String = Globals.photoRootFolder
     
     func upload(imageData: Data, userId: String) -> AnyPublisher<URL?, Error> {
         Deferred {
             Future { [weak self] promise in
                 guard let self = self else { return }
                 // Create a storage reference
-                let storageRef = self.storage.reference().child("\(self.photoRootFolder)/\(userId)/\(userId).jpg")
+                let storageRef = self.storage.reference().child("\(Globals.storageRootFolder)/\(Globals.photoRootFolder)/\(userId)/\(userId).jpg")
                 
                 // Change the content type to jpg. If you don't, it'll be saved as application/octet-stream type
                 let metadata = StorageMetadata()

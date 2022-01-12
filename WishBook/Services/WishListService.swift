@@ -26,7 +26,7 @@ final class WishListService: WishListServiceProtocol {
         Deferred {
             Future { [weak self] promise in
                 
-                self?.db.collection(FirestoreCollection[.wishList])
+                self?.db.collection(Globals.wishesCollectionName)
                     .order(by: "createdTime")
                     .whereField("userId", isEqualTo: userId)
                     .limit(to: limit)
@@ -70,7 +70,7 @@ final class WishListService: WishListServiceProtocol {
                     return
                 }
                 
-                self?.db.collection(FirestoreCollection[.wishList])
+                self?.db.collection(Globals.wishesCollectionName)
                     .order(by: "createdTime")
                     .whereField("userId", isEqualTo: userId)
                     .start(afterDocument: snapshot)
@@ -117,7 +117,7 @@ final class WishListService: WishListServiceProtocol {
                 do {
                     var configuredData = data
                     configuredData.userId = UserStorage.profileUserId
-                    let _ = try self?.db.collection(FirestoreCollection[.wishList])
+                    let _ = try self?.db.collection(Globals.wishesCollectionName)
                         .addDocument(from: configuredData)
                     promise(.success(configuredData))
                 } catch {
@@ -140,7 +140,7 @@ final class WishListService: WishListServiceProtocol {
                 configuredData.userId = UserStorage.profileUserId
                 
                 do {
-                    try self?.db.collection(FirestoreCollection[.wishList])
+                    try self?.db.collection(Globals.wishesCollectionName)
                         .document(id)
                         .setData(from: configuredData)
                     promise(.success(configuredData))
@@ -156,7 +156,7 @@ final class WishListService: WishListServiceProtocol {
     func delete(id: String) -> AnyPublisher<Bool, Error> {
         Deferred {
             Future { [weak self] promise in
-                self?.db.collection(FirestoreCollection[.wishList])
+                self?.db.collection(Globals.wishesCollectionName)
                     .document(id)
                     .delete() { error in
                         DispatchQueue.global().async {

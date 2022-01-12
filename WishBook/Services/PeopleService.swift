@@ -55,7 +55,7 @@ final class PeopleService: PeopleServiceProtocol {
                 }
                 
                 self.searchKey = key
-                self.db.collection(FirestoreCollection[.users])
+                self.db.collection(Globals.usersCollectionName)
                     .whereField("searchKey", isEqualTo: self.searchKey)
                     .getDocuments { querySnapshot, error in
                         self.lastSnapshot = querySnapshot?.documents.last
@@ -91,7 +91,7 @@ final class PeopleService: PeopleServiceProtocol {
             Future { [weak self] promise in
                 guard !UserStorage.profileUserId.isEmpty, let subscriptionId = id else { return }
                 
-                self?.db.collection(FirestoreCollection[.users])
+                self?.db.collection(Globals.usersCollectionName)
                     .document(UserStorage.profileUserId)
                     .updateData([
                         "subscriptions" : FieldValue.arrayUnion([subscriptionId])
@@ -112,7 +112,7 @@ final class PeopleService: PeopleServiceProtocol {
         Deferred {
             Future { [weak self] promise in
                 guard !UserStorage.profileUserId.isEmpty, let subscriptionId = id else { return }
-                self?.db.collection(FirestoreCollection[.users])
+                self?.db.collection(Globals.usersCollectionName)
                     .document(UserStorage.profileUserId)
                     .updateData([
                         "subscriptions" : FieldValue.arrayRemove([subscriptionId])
@@ -134,7 +134,7 @@ final class PeopleService: PeopleServiceProtocol {
             Future { [weak self] promise in
                 guard !UserStorage.profileUserId.isEmpty, let subscriptionId = id else { return }
                     
-                self?.db.collection(FirestoreCollection[.users])
+                self?.db.collection(Globals.usersCollectionName)
                     .document(subscriptionId)
                     .updateData([
                         "subscribers" : FieldValue.arrayUnion([UserStorage.profileUserId])
@@ -156,7 +156,7 @@ final class PeopleService: PeopleServiceProtocol {
             Future { [weak self] promise in
                 guard !UserStorage.profileUserId.isEmpty, let subscriptionId = id else { return }
                     
-                self?.db.collection(FirestoreCollection[.users])
+                self?.db.collection(Globals.usersCollectionName)
                     .document(subscriptionId)
                     .updateData([
                         "subscribers" : FieldValue.arrayRemove([UserStorage.profileUserId])
@@ -191,7 +191,7 @@ final class PeopleService: PeopleServiceProtocol {
                         return
                     }
                     
-                    self?.db.collection(FirestoreCollection[.users])
+                    self?.db.collection(Globals.usersCollectionName)
                         .whereField("userId", in: searchedIds)
                         .getDocuments { (querySnapshot, error) in
                             DispatchQueue.global().async {
