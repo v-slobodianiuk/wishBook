@@ -63,7 +63,6 @@
 		D599142725F52879005F2F23 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142625F52879005F2F23 /* PeopleView.swift */; };
 		D599142C25F528C9005F2F23 /* WishListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599142B25F528C9005F2F23 /* WishListView.swift */; };
 		D599143125F528DC005F2F23 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599143025F528DC005F2F23 /* ProfileView.swift */; };
-		D599145125F53785005F2F23 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599145025F53785005F2F23 /* PeopleViewModel.swift */; };
 		D599146025F53C12005F2F23 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D599145F25F53C12005F2F23 /* Colors.xcassets */; };
 		D599146525F53DAD005F2F23 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D599146425F53DAD005F2F23 /* Colors.swift */; };
 		D59914C925F53FD9005F2F23 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D59914C825F53FD9005F2F23 /* Localizable.strings */; };
@@ -86,7 +85,6 @@
 		D5D33E45277F3503008CE277 /* Environment+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D33E44277F3503008CE277 /* Environment+Extension.swift */; };
 		D5D33E47277F35A4008CE277 /* TabItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D33E46277F35A4008CE277 /* TabItems.swift */; };
 		D5DE3AB42785E9BF00E09106 /* WishCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE3AB32785E9BF00E09106 /* WishCellView.swift */; };
-		D5E62F2C2611E96C0094BAF9 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E62F2B2611E96C0094BAF9 /* SearchView.swift */; };
 		D5E7511626496F6200C2D20A /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E7511526496F6200C2D20A /* TextView.swift */; };
 		D5FB2E0526C645160036B4E9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D5FB2E0426C645160036B4E9 /* FirebaseFirestore */; };
 		D5FB2E0726C645160036B4E9 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = D5FB2E0626C645160036B4E9 /* FirebaseFirestoreSwift-Beta */; };
@@ -177,7 +175,6 @@
 		D599142625F52879005F2F23 /* PeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
 		D599142B25F528C9005F2F23 /* WishListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListView.swift; sourceTree = "<group>"; };
 		D599143025F528DC005F2F23 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		D599145025F53785005F2F23 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
 		D599145F25F53C12005F2F23 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		D599146425F53DAD005F2F23 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D59914C825F53FD9005F2F23 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -200,7 +197,6 @@
 		D5D33E44277F3503008CE277 /* Environment+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Environment+Extension.swift"; sourceTree = "<group>"; };
 		D5D33E46277F35A4008CE277 /* TabItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItems.swift; sourceTree = "<group>"; };
 		D5DE3AB32785E9BF00E09106 /* WishCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCellView.swift; sourceTree = "<group>"; };
-		D5E62F2B2611E96C0094BAF9 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		D5E7511526496F6200C2D20A /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -502,7 +498,6 @@
 				D50FE2A9264C3C120083197B /* UserPage */,
 				D5B7F02926815D0500D578F1 /* Cell */,
 				D599142625F52879005F2F23 /* PeopleView.swift */,
-				D599145025F53785005F2F23 /* PeopleViewModel.swift */,
 			);
 			path = People;
 			sourceTree = "<group>";
@@ -526,7 +521,6 @@
 				D576CA8F278734170083AB7B /* PasswordPromptView.swift */,
 				D5CE4F872718518D009B4644 /* StatisticBlockView.swift */,
 				D5BBC79B277DFE9D0048CBF4 /* SearchTextFieldView.swift */,
-				D5E62F2B2611E96C0094BAF9 /* SearchView.swift */,
 				D5E7511526496F6200C2D20A /* TextView.swift */,
 				D5442BA026809C1400BB1F5A /* LinkDataView.swift */,
 				D5B7F01B26815BC800D578F1 /* LinkContainerView.swift */,
@@ -719,7 +713,6 @@
 				D51802192775DD7D00AFD34C /* Di.swift in Sources */,
 				D576CA8C278708940083AB7B /* ChangePasswordView.swift in Sources */,
 				D53F494B276A6A4A000A9738 /* AuthAction.swift in Sources */,
-				D599145125F53785005F2F23 /* PeopleViewModel.swift in Sources */,
 				D599142725F52879005F2F23 /* PeopleView.swift in Sources */,
 				D5A182602773BAA40099709C /* PeopleReducer.swift in Sources */,
 				D53F495B276B44E0000A9738 /* AppStore.swift in Sources */,
@@ -760,7 +753,6 @@
 				D5C7C5AC2786E62600A3613B /* WishState.swift in Sources */,
 				D53D0E1525F3B64500E5C2D7 /* CompositeAppDelegate.swift in Sources */,
 				D5BBC79C277DFE9D0048CBF4 /* SearchTextFieldView.swift in Sources */,
-				D5E62F2C2611E96C0094BAF9 /* SearchView.swift in Sources */,
 				D53F4947276A69DF000A9738 /* ProfileState.swift in Sources */,
 				D552C8EE25E409A9000E2196 /* LoginView.swift in Sources */,
 				D599142C25F528C9005F2F23 /* WishListView.swift in Sources */,

@@ -38,9 +38,9 @@ struct ChangePasswordView: View {
                     }
                     .alert(isPresented: shouldDisplayError) {
                         return Alert(
-                            title: Text("Failed"),
+                            title: Text("FAIL_TITLE".localized),
                             message: Text(store.state.auth.errorMessage ?? ""),
-                            dismissButton: .default(Text("OK"))
+                            dismissButton: .default(Text("OK_ACTION_TITLE".localized))
                         )
                     }
             }
@@ -68,7 +68,7 @@ struct ChangePasswordView: View {
                     }
                 } label: {
                     HStack {
-                        Text("Create new Password")
+                        Text("CREATE_NEW_PASSWORD_TITLE".localized)
                             .font(Font.title)
                             .foregroundColor(.label)
                         Image(systemName: "info.circle")
@@ -78,7 +78,7 @@ struct ChangePasswordView: View {
                     }
                 }
 
-                SecureField("Password", text: $password) {
+                SecureField("PASSWORD_PLACEHOLDER".localized, text: $password) {
                     withAnimation {
                         let isValid = store.state.auth.isValidPassword(password)
                         isValidPassword = (password == confirmPassword && isValid)
@@ -100,7 +100,7 @@ struct ChangePasswordView: View {
                 }
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                SecureField("Repeat Password", text: $confirmPassword) {
+                SecureField("REPEAT_PASSWORD_PLACEHOLDER".localized, text: $confirmPassword) {
                     withAnimation {
                         let isValid = store.state.auth.isValidPassword(confirmPassword)
                         isValidPassword = (password == confirmPassword && isValid)
@@ -123,10 +123,10 @@ struct ChangePasswordView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 if password != confirmPassword {
-                    WarningText(text: "Password is not match")
+                    WarningText(text: "PASSWORD_WARNING_TEXT".localized)
                 }
                 
-                Button("Confirm") {
+                Button("CONFIRM_BUTTON_TITLE".localized) {
                     withAnimation {
                         store.dispatch(action: .auth(action: .updatePassword(password: password)))
                     }
@@ -174,7 +174,7 @@ struct ChangePasswordView: View {
                 .foregroundColor(.main)
                 .opacity(0.2)
             
-            Text("Success")
+            Text("SUCCESS_TITLE".localized)
                 .font(Font.largeTitle)
                 .foregroundColor(.label)
                 .padding()

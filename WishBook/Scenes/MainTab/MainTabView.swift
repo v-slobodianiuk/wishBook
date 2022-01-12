@@ -20,7 +20,7 @@ struct MainTabView: View {
             .navigationViewStyle(.stack)
             .tabItem {
                 Image(systemName: "person.2.fill")
-                Text("People")
+                Text("PEOPLE_TAB_ITEM".localized)
             }
             .tag(TabItems.friendsView)
             
@@ -30,7 +30,7 @@ struct MainTabView: View {
             .navigationViewStyle(.stack)
             .tabItem {
                 Image(systemName: "list.triangle")
-                Text("Wish List")
+                Text("WISH_LIST_TAB_ITEM".localized)
             }
             .tag(TabItems.wishListView)
             

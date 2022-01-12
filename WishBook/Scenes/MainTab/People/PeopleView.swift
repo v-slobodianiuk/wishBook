@@ -31,9 +31,9 @@ struct PeopleView: View {
                 }
             
             Picker("", selection: $filterSegment) {
-                Text("All").tag(PeopleFilter.all)
-                Text("Subscribers").tag(PeopleFilter.subscribers)
-                Text("Subscriptions").tag(PeopleFilter.subscriptions)
+                Text("ALL_PEOPLE_TITLE".localized).tag(PeopleFilter.all)
+                Text("SUBSCRIBERS_TITLE".localized).tag(PeopleFilter.subscribers)
+                Text("SUBSCRIPTIONS_TITLE".localized).tag(PeopleFilter.subscriptions)
             }
             .onChange(of: filterSegment) { newValue in
                 guard let profileData = store.state.profile.profileData else { return }
@@ -56,7 +56,7 @@ struct PeopleView: View {
             
             emptyView
         }
-        .navigationBarTitle("FRIENDS_NAV_TITLE".localized)
+        .navigationBarTitle("PEOPLE_NAV_TITLE".localized)
     }
     
     @ViewBuilder

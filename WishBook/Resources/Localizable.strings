@@ -7,24 +7,36 @@
 */
 
 //MARK: Login
+"LOGIN_TITLE" = "Sign In";
 "EMAIL_PLACEHOLDER" = "Email";
+"EMAIL_ERROR" = "Incorrect email";
 "PASSWORD_PLACEHOLDER" = "Password";
-"LOGIN_BUTTON_TITLE" = "Log in";
-"ERROR_TITLE" = "Login Failed";
-"CLOSE_ERROR_TITLE" = "Ok";
+"PASSWORD_ERROR" = "Incorrect password";
+"RESET_PASSWORD_TITLE" = "Reset password";
+"LOGIN_BUTTON_TITLE" = "Continue";
+"DIVIDER_TEXT" = "or";
+"GOOGLE_BUTTON_TITLE" = "Continue with Google";
+"PRIVACY_POLICY_TEXT" = "By signing in you accept our Privacy policy";
+"PRIVACY_POLICY_URL" = "https://apple.com";
+"SUCCESS_TITLE" = "Success";
+"RESET_PASSWORD_TEXT" = "Check your mail";
 
 //MARK: Main Tab Items
-"FRIENDS_TAB_ITEM" = "Friends";
+"PEOPLE_TAB_ITEM" = "People";
 "WISH_LIST_TAB_ITEM" = "Wish List";
 "PROFILE_TAB_ITEM" = "Profile";
 
 //MARK: People
-"FRIENDS_NAV_TITLE" = "People Search";
+"PEOPLE_NAV_TITLE" = "People Search";
 "PEOPLE_SEARCH_PLACEHOLDER" = "Last name";
+"ALL_PEOPLE_TITLE" = "All";
+"SUBSCRIBERS_TITLE" = "Subscribers";
+"SUBSCRIPTIONS_TITLE" = "Subscriptions";
 
 //MARK: Wish List
 "WISH_LIST_NAV_TITLE" = "Wish List";
 "WISH_ITEM_ADD_BUTTON_TITLE" = "Add";
+"WISH_ADD_FIRST_TEXT" = "Add your first wish";
 "WISH_ITEM_CLOSE_BUTTON_TITLE" = "Close";
 "WISH_ITEM_TITLE_PLACEHOLER" = "What do you want?";
 "WISH_ITEM_TITLE_DESCRIPTION_PLACEHOLER" = "No details";
@@ -49,7 +61,14 @@
 "PROFILE_ABOUT" = "About";
 "PROFILE_BIRTHDATE" = "Birthdate";
 "EDIT_PROFILE_BUTTON_TITLE" = "Save";
+"CHANGE_PASSWORD_TITLE" = "Change Password";
+"REQUIRED" = "*";
 
+//MARK: Change password
+"CREATE_NEW_PASSWORD_TITLE" = "Create new Password";
+"REPEAT_PASSWORD_PLACEHOLDER" = "Repeat Password";
+"PASSWORD_WARNING_TEXT" = "Password do not match";
+"CONFIRM_BUTTON_TITLE" = "Confirm";
 
 //MARK: User Page
 "USER_PAGE_BUTTON_SUBSCRIBE" = "Subscribe";
@@ -58,3 +77,7 @@
 //MARK: Password Prompt
 "PASSWORD_PROMPT_TITLE" = "Assume we would like our password to contain all of the following:";
 "PASSWORD_PROMPT_DESCRIPTION" = "- At least one digit \n- At least one lowercase character \n- At least one uppercase character \n- At least one special character \n- At least characters in length, but no more than 32.";
+
+//MARK: Alert
+"FAIL_TITLE" = "Failed";
+"OK_ACTION_TITLE" = "OK";

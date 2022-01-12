@@ -38,9 +38,9 @@ struct LoginView: View {
                         .frame(maxHeight: .infinity)
                         .alert(isPresented: shouldDisplayError) {
                             Alert(
-                                title: Text("Failed"),
+                                title: Text("FAIL_TITLE".localized),
                                 message: Text(store.state.auth.errorMessage ?? ""),
-                                dismissButton: .default(Text("OK"))
+                                dismissButton: .default(Text("OK_ACTION_TITLE".localized))
                             )
                         }
                     
@@ -52,7 +52,7 @@ struct LoginView: View {
                         ResetPasswordView(isPresented: shouldDisplayPasswordResetSuccess)
                     }
                 }
-                .navigationTitle("Sign In")
+                .navigationTitle("LOGIN_TITLE".localized)
             }
         }
     }
@@ -63,7 +63,7 @@ struct LoginView: View {
             
             buttonsView
             
-            Link("By signing in you accept our Privacy policy", destination: URL(string: "https://apple.com")!)
+            Link("PRIVACY_POLICY_TEXT".localized, destination: URL(string: "PRIVACY_POLICY_URL".localized)!)
                 .font(Font.footnote)
                 .foregroundColor(.gray)
                 .padding([.horizontal, .top])
@@ -73,7 +73,7 @@ struct LoginView: View {
     
     fileprivate var inputView: some View {
         Group {
-            TextField("Email", text: $email) {
+            TextField("EMAIL_PLACEHOLDER".localized, text: $email) {
                 withAnimation {
                     isValidEmail = store.state.auth.isValidEmail(email)
                 }
@@ -92,12 +92,12 @@ struct LoginView: View {
                 .padding(.horizontal)
             
             if !isValidEmail && !email.isEmpty {
-                WarningText(text: "Incorrect email")
+                WarningText(text: "EMAIL_ERROR".localized)
                     .padding(.horizontal)
                     .lineLimit(.max)
             }
             
-            SecureField("Password", text: $password) {
+            SecureField("PASSWORD_PLACEHOLDER".localized, text: $password) {
                 withAnimation {
                     isValidPassword = store.state.auth.isValidPassword(password)
                 }
@@ -125,7 +125,7 @@ struct LoginView: View {
                             .resizable()
                             .frame(width: 20, height: 20)
                             .foregroundColor(.main)
-                        WarningText(text: "Incorrect password")
+                        WarningText(text: "PASSWORD_ERROR".localized)
                     }
                 }
                 .padding(.leading)
@@ -142,14 +142,14 @@ struct LoginView: View {
                         store.dispatch(action: .auth(action: .resetPassword(email: email)))
                     }
                 } label: {
-                    Text("Reset password")
+                    Text("RESET_PASSWORD_TITLE".localized)
                         .foregroundColor(.main)
                         .padding([.horizontal])
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
             
-            Button("Continue") {
+            Button("LOGIN_BUTTON_TITLE".localized) {
                 withAnimation {
                     store.dispatch(action: .auth(action: .logIn(login: email, password: password)))
                 }
@@ -159,7 +159,7 @@ struct LoginView: View {
             .disabled(!(isValidEmail && isValidPassword))
             .padding([.horizontal, .top])
             
-            Text("or")
+            Text("DIVIDER_TEXT".localized)
                 .font(Font.footnote)
                 .foregroundColor(.gray)
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -170,7 +170,7 @@ struct LoginView: View {
                 }
             } label: {
                 Label {
-                    Text("Continue with Google")
+                    Text("GOOGLE_BUTTON_TITLE".localized)
                         .font(.system(size: 19, weight: .medium))
                         .foregroundColor(.light)
                 } icon: {

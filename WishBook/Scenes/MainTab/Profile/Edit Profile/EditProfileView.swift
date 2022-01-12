@@ -105,7 +105,7 @@ struct EditProfileView: View {
             Button(action: {
                 showNewPasswordFields.toggle()
             }, label: {
-                Text("Change Password".localized)
+                Text("CHANGE_PASSWORD_TITLE".localized)
                     .foregroundColor(.main)
             })
                 .fullScreenCover(isPresented: $showNewPasswordFields) {
@@ -115,13 +115,8 @@ struct EditProfileView: View {
     }
     
     fileprivate func requiredText(text: String) -> some View {
-         Text(text) + Text("*").foregroundColor(.red).baselineOffset(3)
+        Text(text) + Text("REQUIRED".localized).foregroundColor(.red).baselineOffset(3)
     }
-    
-//    func isValidDate(date: Date) -> Bool {
-//        let dateComponents = Calendar.current.dateComponents([.year], from: Date(), to: date)
-//        return (dateComponents.year ?? 0) >= 4
-//    }
 }
 
 struct EditProfileView_Previews: PreviewProvider {

@@ -44,7 +44,7 @@ struct WishListView: View {
                         .foregroundColor(.main)
                         .opacity(0.2)
                         .padding(.bottom)
-                    Text("Add your first wish".uppercased())
+                    Text("WISH_ADD_FIRST_TEXT".localized.uppercased())
                         .foregroundColor(.gray)
                 }
             }

@@ -33,7 +33,7 @@ struct ResetPasswordView: View {
                 .foregroundColor(.main)
                 .opacity(0.2)
             
-            Text("Success")
+            Text("SUCCESS_TITLE".localized)
                 .font(Font.largeTitle)
                 .foregroundColor(.label)
                 .padding()
@@ -45,7 +45,7 @@ struct ResetPasswordView: View {
                 HStack {
                     Image(systemName: "tray")
                         .foregroundColor(.main)
-                    Text("Check your mail".uppercased())
+                    Text("RESET_PASSWORD_TEXT".localized.uppercased())
                         .foregroundColor(.main)
                 }
                 .padding(.all, 8)
