@@ -11,6 +11,7 @@ struct WishDetailsView: View {
     @EnvironmentObject var store: AppStore
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.wishState) var wishState
+    @Environment(\.colorScheme) var colorScheme
     
     @State private var title: String = ""
     @State private var description: String = ""
@@ -22,28 +23,38 @@ struct WishDetailsView: View {
                 ScrollView {
                     VStack(alignment: .leading) {
                         TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: $title)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .font(Font.title.weight(.medium))
                             .disabled(wishState == .readOnly)
                         if wishState != .readOnly {
                             TextField("WISH_ITEM_TITLE_LINK_PLACEHOLER".localized, text: $url)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .font(Font.subheadline)
+                                .foregroundColor(.main)
+                                .padding(.bottom)
                         }
-                        Text("WISH_ITEM_TITLE_DESCRIPTION_PLACEHOLER".localized)
-                            .font(.headline)
-                            .foregroundColor(.gray)
-                            .padding(.top)
-                        TextView(text: $description)
-                            .font(.systemFont(ofSize: 17))
-                            .setBorder(borderColor: .lightGray, borderWidth: 0.25, cornerRadius: 5)
-                            .isEditable(wishState != .readOnly)
-                            .frame(width: UIScreen.main.bounds.width - 32, height: 150, alignment: .leading)
+                        
+                        if wishState != .readOnly {
+                            TextView(text: $description)
+                                .backgroundColor(UIColor.systemGray6)
+                                .font(.systemFont(ofSize: 14))
+                                .textColor(.gray)
+                                .frame(height: 250)
+                                .border(Color(UIColor.systemGray5), width: 1)
+                        } else {
+                            Text(description)
+                                .font(Font.callout)
+                                .foregroundColor(.gray)
+                                .padding(.bottom)
+                        }
+                        
                         LinkDataView(urlString: $url)
                             .frame(height: 150)
                     }
                     .padding(.horizontal)
                 }
                 .padding(.top)
+                
                 Spacer()
+                
                 if wishState != .readOnly {
                     Button("EDIT_PROFILE_BUTTON_TITLE".localized) {
                         if !title.isEmpty {
@@ -80,7 +91,7 @@ struct WishDetailsView: View {
                 
                 title = wish?.title ?? ""
                 url = wish?.url ?? ""
-                description = wish?.description ?? ""
+                description = wish?.description ?? (wishState == .editable ? "" : "WISH_ITEM_TITLE_DESCRIPTION_PLACEHOLER".localized)
             }
         }
     }
@@ -100,6 +111,9 @@ struct WishDetailsView: View {
 struct WishDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         screenFactory.makeWishDetailsView()
+            //.wishState(.editable)
+            .wishState(.readOnly)
+            //.preferredColorScheme(.dark)
             //.previewDevice(PreviewDevice(rawValue: "iPhone SE (1st generation)"))
             //.previewDisplayName("iPhone SE (1st generation)")
     }
