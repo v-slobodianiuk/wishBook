@@ -37,18 +37,6 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
             }
             
             service.sendSearchText(searchText.lowercased())
-        case .people(action: .fetchMore):
-            return service.loadMore()
-                //.print("Fetch more search result")
-                .subscribe(on: DispatchQueue.global())
-                .map { (data: [ProfileModel]) -> AppAction in
-                    return AppAction.people(action: .fetchMoreComplete(data: data))
-                }
-                .catch { (error: Error) -> Just<AppAction> in
-                    return Just(AppAction.people(action: .fetchError(error: error.localizedDescription)))
-                }
-                .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
-                .eraseToAnyPublisher()
         case .people(action: .fetchWishes(let limit)):
             guard (limit != nil) || state.people.searchedProfileWishes.isEmpty, let userId = state.people.searchedProfile?.id else {
                 return Empty().eraseToAnyPublisher()

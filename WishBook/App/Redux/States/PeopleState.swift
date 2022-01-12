@@ -12,11 +12,6 @@ struct PeopleState {
     var searchedProfile: ProfileModel?
     
     var fetchInProgress: Bool = false
-    var paginationInProgress: Bool = false
-   
-    var paginationCompleted: Bool = false
-    
-    var paginationLimit: Int = 20
     var errorMessage: String? = nil
     
     var searchedProfileWishes: [WishListModel] = [WishListModel]()
@@ -25,6 +20,7 @@ struct PeopleState {
     var wishesFetchInProgress: Bool = false
     var wishesPaginationInProgress: Bool = false
     var wishesFullDataLoadingCompleted: Bool = false
+    var paginationLimit: Int = 20
     
     var subscribeIsDisabled: Bool = false
     

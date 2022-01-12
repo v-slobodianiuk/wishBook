@@ -13,18 +13,9 @@ func peopleReducer(state: inout PeopleState, action: PeopleAction) -> Void {
         if searchText.count == 3 {
             state.fetchInProgress = true
         }
-    case .fetchMore:
-        state.paginationInProgress = true
     case .fetchComplete(let data):
         state.peopleList = data
         state.fetchInProgress = false
-    case .fetchMoreComplete(let data):
-        guard !data.isEmpty else {
-            state.paginationCompleted = true
-            state.paginationInProgress = false
-            return
-        }
-        state.peopleList += data
     case .fetchError(let message):
         if let errorMessage = message {
             state.errorMessage = errorMessage

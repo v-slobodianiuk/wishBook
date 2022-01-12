@@ -43,67 +43,18 @@ final class ProfileService: ProfileServiceProtocol {
     private var wishCounterListener: ListenerRegistration?
     private var profileDataListener: ListenerRegistration?
     
-    func loadDataByUserId(_ userId: String?) -> AnyPublisher<ProfileModel, ProfileServiceError> {
-        Deferred {
-            Future { [weak self] promise in
-                var id: String
-                if let userId = userId {
-                    id = userId
-                } else if !UserStorage.profileUserId.isEmpty {
-                    id = UserStorage.profileUserId
-                } else {
-                    promise(.failure(.userIdNotFound))
-                    return
-                }
-                
-                self?.db.collection(FirestoreCollection[.users])
-                    .document(id)
-                    .getDocument { (document, error) in
-                        DispatchQueue.global().async {
-                            let result = Result {
-                                try document?.data(as: ProfileModel.self)
-                            }
-                            
-                            switch result {
-                            case .success(let document):
-                                guard let profile = document else {
-                                    // A nil value was successfully initialized from the DocumentSnapshot,
-                                    // or the DocumentSnapshot was nil.
-                                    promise(.failure(.notFound))
-                                    return
-                                }
-                                
-                                // Data value was successfully initialized from the DocumentSnapshot.
-                                promise(.success(profile))
-                            case .failure(let error):
-                                // Data value could not be initialized from the DocumentSnapshot.
-                                promise(.failure(.unknown(message: error.localizedDescription)))
-                            }
-                        }
-                    }
-            }
-        }.eraseToAnyPublisher()
+    //MARK: - Wishes count Listener
+    func wishesCountPublisher() -> AnyPublisher<Int, Never> {
+        return wishesCountSubject.eraseToAnyPublisher()
     }
     
-    func updateData(_ data: ProfileModel) -> AnyPublisher<Bool, ProfileServiceError> {
-        Deferred {
-            Future { [weak self] promise in
-                guard !UserStorage.profileUserId.isEmpty else {
-                    promise(.failure(.userIdNotFound))
-                    return
-                }
-                var confiredData = data
-                confiredData.id = UserStorage.profileUserId
-                do {
-                    try self?.db.collection(FirestoreCollection[.users])
-                        .document(UserStorage.profileUserId)
-                        .setData(from: confiredData)
-                    promise(.success(true))
-                } catch {
-                    promise(.failure(.unknown(message: error.localizedDescription)))
-                }
-            }
-        }.eraseToAnyPublisher()
+    func wishCounterListenerIsActive() -> Bool {
+        return wishCounterListener != nil
+    }
+    
+    func removeWishesCountListener() {
+        wishCounterListener?.remove()
+        wishCounterListener = nil
     }
     
     func startWishesListener() {
@@ -150,16 +101,9 @@ final class ProfileService: ProfileServiceProtocol {
             }
     }
     
-    func wishesCountPublisher() -> AnyPublisher<Int, Never> {
-        return wishesCountSubject.eraseToAnyPublisher()
-    }
-    
+    //MARK: - Profile Data Listener
     func profileDataPublisher() -> AnyPublisher<ProfileModel, Never> {
         return profileSubject.eraseToAnyPublisher()
-    }
-    
-    func wishCounterListenerIsActive() -> Bool {
-        return wishCounterListener != nil
     }
     
     func profileDataListenerIsActive() -> Bool {
@@ -171,11 +115,72 @@ final class ProfileService: ProfileServiceProtocol {
         profileDataListener = nil
     }
     
-    func removeWishesCountListener() {
-        wishCounterListener?.remove()
-        wishCounterListener = nil
+    //MARK: - Load data by User Id
+    func loadDataByUserId(_ userId: String?) -> AnyPublisher<ProfileModel, ProfileServiceError> {
+        Deferred {
+            Future { [weak self] promise in
+                var id: String
+                if let userId = userId {
+                    id = userId
+                } else if !UserStorage.profileUserId.isEmpty {
+                    id = UserStorage.profileUserId
+                } else {
+                    promise(.failure(.userIdNotFound))
+                    return
+                }
+                
+                self?.db.collection(FirestoreCollection[.users])
+                    .document(id)
+                    .getDocument { (document, error) in
+                        DispatchQueue.global().async {
+                            let result = Result {
+                                try document?.data(as: ProfileModel.self)
+                            }
+                            
+                            switch result {
+                            case .success(let document):
+                                guard let profile = document else {
+                                    // A nil value was successfully initialized from the DocumentSnapshot,
+                                    // or the DocumentSnapshot was nil.
+                                    promise(.failure(.notFound))
+                                    return
+                                }
+                                
+                                // Data value was successfully initialized from the DocumentSnapshot.
+                                promise(.success(profile))
+                            case .failure(let error):
+                                // Data value could not be initialized from the DocumentSnapshot.
+                                promise(.failure(.unknown(message: error.localizedDescription)))
+                            }
+                        }
+                    }
+            }
+        }.eraseToAnyPublisher()
     }
     
+    //MARK: - Update data
+    func updateData(_ data: ProfileModel) -> AnyPublisher<Bool, ProfileServiceError> {
+        Deferred {
+            Future { [weak self] promise in
+                guard !UserStorage.profileUserId.isEmpty else {
+                    promise(.failure(.userIdNotFound))
+                    return
+                }
+                var confiredData = data
+                confiredData.id = UserStorage.profileUserId
+                do {
+                    try self?.db.collection(FirestoreCollection[.users])
+                        .document(UserStorage.profileUserId)
+                        .setData(from: confiredData)
+                    promise(.success(true))
+                } catch {
+                    promise(.failure(.unknown(message: error.localizedDescription)))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    //MARK: - Update data by key
     func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never> {
         Deferred {
             Future { [weak self] promise in
