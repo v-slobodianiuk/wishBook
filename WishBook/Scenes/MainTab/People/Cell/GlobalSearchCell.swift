@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 
 struct GlobalSearchCell: View {
     
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     
     var image: String?
     var firstName: String?
@@ -24,10 +24,10 @@ struct GlobalSearchCell: View {
                 .placeholder {
                     Image(systemName: "person.crop.circle.fill")
                         .resizable()
-                        .foregroundColor(.selectedTabItem)
+                        .foregroundColor(.label)
                 }
                 .indicator(.activity)
-                .transition(.fade(duration: 0.25))
+                .transition(.fade(duration: Globals.defaultAnimationDuration))
                 .scaledToFill()
                 .frame(width: 50, height: 50)
                 .clipShape(Circle())
@@ -36,38 +36,28 @@ struct GlobalSearchCell: View {
                 Text("\(firstName ?? "") \(lastName ?? "")")
                     .lineLimit(2)
                     .font(.system(size: 20, weight: .medium))
-                    .foregroundColor(.selectedTabItem)
+                    .foregroundColor(.label)
                     .padding(.horizontal)
                 Text("\(birthDate ?? "")")
                     .font(.system(size: 14, weight: .light))
-                    .foregroundColor(.selectedTabItem)
+                    .foregroundColor(.label)
                     .padding(.horizontal)
             }
             Spacer()
         }
         .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading)
-        .background(cellBgView)
+        .background(colorScheme == .dark ? Color.darkGray : Color.light)
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 5)
         .padding(.horizontal)
         .padding(.bottom, 8)
-    }
-    
-    @ViewBuilder
-    fileprivate var cellBgView: some View {
-        if colorScheme == .dark  {
-            BlurView(style: .systemThinMaterialDark)
-        } else {
-            Color.lightText
-        }
     }
 }
 
 struct GlobalSearchCell_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            SearchView(placeholder: "PEOPLE_SEARCH_PLACEHOLDER".localized, text: .constant("test"))
-                .padding(.horizontal)
+            SearchTextFieldView(searchText: .constant("test"))
             ScrollView {
                 LazyVStack {
                     GlobalSearchCell(image: nil, firstName: "Test", lastName: "Name", birthDate: "Birthdate: 2 october")
@@ -81,5 +71,6 @@ struct GlobalSearchCell_Previews: PreviewProvider {
                 }
             }
         }
+        //.preferredColorScheme(.dark)
     }
 }

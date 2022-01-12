@@ -11,7 +11,6 @@ import Foundation
 struct EditProfileView: View {
     @EnvironmentObject var store: AppStore
     @Environment(\.presentationMode) private var presentationMode
-    @Environment(\.colorScheme) private var colorScheme
     
     @State private var firstName: String = ""
     @State private var lastName: String = ""
@@ -62,8 +61,8 @@ struct EditProfileView: View {
             DatePicker(selection: $birthDate, displayedComponents: [.date]) {
                 requiredText(text: "PROFILE_BIRTHDATE".localized)
             }
-                .foregroundColor(.selectedTabItem)
-                .accentColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                .foregroundColor(.label)
+                .accentColor(.main)
                 .padding(.horizontal)
             
             Spacer()
@@ -107,7 +106,7 @@ struct EditProfileView: View {
                 showNewPasswordFields.toggle()
             }, label: {
                 Text("Change Password".localized)
-                    .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                    .foregroundColor(.main)
             })
                 .fullScreenCover(isPresented: $showNewPasswordFields) {
                     screenFactory.makeChangePasswordView()

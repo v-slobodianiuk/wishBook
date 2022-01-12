@@ -106,7 +106,7 @@ struct LoginView: View {
                         Image(systemName: "info.circle")
                             .resizable()
                             .frame(width: 20, height: 20)
-                            .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                            .foregroundColor(.main)
                         WarningText(text: "Incorrect password")
                     }
                 }
@@ -121,45 +121,33 @@ struct LoginView: View {
                     }
                 } label: {
                     Text("Reset password")
-                        .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                        .foregroundColor(.main)
                         .padding([.horizontal])
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
             
-            Button {
+            Button("Continue") {
                 withAnimation {
                     store.dispatch(action: .auth(action: .logIn(login: email, password: password)))
                 }
-            } label: {
-                Text("Sign In")
-                    .font(.title2)
-                    .frame(maxWidth: .infinity, minHeight: 50)
-                    .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
-                    .foregroundColor(.lightText)
-                    .opacity(!(isValidEmail && isValidPassword) ? 0.5 : 1.0)
-                    .cornerRadius(10)
             }
-            .padding([.horizontal, .top])
+            .buttonStyle(ConfirmButtonStyle())
+            .opacity(!(isValidEmail && isValidPassword) ? 0.5 : 1.0)
             .disabled(!(isValidEmail && isValidPassword))
+            .padding([.horizontal, .top])
             
             Text("or")
                 .font(Font.footnote)
                 .foregroundColor(.gray)
                 .frame(maxWidth: .infinity, alignment: .center)
             
-            Button {
+            Button("Continue with Google") {
                 withAnimation {
                     store.dispatch(action: .auth(action: .googleLogIn))
                 }
-            } label: {
-                Text("Continue with Google")
-                    .font(.title2)
-                    .frame(maxWidth: .infinity, minHeight: 50)
-                    .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
-                    .foregroundColor(.lightText)
-                    .cornerRadius(10)
             }
+            .buttonStyle(ConfirmButtonStyle())
             .padding(.horizontal)
             
             SignInWithAppleButton(.continue) { request in
@@ -178,7 +166,6 @@ struct LoginView: View {
             
             Link("By signing in you accept our Privacy policy", destination: URL(string: "https://apple.com")!)
                 .font(Font.footnote)
-                //.foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
                 .foregroundColor(.gray)
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity, alignment: .center)

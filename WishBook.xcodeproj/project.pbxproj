@@ -12,7 +12,6 @@
 		D5168C68278DD3AE00FFC1CB /* CryptoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5168C67278DD3AE00FFC1CB /* CryptoService.swift */; };
 		D51802192775DD7D00AFD34C /* Di.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51802182775DD7D00AFD34C /* Di.swift */; };
 		D519385B2758B895005BF7B5 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D519385A2758B895005BF7B5 /* BlurView.swift */; };
-		D51B49DE25F4E7E4008ABCBB /* GoogleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */; };
 		D5362226276CAF7B003035FF /* WishListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5362225276CAF7B003035FF /* WishListService.swift */; };
 		D5362228276CB004003035FF /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5362227276CB004003035FF /* ProfileService.swift */; };
 		D536222A276CB90F003035FF /* profileMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5362229276CB90F003035FF /* profileMiddleware.swift */; };
@@ -123,7 +122,6 @@
 		D5168C67278DD3AE00FFC1CB /* CryptoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoService.swift; sourceTree = "<group>"; };
 		D51802182775DD7D00AFD34C /* Di.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Di.swift; sourceTree = "<group>"; };
 		D519385A2758B895005BF7B5 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
-		D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleButton.swift; sourceTree = "<group>"; };
 		D5362225276CAF7B003035FF /* WishListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListService.swift; sourceTree = "<group>"; };
 		D5362227276CB004003035FF /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		D5362229276CB90F003035FF /* profileMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileMiddleware.swift; sourceTree = "<group>"; };
@@ -533,7 +531,6 @@
 				D5442BA026809C1400BB1F5A /* LinkDataView.swift */,
 				D5B7F01B26815BC800D578F1 /* LinkContainerView.swift */,
 				D5C5869926C93BA400BFF6A5 /* ImagePicker.swift */,
-				D51B49DD25F4E7E4008ABCBB /* GoogleButton.swift */,
 				D519385A2758B895005BF7B5 /* BlurView.swift */,
 			);
 			path = CustomView;
@@ -743,7 +740,6 @@
 				D552C8EC25E409A9000E2196 /* SceneDelegate.swift in Sources */,
 				D53D0E1A25F3B74200E5C2D7 /* GoogleAppDelegate.swift in Sources */,
 				D53F4956276A6B9D000A9738 /* WishesReducer.swift in Sources */,
-				D51B49DE25F4E7E4008ABCBB /* GoogleButton.swift in Sources */,
 				D55CC74F25F54BE300E5C04F /* EditProfileView.swift in Sources */,
 				D5362226276CAF7B003035FF /* WishListService.swift in Sources */,
 				D53F4959276A6FF0000A9738 /* ScreenFactory.swift in Sources */,

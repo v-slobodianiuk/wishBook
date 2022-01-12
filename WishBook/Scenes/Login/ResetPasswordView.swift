@@ -30,12 +30,12 @@ struct ResetPasswordView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 200, height: 200)
-                .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                .foregroundColor(.main)
                 .opacity(0.2)
             
             Text("Success")
                 .font(Font.largeTitle)
-                .foregroundColor(.selectedTabItem)
+                .foregroundColor(.label)
                 .padding()
             
             Button {
@@ -44,14 +44,14 @@ struct ResetPasswordView: View {
             } label: {
                 HStack {
                     Image(systemName: "tray")
-                        .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                        .foregroundColor(.main)
                     Text("Check your mail".uppercased())
-                        .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                        .foregroundColor(.main)
                 }
                 .padding(.all, 8)
                 .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(colorScheme == .dark ? Color.azureBlue : Color.azurePurple, lineWidth: 1)
+                            .stroke(Color.main, lineWidth: 1)
                     )
             }
             
@@ -63,7 +63,7 @@ struct ResetPasswordView: View {
                 Image(systemName: "xmark.circle.fill")
                     .resizable()
                     .frame(width: 50, height: 50)
-                    .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                    .foregroundColor(.main)
             }
             .padding()
         }

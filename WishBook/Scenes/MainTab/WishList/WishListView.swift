@@ -12,7 +12,6 @@ struct WishListView: View {
     @EnvironmentObject var store: AppStore
     @State private var wishDetailsIsPresented: Bool = false
     @State private var createNewWishIsPresented: Bool = false
-    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         ZStack {
@@ -42,7 +41,7 @@ struct WishListView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 200, height: 200)
-                        .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                        .foregroundColor(.main)
                         .opacity(0.2)
                         .padding(.bottom)
                     Text("Add your first wish".uppercased())
@@ -91,9 +90,9 @@ struct WishListView: View {
             }, label: {
                 HStack {
                     Image(systemName: "plus.circle.fill")
-                        .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                        .foregroundColor(.main)
                     Text("WISH_ITEM_ADD_BUTTON_TITLE".localized)
-                        .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                        .foregroundColor(.main)
                 }
             })
         }

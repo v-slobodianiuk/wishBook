@@ -11,7 +11,6 @@ import Combine
 struct PeopleView: View {
     
     @EnvironmentObject var store: AppStore
-    @Environment(\.colorScheme) var colorScheme
     @State private var searchText: String = ""
     @State private var navLinkIsActive: Bool = false
     @State private var filterSegment: PeopleFilter = .all
@@ -71,7 +70,7 @@ struct PeopleView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 200, height: 200)
-                        .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                        .foregroundColor(.main)
                         .opacity(0.2)
                 } else {
                     resultListView

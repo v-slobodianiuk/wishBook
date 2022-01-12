@@ -26,7 +26,7 @@ struct UserPageView: View {
                     .placeholder {
                         Image(systemName: "person.crop.circle.fill")
                             .resizable()
-                            .foregroundColor(.selectedTabItem)
+                            .foregroundColor(.label)
                     }
                     .indicator(.activity)
                     .transition(.fade(duration: 0.25))
@@ -64,8 +64,8 @@ struct UserPageView: View {
                     Text(isSubscribed ? "USER_PAGE_BUTTON_UNSUBSCRIBE".localized : "USER_PAGE_BUTTON_SUBSCRIBE".localized)
                         .font(.subheadline)
                         .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                        .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
-                        .foregroundColor(.lightText)
+                        .background(LinearGradient(colors: [.mainPurple, .mainBlue], startPoint: .leading, endPoint: .trailing))
+                        .foregroundColor(.light)
                         .cornerRadius(8)
                 }
                 .disabled(store.state.people.subscribeIsDisabled)

@@ -45,7 +45,7 @@ struct WishDetailsView: View {
                 .padding(.top)
                 Spacer()
                 if wishState != .readOnly {
-                    Button(action: {
+                    Button("EDIT_PROFILE_BUTTON_TITLE".localized) {
                         if !title.isEmpty {
                             store.dispatch(
                                 action: .wishes(
@@ -58,15 +58,9 @@ struct WishDetailsView: View {
                             )
                         }
                         presentationMode.wrappedValue.dismiss()
-                    }, label: {
-                        Text("EDIT_PROFILE_BUTTON_TITLE".localized)
-                            .font(.title)
-                            .frame(maxWidth: .infinity, maxHeight: 50)
-                            .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
-                            .foregroundColor(.lightText)
-                            .cornerRadius(10)
-                    })
-                        .padding()
+                    }
+                    .buttonStyle(ConfirmButtonStyle())
+                    .padding()
                 }
             }
             .navigationBarTitle("", displayMode: .inline)
@@ -97,7 +91,7 @@ struct WishDetailsView: View {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("WISH_ITEM_CLOSE_BUTTON_TITLE".localized)
-                    .foregroundColor(.selectedTabItem)
+                    .foregroundColor(.label)
             })
         }
     }

@@ -13,8 +13,8 @@ struct ConfirmButtonStyle: ButtonStyle {
         configuration.label
             .font(.title)
             .frame(maxWidth: .infinity, minHeight: 50)
-            .background(LinearGradient(colors: [.azurePurple, .azureBlue], startPoint: .leading, endPoint: .trailing))
-            .foregroundColor(.lightText)
+            .background(LinearGradient(colors: [.mainPurple, .mainBlue], startPoint: .leading, endPoint: .trailing))
+            .foregroundColor(.light)
             .cornerRadius(10)
     }
 }

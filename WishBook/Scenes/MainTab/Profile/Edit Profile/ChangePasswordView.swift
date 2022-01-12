@@ -10,7 +10,6 @@ import SwiftUI
 struct ChangePasswordView: View {
     @EnvironmentObject var store: AppStore
     @Environment(\.presentationMode) private var presentationMode
-    @Environment(\.colorScheme) private var colorScheme
     
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
@@ -57,7 +56,7 @@ struct ChangePasswordView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 200, height: 200)
-                    .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                    .foregroundColor(.main)
                     .opacity(0.2)
                 
                 Spacer()
@@ -71,11 +70,11 @@ struct ChangePasswordView: View {
                     HStack {
                         Text("Create new Password")
                             .font(Font.title)
-                            .foregroundColor(.selectedTabItem)
+                            .foregroundColor(.label)
                         Image(systemName: "info.circle")
                             .resizable()
                             .frame(width: 20, height: 20)
-                            .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                            .foregroundColor(.main)
                     }
                 }
 
@@ -159,7 +158,7 @@ struct ChangePasswordView: View {
             Image(systemName: "xmark.circle.fill")
                 .resizable()
                 .frame(width: 50, height: 50)
-                .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                .foregroundColor(.main)
         }
         .padding()
     }
@@ -172,12 +171,12 @@ struct ChangePasswordView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 200, height: 200)
-                .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                .foregroundColor(.main)
                 .opacity(0.2)
             
             Text("Success")
                 .font(Font.largeTitle)
-                .foregroundColor(.selectedTabItem)
+                .foregroundColor(.label)
                 .padding()
             
             Spacer()

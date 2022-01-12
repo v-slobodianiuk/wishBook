@@ -27,12 +27,12 @@ struct PasswordPromptView: View {
             Spacer()
             Text("PASSWORD_PROMPT_TITLE".localized)
                 .font(Font.title2)
-                .foregroundColor(.selectedTabItem)
+                .foregroundColor(.label)
                 .padding(.horizontal)
             
             Text("PASSWORD_PROMPT_DESCRIPTION".localized)
                 .font(Font.body)
-                .foregroundColor(.selectedTabItem)
+                .foregroundColor(.label)
                 .padding(.top)
                 .padding(.horizontal)
             
@@ -43,7 +43,7 @@ struct PasswordPromptView: View {
                 Image(systemName: "xmark.circle.fill")
                     .resizable()
                     .frame(width: 50, height: 50)
-                    .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+                    .foregroundColor(.main)
             }
             .padding()
         }

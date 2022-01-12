@@ -10,7 +10,6 @@ import SwiftUI
 struct MainTabView: View {
     
     @EnvironmentObject var store: AppStore
-    @Environment(\.colorScheme) var colorScheme
     @State private var tabItem = TabItems.wishListView
     
     var body: some View {
@@ -45,7 +44,7 @@ struct MainTabView: View {
             }
             .tag(TabItems.profileView)
         }
-        .accentColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+        .accentColor(.main)
         .onAppear {
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithDefaultBackground()

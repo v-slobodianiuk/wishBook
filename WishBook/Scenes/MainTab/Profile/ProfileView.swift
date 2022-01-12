@@ -15,7 +15,6 @@ struct ProfileView: View {
     
     @State private var showingImagePicker = false
     @State private var inputImageData: Data?
-    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
 //        Group {
@@ -51,7 +50,7 @@ struct ProfileView: View {
                     Image(systemName: "person.crop.circle.fill")
                         .resizable()
                         .frame(width: 150, height: 150, alignment: .center)
-                        .foregroundColor(.selectedTabItem)
+                        .foregroundColor(.label)
                         .padding(.top, 50)
                 }
                 

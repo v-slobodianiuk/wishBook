@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct WarningText: View {
-    @Environment(\.colorScheme) var colorScheme
     let text: String
     
     var body: some View {
         Text(text)
             .font(Font.footnote)
-            .foregroundColor(colorScheme == .dark ? Color.azureBlue : Color.azurePurple)
+            .foregroundColor(.main)
     }
 }
