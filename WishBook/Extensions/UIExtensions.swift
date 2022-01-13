@@ -56,28 +56,12 @@ extension View {
 }
 
 extension UIImage {
-    func downsample(to pointSize: CGSize, scale: CGFloat?) -> UIImage {
-        
-        let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
-        //let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions)!
-        let imageSource = CGImageSourceCreateWithData(self.pngData()! as CFData, imageSourceOptions)!
-
-        let maxDimensionInPixels: CGFloat
-        
-        if let scale = scale {
-            maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
-        } else {
-            maxDimensionInPixels = max(pointSize.width, pointSize.height) * traitCollection.displayScale
-        }
-
-        let downsampleOptions =
-            [kCGImageSourceCreateThumbnailFromImageAlways: true,
-             kCGImageSourceShouldCacheImmediately: true,
-             kCGImageSourceCreateThumbnailWithTransform: true,
-             kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels] as CFDictionary
-        
-        let downsampledImage =
-            CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions)!
-        return UIImage(cgImage: downsampledImage)
+    public func resized(toWidth width: CGFloat) -> UIImage? {
+        let canvasSize = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: canvasSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
     }
 }
+
