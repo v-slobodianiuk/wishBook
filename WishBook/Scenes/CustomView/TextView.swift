@@ -19,6 +19,7 @@ struct TextView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UITextView, context: UIViewRepresentableContext<TextView>) {
         uiView.text = text
+        uiView.backgroundColor = textView.backgroundColor
     }
     
     func makeCoordinator() -> TextView.Coordinator {

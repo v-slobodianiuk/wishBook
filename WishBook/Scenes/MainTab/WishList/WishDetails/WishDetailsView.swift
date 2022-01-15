@@ -42,6 +42,8 @@ struct WishDetailsView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                     .buttonStyle(ConfirmButtonStyle())
+                    .opacity(title.isEmpty ? 0.5 : 1.0)
+                    .disabled(title.isEmpty)
                     .padding()
                 }
             }
@@ -74,20 +76,34 @@ struct WishDetailsView: View {
                 TextField("WISH_ITEM_TITLE_PLACEHOLER".localized, text: $title)
                     .font(Font.title.weight(.medium))
                     .disabled(wishState == .readOnly)
+                
                 if wishState != .readOnly {
+                    Divider()
+                        .padding(.bottom, title.isEmpty ? 0 : 16)
+                    
+                    if title.isEmpty {
+                        Text("WISH_ITEM_TITLE_ERROR".localized)
+                            .font(Font.footnote)
+                            .foregroundColor(.red)
+                    }
+                    
                     TextField("WISH_ITEM_TITLE_LINK_PLACEHOLER".localized, text: $url)
                         .font(Font.subheadline)
                         .foregroundColor(.main)
+                    
+                    Divider()
                         .padding(.bottom)
-                }
-                
-                if wishState != .readOnly {
+
+                    Text("WISH_ITEM_DETAILS_TITLE".localized.uppercased())
+                        .font(Font.footnote)
+                        .foregroundColor(.label)
+                    
                     TextView(text: $description)
-                        .backgroundColor(UIColor.systemGray6)
+                        .backgroundColor(colorScheme == .dark ? UIColor.black : UIColor.systemGray6)
                         .font(.systemFont(ofSize: 14))
-                        .textColor(.gray)
+                        .textColor(.label)
                         .frame(height: 250)
-                        .border(Color(UIColor.systemGray5), width: 1)
+                        //.border(Color(UIColor.systemGray5), width: 1)
                 } else {
                     Text(description)
                         .font(Font.callout)
@@ -118,8 +134,8 @@ struct WishDetailsView: View {
 struct WishDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         screenFactory.makeWishDetailsView()
-            //.wishState(.editable)
-            .wishState(.readOnly)
+            .wishState(.editable)
+            //.wishState(.readOnly)
             //.preferredColorScheme(.dark)
             //.previewDevice(PreviewDevice(rawValue: "iPhone SE (1st generation)"))
             //.previewDisplayName("iPhone SE (1st generation)")

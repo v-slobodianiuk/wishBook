@@ -38,9 +38,11 @@
 "WISH_ITEM_ADD_BUTTON_TITLE" = "Add";
 "WISH_ADD_FIRST_TEXT" = "Add your first wish";
 "WISH_ITEM_CLOSE_BUTTON_TITLE" = "Close";
-"WISH_ITEM_TITLE_PLACEHOLER" = "What do you want?";
+"WISH_ITEM_TITLE_PLACEHOLER" = "Title";
 "WISH_ITEM_TITLE_DESCRIPTION_PLACEHOLER" = "No details";
-"WISH_ITEM_TITLE_LINK_PLACEHOLER" = "Add link url about wish item";
+"WISH_ITEM_TITLE_LINK_PLACEHOLER" = "Link url about wish item";
+"WISH_ITEM_TITLE_ERROR" = "*Title is Required";
+"WISH_ITEM_DETAILS_TITLE" = "Details:";
 
 //MARK: Profile
 "PROFILE_NAV_TITLE" = "Profile";
