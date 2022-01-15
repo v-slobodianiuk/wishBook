@@ -198,9 +198,6 @@ struct LoginView: View {
                 store.dispatch(action: .auth(action: .sighInWithApple(nonce: nonce, result: result)))
             }
             .customCornerRadius(10)
-            .onTapGesture {
-                print("Apple button tapped!")
-            }
             .frame(height: 50)
             .padding(.horizontal)
         }
