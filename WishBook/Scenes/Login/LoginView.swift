@@ -56,6 +56,7 @@ struct LoginView: View {
                 .navigationTitle("LOGIN_TITLE".localized)
             }
         }
+        .navigationViewStyle(.stack)
     }
     
     // MARK: - Content View
@@ -189,18 +190,18 @@ struct LoginView: View {
             .cornerRadius(10)
             .padding(.horizontal)
             
-            SignInWithAppleButton(.continue) { request in
-                let nonce = CryptoService.randomNonceString()
-                currentNonce = nonce
-                request.requestedScopes = [.fullName, .email]
-                request.nonce = CryptoService.sha256(nonce)
-            } onCompletion: { result in
-                guard let nonce = currentNonce else { return }
+            SignInWithAppleView(type: .continue, style: colorScheme == .dark ? .white : .black) { result, nonce in
+                guard let nonce = nonce else {
+                    // Invalid state: A login callback was received, but no login request was sent.
+                    return
+                }
                 store.dispatch(action: .auth(action: .sighInWithApple(nonce: nonce, result: result)))
             }
-            .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
+            .customCornerRadius(10)
+            .onTapGesture {
+                print("Apple button tapped!")
+            }
             .frame(height: 50)
-            .cornerRadius(10)
             .padding(.horizontal)
         }
     }

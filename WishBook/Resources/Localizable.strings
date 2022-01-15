@@ -7,11 +7,11 @@
 */
 
 //MARK: Login
-"LOGIN_TITLE" = "Sign In";
+"LOGIN_TITLE" = "Welcome";
 "EMAIL_PLACEHOLDER" = "Email";
-"EMAIL_ERROR" = "Incorrect email";
+"EMAIL_ERROR" = "Invalid email format";
 "PASSWORD_PLACEHOLDER" = "Password";
-"PASSWORD_ERROR" = "Incorrect password";
+"PASSWORD_ERROR" = "Weak password";
 "RESET_PASSWORD_TITLE" = "Reset password";
 "LOGIN_BUTTON_TITLE" = "Continue";
 "DIVIDER_TEXT" = "or";

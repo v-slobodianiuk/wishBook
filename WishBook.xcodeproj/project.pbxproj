@@ -81,6 +81,7 @@
 		D5C5869A26C93BA400BFF6A5 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C5869926C93BA400BFF6A5 /* ImagePicker.swift */; };
 		D5C5869E26C97FF400BFF6A5 /* FirebaseStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C5869D26C97FF400BFF6A5 /* FirebaseStorageService.swift */; };
 		D5C5BBEF277DB9540034E989 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C5BBEE277DB9540034E989 /* Globals.swift */; };
+		D5C75359279357D60046C3B6 /* SignInWithAppleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C75358279357D60046C3B6 /* SignInWithAppleView.swift */; };
 		D5C7C5AC2786E62600A3613B /* WishState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C7C5AB2786E62600A3613B /* WishState.swift */; };
 		D5CE4F882718518D009B4644 /* StatisticBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CE4F872718518D009B4644 /* StatisticBlockView.swift */; };
 		D5D33E45277F3503008CE277 /* Environment+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D33E44277F3503008CE277 /* Environment+Extension.swift */; };
@@ -194,6 +195,7 @@
 		D5C5869926C93BA400BFF6A5 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		D5C5869D26C97FF400BFF6A5 /* FirebaseStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageService.swift; sourceTree = "<group>"; };
 		D5C5BBEE277DB9540034E989 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		D5C75358279357D60046C3B6 /* SignInWithAppleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleView.swift; sourceTree = "<group>"; };
 		D5C7C5AB2786E62600A3613B /* WishState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishState.swift; sourceTree = "<group>"; };
 		D5CE4F872718518D009B4644 /* StatisticBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticBlockView.swift; sourceTree = "<group>"; };
 		D5D33E44277F3503008CE277 /* Environment+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Environment+Extension.swift"; sourceTree = "<group>"; };
@@ -520,6 +522,7 @@
 			children = (
 				D576CA8D278733EC0083AB7B /* CustomStyles.swift */,
 				D576CA91278739CA0083AB7B /* WarningText.swift */,
+				D5C75358279357D60046C3B6 /* SignInWithAppleView.swift */,
 				D576CA8F278734170083AB7B /* PasswordPromptView.swift */,
 				D5CE4F872718518D009B4644 /* StatisticBlockView.swift */,
 				D5BBC79B277DFE9D0048CBF4 /* SearchTextFieldView.swift */,
@@ -767,6 +770,7 @@
 				D53F4959276A6FF0000A9738 /* ScreenFactory.swift in Sources */,
 				D55CC74A25F546FC00E5C04F /* ProfileModel.swift in Sources */,
 				D53F493C276A686E000A9738 /* AppState.swift in Sources */,
+				D5C75359279357D60046C3B6 /* SignInWithAppleView.swift in Sources */,
 				D53F494D276A6A59000A9738 /* WishesAction.swift in Sources */,
 				D5A182622773BBDA0099709C /* peopleMiddleware.swift in Sources */,
 				D576CA92278739CA0083AB7B /* WarningText.swift in Sources */,
