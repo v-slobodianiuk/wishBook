@@ -82,9 +82,7 @@ struct WishDetailsView: View {
                         .padding(.bottom, title.isEmpty ? 0 : 16)
                     
                     if title.isEmpty {
-                        Text("WISH_ITEM_TITLE_ERROR".localized)
-                            .font(Font.footnote)
-                            .foregroundColor(.red)
+                        WarningText(text: "WISH_ITEM_TITLE_ERROR".localized)
                     }
                     
                     TextField("WISH_ITEM_TITLE_LINK_PLACEHOLER".localized, text: $url)

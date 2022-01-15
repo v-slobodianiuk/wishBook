@@ -78,7 +78,7 @@
 
 //MARK: Password Prompt
 "PASSWORD_PROMPT_TITLE" = "Assume we would like our password to contain all of the following:";
-"PASSWORD_PROMPT_DESCRIPTION" = "- At least one digit \n- At least one lowercase character \n- At least one uppercase character \n- At least one special character \n- At least characters in length, but no more than 32.";
+"PASSWORD_PROMPT_DESCRIPTION" = "- At least one digit \n- At least one lowercase character \n- At least one uppercase character \n- At least 8 characters in length, but no more than 32.";
 
 //MARK: Alert
 "FAIL_TITLE" = "Failed";

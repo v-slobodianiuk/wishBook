@@ -63,28 +63,16 @@ struct ChangePasswordView: View {
                 
                 Spacer()
                 
-                Button {
-                    endEditing()
-                    closeButtonIsPresented = true
-                    withAnimation {
-                        passwordPromptIsPresented.toggle()
-                    }
-                } label: {
-                    HStack {
-                        Text("CREATE_NEW_PASSWORD_TITLE".localized)
-                            .font(Font.title)
-                            .foregroundColor(.label)
-                        Image(systemName: "info.circle")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.main)
-                    }
-                }
+                Text("CREATE_NEW_PASSWORD_TITLE".localized)
+                    .font(Font.title)
+                    .foregroundColor(.label)
 
-                textFieldsView
-                
-                if password != confirmPassword {
-                    WarningText(text: "PASSWORD_WARNING_TEXT".localized)
+                VStack(alignment: .leading) {
+                    textFieldsView
+                    
+                    if password != confirmPassword {
+                        WarningText(text: "PASSWORD_WARNING_TEXT".localized)
+                    }
                 }
                 
                 Button("CONFIRM_BUTTON_TITLE".localized) {
@@ -135,6 +123,24 @@ struct ChangePasswordView: View {
                 withAnimation { closeButtonIsPresented = false }
             }
             .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            if !store.state.auth.isValidPassword(password) && !password.isEmpty {
+                Button {
+                    endEditing()
+                    closeButtonIsPresented = true
+                    withAnimation {
+                        passwordPromptIsPresented.toggle()
+                    }
+                } label: {
+                    HStack {
+                        Image(systemName: "info.circle")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.red)
+                        WarningText(text: "PASSWORD_ERROR".localized)
+                    }
+                }
+            }
             
             SecureField("REPEAT_PASSWORD_PLACEHOLDER".localized, text: $confirmPassword) {
                 withAnimation {

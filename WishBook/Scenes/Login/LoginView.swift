@@ -128,7 +128,7 @@ struct LoginView: View {
                         Image(systemName: "info.circle")
                             .resizable()
                             .frame(width: 20, height: 20)
-                            .foregroundColor(.main)
+                            .foregroundColor(.red)
                         WarningText(text: "PASSWORD_ERROR".localized)
                     }
                 }

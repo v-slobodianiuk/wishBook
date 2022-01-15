@@ -13,6 +13,6 @@ struct WarningText: View {
     var body: some View {
         Text(text)
             .font(Font.footnote)
-            .foregroundColor(.main)
+            .foregroundColor(.red)
     }
 }

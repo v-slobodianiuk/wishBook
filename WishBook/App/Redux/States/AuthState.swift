@@ -36,7 +36,8 @@ struct EmailValidate {
 
 struct PasswordValidate {
     static func isValid(_ password: String) -> Bool {
-        let passwordRegEx = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&.,<>/()*~:;'-]).{8,32}$"
+        //let passwordRegEx = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&.,<>/()*~:;'-]).{8,32}$"
+        let passwordRegEx = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,32}$"
         let passwordTest = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
         return passwordTest.evaluate(with: password)
     }
