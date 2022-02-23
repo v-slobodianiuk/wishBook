@@ -41,7 +41,7 @@
 "WISH_ITEM_TITLE_PLACEHOLER" = "Title";
 "WISH_ITEM_TITLE_DESCRIPTION_PLACEHOLER" = "No details";
 "WISH_ITEM_TITLE_LINK_PLACEHOLER" = "Link url about wish item";
-"WISH_ITEM_TITLE_ERROR" = "*Title is Required";
+"WISH_ITEM_TITLE_ERROR" = "*Title is required";
 "WISH_ITEM_DETAILS_TITLE" = "Details:";
 
 //MARK: Profile
@@ -67,8 +67,8 @@
 "REQUIRED" = "*";
 
 //MARK: Change password
-"CREATE_NEW_PASSWORD_TITLE" = "Create new Password";
-"REPEAT_PASSWORD_PLACEHOLDER" = "Repeat Password";
+"CREATE_NEW_PASSWORD_TITLE" = "Create new password";
+"REPEAT_PASSWORD_PLACEHOLDER" = "Repeat password";
 "PASSWORD_WARNING_TEXT" = "Password do not match";
 "CONFIRM_BUTTON_TITLE" = "Confirm";
 
