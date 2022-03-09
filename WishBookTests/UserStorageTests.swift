@@ -1,14 +1,14 @@
 //
-//  WishBookTests.swift
+//  UserStorageTests.swift
 //  WishBookTests
 //
-//  Created by Vadym on 22.02.2021.
+//  Created by Vadym Slobodianiuk on 09.03.2022.
 //
 
 import XCTest
 @testable import WishBook
 
-class WishBookTests: XCTestCase {
+class UserStorageTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -18,9 +18,11 @@ class WishBookTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testUserStorage() throws {
+        UserStorage.isLoggedInTest = true
+        XCTAssert(UserStorage.isLoggedInTest)
+        UserStorage.isLoggedInTest = false
+        XCTAssertFalse(UserStorage.isLoggedInTest)
     }
 
     func testPerformanceExample() throws {

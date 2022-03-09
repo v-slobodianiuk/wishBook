@@ -16,6 +16,8 @@ enum ProfileServiceError: Error {
 }
 
 enum ProfileKey: String {
+    case firstName = "firstName"
+    case lastName = "lastName"
     case wishesCount = "wishes"
     case photoUrl = "photoUrl"
 }

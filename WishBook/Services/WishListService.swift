@@ -67,6 +67,7 @@ final class WishListService: WishListServiceProtocol {
         Deferred {
             Future { [weak self] promise in
                 guard let snapshot = self?.lastSnapshot else {
+                    promise(.success([]))
                     return
                 }
                 
