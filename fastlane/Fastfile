@@ -22,6 +22,18 @@ platform :ios do
   end
 end
 
+# lane :test do |options|
+#   build_app(scheme: options[:scheme])
+# end
+
+lane :test_debug do
+  build_app(
+    scheme: "WishBook Test Debug", 
+    skip_archive: true,
+    silent: true
+    )
+end
+
 lane :tests do
   run_tests(
     devices: ["iPhone X"], 

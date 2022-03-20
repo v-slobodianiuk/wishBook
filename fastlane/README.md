@@ -13,6 +13,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
+### test_debug
+
+```sh
+[bundle exec] fastlane test_debug
+```
+
+
+
 ### tests
 
 ```sh
