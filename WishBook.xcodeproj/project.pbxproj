@@ -726,8 +726,8 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			name = "Crashlytics Run Script";
 			outputFileListPaths = (
@@ -736,7 +736,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -992,6 +992,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WishBook/Preview Content\"";
 				DEVELOPMENT_TEAM = KVLZH7HMMQ;
 				DISPLAY_NAME = WishBook;
+				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				GOOGLE_SERVICE_RESOURCE = "GoogleService-Info";
 				INFOPLIST_FILE = "$(SRCROOT)/WishBook/App/Info.plist";
@@ -1023,6 +1024,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WishBook/Preview Content\"";
 				DEVELOPMENT_TEAM = KVLZH7HMMQ;
 				DISPLAY_NAME = WishBook;
+				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				GOOGLE_SERVICE_RESOURCE = "GoogleService-Info";
 				INFOPLIST_FILE = "$(SRCROOT)/WishBook/App/Info.plist";
@@ -1200,6 +1202,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WishBook/Preview Content\"";
 				DEVELOPMENT_TEAM = KVLZH7HMMQ;
 				DISPLAY_NAME = "WishBook Test";
+				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				GOOGLE_SERVICE_RESOURCE = "GoogleService-Info-test";
 				INFOPLIST_FILE = "$(SRCROOT)/WishBook/App/Info.plist";
@@ -1329,6 +1332,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WishBook/Preview Content\"";
 				DEVELOPMENT_TEAM = KVLZH7HMMQ;
 				DISPLAY_NAME = "WishBook Test";
+				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				GOOGLE_SERVICE_RESOURCE = "GoogleService-Info-test";
 				INFOPLIST_FILE = "$(SRCROOT)/WishBook/App/Info.plist";
