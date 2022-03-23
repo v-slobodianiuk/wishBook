@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct GlobalSearchCell: View {
-    
+
     @Environment(\.colorScheme) private var colorScheme
-    
+
     var image: String?
     var firstName: String?
     var lastName: String?
     var birthDate: String?
-    
+
     var body: some View {
         HStack {
             ProfileImageView(stringUrl: image)
                 .frame(width: 50, height: 50)
                 .padding(.leading)
-            
+
             VStack(alignment: .leading) {
                 Text("\(firstName ?? "") \(lastName ?? "")")
                     .lineLimit(2)
@@ -33,7 +33,7 @@ struct GlobalSearchCell: View {
                     .foregroundColor(.label)
                     .padding(.horizontal)
             }
-            
+
             Spacer()
         }
         .frame(maxWidth: .infinity, minHeight: 100, alignment: .leading)
@@ -62,6 +62,6 @@ struct GlobalSearchCell_Previews: PreviewProvider {
                 }
             }
         }
-        //.preferredColorScheme(.dark)
+        // .preferredColorScheme(.dark)
     }
 }

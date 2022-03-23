@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct WishListView: View {
-    
+
     @EnvironmentObject var store: AppStore
     @State private var wishDetailsIsPresented: Bool = false
     @State private var createNewWishIsPresented: Bool = false
-    
+
     // MARK: - body
     var body: some View {
         ZStack {
@@ -30,7 +30,7 @@ struct WishListView: View {
         .navigationBarTitle("WISH_LIST_NAV_TITLE".localized)
         .navigationBarItems(trailing: trailingNavBarItemsView)
     }
-    
+
     // MARK: - Content View
     @ViewBuilder
     fileprivate var contentView: some View {
@@ -54,7 +54,7 @@ struct WishListView: View {
             listView
         }
     }
-    
+
     // MARK: - List View
     fileprivate var listView: some View {
         List {
@@ -83,7 +83,7 @@ struct WishListView: View {
                 .wishState(.editable)
         }
     }
-    
+
     // MARK: - trailingNavBarItems
     fileprivate var trailingNavBarItemsView: some View {
         HStack {

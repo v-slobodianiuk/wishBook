@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SearchTextFieldView: View {
-    
+
     @Binding var searchText: String
     @State private var isEditing = false
-    
+
     var body: some View {
         HStack {
             HStack {
@@ -27,12 +27,12 @@ struct SearchTextFieldView: View {
                             self.isEditing = !newValue.isEmpty
                         }
                     }
-                
+
                 if isEditing {
-                    Button(action: {
+                    Button {
                         self.searchText = ""
                         self.isEditing = false
-                    }) {
+                    } label: {
                         Image(systemName: "xmark.circle.fill")
                             .foregroundColor(.gray)
                     }

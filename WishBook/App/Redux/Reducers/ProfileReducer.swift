@@ -7,7 +7,7 @@
 
 import Foundation
 
-func profileReducer(state: inout ProfileState, action: ProfileAction) -> Void {
+func profileReducer(state: inout ProfileState, action: ProfileAction) {
     switch action {
     case .fetch:
         if state.profileData == nil {

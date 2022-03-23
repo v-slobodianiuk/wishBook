@@ -9,9 +9,9 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ProfileImageView: View {
-    
+
     let stringUrl: String?
-    
+
     var body: some View {
         WebImage(url: URL(string: stringUrl ?? ""))
             .resizable()

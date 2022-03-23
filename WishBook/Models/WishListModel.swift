@@ -16,9 +16,8 @@ struct WishListModel: Codable, Identifiable, Equatable {
     var title: String
     var description: String?
     var url: String?
-    
+
     static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.id == rhs.id && lhs.title == rhs.title
     }
 }
- 

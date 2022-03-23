@@ -44,7 +44,7 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                 guard let id = id else {
                     return Empty().eraseToAnyPublisher()
                 }
-                
+
                 return service.delete(id: id)
                     .print("Remove wish")
                     .subscribe(on: DispatchQueue.global())
@@ -56,15 +56,15 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                         return Just(AppAction.wishes(action: .fetchError(error: error.localizedDescription)))
                     }
                     .eraseToAnyPublisher()
-            case .wishes(action: .updateWishListWithItem(let title,let description, let url)):
+            case .wishes(action: .updateWishListWithItem(let title, let description, let url)):
                 guard !state.wishes.wishList.contains(where: {$0.title == title }) else {
                     return Empty().eraseToAnyPublisher()
                 }
-                
+
                 var publisher: Publishers.Print<AnyPublisher<WishListModel, Error>>
                 var wish: WishListModel
                 var limit: Int = state.wishes.wishList.count
-                
+
                 if var selectedItem = state.wishes.wishDetails {
                     selectedItem.title = title
                     selectedItem.description = description
@@ -77,7 +77,7 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
                     publisher = service.addData(wish)
                         .print("Add wish")
                 }
-                
+
                 return publisher
                     .subscribe(on: DispatchQueue.global())
                     .map { (_) -> AppAction in
@@ -90,7 +90,7 @@ func wishesMiddleware(service: WishListServiceProtocol) -> Middleware<AppState, 
             default:
                 break
             }
-        
+
         return Empty().eraseToAnyPublisher()
     }
 }

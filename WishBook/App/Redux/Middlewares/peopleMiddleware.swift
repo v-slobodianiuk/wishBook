@@ -9,14 +9,15 @@ import ReduxCore
 import Foundation
 import Combine
 
+// swiftlint:disable function_body_length
 func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileServiceProtocol, wishesService: WishListServiceProtocol) -> Middleware<AppState, AppAction> {
     return { (state: AppState, action: AppAction) -> AnyPublisher<AppAction, Never> in
         switch action {
         case .people(action: .fetch(let searchText)):
-            
+
             if let publisher = service.searchPublisher() {
                 return publisher
-                    //.print("Search Publisher")
+                    // .print("Search Publisher")
                     .subscribe(on: DispatchQueue.global())
                     .filter { searchText -> Bool in
                         return searchText.count == 3 || searchText.isEmpty
@@ -35,7 +36,7 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
                     }
                     .eraseToAnyPublisher()
             }
-            
+
             service.sendSearchText(searchText.lowercased())
         case .people(action: .fetchWishes(let limit)):
             guard (limit != nil) || state.people.searchedProfileWishes.isEmpty, let userId = state.people.searchedProfile?.id else {
@@ -43,7 +44,7 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
             }
 
             return wishesService.loadData(userId: userId, limit: limit != nil ? (limit ?? 20) : 20)
-                //.print("Fetch wishes")
+                // .print("Fetch wishes")
                 .subscribe(on: DispatchQueue.global())
                 .map { (data: [WishListModel]) -> AppAction in
                     return AppAction.people(action: .fetchWishesComplete(data: data))
@@ -57,9 +58,9 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
             guard let userId = state.people.searchedProfile?.id else {
                 return Empty().eraseToAnyPublisher()
             }
-            
+
             return wishesService.loadMore(userId: userId)
-                //.print("Fetch more wishes")
+                // .print("Fetch more wishes")
                 .subscribe(on: DispatchQueue.global())
                 .map { (data: [WishListModel]) -> AppAction in
                     return AppAction.people(action: .fetchWishesMoreComplete(data: data))
@@ -85,12 +86,12 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
             guard let searchedProfileId = state.people.searchedProfile?.id else {
                 return Empty().eraseToAnyPublisher()
             }
-            
+
             let publishers = Publishers.Zip(
                 service.addToSubscriptions(id: searchedProfileId),
                 service.addToSubscribers(id: searchedProfileId)
             )
-            
+
             return publishers
                 .print("Subscribe publisher")
                 .subscribe(on: DispatchQueue.global())
@@ -109,12 +110,12 @@ func peopleMiddleware(service: PeopleServiceProtocol, profileService: ProfileSer
             guard let searchedProfileId = state.people.searchedProfile?.id else {
                 return Empty().eraseToAnyPublisher()
             }
-            
+
             let publishers = Publishers.Zip(
                 service.removeFromSubscriptions(id: searchedProfileId),
                 service.removeFromSubscribers(id: searchedProfileId)
             )
-            
+
             return publishers
                 .print("Unsubscribe publisher")
                 .subscribe(on: DispatchQueue.global())

@@ -28,20 +28,20 @@ class WishBookUITests: XCTestCase {
         app.launch()
         snapshot("01LoginScreen")
     }
-    
+
     func testPasswordPrompt() throws {
         let app = XCUIApplication()
         setupSnapshot(app)
         app.launch()
-        
+
         app.secureTextFields["Password"].tap()
         sleep(1)
         let qKey = app/*@START_MENU_TOKEN@*/.keys["q"]/*[[".keyboards.keys[\"q\"]",".keys[\"q\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         qKey.tap()
-        
+
         let wKey = app/*@START_MENU_TOKEN@*/.keys["w"]/*[[".keyboards.keys[\"w\"]",".keys[\"w\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         wKey.tap()
-        
+
         let eKey = app/*@START_MENU_TOKEN@*/.keys["e"]/*[[".keyboards.keys[\"e\"]",".keys[\"e\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         eKey.tap()
         snapshot("02PasswordPrompt")

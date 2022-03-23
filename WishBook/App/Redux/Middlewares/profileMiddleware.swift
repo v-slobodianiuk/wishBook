@@ -16,19 +16,19 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
             guard !service.profileDataListenerIsActive() else {
                 return Empty().eraseToAnyPublisher()
             }
-            
+
             let publisher: AnyPublisher<AppAction, Never> = service.profileDataPublisher()
                 .print("Fetch profile data")
                 .subscribe(on: DispatchQueue.global())
-                //.removeDuplicates()
+                // .removeDuplicates()
                 .map { (data: ProfileModel) -> AppAction in
                     return AppAction.profile(action: .fetchComplete(data: data))
                 }
                 .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
                 .eraseToAnyPublisher()
-            
+
             service.startProfileDataListener()
-            
+
             return publisher
 //            return service.loadDataByUserId(nil)
 //                .print("Fetch profile data")
@@ -48,12 +48,12 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
 //                }
 //                .delay(for: .seconds(Globals.defaultAnimationDuration), scheduler: DispatchQueue.main)
 //                .eraseToAnyPublisher()
-            
+
         case .profile(action: .uploadProfilePhoto(data: let data)):
             guard let userId = state.profile.profileData?.id else {
                 return Empty().eraseToAnyPublisher()
             }
-            
+
             return storageService.upload(imageData: data, userId: userId)
                 .print("Upload photo")
                 .subscribe(on: DispatchQueue.global())
@@ -84,20 +84,20 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
             guard let profileData = state.profile.profileData else {
                 return Empty().eraseToAnyPublisher()
             }
-            
+
             var checkData = profileData
             checkData.firstName = firstName
             checkData.lastName = lastName
             checkData.description = description
             checkData.email = email
             checkData.birthdate = birthDate
-            
+
             guard profileData != checkData else {
                 return Empty().eraseToAnyPublisher()
             }
-            
+
             checkData.searchKey = lastName.prefix(3).lowercased()
-            
+
             return service.updateData(checkData)
                 .print("Update profile data")
                 .subscribe(on: DispatchQueue.global())
@@ -117,7 +117,7 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
             guard !service.wishCounterListenerIsActive() else {
                 return Empty().eraseToAnyPublisher()
             }
-            
+
             return Just(AppAction.profile(action: .checkWishesCount))
                 .eraseToAnyPublisher()
         case .profile(action: .checkWishesCount):
@@ -140,9 +140,9 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
                     return AppAction.profile(action: .updatedCompleted)
                 }
                 .eraseToAnyPublisher()
-            
+
             service.startWishesListener()
-            
+
             return publisher
         case .profile(action: .removeListeners):
             service.removeProfileDataListener()
@@ -150,7 +150,7 @@ func profileMiddleware(service: ProfileServiceProtocol, storageService: Firebase
         default:
             break
         }
-        
+
         return Empty().eraseToAnyPublisher()
     }
 }

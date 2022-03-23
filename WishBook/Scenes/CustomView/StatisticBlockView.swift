@@ -8,29 +8,30 @@
 import SwiftUI
 
 struct StatisticBlockView: View {
-    
+
+    // swiftlint:disable large_tuple
     let count: (subscribers: Int?, subscriptions: Int?, wishes: Int?)
-    
+
     var body: some View {
         HStack {
             statisticView(count: count.subscribers, title: "PROFILE_SUBSCRIBERS_COUNT_TITLE".localized)
-            
+
             profileHorizontalDivider
-            
+
             statisticView(count: count.subscriptions, title: "PROFILE_SUBSCRIPTIONS_COUNT_TITLE".localized)
-            
+
             profileHorizontalDivider
-            
+
             statisticView(count: count.wishes, title: "PROFILE_WISHES_COUNT_TITLE".localized)
         }
     }
-    
+
     fileprivate var profileHorizontalDivider: some View {
         Divider()
             .frame(height: 25)
             .padding(.horizontal, 8)
     }
-    
+
     fileprivate func statisticView(count: Int?, title: String) -> some View {
         VStack {
             Text("\(count ?? 0)")

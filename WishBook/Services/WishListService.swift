@@ -20,12 +20,12 @@ protocol WishListServiceProtocol {
 final class WishListService: WishListServiceProtocol {
     private let db = Firestore.firestore()
     private var lastSnapshot: QueryDocumentSnapshot?
-    
-    //MARK: - Load wishes
+
+    // MARK: - Load wishes
     func loadData(userId: String, limit: Int) -> AnyPublisher<[WishListModel], Error> {
         Deferred {
             Future { [weak self] promise in
-                
+
                 self?.db.collection(Globals.wishesCollectionName)
                     .order(by: "createdTime")
                     .whereField("userId", isEqualTo: userId)
@@ -36,10 +36,10 @@ final class WishListService: WishListServiceProtocol {
                             let result = Result {
                                 try querySnapshot?.documents.compactMap {
                                     try $0.data(as: WishListModel.self)
-                                    
+
                                 }
                             }
-                            
+
                             switch result {
                             case .success(let documents):
                                 guard let wishList = documents else {
@@ -48,7 +48,7 @@ final class WishListService: WishListServiceProtocol {
                                     promise(.success([]))
                                     return
                                 }
-                                
+
                                 // Data value was successfully initialized from the DocumentSnapshot.
                                 promise(.success(wishList))
                             case .failure(let error):
@@ -61,8 +61,8 @@ final class WishListService: WishListServiceProtocol {
         }
         .eraseToAnyPublisher()
     }
-    
-    //MARK: - Load more wishes
+
+    // MARK: - Load more wishes
     func loadMore(userId: String) -> AnyPublisher<[WishListModel], Error> {
         Deferred {
             Future { [weak self] promise in
@@ -70,7 +70,7 @@ final class WishListService: WishListServiceProtocol {
                     promise(.success([]))
                     return
                 }
-                
+
                 self?.db.collection(Globals.wishesCollectionName)
                     .order(by: "createdTime")
                     .whereField("userId", isEqualTo: userId)
@@ -82,10 +82,10 @@ final class WishListService: WishListServiceProtocol {
                             let result = Result {
                                 try querySnapshot?.documents.compactMap {
                                     try $0.data(as: WishListModel.self)
-                                    
+
                                 }
                             }
-                            
+
                             switch result {
                             case .success(let documents):
                                 guard let wishList = documents else {
@@ -94,7 +94,7 @@ final class WishListService: WishListServiceProtocol {
                                     promise(.success([]))
                                     return
                                 }
-                                
+
                                 // Data value was successfully initialized from the DocumentSnapshot.
                                 promise(.success(wishList))
                             case .failure(let error):
@@ -106,19 +106,19 @@ final class WishListService: WishListServiceProtocol {
             }
         }.eraseToAnyPublisher()
     }
-    
-    //MARK: - Add new wish item
+
+    // MARK: - Add new wish item
     func addData(_ data: WishListModel) -> AnyPublisher<WishListModel, Error> {
         Deferred {
             Future { [weak self] promise in
                 guard !UserStorage.profileUserId.isEmpty else {
                     return
                 }
-                
+
                 do {
                     var configuredData = data
                     configuredData.userId = UserStorage.profileUserId
-                    let _ = try self?.db.collection(Globals.wishesCollectionName)
+                    _ = try self?.db.collection(Globals.wishesCollectionName)
                         .addDocument(from: configuredData)
                     promise(.success(configuredData))
                 } catch {
@@ -128,18 +128,18 @@ final class WishListService: WishListServiceProtocol {
             }
         }.eraseToAnyPublisher()
     }
-    
-    //MARK: - Update wish item
+
+    // MARK: - Update wish item
     func updateData(_ data: WishListModel) -> AnyPublisher<WishListModel, Error> {
         Deferred {
             Future { [weak self] promise in
                 guard !UserStorage.profileUserId.isEmpty, let id = data.id else {
                     return
                 }
-                
+
                 var configuredData = data
                 configuredData.userId = UserStorage.profileUserId
-                
+
                 do {
                     try self?.db.collection(Globals.wishesCollectionName)
                         .document(id)
@@ -152,14 +152,14 @@ final class WishListService: WishListServiceProtocol {
             }
         }.eraseToAnyPublisher()
     }
-    
-    //MARK: - Delete wish item
+
+    // MARK: - Delete wish item
     func delete(id: String) -> AnyPublisher<Bool, Error> {
         Deferred {
             Future { [weak self] promise in
                 self?.db.collection(Globals.wishesCollectionName)
                     .document(id)
-                    .delete() { error in
+                    .delete { error in
                         DispatchQueue.global().async {
                             if let error = error {
                                 print("Error removing document: \(error.localizedDescription)")

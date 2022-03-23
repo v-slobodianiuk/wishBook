@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-//MARK: - ConfirmButtonStyle
+// MARK: - ConfirmButtonStyle
 struct ConfirmButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label

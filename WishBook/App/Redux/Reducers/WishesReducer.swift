@@ -7,7 +7,7 @@
 
 import Foundation
 
-func wishesReducer(state: inout WishesState, action: WishesAction) -> Void {
+func wishesReducer(state: inout WishesState, action: WishesAction) {
     switch action {
     case .fetch(limit: _):
         if state.wishList.isEmpty && !state.fullDataLoadingCompleted {
@@ -21,7 +21,7 @@ func wishesReducer(state: inout WishesState, action: WishesAction) -> Void {
         if data.count < state.paginationLimit {
             state.fullDataLoadingCompleted = true
         }
-        
+
         state.wishList = data
         state.fetchInProgress = false
     case .fetchMoreComplete(let data):

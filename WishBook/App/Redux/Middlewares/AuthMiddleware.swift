@@ -11,7 +11,7 @@ import Combine
 import AuthenticationServices
 
 func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, AppAction> {
-    return { (state: AppState, action: AppAction) -> AnyPublisher<AppAction, Never> in
+    return { (_: AppState, action: AppAction) -> AnyPublisher<AppAction, Never> in
         switch action {
         case .auth(action: .fetch):
             let publisher = service.checkState()
@@ -22,9 +22,9 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
                     UserStorage.profileUserId = newProfileId ?? ""
                     return AppAction.auth(action: .status(isLoggedIn: !UserStorage.profileUserId.isEmpty))
                 }
-            
+
             service.startAuthListener()
-            
+
             return publisher
                 .eraseToAnyPublisher()
         case .auth(action: .status(let isLoggedIn)):
@@ -34,14 +34,14 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
             return service.createUser(email: email, password: password)
                 .print("Create User")
                 .subscribe(on: DispatchQueue.global())
-                .map { (state: UserState) -> AppAction in
+                .map { (_: UserState) -> AppAction in
                     return AppAction.auth(action: .fetchComplete)
                 }
                 .catch { (error: Error) -> Just<AppAction> in
                     return Just(AppAction.auth(action: .fetchError(error: error.localizedDescription)))
                 }
                 .eraseToAnyPublisher()
-            
+
         case .auth(action: .googleLogIn):
             service.signInWithGoogle()
         case .auth(action: .sighInWithApple(let nonce, let result)):
@@ -57,7 +57,7 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
                         print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
                         return Empty().eraseToAnyPublisher()
                     }
-                    
+
                     service.signInWithApple(idTokenString: idTokenString, nonce: nonce, appleIDCredential: appleIDCredential)
                 default: break
                 }
@@ -95,7 +95,7 @@ func authMiddleware(service: GoogleAuthServiceProtocol) -> Middleware<AppState, 
         default:
             break
         }
-        
+
         return Empty().eraseToAnyPublisher()
     }
 }

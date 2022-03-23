@@ -10,35 +10,35 @@ import SwiftUI
 struct PasswordPromptView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Binding var isPresented: Bool
-    
+
     var body: some View {
         ZStack {
             BlurView(style: colorScheme == .dark ? .systemThinMaterialDark : .systemThinMaterialLight)
                 .ignoresSafeArea()
-            
+
             contentView
         }
         .transition(.asymmetric(insertion: .scale, removal: .opacity))
         .onTapGesture { isPresented.toggle() }
     }
-    
+
     fileprivate var contentView: some View {
         VStack {
             Spacer()
-            
+
             Text("PASSWORD_PROMPT_TITLE".localized)
                 .font(Font.title2)
                 .foregroundColor(.label)
                 .padding(.horizontal)
-            
+
             Text("PASSWORD_PROMPT_DESCRIPTION".localized)
                 .font(Font.body)
                 .foregroundColor(.label)
                 .padding(.top)
                 .padding(.horizontal)
-            
+
             Spacer()
-            
+
             Button {
                 isPresented.toggle()
             } label: {
@@ -56,6 +56,6 @@ struct PasswordPromptView: View {
 struct PasswordPromptView_Previews: PreviewProvider {
     static var previews: some View {
         PasswordPromptView(isPresented: .constant(true))
-            //.preferredColorScheme(.dark)
+            // .preferredColorScheme(.dark)
     }
 }

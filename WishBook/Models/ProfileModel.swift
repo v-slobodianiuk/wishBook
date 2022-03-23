@@ -22,7 +22,7 @@ struct ProfileModel: Codable, Identifiable, Equatable {
     var wishes: Int?
     var subscribers: [String]?
     var subscriptions: [String]?
-    
+
     enum CodingKeys: String, CodingKey {
         case id = "userId"
         case photoUrl
@@ -37,7 +37,7 @@ struct ProfileModel: Codable, Identifiable, Equatable {
         case subscribers
         case subscriptions
     }
-    
+
     static func == (lhs: ProfileModel, rhs: ProfileModel) -> Bool {
         lhs.id == rhs.id
         && lhs.firstName == rhs.firstName

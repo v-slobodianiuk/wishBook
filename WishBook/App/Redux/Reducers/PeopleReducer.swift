@@ -7,7 +7,7 @@
 
 import Foundation
 
-func peopleReducer(state: inout PeopleState, action: PeopleAction) -> Void {
+func peopleReducer(state: inout PeopleState, action: PeopleAction) {
     switch action {
     case .fetch(let searchText):
         if searchText.count == 3 {
@@ -25,7 +25,7 @@ func peopleReducer(state: inout PeopleState, action: PeopleAction) -> Void {
         state.searchedProfile = state.peopleList[index]
         state.wishesFullDataLoadingCompleted = false
         state.searchedProfileWishes.removeAll()
-        
+
     case .fetchWishes(limit: _):
         if state.searchedProfileWishes.isEmpty && !state.wishesFullDataLoadingCompleted {
             state.wishesFetchInProgress = true
@@ -38,7 +38,7 @@ func peopleReducer(state: inout PeopleState, action: PeopleAction) -> Void {
         if data.count < state.paginationLimit {
             state.wishesFullDataLoadingCompleted = true
         }
-        
+
         state.searchedProfileWishes = data
         state.wishesFetchInProgress = false
     case .fetchWishesMoreComplete(let data):

@@ -10,34 +10,34 @@ import SwiftUI
 struct ResetPasswordView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Binding var isPresented: Bool
-    
+
     var body: some View {
         ZStack {
             BlurView(style: colorScheme == .dark ? .systemThinMaterialDark : .systemThinMaterialLight)
                 .ignoresSafeArea()
-            
+
             contentView
         }
         .transition(.asymmetric(insertion: .scale, removal: .opacity))
         .onTapGesture { isPresented.toggle() }
     }
-    
+
     fileprivate var contentView: some View {
         VStack {
             Spacer()
-            
+
             Image(systemName: "checkmark.circle")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 200, height: 200)
                 .foregroundColor(.main)
                 .opacity(0.2)
-            
+
             Text("SUCCESS_TITLE".localized)
                 .font(Font.largeTitle)
                 .foregroundColor(.label)
                 .padding()
-            
+
             Button {
                 guard let mailURL = URL(string: "message://"), UIApplication.shared.canOpenURL(mailURL) else { return }
                 UIApplication.shared.open(mailURL)
@@ -54,9 +54,9 @@ struct ResetPasswordView: View {
                             .stroke(Color.main, lineWidth: 1)
                     )
             }
-            
+
             Spacer()
-            
+
             Button {
                 isPresented.toggle()
             } label: {

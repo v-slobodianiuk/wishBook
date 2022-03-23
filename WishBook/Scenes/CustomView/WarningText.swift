@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WarningText: View {
     let text: String
-    
+
     var body: some View {
         Text(text)
             .font(Font.footnote)

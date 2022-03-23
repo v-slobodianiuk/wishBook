@@ -9,10 +9,10 @@ import Foundation
 
 @propertyWrapper
 struct UserDefaultsStorage<Value> {
-    
+
     let key: String
     let defaultValue: Value
-    
+
     var wrappedValue: Value {
         get {
             UserDefaults.standard.value(forKey: key) as? Value ?? defaultValue
@@ -26,7 +26,7 @@ struct UserDefaultsStorage<Value> {
 final class UserStorage {
     @UserDefaultsStorage<Bool>(key: "isLoggedIn", defaultValue: false)
     static var isLoggedIn
-    
+
     @UserDefaultsStorage<String>(key: "profileUserId", defaultValue: "")
     static var profileUserId
 }

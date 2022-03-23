@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-//MARK: - Wish State
+// MARK: - Wish State
 private struct WishStateKey: EnvironmentKey {
     static let defaultValue: WishState = .readOnly
 }
@@ -19,7 +19,7 @@ extension EnvironmentValues {
     }
 }
 
-//MARK: - View Extension
+// MARK: - View Extension
 extension View {
     func wishState(_ state: WishState) -> some View {
         environment(\.wishState, state)

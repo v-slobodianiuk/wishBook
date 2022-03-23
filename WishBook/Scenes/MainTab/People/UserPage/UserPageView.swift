@@ -13,15 +13,15 @@ struct UserPageView: View {
     @EnvironmentObject var store: AppStore
     @Environment(\.presentationMode) var presentationMode
     @State private var wishDetailsIsPresented: Bool = false
-    
+
     private var isSubscribed: Bool {
         store.state.profile.profileData?.subscriptions?.contains(store.state.people.searchedProfile?.id ?? "") ?? false
     }
-    
+
     // MARK: - body
     var body: some View {
-        VStack() {
-            HStack() {
+        VStack {
+            HStack {
                 ProfileImageView(stringUrl: store.state.people.searchedProfile?.photoUrl)
                     .frame(width: 50, height: 50)
                     .padding(.leading)
@@ -38,12 +38,12 @@ struct UserPageView: View {
                 }
                 Spacer()
             }
-            
+
             StatisticBlockView(count: (
                 subscribers: store.state.people.searchedProfile?.subscribers?.count,
                 subscriptions: store.state.people.searchedProfile?.subscriptions?.count,
                 wishes: store.state.people.searchedProfile?.wishes))
-            
+
             HStack {
                 Text("PROFILE_BIRTHDATE_EMOJI".localized)
                 Text(store.state.people.getBirthdate())
@@ -64,7 +64,7 @@ struct UserPageView: View {
                 .disabled(store.state.people.subscribeIsDisabled)
             }
             .padding([.top, .horizontal])
-            
+
             emptyView
         }
         .navigationTitle("")
@@ -75,7 +75,7 @@ struct UserPageView: View {
             }
         }
     }
-    
+
     // MARK: - Empty View
     fileprivate var emptyView: some View {
         ZStack {
@@ -87,7 +87,7 @@ struct UserPageView: View {
         }
         .frame(maxHeight: .infinity)
     }
-    
+
     // MARK: - List View
     fileprivate var listView: some View {
         List {

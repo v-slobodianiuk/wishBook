@@ -10,7 +10,7 @@ import Combine
 @testable import WishBook
 
 class WishListServiceTests: XCTestCase {
-    
+
     private var cancellables: Set<AnyCancellable>!
     private var wishListService: WishListServiceProtocol!
     private let testUserId: String = "gDeQhOKFrqRHliCBkcVbdORDjCK2"
@@ -27,7 +27,7 @@ class WishListServiceTests: XCTestCase {
         wishListService = nil
         cancellables = nil
     }
-    
+
     func testWishListModel() throws {
         let mockDate = Date()
         let firstMockWish = WishListModel(createdTime: mockDate, title: "Baz")
@@ -40,10 +40,10 @@ class WishListServiceTests: XCTestCase {
     func testLoadData() throws {
         var testWishList: [WishListModel]?
         let expectation = self.expectation(description: "Load wish list data")
-        
+
         wishListService.loadData(userId: testUserId, limit: loadLimit)
-            .catch { error -> AnyPublisher<[WishListModel], Never> in
-                XCTFail()
+            .catch { _ -> AnyPublisher<[WishListModel], Never> in
+                XCTFail("testLoadData error")
                 return Empty().eraseToAnyPublisher()
             }
             .sink { wishList in
@@ -51,27 +51,27 @@ class WishListServiceTests: XCTestCase {
                 expectation.fulfill()
             }
             .store(in: &cancellables)
-        
+
         waitForExpectations(timeout: 3.0)
-        
+
         XCTAssertNotNil(testWishList, "Wishes is nil")
     }
-    
+
     func testLoadMore() throws {
         var testWishList: [WishListModel]?
         let expectation = self.expectation(description: "Load more wish list data")
-        
+
         wishListService.loadData(userId: testUserId, limit: 1)
-            .flatMap { [weak self] wishes -> AnyPublisher<[WishListModel], Error> in
+            .flatMap { [weak self] _ -> AnyPublisher<[WishListModel], Error> in
                 guard let self = self else {
-                    XCTFail()
+                    XCTFail("wishListService loadData error")
                     expectation.fulfill()
                     return Empty().eraseToAnyPublisher()
                 }
                 return self.wishListService.loadMore(userId: self.testUserId)
             }
-            .catch { error -> AnyPublisher<[WishListModel], Never> in
-                XCTFail()
+            .catch { _ -> AnyPublisher<[WishListModel], Never> in
+                XCTFail("wishListService loadMore error")
                 return Empty().eraseToAnyPublisher()
             }
             .sink { wishList in
@@ -79,17 +79,17 @@ class WishListServiceTests: XCTestCase {
                 expectation.fulfill()
             }
             .store(in: &cancellables)
-        
+
         waitForExpectations(timeout: 8.0)
-        
+
         guard let wishes = testWishList else {
-            XCTFail()
+            XCTFail("wishes is nil")
             return
         }
-        
+
         XCTAssert(!wishes.isEmpty, "No more wishes")
     }
-    
+
     func testUpdateWish() throws {
         var wishTest: WishListModel?
         let expectation = self.expectation(description: "Update wish")
@@ -97,16 +97,16 @@ class WishListServiceTests: XCTestCase {
             .flatMap { [weak self] wishes -> AnyPublisher<WishListModel, Error> in
                 guard let self = self, let wish = wishes.first else {
                     expectation.fulfill()
-                    XCTFail()
+                    XCTFail("wishListService loadMore error")
                     return Empty().eraseToAnyPublisher()
                 }
                 var wishForModify = wish
                 wishForModify.title = "Bar"
                 return self.wishListService.updateData(wishForModify)
             }
-            .catch { error -> AnyPublisher<WishListModel, Never> in
+            .catch { _ -> AnyPublisher<WishListModel, Never> in
                 expectation.fulfill()
-                XCTFail()
+                XCTFail("wishListService updateData error")
                 return Empty().eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
@@ -115,19 +115,19 @@ class WishListServiceTests: XCTestCase {
                 expectation.fulfill()
             }
             .store(in: &cancellables)
-        
+
         waitForExpectations(timeout: 5.0)
         XCTAssertEqual(wishTest?.title, "Bar")
     }
-    
+
     func testAddWish() throws {
         var wishTest = WishListModel(title: "Baz")
         let expectation = self.expectation(description: "Add wish")
-        
+
         wishListService.addData(wishTest)
-            .catch { error -> AnyPublisher<WishListModel, Never> in
+            .catch { _ -> AnyPublisher<WishListModel, Never> in
                 expectation.fulfill()
-                XCTFail()
+                XCTFail("wishListService addData error")
                 return Empty().eraseToAnyPublisher()
             }
             .sink { wish in
@@ -135,28 +135,28 @@ class WishListServiceTests: XCTestCase {
                 expectation.fulfill()
             }
             .store(in: &cancellables)
-        
+
         waitForExpectations(timeout: 3.0)
-        
+
         XCTAssertEqual(wishTest.userId, testUserId, "Wish userId data isn't equal userId")
     }
-    
+
     func testDeleteItem() throws {
         var isRemovedTest = false
         let expectation = self.expectation(description: "DeleteWish")
-        
+
         wishListService.loadData(userId: testUserId, limit: loadLimit)
             .flatMap { [weak self] wishes -> AnyPublisher<Bool, Error> in
                 guard let self = self, let id = wishes.first?.id else {
                     expectation.fulfill()
-                    XCTFail()
+                    XCTFail("wishListService loadData error")
                     return Empty().eraseToAnyPublisher()
                 }
                 return self.wishListService.delete(id: id)
             }
-            .catch { (error: Error) -> AnyPublisher<Bool, Never> in
+            .catch { (_: Error) -> AnyPublisher<Bool, Never> in
                 expectation.fulfill()
-                XCTFail()
+                XCTFail("wishListService delete error")
                 return Empty().eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
@@ -165,7 +165,7 @@ class WishListServiceTests: XCTestCase {
                 expectation.fulfill()
             }
             .store(in: &cancellables)
-        
+
         waitForExpectations(timeout: 5.0)
         XCTAssert(isRemovedTest, "Delete wish item error")
     }

@@ -10,7 +10,7 @@ import Combine
 @testable import WishBook
 
 class ProfileServiceTests: XCTestCase {
-    
+
     private var cancellables: Set<AnyCancellable>!
     private var profileService: ProfileServiceProtocol!
     private var profileModelTest: ProfileModel?
@@ -28,7 +28,7 @@ class ProfileServiceTests: XCTestCase {
         cancellables = nil
         profileModelTest = nil
     }
-    
+
     func testProfileModel() throws {
         let firstProfile = ProfileModel(id: "1", firstName: "Baz", lastName: "Bar")
         var secondProfile = ProfileModel(id: "1", firstName: "Baz", lastName: "Bar")
@@ -36,27 +36,26 @@ class ProfileServiceTests: XCTestCase {
         secondProfile.id = "2"
         XCTAssertFalse(firstProfile == secondProfile)
     }
-    
+
     func testGetUserData() throws {
         let expectation = self.expectation(description: "GetProfileData")
         profileService.loadDataByUserId(testUserId)
             .sink { _ in
-                
+
             } receiveValue: { [weak self] profileModel in
                 self?.profileModelTest = profileModel
                 expectation.fulfill()
             }
             .store(in: &cancellables)
-        
-        
+
         waitForExpectations(timeout: 3.0)
-        
+
         XCTAssertNotNil(profileModelTest)
         XCTAssertEqual(profileModelTest?.email, "test@test.com")
         XCTAssertEqual(profileModelTest?.firstName, "Test")
         XCTAssertEqual(profileModelTest?.lastName, "First")
     }
-    
+
     func testUpdateDataBy() throws {
         var isUpdatedTest: Bool = false
         let expectation = self.expectation(description: "UpdateProfileDataByKey")
@@ -66,25 +65,25 @@ class ProfileServiceTests: XCTestCase {
                 expectation.fulfill()
             }
             .store(in: &cancellables)
-        
+
         waitForExpectations(timeout: 3.0)
-        
+
         XCTAssert(isUpdatedTest, "Profile data updated")
     }
-    
+
     func testUpdateData() throws {
         var isUpdatedTest: Bool = false
-        
+
         let expectation = self.expectation(description: "UpdateProfileData")
-        
+
         profileService.loadDataByUserId(testUserId)
             .flatMap { [weak self] (profileModel) -> AnyPublisher<Bool, ProfileServiceError> in
                 var model = profileModel
                 model.firstName = "Test"
                 return self!.profileService.updateData(model)
             }
-            .catch { (error: ProfileServiceError) -> AnyPublisher<Bool, Never> in
-                XCTFail()
+            .catch { (_: ProfileServiceError) -> AnyPublisher<Bool, Never> in
+                XCTFail("testUpdateData error")
                 return Empty().eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
@@ -93,19 +92,19 @@ class ProfileServiceTests: XCTestCase {
                 expectation.fulfill()
             }
             .store(in: &cancellables)
-        
+
         waitForExpectations(timeout: 5.0)
-        
+
         XCTAssert(isUpdatedTest, "Profile data updated")
     }
-    
+
     func testProfileDataListener() throws {
         profileService.startProfileDataListener()
         XCTAssertTrue(profileService.profileDataListenerIsActive(), "Profile Data listener isn't active!")
         profileService.removeProfileDataListener()
         XCTAssertFalse(profileService.profileDataListenerIsActive(), "Profile Data listener is active!")
     }
-    
+
     func testWishesListener() throws {
         profileService.startWishesListener()
         XCTAssertTrue(profileService.wishCounterListenerIsActive(), "Wishes listener isn't active!")

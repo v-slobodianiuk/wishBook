@@ -7,14 +7,13 @@
 
 import SwiftUI
 
-
 struct UserPageView<VM: UserPageViewModelProtocol>: View {
-    
+
     @ObservedObject var vm: VM
-    
+
     var body: some View {
-        VStack() {
-            HStack() {
+        VStack {
+            HStack {
                 Image(systemName: "person.crop.circle.fill")
                     .resizable()
                     .frame(width: 50, height: 50)
@@ -33,7 +32,7 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
                 }
                 Spacer()
             }
-            HStack() {
+            HStack {
                 VStack {
                     Text("\(vm.getProfileData()?.subscribers?.count ?? 0)")
                         .fontWeight(.medium)
@@ -77,7 +76,7 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
             Spacer()
         }
     }
-    
+
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
             let vm = UserPageViewModel(
@@ -85,6 +84,7 @@ struct UserPageView<VM: UserPageViewModelProtocol>: View {
                 profileRepository: DI.getProfileRepository(),
                 wishListRepository: DI.getWishListRepository()
             )
+            // swiftlint:disable force_cast
             UserPageView(vm: vm as! VM)
         }
     }

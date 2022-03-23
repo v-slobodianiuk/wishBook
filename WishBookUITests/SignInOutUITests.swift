@@ -26,28 +26,28 @@ class SignInOutUITests: XCTestCase {
         let app = XCUIApplication()
         setupSnapshot(app)
         app.launch()
-        
+
         app.textFields["Email"].tap()
         sleep(1)
         app.textFields["Email"].typeText("test@test.com")
         sleep(1)
-        
+
         app.secureTextFields["Password"].tap()
         sleep(1)
         app.secureTextFields["Password"].typeText("AAAaaa1!")
         sleep(1)
         snapshot("04ContinueState")
-        
+
         app.buttons["Continue"].tap()
         sleep(5)
         snapshot("05WishList")
     }
-    
+
     func testSignOut() throws {
         let app = XCUIApplication()
         setupSnapshot(app)
         app.launch()
-        
+
         app.tabBars["Tab Bar"].buttons["Profile"].tap()
         snapshot("06Profile")
         app.navigationBars["Profile"].buttons["Sign Out"].tap()

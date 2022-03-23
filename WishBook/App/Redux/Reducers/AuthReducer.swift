@@ -7,7 +7,7 @@
 
 import Foundation
 
-func authReducer(state: inout AuthState, action: AuthAction) -> Void {
+func authReducer(state: inout AuthState, action: AuthAction) {
     switch action {
     case .fetch:
         state.fetchInProgress = true
@@ -22,11 +22,7 @@ func authReducer(state: inout AuthState, action: AuthAction) -> Void {
         state.fetchInProgress = true
         state.login = login
         state.password = password
-    case .googleLogIn:
-        break
-    case .sighInWithApple:
-        break
-    case .signOut:
+    case .googleLogIn, .sighInWithApple, .signOut:
         break
     case .fetchError(error: let error):
         state.fetchInProgress = false

@@ -10,9 +10,9 @@ import LinkPresentation
 
 struct LinkDataView: UIViewRepresentable {
     typealias UIViewType = LinkContainerView
-    
+
     @Binding var urlString: String
-    
+
     func makeUIView(context: UIViewRepresentableContext<LinkDataView>) -> LinkDataView.UIViewType {
         let linkContainerView = LinkContainerView()
         linkContainerView.linkViewIsHidden(true)
@@ -26,12 +26,12 @@ struct LinkDataView: UIViewRepresentable {
             uiView.linkViewIsHidden(false)
         } else {
             let provider = LPMetadataProvider()
-            
+
             provider.startFetchingMetadata(for: safeUrl) { metadata, error in
                 guard let metadata = metadata, error == nil else { return }
-                
+
                 MetaCache.cache(metadata: metadata)
-                
+
                 DispatchQueue.main.async {
                     uiView.setMetadata(metadata)
                     uiView.linkViewIsHidden(false)

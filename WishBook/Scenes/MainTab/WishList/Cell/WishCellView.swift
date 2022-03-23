@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct WishCellView: View {
-    
+
     let title: String
     let currentIndex: Int
     let lastIndexItem: Int
     let paginationInProgress: Bool
     let fullLoadingComplete: Bool
-    
+
     var loadingAction: Closure?
     var prepareAction: Closure?
-    
+
     var body: some View {
         ZStack {
             if currentIndex == lastIndexItem && paginationInProgress {
@@ -37,9 +37,9 @@ struct WishCellView: View {
 }
 
 struct WishCellView_Previews: PreviewProvider {
-    
+
     private static let fakeTitles: [String] = ["Baz", "Bar"]
-    
+
     static var previews: some View {
         List {
             ForEach(fakeTitles.indices, id: \.self) { index in

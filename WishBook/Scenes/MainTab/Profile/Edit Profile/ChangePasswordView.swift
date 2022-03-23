@@ -10,20 +10,20 @@ import SwiftUI
 struct ChangePasswordView: View {
     @EnvironmentObject var store: AppStore
     @Environment(\.presentationMode) private var presentationMode
-    
+
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     @State private var isValidPassword: Bool = false
     @State private var passwordPromptIsPresented: Bool = false
     @State private var closeButtonIsPresented: Bool = true
-    
+
     // MARK: - body
     var body: some View {
         let shouldDisplayError = Binding<Bool>(
             get: { store.state.auth.errorMessage != nil },
             set: { _ in store.dispatch(action: .auth(action: .fetchError(error: nil))) }
         )
-        
+
         if store.state.auth.fetchInProgress {
             ProgressView()
         } else {
@@ -33,7 +33,7 @@ struct ChangePasswordView: View {
                 contentView
                     .frame(maxHeight: .infinity)
                     .contentShape(Rectangle())
-                    .resignKeyboardOnTapGesture() {
+                    .resignKeyboardOnTapGesture {
                         guard !closeButtonIsPresented else { return }
                         withAnimation { closeButtonIsPresented = true }
                     }
@@ -47,34 +47,34 @@ struct ChangePasswordView: View {
             }
         }
     }
-    
+
     // MARK: - Content View
     fileprivate var contentView: some View {
         ZStack {
             VStack {
                 Spacer()
-                
+
                 Image(systemName: "lock.circle")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 200, height: 200)
                     .foregroundColor(.main)
                     .opacity(0.2)
-                
+
                 Spacer()
-                
+
                 Text("CREATE_NEW_PASSWORD_TITLE".localized)
                     .font(Font.title)
                     .foregroundColor(.label)
 
                 VStack(alignment: .leading) {
                     textFieldsView
-                    
+
                     if password != confirmPassword {
                         WarningText(text: "PASSWORD_WARNING_TEXT".localized)
                     }
                 }
-                
+
                 Button("CONFIRM_BUTTON_TITLE".localized) {
                     withAnimation {
                         store.dispatch(action: .auth(action: .updatePassword(password: password)))
@@ -84,9 +84,9 @@ struct ChangePasswordView: View {
                 .disabled(!isValidPassword)
                 .buttonStyle(ConfirmButtonStyle())
                 .padding(.vertical)
-                
+
                 Spacer()
-                
+
                 if closeButtonIsPresented {
                     closeButtonView
                 }
@@ -98,7 +98,7 @@ struct ChangePasswordView: View {
             }
         }
     }
-    
+
     // MARK: - TextFields
     fileprivate var textFieldsView: some View {
         Group {
@@ -106,7 +106,7 @@ struct ChangePasswordView: View {
                 withAnimation {
                     let isValid = store.state.auth.isValidPassword(password)
                     isValidPassword = (password == confirmPassword && isValid)
-                    
+
                     guard !closeButtonIsPresented else { return }
                     closeButtonIsPresented = true
                 }
@@ -123,7 +123,7 @@ struct ChangePasswordView: View {
                 withAnimation { closeButtonIsPresented = false }
             }
             .textFieldStyle(RoundedBorderTextFieldStyle())
-            
+
             if !store.state.auth.isValidPassword(password) && !password.isEmpty {
                 Button {
                     endEditing()
@@ -141,12 +141,12 @@ struct ChangePasswordView: View {
                     }
                 }
             }
-            
+
             SecureField("REPEAT_PASSWORD_PLACEHOLDER".localized, text: $confirmPassword) {
                 withAnimation {
                     let isValid = store.state.auth.isValidPassword(confirmPassword)
                     isValidPassword = (password == confirmPassword && isValid)
-                    
+
                     guard !closeButtonIsPresented else { return }
                     closeButtonIsPresented = true
                 }
@@ -165,8 +165,7 @@ struct ChangePasswordView: View {
             .textFieldStyle(RoundedBorderTextFieldStyle())
         }
     }
-    
-    
+
     // MARK: - Close Button
     fileprivate var closeButtonView: some View {
         Button {
@@ -180,26 +179,26 @@ struct ChangePasswordView: View {
         }
         .padding()
     }
-    
+
     // MARK: - Success View
     fileprivate var successView: some View {
         VStack {
             Spacer()
-            
+
             Image(systemName: "checkmark.circle")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 200, height: 200)
                 .foregroundColor(.main)
                 .opacity(0.2)
-            
+
             Text("SUCCESS_TITLE".localized)
                 .font(Font.largeTitle)
                 .foregroundColor(.label)
                 .padding()
-            
+
             Spacer()
-            
+
             closeButtonView
         }
         .transition(.asymmetric(insertion: AnyTransition.flipFromBottom(duration: 0.24), removal: .opacity))
@@ -209,6 +208,6 @@ struct ChangePasswordView: View {
 struct ChangePasswordView_Previews: PreviewProvider {
     static var previews: some View {
         screenFactory.makeChangePasswordView()
-            //.preferredColorScheme(.dark)
+            // .preferredColorScheme(.dark)
     }
 }

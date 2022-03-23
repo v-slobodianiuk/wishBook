@@ -26,12 +26,12 @@ protocol ProfileServiceProtocol {
     func loadDataByUserId(_ userId: String?) -> AnyPublisher<ProfileModel, ProfileServiceError>
     func updateData(_ data: ProfileModel) -> AnyPublisher<Bool, ProfileServiceError>
     func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never>
-    
+
     func startWishesListener()
     func removeWishesCountListener()
     func wishCounterListenerIsActive() -> Bool
     func wishesCountPublisher() -> AnyPublisher<Int, Never>
-    
+
     func startProfileDataListener()
     func removeProfileDataListener()
     func profileDataListenerIsActive() -> Bool
@@ -44,21 +44,21 @@ final class ProfileService: ProfileServiceProtocol {
     private let profileSubject = PassthroughSubject<ProfileModel, Never>()
     private var wishCounterListener: ListenerRegistration?
     private var profileDataListener: ListenerRegistration?
-    
-    //MARK: - Wishes count Listener
+
+    // MARK: - Wishes count Listener
     func wishesCountPublisher() -> AnyPublisher<Int, Never> {
         return wishesCountSubject.eraseToAnyPublisher()
     }
-    
+
     func wishCounterListenerIsActive() -> Bool {
         return wishCounterListener != nil
     }
-    
+
     func removeWishesCountListener() {
         wishCounterListener?.remove()
         wishCounterListener = nil
     }
-    
+
     func startWishesListener() {
         guard !UserStorage.profileUserId.isEmpty, wishCounterListener == nil else { return }
         wishCounterListener = db.collection(Globals.wishesCollectionName)
@@ -68,13 +68,13 @@ final class ProfileService: ProfileServiceProtocol {
                     print(error.localizedDescription)
                     return
                 }
-                
+
                 if let snapshotCount = querySnapshot?.count {
                     self?.wishesCountSubject.send(snapshotCount)
                 }
             }
     }
-    
+
     func startProfileDataListener() {
         guard !UserStorage.profileUserId.isEmpty, profileDataListener == nil else { return }
         profileDataListener = db.collection(Globals.usersCollectionName)
@@ -84,7 +84,7 @@ final class ProfileService: ProfileServiceProtocol {
                     let result = Result {
                         try querySnapshot?.data(as: ProfileModel.self)
                     }
-                    
+
                     switch result {
                     case .success(let document):
                         guard let profile = document else {
@@ -92,7 +92,7 @@ final class ProfileService: ProfileServiceProtocol {
                             // or the DocumentSnapshot was nil.
                             return
                         }
-                        
+
                         // Data value was successfully initialized from the DocumentSnapshot.
                         self?.profileSubject.send(profile)
                     case .failure(let error):
@@ -102,22 +102,22 @@ final class ProfileService: ProfileServiceProtocol {
                 }
             }
     }
-    
-    //MARK: - Profile Data Listener
+
+    // MARK: - Profile Data Listener
     func profileDataPublisher() -> AnyPublisher<ProfileModel, Never> {
         return profileSubject.eraseToAnyPublisher()
     }
-    
+
     func profileDataListenerIsActive() -> Bool {
         return profileDataListener != nil
     }
-    
+
     func removeProfileDataListener() {
         profileDataListener?.remove()
         profileDataListener = nil
     }
-    
-    //MARK: - Load data by User Id
+
+    // MARK: - Load data by User Id
     func loadDataByUserId(_ userId: String?) -> AnyPublisher<ProfileModel, ProfileServiceError> {
         Deferred {
             Future { [weak self] promise in
@@ -130,7 +130,7 @@ final class ProfileService: ProfileServiceProtocol {
                     promise(.failure(.userIdNotFound))
                     return
                 }
-                
+
                 self?.db.collection(Globals.usersCollectionName)
                     .document(id)
                     .getDocument { (document, error) in
@@ -138,7 +138,7 @@ final class ProfileService: ProfileServiceProtocol {
                             let result = Result {
                                 try document?.data(as: ProfileModel.self)
                             }
-                            
+
                             switch result {
                             case .success(let document):
                                 guard let profile = document else {
@@ -147,7 +147,7 @@ final class ProfileService: ProfileServiceProtocol {
                                     promise(.failure(.notFound))
                                     return
                                 }
-                                
+
                                 // Data value was successfully initialized from the DocumentSnapshot.
                                 promise(.success(profile))
                             case .failure(let error):
@@ -159,8 +159,8 @@ final class ProfileService: ProfileServiceProtocol {
             }
         }.eraseToAnyPublisher()
     }
-    
-    //MARK: - Update data
+
+    // MARK: - Update data
     func updateData(_ data: ProfileModel) -> AnyPublisher<Bool, ProfileServiceError> {
         Deferred {
             Future { [weak self] promise in
@@ -181,17 +181,17 @@ final class ProfileService: ProfileServiceProtocol {
             }
         }.eraseToAnyPublisher()
     }
-    
-    //MARK: - Update data by key
+
+    // MARK: - Update data by key
     func updateDataBy(key: ProfileKey, value: Any) -> AnyPublisher<Bool, Never> {
         Deferred {
             Future { [weak self] promise in
                 guard !UserStorage.profileUserId.isEmpty else { return }
-                
+
                 self?.db.collection(Globals.usersCollectionName)
                     .document(UserStorage.profileUserId)
                     .updateData([
-                        key.rawValue : value
+                        key.rawValue: value
                     ]) { error in
                         if let error = error {
                             print("updateWishesCount error: \(error.localizedDescription)")

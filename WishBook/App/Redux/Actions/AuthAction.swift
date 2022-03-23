@@ -19,7 +19,7 @@ enum AuthAction {
     case updatePassword(password: String)
     case updatePasswordComplete(isChanged: Bool)
     case resetPasswordComplete(success: Bool)
-    
+
     case signOut
     case fetchError(error: String?)
 }

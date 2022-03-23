@@ -9,6 +9,7 @@ import Foundation
 
 let di: Di = Di()
 
+// swiftlint:disable type_name
 struct Di {
     fileprivate let store: AppStore
     fileprivate let authState: AuthState = AuthState()
@@ -20,7 +21,7 @@ struct Di {
     fileprivate let firebaseStorageService: FirebaseStorageService = FirebaseStorageService()
     fileprivate let wishListService: WishListService = WishListService()
     fileprivate let peopleService: PeopleService = PeopleService()
-    
+
     init() {
         self.store = AppStore(
             initialState: .init(auth: authState, profile: profileState, wishes: wishesState, people: peopleState),
@@ -33,7 +34,7 @@ struct Di {
             ]
         )
     }
-    
+
     func getStore() -> AppStore {
         return store
     }

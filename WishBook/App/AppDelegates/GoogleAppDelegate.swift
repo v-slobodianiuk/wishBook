@@ -16,11 +16,11 @@ final class GoogleAppDelegate: AppDelegateType {
         } else {
             FirebaseApp.configure()
         }
-        
+
         return true
     }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance.handle(url)
     }
 }

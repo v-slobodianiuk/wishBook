@@ -10,14 +10,14 @@ import SwiftUI
 extension UIApplication {
     func endEditing(_ force: Bool) {
         self.windows
-            .filter{$0.isKeyWindow}
+            .filter {$0.isKeyWindow}
             .first?
             .endEditing(force)
     }
 }
 
 struct ResignKeyboardOnDragGesture: ViewModifier {
-    var gesture = DragGesture().onChanged{_ in
+    var gesture = DragGesture().onChanged {_ in
         UIApplication.shared.endEditing(true)
     }
     func body(content: Content) -> some View {
@@ -26,16 +26,16 @@ struct ResignKeyboardOnDragGesture: ViewModifier {
 }
 
 struct ResignKeyboardOnTapGesture: ViewModifier {
-    
+
     var action: Closure?
-    
+
     func gesture() -> _EndedGesture<TapGesture> {
         TapGesture().onEnded { _ in
             UIApplication.shared.endEditing(true)
             action?()
         }
     }
-    
+
     func body(content: Content) -> some View {
         content.gesture(gesture())
     }
@@ -45,11 +45,11 @@ extension View {
     func endEditing() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
-    
+
     func resignKeyboardOnDragGesture() -> some View {
         return modifier(ResignKeyboardOnDragGesture())
     }
-    
+
     func resignKeyboardOnTapGesture(action: Closure? = nil) -> some View {
         return modifier(ResignKeyboardOnTapGesture(action: action))
     }
@@ -64,4 +64,3 @@ extension UIImage {
         return UIGraphicsGetImageFromCurrentImageContext()
     }
 }
-

@@ -9,7 +9,7 @@ import Foundation
 import LinkPresentation
 
 struct MetaCache {
-    
+
     static func cache(metadata: LPLinkMetadata) {
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: metadata, requiringSecureCoding: true)
@@ -18,7 +18,7 @@ struct MetaCache {
             print("Error when cachine: \(error.localizedDescription)")
         }
     }
-    
+
     static func retrieve(urlString: String) -> LPLinkMetadata? {
         do {
             if let data = UserDefaults.standard.object(forKey: urlString) as? Data,

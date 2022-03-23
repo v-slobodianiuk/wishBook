@@ -7,7 +7,7 @@
 
 import Foundation
 
-func appReducer(state: inout AppState, action: AppAction) -> Void {
+func appReducer(state: inout AppState, action: AppAction) {
     switch action {
     case .auth(let authAction):
         authReducer(state: &state.auth, action: authAction)

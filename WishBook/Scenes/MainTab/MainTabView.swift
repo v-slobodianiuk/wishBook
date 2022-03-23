@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct MainTabView: View {
-    
+
     @EnvironmentObject var store: AppStore
     @State private var tabItem = TabItems.wishListView
-    
+
     var body: some View {
         TabView(selection: $tabItem) {
             NavigationView {
@@ -23,7 +23,7 @@ struct MainTabView: View {
                 Text("PEOPLE_TAB_ITEM".localized)
             }
             .tag(TabItems.friendsView)
-            
+
             NavigationView {
                 screenFactory.makeWishListView()
             }
@@ -33,7 +33,7 @@ struct MainTabView: View {
                 Text("WISH_LIST_TAB_ITEM".localized)
             }
             .tag(TabItems.wishListView)
-            
+
             NavigationView {
                 screenFactory.makeProfileView()
             }
@@ -49,7 +49,7 @@ struct MainTabView: View {
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithDefaultBackground()
             UITabBar.appearance().standardAppearance = tabBarAppearance
-            
+
             store.dispatch(action: .profile(action: .fetch))
         }
     }

@@ -9,12 +9,12 @@ import SwiftUI
 import Combine
 
 struct ProfileView: View {
-    
+
     @EnvironmentObject var store: AppStore
-    
+
     @State private var showingImagePicker = false
     @State private var inputImageData: Data?
-    
+
     // MARK: - body
     var body: some View {
         contentView
@@ -24,7 +24,7 @@ struct ProfileView: View {
                 ImagePicker(imageData: self.$inputImageData)
             }
     }
-    
+
     // MARK: - ContentView
     fileprivate var contentView: some View {
         VStack(alignment: .center) {
@@ -35,13 +35,13 @@ struct ProfileView: View {
                     .frame(width: 150, height: 150, alignment: .center)
                     .padding(.top, 50)
             }
-            
+
             Text(store.state.profile.getFullName())
                 .font(.title)
                 .padding(.top)
                 .padding(.horizontal)
                 .padding(.horizontal)
-            
+
             if let description = store.state.profile.profileData?.description {
                 Text(description)
                     .foregroundColor(.gray)
@@ -49,12 +49,12 @@ struct ProfileView: View {
                     .padding(.horizontal)
                     .padding(.bottom)
             }
-            
+
             StatisticBlockView(count: (
                 subscribers: store.state.profile.profileData?.subscribers?.count,
                 subscriptions: store.state.profile.profileData?.subscriptions?.count,
                 wishes: store.state.profile.profileData?.wishes))
-            
+
             if store.state.profile.profileData?.birthdate != nil {
                 HStack {
                     Text("PROFILE_BIRTHDATE_EMOJI".localized)
@@ -63,11 +63,11 @@ struct ProfileView: View {
                 }
                 .padding()
             }
-            
+
             Spacer()
         }
     }
-    
+
     // MARK: - trailingNavBarItems
     fileprivate var trailingNavBarItems: some View {
         HStack {
@@ -84,7 +84,7 @@ struct ProfileView: View {
             })
         }
     }
-    
+
     // MARK: - Upload image
     fileprivate func loadImage() {
         guard let inputImage = inputImageData else { return }

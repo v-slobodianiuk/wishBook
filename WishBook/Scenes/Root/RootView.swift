@@ -9,9 +9,9 @@ import SwiftUI
 import Firebase
 
 struct RootView: View {
-    
+
     @EnvironmentObject var store: AppStore
-    
+
     var body: some View {
         Group {
             if store.state.auth.isLoggedIn {

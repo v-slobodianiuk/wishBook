@@ -11,21 +11,21 @@ import AuthenticationServices
 struct LoginView: View {
     @EnvironmentObject var store: AppStore
     @Environment(\.colorScheme) private var colorScheme
-    
+
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var isValidEmail: Bool = false
     @State private var isValidPassword: Bool = false
     @State private var passwordPromptIsPresented: Bool = false
     @State private var currentNonce: String?
-    
+
     // MARK: - body
     var body: some View {
         let shouldDisplayError = Binding<Bool>(
             get: { store.state.auth.errorMessage != nil },
             set: { _ in store.dispatch(action: .auth(action: .fetchError(error: nil))) }
         )
-        
+
         let shouldDisplayPasswordResetSuccess = Binding<Bool>(
             get: { store.state.auth.successfullyPaswordReset },
             set: { _ in store.dispatch(action: .auth(action: .resetPasswordComplete(success: false))) }
@@ -44,11 +44,11 @@ struct LoginView: View {
                                 dismissButton: .default(Text("OK_ACTION_TITLE".localized))
                             )
                         }
-                    
+
                     if passwordPromptIsPresented {
                         PasswordPromptView(isPresented: $passwordPromptIsPresented)
                     }
-                    
+
                     if store.state.auth.successfullyPaswordReset {
                         ResetPasswordView(isPresented: shouldDisplayPasswordResetSuccess)
                     }
@@ -58,14 +58,14 @@ struct LoginView: View {
         }
         .navigationViewStyle(.stack)
     }
-    
+
     // MARK: - Content View
     fileprivate var contentView: some View {
         VStack(alignment: .leading) {
             inputView
-            
+
             buttonsView
-            
+
             Link("PRIVACY_POLICY_TEXT".localized, destination: URL(string: "PRIVACY_POLICY_URL".localized)!)
                 .font(Font.footnote)
                 .foregroundColor(.gray)
@@ -73,7 +73,7 @@ struct LoginView: View {
                 .frame(maxWidth: .infinity, alignment: .center)
         }
     }
-    
+
     // MARK: - Input view
     fileprivate var inputView: some View {
         Group {
@@ -91,16 +91,16 @@ struct LoginView: View {
             .keyboardType(.emailAddress)
             .autocapitalization(.none)
             .padding([.horizontal, .top])
-            
+
             Divider()
                 .padding(.horizontal)
-            
+
             if !isValidEmail && !email.isEmpty {
                 WarningText(text: "EMAIL_ERROR".localized)
                     .padding(.horizontal)
                     .lineLimit(.max)
             }
-            
+
             SecureField("PASSWORD_PLACEHOLDER".localized, text: $password) {
                 withAnimation {
                     isValidPassword = store.state.auth.isValidPassword(password)
@@ -113,10 +113,10 @@ struct LoginView: View {
                 }
             }
             .padding([.horizontal, .top])
-            
+
             Divider()
                 .padding(.horizontal)
-            
+
             if !isValidPassword && !password.isEmpty {
                 Button {
                     endEditing()
@@ -136,7 +136,7 @@ struct LoginView: View {
             }
         }
     }
-    
+
     // MARK: - Buttons View
     fileprivate var buttonsView: some View {
         Group {
@@ -153,7 +153,7 @@ struct LoginView: View {
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
-            
+
             Button("LOGIN_BUTTON_TITLE".localized) {
                 withAnimation {
                     store.dispatch(action: .auth(action: .logIn(login: email, password: password)))
@@ -163,12 +163,12 @@ struct LoginView: View {
             .opacity(!(isValidEmail && isValidPassword) ? 0.5 : 1.0)
             .disabled(!(isValidEmail && isValidPassword))
             .padding([.horizontal, .top])
-            
+
             Text("DIVIDER_TEXT".localized)
                 .font(Font.footnote)
                 .foregroundColor(.gray)
                 .frame(maxWidth: .infinity, alignment: .center)
-            
+
             Button {
                 withAnimation {
                     store.dispatch(action: .auth(action: .googleLogIn))
@@ -189,7 +189,7 @@ struct LoginView: View {
             .background(Color.label)
             .cornerRadius(10)
             .padding(.horizontal)
-            
+
             SignInWithAppleView(type: .continue, style: colorScheme == .dark ? .white : .black) { result, nonce in
                 guard let nonce = nonce else {
                     // Invalid state: A login callback was received, but no login request was sent.
@@ -207,6 +207,6 @@ struct LoginView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         screenFactory.makeLoginView()
-            //.preferredColorScheme(.dark)
+            // .preferredColorScheme(.dark)
     }
 }
