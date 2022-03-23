@@ -1,13 +1,13 @@
 //
-//  WishBookUITests.swift
+//  SignInOutUITests.swift
 //  WishBookUITests
 //
-//  Created by Vadym on 22.02.2021.
+//  Created by Vadym Slobodianiuk on 21.03.2022.
 //
 
 import XCTest
 
-class WishBookUITests: XCTestCase {
+class SignInOutUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -22,40 +22,41 @@ class WishBookUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testLoginScreen() throws {
+    func testSignIn() throws {
         let app = XCUIApplication()
         setupSnapshot(app)
         app.launch()
-        snapshot("01LoginScreen")
-    }
-    
-    func testPasswordPrompt() throws {
-        let app = XCUIApplication()
-        setupSnapshot(app)
-        app.launch()
+        
+        app.textFields["Email"].tap()
+        sleep(1)
+        app.textFields["Email"].typeText("test@test.com")
+        sleep(1)
         
         app.secureTextFields["Password"].tap()
         sleep(1)
-        let qKey = app/*@START_MENU_TOKEN@*/.keys["q"]/*[[".keyboards.keys[\"q\"]",".keys[\"q\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-        qKey.tap()
-        
-        let wKey = app/*@START_MENU_TOKEN@*/.keys["w"]/*[[".keyboards.keys[\"w\"]",".keys[\"w\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-        wKey.tap()
-        
-        let eKey = app/*@START_MENU_TOKEN@*/.keys["e"]/*[[".keyboards.keys[\"e\"]",".keys[\"e\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-        eKey.tap()
-        snapshot("02PasswordPrompt")
-
-        XCTAssertEqual(app.buttons["Weak password"].label, "Weak password")
+        app.secureTextFields["Password"].typeText("AAAaaa1!")
         sleep(1)
-        app.buttons["Weak password"].tap()
-        snapshot("03PasswordPromptScreen")
-        sleep(1)
-        app.buttons["Close"].tap()
+        snapshot("04ContinueState")
+        
+        app.buttons["Continue"].tap()
+        sleep(5)
+        snapshot("05WishList")
+    }
+    
+    func testSignOut() throws {
+        let app = XCUIApplication()
+        setupSnapshot(app)
+        app.launch()
+        
+        app.tabBars["Tab Bar"].buttons["Profile"].tap()
+        snapshot("06Profile")
+        app.navigationBars["Profile"].buttons["Sign Out"].tap()
+        sleep(3)
+        snapshot("07StartScreen")
     }
 
 //    func testLaunchPerformance() throws {
-//        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
+//        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
 //            // This measures how long it takes to launch your application.
 //            measure(metrics: [XCTApplicationLaunchMetric()]) {
 //                XCUIApplication().launch()

@@ -36,9 +36,9 @@ end
 
 lane :tests do
   run_tests(
-    devices: ["iPhone X"], 
+    devices: ["iPhone 13"], 
     scheme: "WishBookTests",
-    # test_without_building: true
+    test_without_building: true
   )
   notification(
     subtitle: "WishBookTests", 
