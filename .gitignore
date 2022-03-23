@@ -95,3 +95,4 @@ iOSInjectionProject/
 # Firebase
 GoogleService-Info.plist
 GoogleService-Info-test.plist
+/fastlane/screenshots/
